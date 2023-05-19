@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 // Importaciones de servicios de la API
 import { UsuarioService } from 'src/app/feature/personal/usuarios/usuario.service';
+import { User } from 'src/app/models/auth/user.interface';
 
 // Importaciones de interfaces
-import { User } from 'src/app/auth/models/user.interface';
+
 
 /**
  * Componente que maneja la lógica y la vista del dashboard.

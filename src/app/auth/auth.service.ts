@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { User } from './models/user.interface';
 import { AuthLocalStorage } from './auth-local-storage';
 import { AuthCookieStorage } from './auth-cookie-storage';
 import { AuthValidator } from './auth-validator';
 import { AuthTokenDecoder } from './auth-token-decoder';
+import { User } from '../models/auth/user.interface';
 
 const API_URL = environment.API_URL + '/auth';
 

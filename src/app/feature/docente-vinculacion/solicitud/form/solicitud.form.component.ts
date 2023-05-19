@@ -24,9 +24,9 @@ import { normalize } from 'src/app/shared/helpers/normalize.str.component';
 import { HttpClient } from '@angular/common/http';
 import { FileIcons } from './docTypes/FileIcons';
 import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/auth/models/user.interface';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
+import { User } from 'src/app/models/auth/user.interface';
 
 //import { OficioService } from '../oficio.service';
 
