@@ -1,12 +1,12 @@
 <module-header title="{{ title }}">
 
 
-  <oficios-breadcrumbs breadcrumbs>
+  <solicitud-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/oficio/form">Formulario</a></li>
     <li *ngIf="formGroup.get('subject')?.value">
       <a>{{ formGroup.get("subject")?.value }}</a>
     </li>
-  </oficios-breadcrumbs>
+  </solicitud-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 <div class="w-full p-8 px-20 bg-white border-t-[1px] border-[#535a6650]">

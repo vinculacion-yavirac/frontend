@@ -65,7 +65,7 @@ import { PortafolioTabsComponent } from './portafolio/header/tabs/portafolio-tab
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
 import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
-import { OficiosBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/oficios.breadcrumbs.component';
+import { SolicitudBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/solicitud.breadcrumbs.component';
 import { OficiosArchivedComponent } from './docente-vinculacion/solicitud/archived/oficios-archived.component';
 import { OficiosFormComponent } from './docente-vinculacion/solicitud/form/oficio.form.component';
 import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
@@ -119,7 +119,7 @@ import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/sol
     ParishesComboboxComponent,
 
     
-    OficiosBreadcrumbsComponent,
+    SolicitudBreadcrumbsComponent,
     SolicitudTabsComponent,
     PaginationComponent,
     SolicitudListComponent,
