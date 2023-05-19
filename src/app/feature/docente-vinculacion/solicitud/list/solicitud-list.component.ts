@@ -7,10 +7,10 @@ import { FilesService } from 'src/app/feature/upload/upload.service';
 
 @Component({
   selector: 'app-oficios-list',
-  templateUrl: './oficios-list.component.html',
-  styleUrls: ['./oficios-list.component.css']
+  templateUrl: './solicitud-list.component.html',
+  styleUrls: ['./solicitud-list.component.css']
 })
-export class OficiosListComponent implements OnInit {
+export class SolicitudListComponent implements OnInit {
 
   reverse = false;
   pipe = new DatePipe('en-US');

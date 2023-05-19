@@ -22,7 +22,7 @@ import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-l
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
 import { OficiosArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/oficios-archived.component';
 import { OficiosFormComponent } from '../feature/docente-vinculacion/solicitud/form/oficio.form.component';
-import { OficiosListComponent } from '../feature/docente-vinculacion/solicitud/list/oficios-list.component';
+import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
 
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
       {path:'oficios', component:OficiosFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'oficios-list', component: OficiosListComponent },
+      { path: 'solicitud-list', component: SolicitudListComponent },
       { path: 'oficios-list/archived', component: OficiosArchivedComponent },
       {
         path: 'perfil',

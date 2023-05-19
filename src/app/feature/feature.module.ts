@@ -69,7 +69,7 @@ import { OficiosBreadcrumbsComponent } from './docente-vinculacion/solicitud/hea
 import { OficiosArchivedComponent } from './docente-vinculacion/solicitud/archived/oficios-archived.component';
 import { OficiosFormComponent } from './docente-vinculacion/solicitud/form/oficio.form.component';
 import { OficiosTabsComponent } from './docente-vinculacion/solicitud/header/tabs/oficios.tabs.component';
-import { OficiosListComponent } from './docente-vinculacion/solicitud/list/oficios-list.component';
+import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
 
 
 
@@ -122,7 +122,7 @@ import { OficiosListComponent } from './docente-vinculacion/solicitud/list/ofici
     OficiosBreadcrumbsComponent,
     OficiosTabsComponent,
     PaginationComponent,
-    OficiosListComponent,
+    SolicitudListComponent,
     OficiosArchivedComponent,
     OficiosFormComponent,
     PortafolioListComponent,
