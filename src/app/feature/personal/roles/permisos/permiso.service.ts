@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Permission } from './permiso';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Permission } from 'src/app/models/auth/permiso/permiso';
 
 @Injectable({
   providedIn: 'root',

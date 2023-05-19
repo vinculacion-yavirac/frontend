@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordsMustBeEqual } from './validators/passwords-must-be-equal.validator';
-import { User } from '../../../feature/personal/usuarios/usuario';
 import { UsuarioService } from '../../../feature/personal/usuarios/usuario.service';
 import { checkPasswordMatch } from './validators/check-password.async.validator';
 import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
 import { checkEmailIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-email-available.async.validator';
 import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
+import { User } from 'src/app/models/auth/users/usuario';
 
 @Component({
   selector: 'perfil-seguridad',

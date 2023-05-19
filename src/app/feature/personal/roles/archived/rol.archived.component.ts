@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from '../rol';
 import { RolService } from '../rol.service';
 import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Role } from 'src/app/models/auth/role/rol';
 
 @Component({
   selector: 'app-rol-archived',

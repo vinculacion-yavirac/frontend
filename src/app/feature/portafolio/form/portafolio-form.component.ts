@@ -4,13 +4,13 @@ import { Subscription } from 'rxjs';
 import { FileIconsModels } from '../../../../app/models/portafolio/files/fileIcons.models';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
-import { User } from '../../personal/usuarios/usuario';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
+import { User } from 'src/app/models/auth/users/usuario';
 
 @Component({
   selector: 'app-portafolio-form',

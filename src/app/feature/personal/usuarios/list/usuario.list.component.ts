@@ -6,7 +6,8 @@ import { ModalAlertComponent } from '../../../../../app/shared/material/modal-al
 
 // importaciones de los servicios y modelos
 import { UsuarioService } from '../usuario.service';
-import { User } from '../usuario';
+import { User } from 'src/app/models/auth/users/usuario';
+
 
 @Component({
   selector: 'app-usuario-list',

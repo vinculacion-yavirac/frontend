@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PermissionService } from '../permiso.service';
-import { Permission } from '../permiso';
+import { Permission } from 'src/app/models/auth/permiso/permiso';
 
 
 @Component({

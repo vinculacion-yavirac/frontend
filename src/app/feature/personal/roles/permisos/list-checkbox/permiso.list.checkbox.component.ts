@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PermissionService } from '../permiso.service';
-import { Permission } from '../permiso';
+import { Permission } from 'src/app/models/auth/permiso/permiso';
+
 
 @Component({
   selector: 'list-permisos-checkbox',

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Role } from '../rol';
 import { RolService } from '../rol.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 import { MatAccordion } from '@angular/material/expansion';
+import { Role } from 'src/app/models/auth/role/rol';
 
 @Component({
   selector: 'app-rol-list',

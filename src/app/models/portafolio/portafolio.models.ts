@@ -1,7 +1,7 @@
-import { User } from "../../../app/feature/personal/usuarios/usuario";
+
 import { FilesModels } from "./files/file.models";
 import { CommentsModels } from "./comments/comments.models";
-
+import { User } from "../auth/users/usuario";
 
 export interface PortafoliosModels {
     id: number;

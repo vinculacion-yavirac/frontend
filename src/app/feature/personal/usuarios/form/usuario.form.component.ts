@@ -13,7 +13,7 @@ import { ModalAlertComponent } from '../../../../../app/shared/material/modal-al
 
 // importaciones de los servicios y modelos
 import { UsuarioService } from '../usuario.service';
-import { User } from '../usuario';
+
 
 // importaciones de los validadores
 import { checkIdentificationIsAvailable } from './validators/check-identification-available.async.validator';
@@ -23,6 +23,7 @@ import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-sta
 import { Subscription } from 'rxjs';
 import cryptoJs from 'crypto-js';
 import { normalize } from '../../../../../app/shared/helpers/normalize.str.component';
+import { User } from 'src/app/models/auth/users/usuario';
 
 @Component({
   selector: 'app-usuario-form',

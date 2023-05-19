@@ -1,4 +1,4 @@
-import { User } from "../../../../app/feature/personal/usuarios/usuario";
+import { User } from "../../auth/users/usuario";
 
 export interface FilesModels {
     id: number,

@@ -5,10 +5,10 @@ import {
   NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
-import { Role } from '../rol';
 import { RolService } from '../rol.service';
 import { Subscription } from 'rxjs';
 import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
+import { Role } from 'src/app/models/auth/role/rol';
 
 @Component({
   selector: 'combobox-roles',
