@@ -1,0 +1,40 @@
+<div class="navbar px-5 shadow-md bg-primary text-white">
+  <div class="flex-1">
+    <div (click)="toggleSidebarEvent()"
+      class="flex items-center justify-center w-9 h-9 rounded-full hover:bg-[#0C9707] cursor-pointer transition-all">
+      <span class="fa-solid fa-bars text-lg"></span>
+    </div>
+  </div>
+  <div class="flex-none">
+    <div class="dropdown dropdown-end">
+      <label tabindex="0"
+        class="flex items-center rounded-md mr-0.5 w-52 cursor-pointer bg-[#10351E] hover:bg-[#0C9707] px-2 py-1 transition-all">
+        <div tabindex="0" class="avatar mr-3">
+          <div class="w-9 mask mask-squircle">
+            <div class="inline-flex overflow-hidden relative justify-center items-center w-9 h-9 bg-white">
+              <span *ngIf="currentUser.names && currentUser.last_names"
+                class="font-bold text-neutral uppercase">{{currentUser | NameInitials}}</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span *ngIf="currentUser.names && currentUser.last_names"
+            class="block font-bold	text-sm leading-none capitalize text-ellipsis overflow-hidden truncate w-36">{{currentUser
+            | FullNameFirstMiddle}}</span>
+          <span *ngIf="currentUser.role"
+            class="block font-normal text-xs opacity-50 capitalize">{{currentUser.role}}</span>
+        </div>
+      </label>
+
+      <ul tabindex="0"
+        class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-md w-52 text-black">
+        <li [routerLinkActive]="['active']" routerLink="/system/perfil" class="hover:bg-[#3f51b521]">
+          <a>
+            Perfil
+          </a>
+        </li>
+        <li class="hover:bg-[#3f51b521]" (click)="logout()"><a>Cerrar Sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

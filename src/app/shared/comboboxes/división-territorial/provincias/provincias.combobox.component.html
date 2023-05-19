@@ -1,0 +1,7 @@
+<!-- Elemento de formulario de selección de lista desplegable de "provinces" utilizando la librería Material Angular -->
+<mat-form-field appearance="fill" class="w-full">
+  <mat-label>Provincias</mat-label>
+  <mat-select [formControl]="provinceFormControl" name="province">
+    <mat-option *ngFor="let province of provinces" [value]="province" (click)="ProvinceSelected()">{{province}}</mat-option>
+  </mat-select>
+</mat-form-field>

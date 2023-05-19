@@ -1,0 +1,10 @@
+<!-- Elemento de formulario de selección de lista desplegable de "cantons" utilizando la librería Material Angular -->
+<mat-form-field appearance="fill" class="w-full">
+  <mat-label>Cantones</mat-label>
+  <mat-select [formControl]="cantonFormControl" name="canton">
+    <mat-option *ngFor="let canton of cantons" [value]="canton" (click)="CantonSelected()">{{ canton }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="cantonFormControl.hasError('required')">
+    Este campo es <strong>requerido</strong>
+  </mat-error>
+</mat-form-field>

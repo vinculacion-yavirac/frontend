@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill" class="w-full">
+  <mat-label>Estado del Oficio</mat-label>
+  <mat-select [formControl]="oficialDocumentsStateFormControl">
+    <mat-option *ngFor="let oficialDocumentsState of oficialDocumentsStates" [value]="oficialDocumentsState.value">
+      {{ oficialDocumentsState.value }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="oficialDocumentsStateFormControl.hasError('required')">
+    Este campo es <strong>requerido</strong>
+  </mat-error>
+  <mat-hint *ngIf="oficialDocumentsStates == null ||
+      oficialDocumentsStates.length == 0">No hay tipos de identificación</mat-hint>
+</mat-form-field>

@@ -1,0 +1,39 @@
+<!-- SIDEBAR -->
+<div id="sidebar" class="h-screen overflow-hidden bg-neutral-content border-r-2 border-[#535a6650]">
+  <div class="p-4 flex justify-between flex-col text-neutral" style="height: calc(100vh - 4rem)">
+    <ul>
+      <div>
+        <div class="opacity-50">
+          <div class="mb-1.5">
+            <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap">
+              Perfil
+            </h2>
+          </div>
+        </div>
+        <li [routerLinkActive]="['active']" routerLink="/system/perfil/datos-personales"
+          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+          <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+            <span class="fas fa-address-book text-base leading-none"></span>
+          </div>
+          <div class="h-9 rounded-md flex items-center">
+            <a class="flex items-center text-sm">
+              <span class="text-ellipsis overflow-hidden whitespace-nowrap">General</span>
+            </a>
+          </div>
+        </li>
+
+        <li [routerLinkActive]="['active']" routerLink="/system/perfil/seguridad"
+          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+          <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+            <span class="fas fa-shield-halved text-base leading-none"></span>
+          </div>
+          <div class="h-9 rounded-md flex items-center">
+            <a class="flex items-center text-sm">
+              <span class="text-ellipsis overflow-hidden whitespace-nowrap">Seguridad</span>
+            </a>
+          </div>
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>

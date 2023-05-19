@@ -1,0 +1,210 @@
+<perfil-breadcrumbs breadcrumbs>
+  <li><a routerLink="/system/perfil/datos-personales">Datos Personales</a></li>
+</perfil-breadcrumbs>
+
+<div class="w-full p-8 px-20 bg-white">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div formGroupName="person">
+
+      <div class="grid grid-cols-5 gap-8 py-8 relative h-36">
+
+        <div *ngIf="loading" class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10">
+          <loader></loader>
+        </div>
+
+        <div class="col-span-1 text-neutral flex items-center justify-center">
+          <div tabindex="0" class="avatar">
+            <div class="w-20 mask mask-squircle">
+              <div class="inline-flex overflow-hidden relative justify-center items-center w-20 h-20 bg-neutral">
+                <span *ngIf="currentUser.person" class="font-medium text-white text-2xl uppercase">{{currentUser.person
+                  |
+                  NameInitials}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-4 rounded-md w-full font-medium text-lg text-neutral flex justify-between items-start">
+          <div>
+            <h1 *ngIf="currentUser.person" class="font-bold">{{formGroup.get('person')?.value | NamesSurnamesComplete}}
+            </h1>
+            <h1 class="text-sm opacity-80">{{formGroup.get('person')?.get('identification')?.value}}</h1>
+            <h1 *ngIf="currentUser.role" class="text-sm opacity-80">{{formGroup.get('role')?.value.name | Capitalize}}
+            </h1>
+          </div>
+          <div>
+            <span
+              class="bg-neutral-content text-neutral text-xs font-medium inline-flex items-center gap-2 px-2.5 py-0.5 rounded">
+              <span class="fa-solid fa-clock"></span>
+              Actualizado {{currentUser.updated_at | TimeAgo}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="grid grid-cols-5 gap-1 my-8">
+        <div class="col-span-1 text-neutral">
+          <h3 class="font-medium">Datos personales:</h3>
+        </div>
+        <div class="col-span-4 p-4 border border-[#535A6640] bg-[#ebecf090] rounded-md relative">
+          <div *ngIf="loading"
+            class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10">
+            <loader></loader>
+          </div>
+          <div>
+
+            <div class="grid grid-cols-6 gap-4">
+              <!-- combobox de tipo de identificación -->
+              <combobox-identification-types class="w-full col-span-2"
+                formControlName="identification_type"></combobox-identification-types>
+
+              <!-- input de identificación -->
+              <mat-form-field appearance="fill" class="w-full col-span-2">
+                <mat-label>N° Identificación</mat-label>
+                <div class="flex items-center">
+                  <input type="text" matInput formControlName="identification" [errorStateMatcher]="matcher"
+                    autocomplete="off" spellcheck="false">
+                  <div *ngIf="(formGroup.get('person')?.get('identification')?.statusChanges | async) == 'PENDING'">
+                    <h1 class="text-xs text-primary">Comprobando...</h1>
+                  </div>
+                </div>
+                <mat-error
+                  *ngIf="formGroup.get('person')?.get('identification')?.hasError('checkIdentificationIsAvailable') && !formGroup.get('person')?.get('identification')?.hasError('udvEcIdentification')">
+                  Esta identificación <strong>ya esta registrada</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="formGroup.get('person')?.get('identification')?.hasError('udvEcIdentification') || formGroup.get('person')?.get('identification')?.hasError('minlength') || formGroup.get('person')?.get('identification')?.hasError('maxlength') && !formGroup.get('person')?.get('identification')?.hasError('checkIdentificationIsAvailable')">
+                  Esta identificación es <strong>invalida</strong>
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('person')?.get('identification')?.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <combobox-nationality-types class="w-full col-span-2"
+                formControlName="nationality"></combobox-nationality-types>
+
+              <!-- input de nombre -->
+              <mat-form-field appearance="fill" class="w-full row-start-2 col-span-3">
+                <mat-label>Nombres</mat-label>
+                <input type="text" matInput formControlName="names" [errorStateMatcher]="matcher" autocomplete="off"
+                  spellcheck="false">
+                <mat-error
+                  *ngIf="formGroup.get('person')?.get('names')?.hasError('minlength') || formGroup.get('person')?.get('names')?.hasError('pattern')">
+                  Ingrese dos nombres <strong>validos</strong>
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('person')?.get('names')?.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <!-- input de apellidos -->
+              <mat-form-field appearance="fill" class="w-full row-start-2 col-span-3">
+                <mat-label>Apellidos</mat-label>
+                <input type="text" matInput formControlName="last_names" [errorStateMatcher]="matcher"
+                  autocomplete="off" spellcheck="false">
+                <mat-error
+                  *ngIf="formGroup.get('person')?.get('last_names')?.hasError('minlength') || formGroup.get('person')?.get('last_names')?.hasError('pattern')">
+                  Ingrese dos apellidos <strong>validos</strong>
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('person')?.get('last_names')?.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field appearance="fill" class="w-full col-span-2">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date_birth" [errorStateMatcher]="matcher"
+                  readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+                <mat-error *ngIf="formGroup.get('person')?.get('date_birth')?.hasError('ageValidator')">
+                  Mínimo 18 años de <strong>edad</strong>
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('date_birth')?.hasError('required')">
+                  Selecciona una <strong>fecha</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <combobox-genders class="w-full col-span-2" formControlName="gender">
+              </combobox-genders>
+
+              <mat-form-field appearance="fill" class="w-full col-span-2">
+                <mat-label>Contacto celular</mat-label>
+                <input type="text" matInput formControlName="mobile_phone" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formGroup.get('person')?.get('mobile_phone')?.hasError('pattern')">
+                  Ingrese un número celular <strong>valido</strong>
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('person')?.get('mobile_phone')?.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="grid grid-cols-5 gap-8 my-8">
+        <div class="col-span-1 text-neutral">
+          <h3 class="font-medium">Dirección:</h3>
+        </div>
+
+        <div class="col-span-4 p-4 border border-[#535A6640] bg-[#ebecf090] rounded-md relative">
+          <div *ngIf="loading"
+            class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10">
+            <loader></loader>
+          </div>
+
+          <div class="grid grid-cols-6 gap-4">
+
+            <mat-form-field appearance="fill" class="w-full col-span-6">
+              <mat-label>Dirección</mat-label>
+              <input type="text" matInput formControlName="address" [errorStateMatcher]="matcher" autocomplete="off"
+                spellcheck="false">
+              <mat-hint>Formato recomendado: Barrio/Sector, Calle Principal, Intersección</mat-hint>
+              <mat-error
+                *ngIf="formGroup.get('person')?.get('address')?.hasError('minlength') || formGroup.get('person')?.get('address')?.hasError('maxlength')">
+                La dirección debe tener el formato: <strong>Barrio/Sector, Calle Principal, Intersección</strong>
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('person')?.get('address')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <combobox-provinces class="col-span-2" formControlName="province"
+              (provinceSelected)="provinceSelected($event)"></combobox-provinces>
+
+            <combobox-cantons class="col-span-2" formControlName="canton" (cantonSelected)="cantonSelected($event)"
+              [province]="formGroup.get('person.province')?.value"></combobox-cantons>
+
+            <combobox-parishes class="col-span-2" formControlName="parish"
+              [canton]="formGroup.get('person.canton')?.value"
+              [province]="formGroup.get('person.province')?.value"></combobox-parishes>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <mat-divider></mat-divider>
+
+    <div class="my-8 w-full flex justify-end items-end gap-4">
+      <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
+        [disabled]="!formGroup.valid" [ngClass]="{'!text-white !bg-neutral opacity-80': !formGroup.valid}">
+        <div class="flex justify-center items-center gap-2">
+          <span class="fa-solid fa-floppy-disk text-sm"></span>
+          Actualizar
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

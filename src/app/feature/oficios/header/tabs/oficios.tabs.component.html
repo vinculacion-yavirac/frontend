@@ -1,0 +1,48 @@
+<div class="tabs flex w-full justify-between items-end flex-row-reverse">
+  <a
+    [routerLinkActive]="['tab-active']"
+    routerLink="/system/oficios-list/archived"
+    class="tab tab-lifted !-mr-0 archived"
+    *permissions="[
+      'RESTAURAR_' + route.toUpperCase(),
+      'ELIMINAR_' + route.toUpperCase()
+    ]"
+  >
+    <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>
+    Archivados
+  </a>
+  <div></div>
+
+  <div class="flex items-end">
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
+                'LEER_ROLES',
+              ]">
+      Creados
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/oficios-list"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_USUARIOS'
+      ]"
+    >
+      Recibidos
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/oficios/"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_ROLES'
+      ]"
+    >
+      Finalizados
+    </a>
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
+            'LEER_ROLES'
+          ]">
+      Pendientes
+    </a>
+  </div>
+</div>

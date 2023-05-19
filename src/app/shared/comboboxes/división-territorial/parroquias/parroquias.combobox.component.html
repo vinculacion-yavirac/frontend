@@ -1,0 +1,10 @@
+<!-- Elemento de formulario de selección de lista desplegable de "parishes" utilizando la librería Material Angular -->
+<mat-form-field appearance="fill" class="w-full">
+  <mat-label>Parroquias</mat-label>
+  <mat-select [formControl]="parishFormControl" name="parish">
+    <mat-option *ngFor="let parish of parishes" [value]="parish">{{ parish }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="parishFormControl.hasError('required')">
+    Este campo es <strong>requerido</strong>
+  </mat-error>
+</mat-form-field>

@@ -1,0 +1,126 @@
+<perfil-breadcrumbs breadcrumbs>
+  <li><a routerLink="/system/perfil/seguridad">Seguridad</a></li>
+</perfil-breadcrumbs>
+
+<div class="w-full p-8 px-20 bg-white">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-5 gap-1 my-8">
+      <div class="col-span-1 text-neutral">
+        <h3 class="font-medium">Cuenta:</h3>
+      </div>
+      <div class="col-span-4 p-4 border border-[#535A6640] bg-[#ebecf090] rounded-md relative">
+
+        <div *ngIf="loading" class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10">
+          <loader></loader>
+        </div>
+
+        <div>
+          <div class="grid grid-cols-6 gap-4">
+            <!-- Input de correo electrónico -->
+            <!-- input de correo -->
+            <mat-form-field appearance="fill" class="w-full col-span-3">
+              <mat-label>Correo Electrónico</mat-label>
+              <div class="flex items-center">
+                <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher" autocomplete="off"
+                  spellcheck="false">
+                <div *ngIf="(formGroup.get('email')?.statusChanges | async) === 'PENDING'">
+                  <h1 class="text-xs text-primary">Comprobando...</h1>
+                </div>
+              </div>
+              <mat-error
+                *ngIf="formGroup.get('email')?.hasError('checkEmailIsAvailable') && !formGroup.get('email')?.hasError('email')">
+                Este correo electrónico <strong>ya esta registrado</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="formGroup.get('email')?.hasError('email') || formGroup.get('email')?.hasError('pattern') && !formGroup.get('email')?.hasError('checkEmailIsAvailable')">
+                Este correo electrónico es <strong>invalido</strong>
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full col-span-2">
+              <mat-label>Fecha de creación de cuenta</mat-label>
+              <input matInput [errorStateMatcher]="matcher" disabled
+                [value]="formGroup.value.created_at | date:'dd/MM/yyyy'">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="grid grid-cols-5 gap-1 my-8">
+      <div class="col-span-1 text-neutral">
+        <h3 class="font-medium">Cambiar contraseña:</h3>
+      </div>
+      <div class="col-span-4 p-4 border border-[#535A6640] bg-[#ebecf090] rounded-md relative">
+
+        <div *ngIf="loading" class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10">
+          <loader></loader>
+        </div>
+
+        <div>
+          <div class="grid grid-cols-6 gap-4">
+            <!-- Input de contraseña actual -->
+            <mat-form-field appearance="fill" class="w-full col-span-2">
+              <mat-label>Contraseña Actual</mat-label>
+              <input class="!text-neutral" matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false">
+              <mat-error
+                *ngIf="formGroup.get('password')?.hasError('checkPasswordMatch') || formGroup.get('password')?.hasError('minlength')">
+                La contraseña es <strong>incorrecta</strong>
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('password')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Input de contraseña nueva -->
+            <mat-form-field appearance="fill" class="w-full row-start-2 col-span-2">
+              <mat-label>Nueva contraseña</mat-label>
+              <input class="!text-neutral" matInput type="password" formControlName="new_password"
+                [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false">
+              <mat-error *ngIf="formGroup.get('new_password')?.hasError('pattern')">
+                La contraseña debe contener <strong>letras y números</strong>
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('new_password')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Input para confirmar contraseña -->
+            <mat-form-field appearance="fill" class="w-full row-start-2 col-span-2">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input class="!text-neutral" matInput type="password" formControlName="new_password_confirmation"
+                [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false">
+              <mat-error *ngIf="formGroup.hasError('passwordsMustBeEqual')">
+                Las contraseñas no <strong>coinciden</strong>
+              </mat-error>
+              <mat-error *ngIf=" formGroup.get('new_password_confirmation')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="my-8 w-full flex justify-end items-end gap-4">
+      <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
+        [disabled]="!formGroup.valid" [ngClass]="{'!text-white !bg-neutral opacity-80': !formGroup.valid}">
+        <div class="flex justify-center items-center gap-2">
+          <span class="fa-solid fa-floppy-disk text-sm"></span>
+          Actualizar
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

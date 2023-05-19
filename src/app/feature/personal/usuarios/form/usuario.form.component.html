@@ -1,0 +1,398 @@
+<module-header title="{{ title }}">
+  <usuario-breadcrumbs breadcrumbs>
+    <li><a routerLink="/system/personal/usuarios/form">Formulario</a></li>
+    <li *ngIf="formGroup.get('person')?.get('names')?.value">
+      <a>{{ formGroup.get("person")?.get("names")?.value }}</a>
+    </li>
+  </usuario-breadcrumbs>
+  <div tabs class="h-8"></div>
+</module-header>
+
+<div class="w-full p-8 px-20 bg-white border-t-[1px] border-[#535a6650]">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-5 gap-8 my-8">
+      <div class="col-span-1 text-neutral">
+        <h3 class="font-bold">Información</h3>
+        <p class="text-sm">Indicaciones generales para este formulario.</p>
+      </div>
+
+      <div
+        class="col-span-4 rounded-md bg-neutral-content w-full p-4 px-20 font-medium text-sm text-neutral"
+      >
+        <p>
+          1. Todos los campos son de carácter obligatorio si cuenta con (<span
+            class="text-red-500"
+            >*</span
+          >)
+        </p>
+        <p>
+          2. Si el campo se encuentra en rojo la información ingresada es
+          incorrecta.
+        </p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="grid grid-cols-5 gap-8 my-8">
+      <div class="col-span-1 text-neutral">
+        <h3 class="font-bold">Datos de usuario</h3>
+        <p class="text-sm">
+          Al asignar un usuario a una persona, esta podrá acceder al sistema con
+          su correo y contraseña.
+        </p>
+      </div>
+      <div
+        class="col-span-4 py-12 px-20 border border-[#535a6650] relative bg-[#ebecf090] rounded-md"
+      >
+        <div
+          *ngIf="loading"
+          class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10"
+        >
+          <loader></loader>
+        </div>
+        <div>
+          <div class="grid grid-cols-5 gap-2">
+            <div
+              formGroupName="person"
+              class="col-span-4 grid grid-cols-4 gap-4"
+            >
+              <!-- combobox de tipo de identificación -->
+              <combobox-identification-types
+                class="w-full col-span-2"
+                formControlName="identification_type"
+              ></combobox-identification-types>
+
+              <!-- input de identificación -->
+              <mat-form-field appearance="fill" class="w-full col-span-2">
+                <mat-label>N° Identificación</mat-label>
+                <div class="flex items-center">
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="identification"
+                    [errorStateMatcher]="matcher"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  <div
+                    *ngIf="
+                      (formGroup.get('person')?.get('identification')
+                        ?.statusChanges | async) == 'PENDING'
+                    "
+                  >
+                    <h1 class="text-xs text-primary">Comprobando...</h1>
+                  </div>
+                </div>
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('checkIdentificationIsAvailable') &&
+                    !formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('udvEcIdentification')
+                  "
+                >
+                  Esta identificación <strong>ya esta registrada</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('udvEcIdentification') ||
+                    formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('minlength') ||
+                    (formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('maxlength') &&
+                      !formGroup
+                        .get('person')
+                        ?.get('identification')
+                        ?.hasError('checkIdentificationIsAvailable'))
+                  "
+                >
+                  Esta identificación es <strong>invalida</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('identification')
+                      ?.hasError('required')
+                  "
+                >
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- input de nombre -->
+              <mat-form-field
+                appearance="fill"
+                class="w-full row-start-2 col-span-2"
+              >
+                <mat-label>Nombres</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="names"
+                  [errorStateMatcher]="matcher"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('names')
+                      ?.hasError('minlength') ||
+                    formGroup.get('person')?.get('names')?.hasError('pattern')
+                  "
+                >
+                  Ingrese dos nombres <strong>validos</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    formGroup.get('person')?.get('names')?.hasError('required')
+                  "
+                >
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- input de apellidos -->
+              <mat-form-field
+                appearance="fill"
+                class="w-full row-start-2 col-span-2"
+              >
+                <mat-label>Apellidos</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="last_names"
+                  [errorStateMatcher]="matcher"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('last_names')
+                      ?.hasError('minlength') ||
+                    formGroup
+                      .get('person')
+                      ?.get('last_names')
+                      ?.hasError('pattern')
+                  "
+                >
+                  Ingrese dos apellidos <strong>validos</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    formGroup
+                      .get('person')
+                      ?.get('last_names')
+                      ?.hasError('required')
+                  "
+                >
+                  Este campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- input de correo -->
+            <mat-form-field appearance="fill" class="w-full col-span-4">
+              <mat-label>Correo Electrónico</mat-label>
+              <div class="flex items-center">
+                <input
+                  type="email"
+                  matInput
+                  formControlName="email"
+                  [errorStateMatcher]="matcher"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <div
+                  *ngIf="
+                    (formGroup.get('email')?.statusChanges | async) ===
+                    'PENDING'
+                  "
+                >
+                  <h1 class="text-xs text-primary">Comprobando...</h1>
+                </div>
+              </div>
+              <mat-error
+                *ngIf="
+                  formGroup.get('email')?.hasError('checkEmailIsAvailable') &&
+                  !formGroup.get('email')?.hasError('email')
+                "
+              >
+                Este correo electrónico <strong>ya esta registrado</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  formGroup.get('email')?.hasError('email') ||
+                  (formGroup.get('email')?.hasError('pattern') &&
+                    !formGroup.get('email')?.hasError('checkEmailIsAvailable'))
+                "
+              >
+                Este correo electrónico es <strong>invalido</strong>
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+                Este campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- checkbox de activo / inactivo -->
+            <div
+              class="col-span-1 col-start-5 row-span-1 flex items-start justify-end w-full pr-3"
+            >
+              <div class="flex items-start flex-col">
+                <label
+                  class="label font-medium leading-none text-neutral text-sm mb-1 p-0 pb-2"
+                  >Activo / Inactivo</label
+                >
+                <div class="flex items-center justify-start w-0">
+                  <input
+                    type="checkbox"
+                    class="toggle toggle-primary"
+                    formControlName="active"
+                  />
+                  <span
+                    *ngIf="formGroup.get('active')?.value"
+                    class="text-neutral ml-2 font-normal leading-none"
+                    >Activo</span
+                  >
+                  <span
+                    *ngIf="!formGroup.get('active')?.value"
+                    class="text-neutral ml-2 font-normal leading-none"
+                    >Inactivo</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- checkbox de credenciales de acceso -->
+          <div *ngIf="!currentUser.id" class="flex mt-4">
+            <div class="flex items-center h-5">
+              <input
+                disabled
+                checked
+                id="checkbox"
+                aria-describedby="helper-checkbox-text"
+                type="checkbox"
+                value=""
+                class="w-4 h-4 text-primary bg-neutral rounded border-neutral focus:ring-primary"
+              />
+            </div>
+            <div class="ml-2 text-sm">
+              <label for="checkbox" class="font-semibold text-neutral"
+                >Credenciales de acceso</label
+              >
+              <p class="text-sm font-normal text-neutral">
+                <strong class="font-medium">Nota:</strong> Una vez guardado el
+                usuario, se le enviará un correo electrónico con las
+                credenciales de acceso.
+              </p>
+            </div>
+          </div>
+
+          <!-- botón para enviar correo electrónico de restauración de contraseña -->
+          <div *ngIf="currentUser.id">
+            <button
+              type="button"
+              (click)="generateNewPassword()"
+              class="btn btn-sm gap-2 rounded-md bg-neutral-content text-xs text-neutral border-1 border-[#535A6640] shadow hover:text-white hover:bg-primary"
+            >
+              <span class="fa-solid fa-lock text-sm leading-none"></span>
+              Generar nueva contraseña
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="grid grid-cols-5 gap-8 my-8">
+      <div class="col-span-1 text-neutral">
+        <h3 class="font-bold">Roles y permisos</h3>
+        <p class="text-sm">
+          Al asignar un rol a un usuario, se le asignarán los permisos que este
+          rol tenga.
+        </p>
+      </div>
+
+      <div
+        class="col-span-4 p-12 px-20 border border-[#535A6640] relative bg-neutral-content bg-[#ebecf090] rounded-md"
+      >
+        <div
+          *ngIf="loading"
+          class="absolute h-full w-full top-0 left-0 bg-[#535a6610] !backdrop-blur-md z-10"
+        >
+          <loader></loader>
+        </div>
+        <div>
+          <!-- combobox de roles -->
+          <div class="w-2/5">
+            <combobox-roles formControlName="role"></combobox-roles>
+          </div>
+
+          <!-- lista de permisos -->
+          <div *ngIf="currentUser.role" class="mt-8">
+            <list-permisos
+              [rolId]="formGroup.get('role')?.value"
+            ></list-permisos>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8 w-full flex justify-between items-center">
+      <div>
+        <div *permissions="['ARCHIVAR_USUARIOS']">
+          <button
+            (click)="openDialogArchiveUsuario(currentUser)"
+            *ngIf="currentUser.id"
+            type="button"
+            class="btn btn-outline btn-error text-xs rounded-md"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+      <div class="flex justify-between items-center gap-4">
+        <button
+          [routerLink]="['/system/personal/usuarios']"
+          class="btn btn-outline btn-primary text-xs text-primary rounded-md flex justify-center items-center"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <span class="fa-solid fa-arrow-left-long text-sm"></span>
+            <span>Cancelar</span>
+          </div>
+        </button>
+
+        <button
+          *permissions="['CREAR_USUARIOS', 'ACTUALIZAR_USUARIOS']"
+          type="submit"
+          class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
+          [disabled]="!formGroup.valid"
+          [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <span class="fa-solid fa-floppy-disk text-sm"></span>
+            <span *ngIf="currentUser.id">Actualizar</span>
+            <span *ngIf="!currentUser.id">Guardar</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
