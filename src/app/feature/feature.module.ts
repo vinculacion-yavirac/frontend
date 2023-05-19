@@ -64,6 +64,11 @@ import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/of
 import { OficiosFormComponent } from './oficios/form/oficio.form.component';
 import { OficiosBreadcrumbsComponent } from './oficios/header/breadcrumbs/oficios.breadcrumbs.component';
 import { OficiosTabsComponent } from './oficios/header/tabs/oficios.tabs.component';
+import { PortafolioListComponent } from './portafolio/list/portafolio-list.component';
+import { PortafolioBreadcrumbsComponent } from './portafolio/header/breadcrumbs/portafolio-breadcrumbs.component';
+import { PortafolioTabsComponent } from './portafolio/header/tabs/portafolio-tabs.component';
+import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
+import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
 
 
 
@@ -118,6 +123,11 @@ import { OficiosTabsComponent } from './oficios/header/tabs/oficios.tabs.compone
     OficiosListComponent,
     OficiosArchivedComponent,
     OficiosFormComponent,
+    PortafolioListComponent,
+    PortafolioBreadcrumbsComponent,
+    PortafolioTabsComponent,
+    PortafolioFormComponent,
+    PortafolioArchivedComponent,
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,9 @@ import { UploadComponent } from '../feature/upload/upload.component';
 import { OficiosListComponent } from '../feature/oficios/list/oficios-list.component';
 import { OficiosFormComponent } from '../feature/oficios/form/oficio.form.component';
 import { OficiosArchivedComponent } from '../feature/oficios/archived/oficios-archived.component';
+import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
+import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
+import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
 
 
 const routes: Routes = [
@@ -46,6 +49,38 @@ const routes: Routes = [
               },
 
               { path: 'seguridad', component: ProfileSecurityComponent },
+            ],
+          },
+        ],
+      },
+
+      {
+        path: 'portafolio',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component: PortafolioFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component: PortafolioFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: PortafolioListComponent,
+              },
+              {
+                path: 'archived',
+                component: PortafolioArchivedComponent,
+              },
             ],
           },
         ],

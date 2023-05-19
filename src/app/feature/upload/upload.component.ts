@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FilesService } from './upload.service';
-import { Files } from '../oficios/file/file';
+import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
+import { FilesModels } from 'src/app/models/portafolio/files/file.models';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
 })
 export class UploadComponent implements OnInit {
 
-  files: Files[];
+  files: FilesModels[];
 
   constructor(
     private http: HttpClient,
-    private filesService: FilesService
+    private fileHttpService: FileHttpService
   ) { }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class UploadComponent implements OnInit {
   public archivoSeleccionado: File;
 
   getFiles() {
-    this.filesService.getFiles().subscribe((response:any) => {
+    this.fileHttpService.getFiles().subscribe((response:any) => {
       this.files = response.data.files;
     });
   }
@@ -39,13 +39,13 @@ export class UploadComponent implements OnInit {
       this.archivoSeleccionado,
       this.archivoSeleccionado.name
     );
-    this.filesService.uploadFile(formData).subscribe((response) => {
+    this.fileHttpService.uploadFile(formData).subscribe((response) => {
       console.log(response);
     });
   }
 
    downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
+    this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
