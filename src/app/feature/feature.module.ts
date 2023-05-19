@@ -68,7 +68,7 @@ import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/of
 import { OficiosBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/oficios.breadcrumbs.component';
 import { OficiosArchivedComponent } from './docente-vinculacion/solicitud/archived/oficios-archived.component';
 import { OficiosFormComponent } from './docente-vinculacion/solicitud/form/oficio.form.component';
-import { OficiosTabsComponent } from './docente-vinculacion/solicitud/header/tabs/oficios.tabs.component';
+import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
 
 
@@ -120,7 +120,7 @@ import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/sol
 
     
     OficiosBreadcrumbsComponent,
-    OficiosTabsComponent,
+    SolicitudTabsComponent,
     PaginationComponent,
     SolicitudListComponent,
     OficiosArchivedComponent,

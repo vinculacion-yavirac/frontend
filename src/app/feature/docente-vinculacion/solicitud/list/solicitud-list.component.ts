@@ -6,7 +6,7 @@ import { FilesService } from 'src/app/feature/upload/upload.service';
 
 
 @Component({
-  selector: 'app-oficios-list',
+  selector: 'app-solicitud-list',
   templateUrl: './solicitud-list.component.html',
   styleUrls: ['./solicitud-list.component.css']
 })
