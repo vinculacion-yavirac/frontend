@@ -1,11 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { User } from 'src/app/models/auth/users/usuario';
+import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
-export class UsuarioService {
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuarioHttpService {
   constructor(private http: HttpClient) {}
 
   private httpOptions = {

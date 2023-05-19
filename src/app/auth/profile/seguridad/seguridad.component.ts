@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordsMustBeEqual } from './validators/passwords-must-be-equal.validator';
-import { UsuarioService } from '../../../feature/personal/usuarios/usuario.service';
 import { checkPasswordMatch } from './validators/check-password.async.validator';
 import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
 import { checkEmailIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-email-available.async.validator';
 import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 import { User } from 'src/app/models/auth/users/usuario';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
 
 @Component({
   selector: 'perfil-seguridad',
@@ -26,7 +26,7 @@ export class ProfileSecurityComponent implements OnInit {
 
   constructor(
     private authHttpService: AuthHttpService,
-    private usuarioService: UsuarioService,
+    private usuarioHttpService: UsuarioHttpService,
     public formBuilder: FormBuilder
   ) {
     this.initForm();
@@ -47,7 +47,7 @@ export class ProfileSecurityComponent implements OnInit {
             asyncValidators: [
               (control: any) =>
                 checkEmailIsAvailable(
-                  this.usuarioService,
+                  this.usuarioHttpService,
                   this.currentUser.id
                 )(control),
             ],
@@ -61,7 +61,7 @@ export class ProfileSecurityComponent implements OnInit {
             asyncValidators: [
               (control: any) =>
                 checkPasswordMatch(
-                  this.usuarioService,
+                  this.usuarioHttpService,
                   this.currentUser.id
                 )(control),
             ],
@@ -146,7 +146,7 @@ export class ProfileSecurityComponent implements OnInit {
   updateUsuario(): void {
     this.loading = true;
 
-    this.usuarioService
+    this.usuarioHttpService
       .updateUsuario(this.currentUser)
       .subscribe((res: any) => {
         if (res.status == 'success') {
@@ -163,7 +163,7 @@ export class ProfileSecurityComponent implements OnInit {
       password: this.formGroup.get('new_password')?.value,
     };
     if (password.password) {
-      this.usuarioService
+      this.usuarioHttpService
         .updatePassword(password, this.currentUser.id)
         .subscribe((res: any) => {
           if (res.status === 'success') {

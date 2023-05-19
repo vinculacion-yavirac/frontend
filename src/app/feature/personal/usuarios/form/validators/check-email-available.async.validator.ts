@@ -5,14 +5,15 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UsuarioService } from '../../usuario.service';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
+
 
 export function checkEmailIsAvailable(
-  usuarioService: UsuarioService,
+  usuarioHttpService: UsuarioHttpService,
   user_id: number
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    return usuarioService
+    return usuarioHttpService
       .checkEmailIsAvailable(control.value, user_id)
       .pipe(
         map((isAvailable) =>

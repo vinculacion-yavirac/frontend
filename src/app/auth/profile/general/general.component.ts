@@ -1,10 +1,6 @@
 // Importaciones de Angular
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-// Servicios relacionados con la aplicación
-import { UsuarioService } from '../../../feature/personal/usuarios/usuario.service';
-
 // Modelos y clases relacionadas con la lógica de negocio de la aplicación
 import { checkIdentificationIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-identification-available.async.validator';
 import { udvEcIdentification } from '../../../feature/personal/usuarios/form/validators/udv-ec-identification.async.validator';
@@ -26,6 +22,7 @@ import 'moment/locale/fr';
 import { ageValidator } from '../../../../app/shared/validators/check-birthday.validator';
 import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 import { User } from 'src/app/models/auth/users/usuario';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
 @Component({
   selector: 'perfil-general',
   templateUrl: './general.component.html',
@@ -51,7 +48,7 @@ export class ProfilePersonalDataComponent implements OnInit {
 
   constructor(
     private authHttpService: AuthHttpService,
-    private usuarioService: UsuarioService,
+    private usuarioHttpService: UsuarioHttpService,
     public formBuilder: FormBuilder,
   ) {
     this.initForm();
@@ -77,7 +74,7 @@ export class ProfilePersonalDataComponent implements OnInit {
             asyncValidators: [
               (control: any) =>
                 checkIdentificationIsAvailable(
-                  this.usuarioService,
+                  this.usuarioHttpService,
                   this.currentUser.id
                 )(control),
               udvEcIdentification(),
@@ -170,7 +167,7 @@ export class ProfilePersonalDataComponent implements OnInit {
            udvEcIdentification(),
            (control: any) =>
              checkIdentificationIsAvailable(
-               this.usuarioService,
+               this.usuarioHttpService,
                this.currentUser.id
              )(control),
          ]);
@@ -181,7 +178,7 @@ export class ProfilePersonalDataComponent implements OnInit {
          identificationControl?.setAsyncValidators([
            (control: any) =>
              checkIdentificationIsAvailable(
-               this.usuarioService,
+               this.usuarioHttpService,
                this.currentUser.id
              )(control),
          ]);
@@ -218,7 +215,7 @@ export class ProfilePersonalDataComponent implements OnInit {
   updateUsuario() {
     this.loading = true;
 
-    this.usuarioService
+    this.usuarioHttpService
       .updateUsuario(this.currentUser)
       .subscribe((res: any) => {
         if (res.status == 'success') {

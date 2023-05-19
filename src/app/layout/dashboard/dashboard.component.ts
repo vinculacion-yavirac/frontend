@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
 
 // Importaciones de servicios de la API
-import { UsuarioService } from '../../../app/feature/personal/usuarios/usuario.service';
 import { User } from '../../../app/models/auth/user.interface';
+import { UsuarioHttpService } from '../../../app/service/auth/users/usuario-http.service';
 
 
 /**
@@ -25,11 +25,11 @@ export class DashboardComponent implements OnInit {
   /**
    * Inyecta los servicios necesarios para el funcionamiento del componente.
    * @param authHttpService Servicio de autenticación.
-   * @param userService Servicio de usuarios.
+   * @param usuarioHttpService Servicio de usuarios.
    */
   constructor(
     public authHttpService: AuthHttpService,
-    private userService: UsuarioService,
+    private usuarioHttpService: UsuarioHttpService,
   ) {}
 
   /**
