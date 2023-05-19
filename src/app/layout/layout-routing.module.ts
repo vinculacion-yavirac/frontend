@@ -20,9 +20,9 @@ import { UploadComponent } from '../feature/upload/upload.component';
 import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
-import { OficiosArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/oficios-archived.component';
 import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
+import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
 
 
 const routes: Routes = [
@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'solicitud-list', component: SolicitudListComponent },
-      { path: 'oficios-list/archived', component: OficiosArchivedComponent },
+      { path: 'oficios-list/archived', component: SolicitudArchivedComponent },
       {
         path: 'perfil',
         children: [

@@ -66,7 +66,7 @@ import { PortafolioFormComponent } from './portafolio/form/portafolio-form.compo
 import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
 import { SolicitudBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/solicitud.breadcrumbs.component';
-import { OficiosArchivedComponent } from './docente-vinculacion/solicitud/archived/oficios-archived.component';
+import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/archived/solicitud-archived.component';
 import { SolicitudFormComponent } from './docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
@@ -123,7 +123,7 @@ import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/sol
     SolicitudTabsComponent,
     PaginationComponent,
     SolicitudListComponent,
-    OficiosArchivedComponent,
+    SolicitudArchivedComponent,
     SolicitudFormComponent,
     PortafolioListComponent,
     PortafolioBreadcrumbsComponent,

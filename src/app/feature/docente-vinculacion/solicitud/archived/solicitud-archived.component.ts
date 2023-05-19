@@ -6,11 +6,11 @@ import { FilesService } from 'src/app/feature/upload/upload.service';
 
 
 @Component({
-  selector: 'app-oficios-archived',
-  templateUrl: './oficios-archived.component.html',
-  styleUrls: ['./oficios-archived.component.css']
+  selector: 'app-solicitud-archived',
+  templateUrl: './solicitud-archived.component.html',
+  styleUrls: ['./solicitud-archived.component.css']
 })
-export class OficiosArchivedComponent implements OnInit {
+export class SolicitudArchivedComponent implements OnInit {
 
   reverse = false;
   pipe = new DatePipe('en-US');
