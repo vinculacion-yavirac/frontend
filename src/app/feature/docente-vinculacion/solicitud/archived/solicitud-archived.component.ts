@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OficiosService } from '../oficios.service';
 import { Oficio } from '../oficio';
 import { DatePipe } from '@angular/common';
 import { FilesService } from 'src/app/feature/upload/upload.service';
+import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class SolicitudArchivedComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private oficiosService: OficiosService,
+    private portafolioHttpService: PortafolioHttpService,
     private filesService: FilesService,
   ) { }
 
@@ -35,7 +35,7 @@ export class SolicitudArchivedComponent implements OnInit {
 
   getOficios(): void {
     this.loading = true;
-    this.oficiosService.getOficios().subscribe((res: any) => {
+    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
         this.oficios = res.data.official_documents;
 
@@ -58,7 +58,7 @@ export class SolicitudArchivedComponent implements OnInit {
   searchOficiosByTerm(term: string): void {
     this.loading = true;
 
-    this.oficiosService.searchOficiosByTerm(term).subscribe((res: any) => {
+    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
         this.oficios = res.data.oficios;
         if (term === '') {

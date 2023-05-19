@@ -26,7 +26,7 @@ import { HttpClient } from '@angular/common/http';
 import { FileIcons } from './docTypes/FileIcons';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/models/user.interface';
-import { OficiosService } from '../oficios.service';
+import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
 
 //import { OficioService } from '../oficio.service';
 
@@ -74,7 +74,7 @@ export class SolicitudFormComponent implements OnInit {
   comments: Comment[] = [];
 
   constructor(
-    private oficiosService: OficiosService,
+    private portafolioHttpService: PortafolioHttpService,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -168,7 +168,7 @@ export class SolicitudFormComponent implements OnInit {
   }
 
   getComments() {
-    this.oficiosService
+    this.portafolioHttpService
       .getComments(this.currentOficio.id)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -179,7 +179,7 @@ export class SolicitudFormComponent implements OnInit {
 
   //método para crear un oficio nuevo
   createOficio() {
-    this.oficiosService.addOficio(this.currentOficio).subscribe((res: any) => {
+    this.portafolioHttpService.addPortafolios(this.currentOficio).subscribe((res: any) => {
       if (res.status === 'success') {
         this.uploadFiles(res.data.official_document.id, this.files);
         this.router.navigate(['/system/oficios-list']);
