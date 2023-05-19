@@ -31,11 +31,11 @@ import { OficiosService } from '../oficios.service';
 //import { OficioService } from '../oficio.service';
 
 @Component({
-  selector: 'app-oficio-form',
-  templateUrl: './oficio.form.component.html',
-  styleUrls: ['./oficio.form.component.css'],
+  selector: 'app-solicitud-form',
+  templateUrl: './solicitud.form.component.html',
+  styleUrls: ['./solicitud.form.component.css'],
 })
-export class OficiosFormComponent implements OnInit {
+export class SolicitudFormComponent implements OnInit {
   fileIcons: FileIcons = {
     pdf: 'far fa-file-pdf',
     doc: 'far fa-file-word',

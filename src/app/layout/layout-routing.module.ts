@@ -21,8 +21,8 @@ import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-f
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
 import { OficiosArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/oficios-archived.component';
-import { OficiosFormComponent } from '../feature/docente-vinculacion/solicitud/form/oficio.form.component';
 import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
+import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {path:'oficios', component:OficiosFormComponent},
+      {path:'solicitud', component:SolicitudFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'solicitud-list', component: SolicitudListComponent },
