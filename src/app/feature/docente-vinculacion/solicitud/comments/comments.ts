@@ -1,4 +1,5 @@
-import { User } from "../../personal/usuarios/usuario";
+import { User } from "src/app/feature/personal/usuarios/usuario";
+
 
 export interface Comments {
   id: number;

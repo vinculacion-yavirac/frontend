@@ -1,4 +1,5 @@
-import { User } from "../personal/usuarios/usuario"
+
+import { User } from "../../personal/usuarios/usuario";
 import { Comments } from "./comments/comments"
 import { Files } from "./file/file";
 

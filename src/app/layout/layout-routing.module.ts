@@ -16,12 +16,13 @@ import { ProfileMainComponent } from '../auth/profile/main/main.component';
 
 import { ProfileSecurityComponent } from '../auth/profile/seguridad/seguridad.component';
 import { UploadComponent } from '../feature/upload/upload.component';
-import { OficiosListComponent } from '../feature/oficios/list/oficios-list.component';
-import { OficiosFormComponent } from '../feature/oficios/form/oficio.form.component';
-import { OficiosArchivedComponent } from '../feature/oficios/archived/oficios-archived.component';
+
 import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
+import { OficiosArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/oficios-archived.component';
+import { OficiosFormComponent } from '../feature/docente-vinculacion/solicitud/form/oficio.form.component';
+import { OficiosListComponent } from '../feature/docente-vinculacion/solicitud/list/oficios-list.component';
 
 
 const routes: Routes = [

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OficiosService } from '../oficios.service';
 import { Oficio } from '../oficio';
 import { DatePipe } from '@angular/common';
-import { FilesService } from '../../upload/upload.service';
+import { FilesService } from 'src/app/feature/upload/upload.service';
+
 
 @Component({
   selector: 'app-oficios-list',
