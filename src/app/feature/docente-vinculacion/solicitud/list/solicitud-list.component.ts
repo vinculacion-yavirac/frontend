@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Oficio } from '../oficio';
 import { DatePipe } from '@angular/common';
 import { FilesService } from 'src/app/feature/upload/upload.service';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 
 
 @Component({
@@ -21,7 +20,7 @@ export class SolicitudListComponent implements OnInit {
     currentPage: 1,
   };
 
-  oficios: Oficio[] = [];
+  portafolios: PortafoliosModels [] = [];
 
   loading: boolean = true;
 
@@ -31,18 +30,18 @@ export class SolicitudListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getOficios();
+    this.getportafolios();
   }
 
-  getOficios(): void {
+  getportafolios(): void {
     this.loading = true;
     this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.oficios = res.data.official_documents;
+        this.portafolios = res.data.official_documents;
 
-        console.log(this.oficios)
+        console.log(this.portafolios)
 
-        this.oficios.sort((a, b) => {
+        this.portafolios.sort((a, b) => {
           if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
             return 1;
           }
@@ -56,14 +55,14 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  searchOficiosByTerm(term: string): void {
+  searchportafoliosByTerm(term: string): void {
     this.loading = true;
 
     this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.oficios = res.data.oficios;
+        this.portafolios = res.data.portafolios;
         if (term === '') {
-          this.getOficios();
+          this.getportafolios();
         }
         this.reverse = false;
       }
@@ -73,7 +72,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
   reversOrder(): void {
-    this.oficios.reverse();
+    this.portafolios.reverse();
     this.reverse = !this.reverse;
   }
 

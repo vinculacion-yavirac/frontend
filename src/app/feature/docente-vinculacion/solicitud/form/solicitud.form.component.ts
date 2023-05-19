@@ -15,7 +15,6 @@ import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-a
 
 // importaciones de los servicios y modelos
 
-import { Oficio } from '../oficio';
 
 // importaciones de los validadores
 import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
@@ -27,6 +26,7 @@ import { FileIcons } from './docTypes/FileIcons';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/models/user.interface';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 
 //import { OficioService } from '../oficio.service';
 
@@ -53,7 +53,7 @@ export class SolicitudFormComponent implements OnInit {
   };
 
   // Variables de clase que son inyectadas
-  currentOficio = {} as Oficio;
+  currentOficio = {} as PortafoliosModels;
 
   title = 'Nuevo Oficio';
   paramsSubscription: Subscription;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Oficio } from '../oficio';
 import { DatePipe } from '@angular/common';
 import { FilesService } from 'src/app/feature/upload/upload.service';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class SolicitudArchivedComponent implements OnInit {
     currentPage: 1,
   };
 
-  oficios: Oficio[] = [];
+  oficios: PortafoliosModels[] = [];
 
   loading: boolean = true;
 
