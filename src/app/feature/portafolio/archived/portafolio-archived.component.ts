@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
-import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
-import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
+import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
+import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 
 @Component({
   selector: 'app-portafolio-archived',

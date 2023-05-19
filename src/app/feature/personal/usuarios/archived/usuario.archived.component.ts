@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../usuario';
 import { UsuarioService } from '../usuario.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-usuario-archived',

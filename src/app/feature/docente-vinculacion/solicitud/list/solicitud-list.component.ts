@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FilesService } from 'src/app/feature/upload/upload.service';
-import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
-import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
+import { FilesService } from '../../../../../app/feature/upload/upload.service';
+import { PortafolioHttpService } from '../../../../../app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from '../../../../../app/models/portafolio/portafolio.models';
 
 
 @Component({

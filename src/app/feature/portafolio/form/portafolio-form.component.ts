@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FileIconsModels } from 'src/app/models/portafolio/files/fileIcons.models';
-import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { FileIconsModels } from '../../../../app/models/portafolio/files/fileIcons.models';
+import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
+import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
 import { User } from '../../personal/usuarios/usuario';
-import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 
 @Component({
   selector: 'app-portafolio-form',
@@ -57,7 +58,7 @@ export class PortafolioFormComponent implements OnInit {
 
   constructor(
     private portafolioHttpService:PortafolioHttpService,
-    private authService: AuthService,
+    private authHttpService: AuthHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -142,7 +143,7 @@ export class PortafolioFormComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
       }

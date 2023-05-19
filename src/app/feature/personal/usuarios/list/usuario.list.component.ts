@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // importaciones de angular material
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 // importaciones de los servicios y modelos
 import { UsuarioService } from '../usuario.service';

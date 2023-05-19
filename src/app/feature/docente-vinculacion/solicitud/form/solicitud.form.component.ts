@@ -2,31 +2,26 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 
 // importaciones de angular material
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 
 // importaciones de los servicios y modelos
 
 
 // importaciones de los validadores
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { Subscription } from 'rxjs';
-import cryptoJs from 'crypto-js';
-import { normalize } from 'src/app/shared/helpers/normalize.str.component';
 import { HttpClient } from '@angular/common/http';
-import { FileIcons } from './docTypes/FileIcons';
-import { AuthService } from 'src/app/auth/auth.service';
-import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
-import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
-import { User } from 'src/app/models/auth/user.interface';
+import { PortafolioHttpService } from '../../../../../app/service/portafolio/portafolio-http.service';
+import { PortafoliosModels } from '../../../../../app/models/portafolio/portafolio.models';
+import { User } from '../../../../../app/models/auth/user.interface';
+import { AuthHttpService } from '../../../../../app/service/auth/auth-http.service';
+import { FileIconsModels } from '../../../../../app/models/portafolio/files/fileIcons.models';
 
 //import { OficioService } from '../oficio.service';
 
@@ -36,7 +31,7 @@ import { User } from 'src/app/models/auth/user.interface';
   styleUrls: ['./solicitud.form.component.css'],
 })
 export class SolicitudFormComponent implements OnInit {
-  fileIcons: FileIcons = {
+  fileIcons: FileIconsModels = {
     pdf: 'far fa-file-pdf',
     doc: 'far fa-file-word',
     docx: 'far fa-file-word',
@@ -75,7 +70,7 @@ export class SolicitudFormComponent implements OnInit {
 
   constructor(
     private portafolioHttpService: PortafolioHttpService,
-    private authService: AuthService,
+    private authHttpService: AuthHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -160,7 +155,7 @@ export class SolicitudFormComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
       }

@@ -2,16 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 
 // importaciones de angular material
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 // importaciones de los servicios y modelos
 import { UsuarioService } from '../usuario.service';
@@ -21,10 +19,10 @@ import { User } from '../usuario';
 import { checkIdentificationIsAvailable } from './validators/check-identification-available.async.validator';
 import { udvEcIdentification } from './validators/udv-ec-identification.async.validator';
 import { checkEmailIsAvailable } from './validators/check-email-available.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { Subscription } from 'rxjs';
 import cryptoJs from 'crypto-js';
-import { normalize } from 'src/app/shared/helpers/normalize.str.component';
+import { normalize } from '../../../../../app/shared/helpers/normalize.str.component';
 
 @Component({
   selector: 'app-usuario-form',

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '../rol';
 import { RolService } from '../rol.service';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { checkRolNameIsAvailable } from './validators/check-rol-name-available.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-rol-form',

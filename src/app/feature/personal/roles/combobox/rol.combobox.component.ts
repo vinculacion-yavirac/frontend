@@ -8,7 +8,7 @@ import {
 import { Role } from '../rol';
 import { RolService } from '../rol.service';
 import { Subscription } from 'rxjs';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 
 @Component({
   selector: 'combobox-roles',

@@ -2,13 +2,11 @@
 import { Component, OnInit } from '@angular/core';
 
 // Importaciones de servicios personalizados
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
 
 // Importaciones de servicios de la API
-import { UsuarioService } from 'src/app/feature/personal/usuarios/usuario.service';
-import { User } from 'src/app/models/auth/user.interface';
-
-// Importaciones de interfaces
+import { UsuarioService } from '../../../app/feature/personal/usuarios/usuario.service';
+import { User } from '../../../app/models/auth/user.interface';
 
 
 /**
@@ -26,11 +24,11 @@ export class DashboardComponent implements OnInit {
 
   /**
    * Inyecta los servicios necesarios para el funcionamiento del componente.
-   * @param authService Servicio de autenticación.
+   * @param authHttpService Servicio de autenticación.
    * @param userService Servicio de usuarios.
    */
   constructor(
-    public authService: AuthService,
+    public authHttpService: AuthHttpService,
     private userService: UsuarioService,
   ) {}
 
@@ -46,6 +44,6 @@ export class DashboardComponent implements OnInit {
    * Utiliza el método getUser() del servicio de autenticación y se suscribe al mismo para obtener el usuario y asignarlo a la variable "user" de la clase.
    */
   getCurrentUser() {
-    this.authService.getUser().subscribe((user: User) => (this.user = user));
+    this.authHttpService.getUser().subscribe((user: User) => (this.user = user));
   }
 }

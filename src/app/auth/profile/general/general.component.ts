@@ -3,15 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // Servicios relacionados con la aplicación
-import { AuthService } from 'src/app/auth/auth.service';
 import { UsuarioService } from '../../../feature/personal/usuarios/usuario.service';
 
 // Modelos y clases relacionadas con la lógica de negocio de la aplicación
 import { User } from '../../../feature/personal/usuarios/usuario';
 import { checkIdentificationIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-identification-available.async.validator';
 import { udvEcIdentification } from '../../../feature/personal/usuarios/form/validators/udv-ec-identification.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
-import { normalize } from 'src/app/shared/helpers/normalize.str.component';
+import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
+import { normalize } from '../../../../app/shared/helpers/normalize.str.component';
 
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -25,7 +24,8 @@ import {
 } from '@angular/material/core';
 import 'moment/locale/ja';
 import 'moment/locale/fr';
-import { ageValidator } from 'src/app/shared/validators/check-birthday.validator';
+import { ageValidator } from '../../../../app/shared/validators/check-birthday.validator';
+import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 @Component({
   selector: 'perfil-general',
   templateUrl: './general.component.html',
@@ -50,7 +50,7 @@ export class ProfilePersonalDataComponent implements OnInit {
   public formGroup: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private authHttpService: AuthHttpService,
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder,
   ) {
@@ -204,7 +204,7 @@ export class ProfilePersonalDataComponent implements OnInit {
 
   getCurrentUser() {
     this.loading = true;
-    this.authService.getProfile().subscribe((res: any) => {
+    this.authHttpService.getProfile().subscribe((res: any) => {
       if (res.status == 'success') {
         this.currentUser = res.data.user;
         this.formGroup.patchValue(this.currentUser);

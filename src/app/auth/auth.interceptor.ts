@@ -7,15 +7,15 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AuthService } from './auth.service';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthLocalStorage } from './auth-local-storage';
 import { AuthCookieStorage } from './auth-cookie-storage';
+import { AuthHttpService } from '../service/auth/auth-http.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private authService: AuthService,
+    private authHttpService: AuthHttpService,
     private authLocalStorage: AuthLocalStorage,
     private authCookieStorage: AuthCookieStorage
   ) {}
@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token = this.authCookieStorage.getRefreshToken();
-    return this.authService.refreshAccessToken(token).pipe(
+    return this.authHttpService.refreshAccessToken(token).pipe(
       switchMap((response) => {
         this.authLocalStorage.setAccessToken(response.data.accessToken);
         request = this.addToken(request, response.data.accessToken);

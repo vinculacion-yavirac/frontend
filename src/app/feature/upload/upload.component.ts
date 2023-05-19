@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
-import { FilesModels } from 'src/app/models/portafolio/files/file.models';
+import { FileHttpService } from '../../../app/service/portafolio/files/file-http.service';
+import { FilesModels } from '../../../app/models/portafolio/files/file.models';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordsMustBeEqual } from './validators/passwords-must-be-equal.validator';
-import { AuthService } from 'src/app/auth/auth.service';
 import { User } from '../../../feature/personal/usuarios/usuario';
 import { UsuarioService } from '../../../feature/personal/usuarios/usuario.service';
 import { checkPasswordMatch } from './validators/check-password.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
 import { checkEmailIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-email-available.async.validator';
+import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 
 @Component({
   selector: 'perfil-seguridad',
@@ -25,7 +25,7 @@ export class ProfileSecurityComponent implements OnInit {
   public formGroup: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private authHttpService: AuthHttpService,
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder
   ) {
@@ -134,7 +134,7 @@ export class ProfileSecurityComponent implements OnInit {
   getCurrentUser(): void {
     this.loading = true;
 
-    this.authService.getProfile().subscribe((res: any) => {
+    this.authHttpService.getProfile().subscribe((res: any) => {
       if (res.status == 'success') {
         this.currentUser = res.data.user;
         this.formGroup.patchValue(this.currentUser);
