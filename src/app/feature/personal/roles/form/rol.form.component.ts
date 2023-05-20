@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from '../rol';
-import { RolService } from '../rol.service';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { checkRolNameIsAvailable } from './validators/check-rol-name-available.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
+import { Role } from 'src/app/models/auth/role/rol';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
 
 @Component({
   selector: 'app-rol-form',
@@ -26,7 +26,7 @@ export class RolesFormComponent implements OnInit {
   title = 'Nuevo Rol';
 
   constructor(
-    private rolService: RolService,
+    private RolHttpService: RolHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -49,7 +49,7 @@ export class RolesFormComponent implements OnInit {
           asyncValidators: [
             (control: any) =>
               checkRolNameIsAvailable(
-                this.rolService,
+                this.RolHttpService,
                 this.currentRole.id
               )(control),
           ],
@@ -90,7 +90,7 @@ export class RolesFormComponent implements OnInit {
 
   // función para obtener un rol
   getRole(id: number) {
-    this.rolService.getRol(id).subscribe((res: any) => {
+    this.RolHttpService.getRol(id).subscribe((res: any) => {
       if (res.status == 'success') {
         this.currentRole = res.data.role;
         this.formGroup.patchValue(this.currentRole);
@@ -103,7 +103,7 @@ export class RolesFormComponent implements OnInit {
 
   // función para agregar un rol
   addRole() {
-    this.rolService.addRol(this.currentRole).subscribe((res: any) => {
+    this.RolHttpService.addRol(this.currentRole).subscribe((res: any) => {
       if (res.status == 'success') {
         this.router.navigate(['system/personal/roles']);
       }
@@ -112,7 +112,7 @@ export class RolesFormComponent implements OnInit {
 
   // función para actualizar un rol
   updateRole() {
-    this.rolService.updateRol(this.currentRole).subscribe((res: any) => {
+    this.RolHttpService.updateRol(this.currentRole).subscribe((res: any) => {
       if (res.status == 'success') {
         this.router.navigate(['system/personal/roles']);
       }
@@ -120,7 +120,7 @@ export class RolesFormComponent implements OnInit {
   }
 
   public archiveRol(rol: Role): void {
-    this.rolService.archiveRol(rol.id).subscribe((res: any) => {
+    this.RolHttpService.archiveRol(rol.id).subscribe((res: any) => {
       if (res.status == 'success') {
         this.router.navigate(['system/personal/roles']);
       }

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 // importaciones de angular material
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 // importaciones de los servicios y modelos
-import { UsuarioService } from '../usuario.service';
-import { User } from '../usuario';
+import { User } from '../../../../../app/models/auth/users/usuario';
+import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuario-http.service';
+
 
 @Component({
   selector: 'app-usuario-list',
@@ -26,7 +27,7 @@ export class UsuariosListComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private usuarioHttpService:UsuarioHttpService,
     private dialog: MatDialog
   ) {}
 
@@ -36,7 +37,7 @@ export class UsuariosListComponent implements OnInit {
 
   getUsuarios(): void {
     this.loading = true;
-    this.usuarioService.getUsuarios().subscribe((res: any) => {
+    this.usuarioHttpService.getUsuarios().subscribe((res: any) => {
       if (res.status === 'success') {
         this.usuarios = res.data.users;
         //ordenar por nombres
@@ -58,7 +59,7 @@ export class UsuariosListComponent implements OnInit {
   searchUsuariosByTerm(term: string): void {
     this.loading = true;
 
-    this.usuarioService.searchUsuariosByTerm(term).subscribe((res: any) => {
+    this.usuarioHttpService.searchUsuariosByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
         this.usuarios = res.data.users;
         if (term === '') {
@@ -72,7 +73,7 @@ export class UsuariosListComponent implements OnInit {
   }
 
   archiveUsuario(usuario: User): void {
-    this.usuarioService.archiveUsuario(usuario.id).subscribe((res: any) => {
+    this.usuarioHttpService.archiveUsuario(usuario.id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.getUsuarios();
       }

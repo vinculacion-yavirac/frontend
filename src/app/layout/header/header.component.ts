@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/auth/models/user.interface';
+import { User } from '../../../app/models/auth/user.interface';
+import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
+
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleEvent = new EventEmitter<boolean>();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authHttpService: AuthHttpService, private router: Router) {}
 
   ngOnInit(): void {
     this.toggle = JSON.parse(localStorage.getItem('sidebar') || 'false');
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
       }
@@ -40,7 +41,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe((res: any) => {
+    this.authHttpService.logout().subscribe((res: any) => {
       if (res.status === 'success') {
         this.router.navigate(['/auth/login']);
       } else {

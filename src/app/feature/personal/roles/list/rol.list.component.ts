@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Role } from '../rol';
-import { RolService } from '../rol.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 import { MatAccordion } from '@angular/material/expansion';
+import { Role } from 'src/app/models/auth/role/rol';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
 
 @Component({
   selector: 'app-rol-list',
@@ -16,7 +16,7 @@ export class RolesListComponent implements OnInit {
   panelOpenState = false;
   loading = true;
 
-  constructor(private rolService: RolService, private dialog: MatDialog) {}
+  constructor(private RolHttpService: RolHttpService, private dialog: MatDialog) {}
 
   roles: Role[] = [];
 
@@ -26,7 +26,7 @@ export class RolesListComponent implements OnInit {
 
   public getRoles(): void {
     this.loading = true;
-    this.rolService.getRoles().subscribe((res: any) => {
+    this.RolHttpService.getRoles().subscribe((res: any) => {
       if (res.status == 'success') {
         this.roles = res.data.roles;
       }
@@ -35,7 +35,7 @@ export class RolesListComponent implements OnInit {
   }
 
   public searchRolesByTerm(term: string): void {
-    this.rolService.searchRolesByTerm(term).subscribe((res: any) => {
+    this.RolHttpService.searchRolesByTerm(term).subscribe((res: any) => {
       if (res.status == 'success') {
         this.roles = res.data.roles;
       }
@@ -46,7 +46,7 @@ export class RolesListComponent implements OnInit {
   }
 
   public archiveRol(rol: Role): void {
-    this.rolService.archiveRol(rol.id).subscribe((res: any) => {
+    this.RolHttpService.archiveRol(rol.id).subscribe((res: any) => {
       if (res.status == 'success') {
         this.getRoles();
       }

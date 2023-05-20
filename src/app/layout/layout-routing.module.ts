@@ -16,9 +16,13 @@ import { ProfileMainComponent } from '../auth/profile/main/main.component';
 
 import { ProfileSecurityComponent } from '../auth/profile/seguridad/seguridad.component';
 import { UploadComponent } from '../feature/upload/upload.component';
-import { OficiosListComponent } from '../feature/oficios/list/oficios-list.component';
-import { OficiosFormComponent } from '../feature/oficios/form/oficio.form.component';
-import { OficiosArchivedComponent } from '../feature/oficios/archived/oficios-archived.component';
+
+import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
+import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
+import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
+import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
+import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
+import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
 
 
 const routes: Routes = [
@@ -27,11 +31,11 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {path:'oficios', component:OficiosFormComponent},
+      {path:'solicitud', component:SolicitudFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'oficios-list', component: OficiosListComponent },
-      { path: 'oficios-list/archived', component: OficiosArchivedComponent },
+      { path: 'solicitud-list', component: SolicitudListComponent },
+      { path: 'oficios-list/archived', component: SolicitudArchivedComponent },
       {
         path: 'perfil',
         children: [
@@ -46,6 +50,38 @@ const routes: Routes = [
               },
 
               { path: 'seguridad', component: ProfileSecurityComponent },
+            ],
+          },
+        ],
+      },
+
+      {
+        path: 'portafolio',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component: PortafolioFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component: PortafolioFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: PortafolioListComponent,
+              },
+              {
+                path: 'archived',
+                component: PortafolioArchivedComponent,
+              },
             ],
           },
         ],

@@ -2,29 +2,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 
 // importaciones de angular material
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
-// importaciones de los servicios y modelos
-import { UsuarioService } from '../usuario.service';
-import { User } from '../usuario';
 
 // importaciones de los validadores
 import { checkIdentificationIsAvailable } from './validators/check-identification-available.async.validator';
 import { udvEcIdentification } from './validators/udv-ec-identification.async.validator';
 import { checkEmailIsAvailable } from './validators/check-email-available.async.validator';
-import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
+import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { Subscription } from 'rxjs';
 import cryptoJs from 'crypto-js';
-import { normalize } from 'src/app/shared/helpers/normalize.str.component';
+import { normalize } from '../../../../../app/shared/helpers/normalize.str.component';
+import { User } from 'src/app/models/auth/users/usuario';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -47,7 +44,7 @@ export class UsuariosFormComponent implements OnInit {
   public formGroup: FormGroup;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private usuarioHttpService: UsuarioHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -75,7 +72,7 @@ export class UsuariosFormComponent implements OnInit {
             asyncValidators: [
               (control: any) =>
                 checkIdentificationIsAvailable(
-                  this.usuarioService,
+                  this.usuarioHttpService,
                   this.currentUser.id
                 )(control),
             ],
@@ -114,7 +111,7 @@ export class UsuariosFormComponent implements OnInit {
           asyncValidators: [
             (control: any) =>
               checkEmailIsAvailable(
-                this.usuarioService,
+                this.usuarioHttpService,
                 this.currentUser.id
               )(control),
           ],
@@ -146,7 +143,7 @@ export class UsuariosFormComponent implements OnInit {
             udvEcIdentification(),
             (control: any) =>
               checkIdentificationIsAvailable(
-                this.usuarioService,
+                this.usuarioHttpService,
                 this.currentUser.id
               )(control),
           ]);
@@ -157,7 +154,7 @@ export class UsuariosFormComponent implements OnInit {
           identificationControl?.setAsyncValidators([
             (control: any) =>
               checkIdentificationIsAvailable(
-                this.usuarioService,
+                this.usuarioHttpService,
                 this.currentUser.id
               )(control),
           ]);
@@ -203,7 +200,7 @@ export class UsuariosFormComponent implements OnInit {
   public getUsuario(id: number) {
     this.loading = true;
 
-    this.usuarioService.getUsuario(id).subscribe((res: any) => {
+    this.usuarioHttpService.getUsuario(id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.currentUser = res.data.user;
         console.log(this.currentUser);
@@ -218,7 +215,7 @@ export class UsuariosFormComponent implements OnInit {
   //método para crear un usuario nuevo
   public createUser() {
     this.currentUser.password = this.generateSecurePassword();
-    this.usuarioService.addUsuario(this.currentUser).subscribe((res: any) => {
+    this.usuarioHttpService.addUsuario(this.currentUser).subscribe((res: any) => {
       if (res.status === 'success') {
         this.sendEmailCredentials(this.currentUser);
         this.router.navigate(['/system/personal/usuarios/list']);
@@ -228,7 +225,7 @@ export class UsuariosFormComponent implements OnInit {
 
   //método para actualizar un usuario existente
   public updateUsuario() {
-    this.usuarioService
+    this.usuarioHttpService
       .updateUsuario(this.currentUser)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -249,7 +246,7 @@ export class UsuariosFormComponent implements OnInit {
     let password = {
       password: this.currentUser.password,
     };
-    this.usuarioService
+    this.usuarioHttpService
       .updatePassword(password, this.currentUser.id)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -260,11 +257,11 @@ export class UsuariosFormComponent implements OnInit {
   }
 
   sendEmailCredentials(user: User) {
-    this.usuarioService.sendEmailCredentials(user).subscribe();
+    this.usuarioHttpService.sendEmailCredentials(user).subscribe();
   }
 
   archiveUsuario(usuario: User): void {
-    this.usuarioService.archiveUsuario(usuario.id).subscribe((res: any) => {
+    this.usuarioHttpService.archiveUsuario(usuario.id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.router.navigate(['system/personal/usuarios/list']);
       }

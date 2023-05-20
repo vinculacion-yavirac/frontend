@@ -58,12 +58,18 @@ import { ProvincesComboboxComponent } from '../shared/comboboxes/división-terri
 import { GendersComboboxComponent } from '../shared/comboboxes/generos/generos.combobox.component';
 import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos-identificacion/tipos-identificacion.combobox.component';
 import { UploadComponent } from './upload/upload.component';
-import { OficiosListComponent } from './oficios/list/oficios-list.component';
-import { OficiosArchivedComponent } from './oficios/archived/oficios-archived.component';
+
+import { PortafolioListComponent } from './portafolio/list/portafolio-list.component';
+import { PortafolioBreadcrumbsComponent } from './portafolio/header/breadcrumbs/portafolio-breadcrumbs.component';
+import { PortafolioTabsComponent } from './portafolio/header/tabs/portafolio-tabs.component';
+import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
+import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
-import { OficiosFormComponent } from './oficios/form/oficio.form.component';
-import { OficiosBreadcrumbsComponent } from './oficios/header/breadcrumbs/oficios.breadcrumbs.component';
-import { OficiosTabsComponent } from './oficios/header/tabs/oficios.tabs.component';
+import { SolicitudBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/solicitud.breadcrumbs.component';
+import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/archived/solicitud-archived.component';
+import { SolicitudFormComponent } from './docente-vinculacion/solicitud/form/solicitud.form.component';
+import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
+import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
 
 
 
@@ -112,12 +118,18 @@ import { OficiosTabsComponent } from './oficios/header/tabs/oficios.tabs.compone
     CantonsComboboxComponent,
     ParishesComboboxComponent,
 
-    OficiosBreadcrumbsComponent,
-    OficiosTabsComponent,
+    
+    SolicitudBreadcrumbsComponent,
+    SolicitudTabsComponent,
     PaginationComponent,
-    OficiosListComponent,
-    OficiosArchivedComponent,
-    OficiosFormComponent,
+    SolicitudListComponent,
+    SolicitudArchivedComponent,
+    SolicitudFormComponent,
+    PortafolioListComponent,
+    PortafolioBreadcrumbsComponent,
+    PortafolioTabsComponent,
+    PortafolioFormComponent,
+    PortafolioArchivedComponent,
   ],
   imports: [
     CommonModule,

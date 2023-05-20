@@ -1,5 +1,5 @@
 import { Directive, Input, ViewContainerRef, TemplateRef } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthHttpService } from '../service/auth/auth-http.service';
 
 @Directive({
   selector: '[permissions]',
@@ -11,7 +11,7 @@ export class HasPermissionsDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private authService: AuthService
+    private authHttpService: AuthHttpService
   ) {}
 
   @Input()
@@ -21,7 +21,7 @@ export class HasPermissionsDirective {
   }
 
   private updateView() {
-    this.hasPermission = this.authService.isAuthorized(this.appHasPermissions);
+    this.hasPermission = this.authHttpService.isAuthorized(this.appHasPermissions);
     if (this.hasPermission) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {

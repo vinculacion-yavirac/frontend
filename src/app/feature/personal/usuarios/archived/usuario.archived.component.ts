@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../usuario';
-import { UsuarioService } from '../usuario.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
+import { User } from 'src/app/models/auth/users/usuario';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
 
 @Component({
   selector: 'app-usuario-archived',
@@ -21,7 +21,7 @@ export class UsuariosArchivedComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private usuarioHttpService: UsuarioHttpService,
     private dialog: MatDialog
   ) {}
 
@@ -31,7 +31,7 @@ export class UsuariosArchivedComponent implements OnInit {
 
   public getUsuariosArchived(): void {
     this.loading = true;
-    this.usuarioService.getUsuariosArchived().subscribe((res: any) => {
+    this.usuarioHttpService.getUsuariosArchived().subscribe((res: any) => {
       if (res.status === 'success') {
         this.usuariosArchived = res.data.users;
       }
@@ -41,7 +41,7 @@ export class UsuariosArchivedComponent implements OnInit {
 
   public searchUsuariosArchivedByTerm(term: string): void {
     this.loading = true;
-    this.usuarioService
+    this.usuarioHttpService
       .searchUsuariosArchivedByTerm(term)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -52,7 +52,7 @@ export class UsuariosArchivedComponent implements OnInit {
   }
 
   public restoreUsuario(usuario: User): void {
-    this.usuarioService.restoreUsuario(usuario.id).subscribe((res: any) => {
+    this.usuarioHttpService.restoreUsuario(usuario.id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.getUsuariosArchived();
       }
@@ -80,7 +80,7 @@ export class UsuariosArchivedComponent implements OnInit {
   }
 
   public deleteUsuario(usuario: User): void {
-    this.usuarioService.deleteUsuario(usuario.id).subscribe((res: any) => {
+    this.usuarioHttpService.deleteUsuario(usuario.id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.getUsuariosArchived();
       }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EncryptionService } from './encryption.service';
+import { EncryptionHttpService } from '../service/auth/encryption/encryption-http.service';
 
 const LOCAL_STORAGE_TOKEN_ACCESS_KEY = 'access_token';
 
@@ -7,10 +7,10 @@ const LOCAL_STORAGE_TOKEN_ACCESS_KEY = 'access_token';
   providedIn: 'root',
 })
 export class AuthLocalStorage {
-  constructor(private encryptionService: EncryptionService) {}
+  constructor(private encryptionHttpService: EncryptionHttpService) {}
 
   setAccessToken(token: string): void {
-    const encryptedToken = this.encryptionService.encrypt(token);
+    const encryptedToken = this.encryptionHttpService.encrypt(token);
     localStorage.setItem(LOCAL_STORAGE_TOKEN_ACCESS_KEY, encryptedToken);
   }
 
@@ -19,7 +19,7 @@ export class AuthLocalStorage {
     if (!encryptedToken) {
       return '';
     }
-    return this.encryptionService.decrypt(encryptedToken);
+    return this.encryptionHttpService.decrypt(encryptedToken);
   }
 
   removeAccessToken(): void {
