@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { PermissionService } from '../permiso.service';
 import { Permission } from 'src/app/models/auth/permiso/permiso';
+import { PermisoHttpService } from 'src/app/service/auth/permiso/permiso-http.service';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { Permission } from 'src/app/models/auth/permiso/permiso';
   templateUrl: './permiso.list.component.html',
 })
 export class PermisosListComponent implements OnChanges {
-  constructor(private permissionService: PermissionService) {}
+  constructor(private permisoHttpService: PermisoHttpService) {}
 
   loading = true;
 
@@ -22,7 +22,7 @@ export class PermisosListComponent implements OnChanges {
   @Input() rolId: number;
 
   public getPermisosByRol(rolId: number): void {
-    this.permissionService.getPermisosByRol(rolId).subscribe((res:any) => {
+    this.permisoHttpService.getPermisosByRol(rolId).subscribe((res:any) => {
       if (res.status === 'success') {
         this.permissions = res.data.permissions;
       }

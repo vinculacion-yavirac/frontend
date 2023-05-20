@@ -1,13 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Permission } from 'src/app/models/auth/permiso/permiso';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class PermissionService {
+export class PermisoHttpService {
   constructor(private http: HttpClient) {}
 
   private httpOptions = {
@@ -25,5 +25,4 @@ export class PermissionService {
   public getPermisosByRol(roleId: number): Observable<Permission[]> {
     return this.http.get<Permission[]>(`${this.url}/role/${roleId}`);
   }
-
 }

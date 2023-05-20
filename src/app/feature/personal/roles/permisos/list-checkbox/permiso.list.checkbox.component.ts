@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PermissionService } from '../permiso.service';
 import { Permission } from 'src/app/models/auth/permiso/permiso';
+import { PermisoHttpService } from 'src/app/service/auth/permiso/permiso-http.service';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { Permission } from 'src/app/models/auth/permiso/permiso';
   templateUrl: './permiso.list.checkbox.component.html',
 })
 export class PermisosListCheckboxComponent implements OnInit {
-  constructor(private permissionService: PermissionService) {}
+  constructor(private permisoHttpService: PermisoHttpService) {}
   //variable para mostrar el spinner
   loading = true;
 
@@ -24,7 +24,7 @@ export class PermisosListCheckboxComponent implements OnInit {
 
   //función para obtener los permisos
   getPermisos(): void {
-    this.permissionService.getPermisos().subscribe((res: any) => {
+    this.permisoHttpService.getPermisos().subscribe((res: any) => {
       if (res.status === 'success') {
         this.permissions = res.data.permissions;
         this.loading = false;

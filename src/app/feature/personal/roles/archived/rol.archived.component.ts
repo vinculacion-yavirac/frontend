@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RolService } from '../rol.service';
 import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Role } from 'src/app/models/auth/role/rol';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
 
 @Component({
   selector: 'app-rol-archived',
@@ -20,7 +20,7 @@ export class RolesArchivedComponent implements OnInit {
   //loading
   loading: boolean = true;
 
-  constructor(private rolService: RolService, private dialog: MatDialog) {}
+  constructor(private rolHttpService: RolHttpService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getRolesArchived();
@@ -33,7 +33,7 @@ export class RolesArchivedComponent implements OnInit {
    */
   public getRolesArchived(): void {
     this.loading = true;
-    this.rolService.getRolesArchived().subscribe((res: any) => {
+    this.rolHttpService.getRolesArchived().subscribe((res: any) => {
       if (res.status == 'success') {
         this.rolesArchived = res.data.roles;
       }
@@ -48,7 +48,7 @@ export class RolesArchivedComponent implements OnInit {
    */
   public searchRolesArchivedByTerm(term: string): void {
     this.loading = true;
-    this.rolService.searchRolesArchivedByTerm(term).subscribe((res: any) => {
+    this.rolHttpService.searchRolesArchivedByTerm(term).subscribe((res: any) => {
       if (res.status == 'success') {
         this.rolesArchived = res.data.roles;
       }
@@ -68,7 +68,7 @@ export class RolesArchivedComponent implements OnInit {
    */
 
   public restoreRol(rol: Role): void {
-    this.rolService.restoreRol(rol.id).subscribe((res: any) => {
+    this.rolHttpService.restoreRol(rol.id).subscribe((res: any) => {
       if (res.status == 'success') {
         this.getRolesArchived();
       }
@@ -103,7 +103,7 @@ export class RolesArchivedComponent implements OnInit {
    *Nota:El parámetro que recibe la función es un objeto de tipo Role
    */
   public deleteRol(rol: Role): void {
-    this.rolService.deleteRol(rol.id).subscribe((res: any) => {
+    this.rolHttpService.deleteRol(rol.id).subscribe((res: any) => {
       if (res.status == 'success') {
         this.getRolesArchived();
       }

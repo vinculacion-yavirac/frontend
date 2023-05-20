@@ -5,10 +5,10 @@ import {
   NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
-import { RolService } from '../rol.service';
 import { Subscription } from 'rxjs';
 import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
 import { Role } from 'src/app/models/auth/role/rol';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
 
 @Component({
   selector: 'combobox-roles',
@@ -32,7 +32,7 @@ export class RolesComboboxComponent
 
   roles: Role[] = [];
 
-  constructor(private rolService: RolService) {}
+  constructor(private RolHttpService: RolHttpService) {}
 
   private sub?: Subscription;
   //propiedad privada que contiene una referencia a la suscripción que se crea cuando roleFormControl cambia el valor.
@@ -62,7 +62,7 @@ export class RolesComboboxComponent
   }
 
   getRoles(): void {
-    this.rolService.getRoles().subscribe((res: any) => {
+    this.RolHttpService.getRoles().subscribe((res: any) => {
       if (res.status === 'success') {
         this.roles = res.data.roles;
       }
