@@ -70,6 +70,8 @@ import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/arch
 import { SolicitudFormComponent } from './docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
+import { AvanceCumplimientoComponent } from './docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
+import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
 
 
 
@@ -130,6 +132,8 @@ import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/sol
     PortafolioTabsComponent,
     PortafolioFormComponent,
     PortafolioArchivedComponent,
+    AvanceCumplimientoComponent,
+    EncuestaComponent,
   ],
   imports: [
     CommonModule,

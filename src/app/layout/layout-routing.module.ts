@@ -23,6 +23,7 @@ import { PortafolioArchivedComponent } from '../feature/portafolio/archived/port
 import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
+import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
+      {path:'avance', component:AvanceCumplimientoComponent},
       {path:'solicitud', component:SolicitudFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
@@ -54,6 +56,9 @@ const routes: Routes = [
           },
         ],
       },
+
+
+
 
       {
         path: 'portafolio',
@@ -86,6 +91,7 @@ const routes: Routes = [
           },
         ],
       },
+
 
       {
         path: 'personal',
