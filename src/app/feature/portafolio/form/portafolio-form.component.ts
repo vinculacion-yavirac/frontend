@@ -98,13 +98,17 @@ export class PortafolioFormComponent implements OnInit {
       files: [
         [],
         {
-          validators: [Validators.required, Validators.maxLength(7)],
+          validators: [
+            // Validators.required,
+            // Validators.minLength(1),
+            // Validators.maxLength(7)
+          ],
         },
       ],
       comment: [
         '',
         {
-          validators: [Validators.minLength(10), Validators.maxLength(200)],
+          validators: [Validators.minLength(3), Validators.maxLength(200)],
         },
       ],
     });
@@ -162,9 +166,9 @@ export class PortafolioFormComponent implements OnInit {
 
   //método para crear un oficio nuevo
   createPortafolio() {
-    this.portafolioHttpService. addPortafolios(this.currentPortafolio).subscribe((res: any) => {
+    this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.uploadFiles(res.data.official_document.id, this.files);
+        this.uploadFiles(res.data.briefcases.id, this.files);
         this.router.navigate(['/system/portafolio']);
       }
     });

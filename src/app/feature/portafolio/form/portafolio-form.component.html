@@ -76,7 +76,7 @@
             <!-- validaciones -->
             <mat-error
               *ngIf="formGroup.get('subject')?.hasError('minlength') || formGroup.get('subject')?.hasError('maxlength')">
-              Ingrese un asunto <strong>valido</strong>, (min: 25, max: 100)
+              Ingrese un asunto <strong>valido</strong>, (min: 5, max: 100)
             </mat-error>
             <mat-error *ngIf="formGroup.get('subject')?.hasError('required')">
               Este campo es <strong>requerido</strong>
@@ -93,7 +93,7 @@
             <!-- validaciones -->
             <mat-error
               *ngIf="formGroup.get('description')?.hasError('minlength') || formGroup.get('description')?.hasError('maxlength')">
-              Ingrese una descripción <strong>valida</strong>, (min: 80, max: 300)
+              Ingrese una descripción <strong>valida</strong>, (min: 5, max: 300)
             </mat-error>
             <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
               Este campo es <strong>requerido</strong>
@@ -144,13 +144,7 @@
         <mat-error class="text-xs" *ngIf="formGroup.get('files')?.hasError('required')">
           Este campo es <strong>requerido</strong>
         </mat-error>
-
-
-
-
       </div>
-
-
 
       <div class="col-span-1 text-neutral">
         <h3 class="font-bold">Retroalimentación del Portafolio:</h3>
@@ -174,13 +168,13 @@
             <mat-form-field appearance="fill" class="w-full col-span-2">
               <mat-label>Comentario</mat-label>
               <textarea class="h-15 !resize-none !text-gray-600" matInput formControlName="comment"
-                [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false"
+                autocomplete="off" spellcheck="false"
                 placeholder="Ingresa un comentario."></textarea>
               <!-- validaciones -->
-              <mat-error
+              <!-- <mat-error
                 *ngIf="formGroup.get('comment')?.hasError('minlength') || formGroup.get('comment')?.hasError('maxlength')">
                 Ingrese un comentario <strong>valido</strong>, (min: 30, max: 200)
-              </mat-error>
+              </mat-error> -->
 
             </mat-form-field>
 
@@ -192,32 +186,6 @@
             </div>
           </div>
         </div>
-
-        <!--  <div class="col-span-1 col-start-5 row-span-1 flex items-start justify-end w-full pr-3">
-            <div class="flex items-start flex-col">
-  
-              <div class="flex justify-between items-center gap-4">
-                <button [routerLink]="['/system/oficios-list']"
-                  class="btn btn-outline btn-primary text-xs text-primary rounded-md flex justify-center items-center">
-                  <div class="flex justify-center items-center gap-2">
-                    <span class="fa-solid fa-arrow-left-long text-sm"></span>
-                    <span>Cancelar</span>
-                  </div>
-                </button>
-  
-                <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
-                  [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
-                  <div class="flex justify-center items-center gap-2">
-                    <span class="fa-solid fa-floppy-disk text-sm"></span>
-  
-                    <span>Guardar</span>
-                  </div>
-                </button>
-              </div>
-  
-            </div>
-          </div> -->
-
       </div>
     </div>
 
@@ -237,7 +205,6 @@
           [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
           <div class="flex justify-center items-center gap-2">
             <span class="fa-solid fa-floppy-disk text-sm"></span>
-
             <span>Guardar</span>
           </div>
         </button>
