@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+
 * {
 	box-sizing: border-box;
 }
 
+
+
 body {
-	background: #ffffff;
-	display: flex;
+	background-image: url(../../../assets/images/3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-
 	height: 100vh;
-	margin: -20px 0 50px;
 }
 
 h1 {
@@ -45,7 +48,7 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #1020b4;
+	border: 1px solid #646464;
 	background-color: #1020b4;
 	color: #FFFFFF;
 	font-size: 12px;
