@@ -33,7 +33,6 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {path:'avance', component:AvanceCumplimientoComponent},
-      {path:'solicitud', component:SolicitudFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'solicitud-list', component: SolicitudListComponent },
@@ -91,8 +90,37 @@ const routes: Routes = [
           },
         ],
       },
-
-
+      {
+        path: 'solicitud',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: SolicitudListComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
       {
         path: 'personal',
         children: [

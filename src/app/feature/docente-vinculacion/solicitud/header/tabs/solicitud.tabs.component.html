@@ -1,7 +1,7 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
   <a
     [routerLinkActive]="['tab-active']"
-    routerLink="/system/oficios-list/archived"
+    routerLink="/system/solicitud/archived"
     class="tab tab-lifted !-mr-0 archived"
     *permissions="[
       'RESTAURAR_' + route.toUpperCase(),
@@ -14,14 +14,14 @@
   <div></div>
 
   <div class="flex items-end">
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/solicitud" lass="tab tab-lifted" *permissions="[
                 'LEER_ROLES',
               ]">
       Creados
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios-list"
+      routerLink="/system/solicitud"
       class="tab tab-lifted"
       *permissions="[
         'LEER_USUARIOS'
@@ -31,7 +31,7 @@
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios/"
+      routerLink="/system/solicitud"
       class="tab tab-lifted"
       *permissions="[
         'LEER_ROLES'
@@ -39,7 +39,7 @@
     >
       Finalizados
     </a>
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/solicitud/" class="tab tab-lifted" *permissions="[
             'LEER_ROLES'
           ]">
       Pendientes

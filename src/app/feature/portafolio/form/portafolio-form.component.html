@@ -146,6 +146,47 @@
         </mat-error>
       </div>
 
+
+      <div class="col-span-4 py-4 px-20 border border-[#535a6650] relative bg-[#ebecf090] rounded-md">
+
+        <div class="py-4">
+          <h1 class=" font-bold mb-4 text-gray-600">Subir archivos</h1>
+          <div class="relative">
+            <input type="file" multiple (change)="onFileSelected($event)" class="mb-4 opacity-0 absolute" #fileInput
+              formControlName="files">
+
+            <label for="file-upload"
+              class="bg-lime-700 cursor-pointer border border-gray-300 hover:border-blue-500 rounded-lg py-2 px-4 text-gray-800 shadow-sm hover:shadow-lg">
+              <span class="font-bold text-white">Escoger archivos</span>
+            </label>
+            <div class="text-gray-600 font-medium mt-2 text-sm">
+              {{ files.length }} archivo(s) seleccionado(s)
+            </div>
+          </div>
+          <div class="flex flex-wrap text-slate-600 mt-4">
+            <div *ngFor="let file of files" class="bg-gray-200 px-3 py-2 rounded-lg mr-2 mb-2 flex items-center">
+              <i [class]="getFileIcon(file) + ' icon mr-2'"></i>
+              <div>{{ file.name }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- validaciones -->
+        <mat-error class="text-xs"
+          *ngIf="formGroup.get('files')?.hasError('maxlength') && !formGroup.get('files')?.hasError('required')">
+          Se permite un máximo de <strong>3 archivos</strong>
+        </mat-error>
+        <mat-error class="text-xs" *ngIf="formGroup.get('files')?.hasError('required')">
+          Este campo es <strong>requerido</strong>
+        </mat-error>
+      </div>
+
+
+
+
+
+
+
       <div class="col-span-1 text-neutral">
         <h3 class="font-bold">Retroalimentación del Portafolio:</h3>
         <p class="text-sm">En caso de rechazar el Portafolio indica el motivo para que el emisor lo pueda rectificar</p>
