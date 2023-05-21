@@ -22,6 +22,11 @@ export class SolicitudHttpService {
 
   public getSolicitud(): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(this.url);
-  }
+  };
 
+  public searchSolicitudByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(
+      `${this.url}/search/term/${encodeURIComponent(term)}`
+      );
+  };
 }

@@ -26,7 +26,7 @@ export class SolicitudListComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private solicitudHttpService: SolicitudHttpService
+    private solicitudHttpService: SolicitudHttpService,
   ) { }
 
   ngOnInit(): void {
@@ -51,12 +51,27 @@ export class SolicitudListComponent implements OnInit {
       }
       this.loading = false;
     })
-  }
+  };
 
-  reversOrder(): void {
+  public reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
+  };
+
+  public searchSolicitudesByTerm(term:string):void{
+    this.loading = true;
+    this.solicitudHttpService.searchSolicitudByTerm(term).subscribe((rest:any)=>{
+      if(rest.status == 'success'){
+        this.solicitudes = rest.data.solicitudes;
+        if(term = ''){
+          this.getSolicitud()
+        }
+        this.reverse = false;
+      }
+      this.loading = false;
+    })
   }
+
 
   
 }
