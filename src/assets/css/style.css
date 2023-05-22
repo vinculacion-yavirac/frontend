@@ -85,20 +85,25 @@ ol li {
 Background Colors
 *******************/
 .bg-primary {
-  background-color: #745af2 !important; }
+  background-color: #19418B !important; }
 
 .bg-success {
-  background-color: #06d79c !important; }
+  background-color: #13ac80 !important; }
 
 .bg-info {
   background-color: #398bf7 !important; }
+
+.bg-purple {
+  background-color: #701fdb !important; }
 
 .bg-warning {
   background-color: #ffb22b !important; }
 
 .bg-danger {
   background-color: #ef5350 !important; }
-
+.bg-secondary{
+  background-color: #3965B8 !important;
+}
 
 /****************
 When click on sidebar toggler and also for tablet

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FilesService } from '../../../../../app/feature/upload/upload.service';
-import { PortafolioHttpService } from '../../../../../app/service/portafolio/portafolio-http.service';
-import { PortafoliosModels } from '../../../../../app/models/portafolio/portafolio.models';
+import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
+import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 
 
 @Component({
@@ -20,32 +20,29 @@ export class SolicitudArchivedComponent implements OnInit {
     currentPage: 1,
   };
 
-  oficios: PortafoliosModels[] = [];
+  solicitudes: SolicitudModels[] = [];
 
   loading: boolean = true;
 
   constructor(
-    private portafolioHttpService: PortafolioHttpService,
+    private solicitudHttpService: SolicitudHttpService,
     private filesService: FilesService,
   ) { }
 
   ngOnInit(): void {
-    this.getOficios();
+    this.getArchivedSolicituds();
   }
 
-  getOficios(): void {
+  public getArchivedSolicituds(): void {
     this.loading = true;
-    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
+    this.solicitudHttpService.getArchivedSolicitud().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.oficios = res.data.official_documents;
-
-        console.log(this.oficios)
-
-        this.oficios.sort((a, b) => {
-          if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+        this.solicitudes = res.data.solicitudes;
+        this.solicitudes.sort((a, b) => {
+          if (a.type_of_request.toLowerCase() > b.type_of_request.toLowerCase()) {
             return 1;
           }
-          if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+          if (a.type_of_request.toLowerCase() < b.type_of_request.toLowerCase()) {
             return -1;
           }
           return 0;
@@ -55,14 +52,14 @@ export class SolicitudArchivedComponent implements OnInit {
     });
   }
 
-  searchOficiosByTerm(term: string): void {
+  public searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
 
-    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
+    this.solicitudHttpService.searchArchivedSolicitud(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.oficios = res.data.oficios;
+        this.solicitudes = res.data.solicitudes;
         if (term === '') {
-          this.getOficios();
+          this.getArchivedSolicituds();
         }
         this.reverse = false;
       }
@@ -72,20 +69,29 @@ export class SolicitudArchivedComponent implements OnInit {
   }
 
   reversOrder(): void {
-    this.oficios.reverse();
+    this.solicitudes.reverse();
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    });
-}
+  public restaureSolicitud(solicitud:SolicitudModels): void{
+    this.solicitudHttpService.restaureSolicitud(solicitud.id).subscribe((res:any) =>{
+      if(res.solicitudes.status == 'success'){
+        this.getArchivedSolicituds()
+      }
+    })
+  }
+
+
+//   downloadFile(id: number, name: string) {
+//     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
+//         const url = window.URL.createObjectURL(blob);
+//         const a = document.createElement('a');
+//         a.href = url;
+//         a.download = name;
+//         document.body.appendChild(a);
+//         a.click();
+//         document.body.removeChild(a);
+//         window.URL.revokeObjectURL(url);
+//     });
+// }
 }
