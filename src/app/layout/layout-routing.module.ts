@@ -24,6 +24,8 @@ import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
 import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
+import { ProyectoListComponent } from '../feature/proyecto/list/proyecto-list.component';
+import { DatosGeneralesComponent } from '../feature/proyecto/datos-generales/datos-generales.component';
 
 
 const routes: Routes = [
@@ -90,37 +92,9 @@ const routes: Routes = [
           },
         ],
       },
-      {
-        path: 'solicitud',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-          },
-          {
-            path: 'form',
-            component: SolicitudFormComponent,
-          },
-          {
-            path: 'form/:id',
-            component: SolicitudFormComponent,
-          },
-          {
-            path: 'list',
-            children: [
-              {
-                path: '',
-                component: SolicitudListComponent,
-              },
-              {
-                path: 'archived',
-                component: SolicitudArchivedComponent,
-              },
-            ],
-          },
-        ],
-      },
+
+
+
       {
         path: 'personal',
         children: [
