@@ -90,7 +90,7 @@
                 <span>{{solicitud.status}}</span>
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
-                <span [routerLink]="['/system/personal/usuarios/form/', solicitud.id]"
+                <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
                   *permissions="['ACTUALIZAR_SOLICITUD']"></span>
                  <span
