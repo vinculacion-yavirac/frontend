@@ -141,17 +141,21 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     SolicitudListComponent,
     SolicitudArchivedComponent,
     SolicitudFormComponent,
+
+    PortafolioFormComponent,
+    PortafolioArchivedComponent,
     PortafolioListComponent,
     PortafolioBreadcrumbsComponent,
     PortafolioTabsComponent,
+
     ProyectoBreadcrumbsComponent,
     ProyectoTabsComponent,
-    PortafolioFormComponent,
-    PortafolioArchivedComponent,
+    ProyectoListComponent,
+
+
     AvanceCumplimientoComponent,
     EncuestaComponent,
     DatosGeneralesComponent,
-    ProyectoListComponent,
     ActividadesComponent,
     AnexosComponent,
     BiliografiaComponent,

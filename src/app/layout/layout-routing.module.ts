@@ -57,10 +57,6 @@ const routes: Routes = [
           },
         ],
       },
-
-
-
-
       {
         path: 'portafolio',
         children: [
@@ -92,9 +88,68 @@ const routes: Routes = [
           },
         ],
       },
-
-
-
+      {
+        path: 'solicitud',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: SolicitudListComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'proyecto',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component:  SolicitudFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component:  SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: ProyectoListComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
       {
         path: 'personal',
         children: [
