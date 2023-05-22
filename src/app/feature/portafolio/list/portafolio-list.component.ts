@@ -59,7 +59,7 @@ export class PortafolioListComponent implements OnInit {
 
     this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.portafolios = res.data.briefcase;
+        this.portafolios = res.data.briefcases;
         console.log(this.portafolios)
         if (term === '') {
           this.getportafolio();
