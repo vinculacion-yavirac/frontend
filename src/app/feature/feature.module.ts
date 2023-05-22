@@ -70,8 +70,22 @@ import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/arch
 import { SolicitudFormComponent } from './docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
+import { ProyectoBreadcrumbsComponent } from './proyecto/header/breadcrumbs/proyecto-breadcrumbs.component';
+import { ProyectoTabsComponent } from './proyecto/header/tabs/proyecto-tabs.component';
 import { AvanceCumplimientoComponent } from './docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
+import { DatosGeneralesComponent } from './proyecto/datos-generales/datos-generales.component';
+import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
+import { ActividadesComponent } from './proyecto/actividades/actividades.component';
+import { AnexosComponent } from './proyecto/anexos/anexos.component';
+import { BiliografiaComponent } from './proyecto/biliografia/biliografia.component';
+import { CertificadosComponent } from './proyecto/certificados/certificados.component';
+import { DocumentosComponent } from './proyecto/documentos/documentos.component';
+import { EmpresaComponent } from './proyecto/empresa/empresa.component';
+import { FirmasComponent } from './proyecto/firmas/firmas.component';
+import { IntegrantesComponent } from './proyecto/integrantes/integrantes.component';
+import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
+import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
 
 
 
@@ -120,7 +134,7 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     CantonsComboboxComponent,
     ParishesComboboxComponent,
 
-    
+
     SolicitudBreadcrumbsComponent,
     SolicitudTabsComponent,
     PaginationComponent,
@@ -130,10 +144,24 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     PortafolioListComponent,
     PortafolioBreadcrumbsComponent,
     PortafolioTabsComponent,
+    ProyectoBreadcrumbsComponent,
+    ProyectoTabsComponent,
     PortafolioFormComponent,
     PortafolioArchivedComponent,
     AvanceCumplimientoComponent,
     EncuestaComponent,
+    DatosGeneralesComponent,
+    ProyectoListComponent,
+    ActividadesComponent,
+    AnexosComponent,
+    BiliografiaComponent,
+    CertificadosComponent,
+    DocumentosComponent,
+    EmpresaComponent,
+    FirmasComponent,
+    IntegrantesComponent,
+    ObservacionesComponent,
+    PlanDeTrabajoComponent,
   ],
   imports: [
     CommonModule,
