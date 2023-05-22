@@ -1,0 +1,29 @@
+.container-table{
+    background-color: white;
+    border-radius: 10px;
+    grid-auto-flow: column;
+    height: auto;
+  }
+  
+  .switch{
+    width: 65px;
+    height: 24px;
+  }
+  
+  .icon{
+    width: 35px;
+    height: 35px;
+  }
+  .table :where(thead, tfoot) :where(th, td) {
+    --tw-bg-opacity: 1;
+    background-color: #19418b;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white;
+}
+.table td, .table th {
+  border-color: #f3f1f1;
+  color: black;
+}

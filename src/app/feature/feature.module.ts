@@ -24,6 +24,16 @@ import { ProfileBreadcrumbsComponent } from '../auth/profile/breadcrumbs/breadcr
 import { PersonalBreadcrumbsComponent } from './personal/header/breadcrumbs/personal.breadcrumbs.component';
 import { PersonalTabsComponent } from './personal/header/tabs/personal.tabs.component';
 
+/* import de componentes de reportl docentes */
+import { DocenteVinculacionBreadcrumbsComponent } from './docente-vinculacion/header/breadcrumbs/docente_vinculacion.breadcrumbs.component';
+import { DocenteVinculacionTabsComponent } from './docente-vinculacion/header/tabs/docente_vinculacion.tabs.component';
+
+
+/* import de componentes de reportl docentes */
+import { EstudianteBreadcrumbsComponent } from './estudiante/header/breadcrumbs/estudiante.breadcrumbs.component';
+import { EstudianteTabsComponent } from './estudiante/header/tabs/estudiante.tabs.component';
+
+
 /* import de componentes de usuarios */
 import { UsuariosBreadcrumbsComponent } from './personal/usuarios/breadcrumbs/usuario.breadcrumbs.component';
 import { UsuariosFormComponent } from './personal/usuarios/form/usuario.form.component';
@@ -75,6 +85,12 @@ import { ProyectoTabsComponent } from './proyecto/header/tabs/proyecto-tabs.comp
 import { AvanceCumplimientoComponent } from './docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
 import { DatosGeneralesComponent } from './proyecto/datos-generales/datos-generales.component';
+import { PortafolioVinculacionFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-form/portafolio-vinculacion-form.component';
+import { PortafolioVinculacionEstudianteFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-estudiante-form/portafolio-vinculacion-estudiante-form.component';
+import { PortafolioVinculacionTutorFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-tutor-form/portafolio-vinculacion-tutor-form.component';
+import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
+import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
+import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import { ActividadesComponent } from './proyecto/actividades/actividades.component';
 import { AnexosComponent } from './proyecto/anexos/anexos.component';
@@ -85,7 +101,7 @@ import { EmpresaComponent } from './proyecto/empresa/empresa.component';
 import { FirmasComponent } from './proyecto/firmas/firmas.component';
 import { IntegrantesComponent } from './proyecto/integrantes/integrantes.component';
 import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
-import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
+import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
 
 
 
@@ -102,7 +118,9 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     NamesSurnamesCompletePipe,
 
     UploadComponent,
-
+    InformeInicialComponent,
+    FormularioFinalTutorComponent,
+    InformeFinalEstudianteComponent,
     HasPermissionsDirective,
     ModuleHeaderComponent,
     SpinnerComponent,
@@ -113,9 +131,12 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     ProfileBreadcrumbsComponent,
     ProfileSecurityComponent,
     ProfilePersonalDataComponent,
-
+    DocenteVinculacionBreadcrumbsComponent,
+    EstudianteBreadcrumbsComponent,
+    EstudianteTabsComponent,
     PersonalBreadcrumbsComponent,
     PersonalTabsComponent,
+    DocenteVinculacionTabsComponent,
     UsuariosBreadcrumbsComponent,
     UsuariosFormComponent,
     UsuariosListComponent,
@@ -127,7 +148,9 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     RolesComboboxComponent,
     PermisosListComponent,
     PermisosListCheckboxComponent,
-
+    PortafolioVinculacionFormComponent,
+    PortafolioVinculacionEstudianteFormComponent,
+    PortafolioVinculacionTutorFormComponent,
     IdentificationTypesComboboxComponent,
     GendersComboboxComponent,
     ProvincesComboboxComponent,
@@ -154,6 +177,8 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
 
 
     AvanceCumplimientoComponent,
+    AvanceCumplimiento2Component,
+
     EncuestaComponent,
     DatosGeneralesComponent,
     ActividadesComponent,

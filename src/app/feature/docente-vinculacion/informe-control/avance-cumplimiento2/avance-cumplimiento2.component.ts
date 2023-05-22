@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
 
 @Component({
-  selector: 'app-avance-cumplimiento',
-  templateUrl: './avance-cumplimiento.component.html',
-  styleUrls: ['./avance-cumplimiento.component.css']
+  selector: 'app-avance-cumplimiento2',
+  templateUrl: './avance-cumplimiento2.component.html',
+  styleUrls: ['./avance-cumplimiento2.component.css']
 })
-export class AvanceCumplimientoComponent implements OnInit {
+export class AvanceCumplimiento2Component implements OnInit {
 
   constructor(
     // private avanceCumplimientoHttpService:AvanceCumplimientoHttpService
   ) { }
 
-  showModal = false;
-  toggleModal(){
-    this.showModal = !this.showModal;
-  }
+
 
 
 
@@ -32,6 +30,10 @@ export class AvanceCumplimientoComponent implements OnInit {
     this.esvacio=false;
 
   }
+
+
+
+
 
   save():void{
 
@@ -67,13 +69,4 @@ export class AvanceCumplimientoComponent implements OnInit {
   //     this.findAll();
   //   }
   // }
-
-  public clicks(){
-    var bool=confirm("Seguro que quiere agirnar el tutor estudiante?");
-    if(bool){
-      alert("Se asigni el tutor al estudiante");
-    }else{
-      alert("cancelo la solicitud");
-    }
-  };
 }

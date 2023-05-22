@@ -1,0 +1,25 @@
+<div class="tabs flex w-full justify-between items-end flex-row-reverse">
+  <a [routerLinkActive]="['tab-active']" routerLink="/system/personal/{{ route }}/list/archived"
+    class="tab tab-lifted !-mr-0 archived" *permissions="[
+      'RESTAURAR_' + route.toUpperCase(),
+      'ELIMINAR_' + route.toUpperCase()
+    ]">
+    <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>
+    Archivados
+  </a>
+  <div>
+
+  </div>
+
+  <div class="flex items-end">
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/docente-vinculacion/informe-control"
+      class="tab tab-lifted" *permissions="[
+        'LEER_USUARIOS',
+        'CREAR_USUARIOS',
+        'ACTUALIZAR_USUARIOS',
+        'ELIMINAR_USUARIOS'
+      ]">
+      Informe control
+    </a>
+  </div>
+</div>

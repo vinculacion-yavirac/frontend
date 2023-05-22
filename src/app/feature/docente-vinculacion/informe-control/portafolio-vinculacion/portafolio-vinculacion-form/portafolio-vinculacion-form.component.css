@@ -1,0 +1,31 @@
+.container-general{
+    background-color: #19418B;
+  }
+  
+  .container-form{
+    background-color: #3965B8;
+    height: auto;
+    grid-auto-flow: auto;
+    border-radius: 10px;
+    grid-auto-rows: auto;
+    color: white;
+  }
+  
+  .container-portafolio{
+    background-color: #3965B8;
+    height: auto;
+    grid-auto-flow: auto;
+    border-radius: 10px;
+    color: white;
+  
+  }
+  
+  .table :where(thead, tfoot) :where(th, td) {
+    --tw-bg-opacity: 1;
+    background-color: #19418b;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white;
+}
