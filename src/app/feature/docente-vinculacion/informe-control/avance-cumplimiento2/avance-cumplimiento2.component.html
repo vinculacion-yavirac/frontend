@@ -1,0 +1,90 @@
+<module-header title="Administrador">
+  <docente_vinculacion-breadcrumbs breadcrumbs></docente_vinculacion-breadcrumbs>
+  <docente_vinculacion-tabs tabs route="usuarios"></docente_vinculacion-tabs>
+</module-header>
+<div class="alert alert-danger" *ngIf="esvacio">
+
+  <strong>Danger!</strong> Llenar al menos un campo
+
+</div>
+
+<div class="row" style="background-color: #3965B8;">
+
+  <div>
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+      <a href="dashboard/informe-control" style="    margin-right: 3rem;">
+        <button class="btn btn-primary" type="button">Agregar</button>
+      </a>
+    </div>
+    <div class="card" spellcheck="    margin-top: 4rem;    margin-left: 7rem;
+    ">
+      <div class="card-body">
+        <div class="container2 container-fuild">
+          <br>
+
+          <div class="container container-fuild">
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Actividades </th>
+                  <th scope="col">Avance y cumplimientos</th>
+                  <th scope="col">Observaciones</th>
+                  <th scope="col"></th>
+
+                  <th scope="col">Acciones</th>
+
+                </tr>
+              </thead>
+              <tbody class="leters">
+                <tr class="text-center">
+                  <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
+                  <th scope="row"> 1</th>
+                  <!-- <th scope="row"> {{avance1.id}}</th> -->
+                  <td>
+                    Elaboracion del resumen <!-- {{avance1.resumen}} -->
+                  </td>
+
+                  <td>
+                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
+                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                  </td>
+                  <td>
+                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
+                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                  </td>
+                  <td>
+                    <a class="fas fa-edit"></a>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
+
+                  </td>
+
+                </tr>
+
+
+              </tbody>
+            </table>
+
+
+
+          </div>
+
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+          <a href="/system/docente-vinculacion/informe-control/avance-cumplimiento">
+            <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
+              routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
+          'LEER_ROLES',
+          'CREAR_ROLES',
+          'ACTUALIZAR_ROLES',
+          'ELIMINAR_ROLES'
+        ]">Atras</button>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
