@@ -101,7 +101,9 @@ Background Colors
 
 .bg-danger {
   background-color: #ef5350 !important; }
-
+.bg-secondary{
+  background-color: #3965B8 !important;
+}
 
 /****************
 When click on sidebar toggler and also for tablet
