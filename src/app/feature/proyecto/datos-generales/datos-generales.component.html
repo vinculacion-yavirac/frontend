@@ -1,0 +1,137 @@
+<script src="angular.min.js"></script>
+<script src="angular-messages.min.js"></script>
+<script src="materialize/js/jquery-latest.js"></script>
+<script src="materialize/js/materialize.min.js"></script>
+<script>
+  angular.module('messages', ['ngMessages']);
+</script>
+
+<div class="card-body">
+
+  <button  class="btn waves-effect waves-light " type="submit">Generar PDF
+      <img class="pullsito" src="../../../../assets/image/pdf.png" alt="">
+  </button>&nbsp;&nbsp;&nbsp;
+
+  <button  class="btn waves-effect waves-light " type="submit">Generar Convenio
+      <img class="pullsito" src="../../../../assets/image/convenio.png" alt="">
+  </button>&nbsp;&nbsp;&nbsp;
+
+  <button  class="btn waves-effect waves-light " type="submit">Generar ITV
+  </button>
+  <br><br>
+  <div class="pestanas">
+    <a  class="Datos Generales">Datos Generales</a>
+    <a  class="Empresa">Empresa</a>
+    <a  class="Integrantes">Integrantes</a>
+    <a  class="Actividades">Actividades</a>
+    <a  class="Plan de Trabajo">Plan de Trabajo</a>
+    <a  class="Firma">Firmas</a>
+    <a  class="Bibliografía">Bibliografía</a>
+    <a class="Anexos">Anexos</a>
+    <a  class="Observaciones">Observaciones</a>
+    <a  class="Adjuntar Documentos">Adjuntar Documentos</a>
+    <a  class="Solicitud de Certificados">Solicitud de Certificados</a>
+  </div>
+
+  <form name="registro">
+    <div class="row">
+      <section class="input-field col s12 m6">
+        <label for="">Codigo de Proyecto:</label><br><br>
+        <input type="text" formControlName="codigoProyecto" name="codigo">
+
+      </section>
+      <section class="input-field col s12 m6">
+        <label for="">Nombre del Proyecto:</label><br><br>
+        <input type="text" formControlName="nombreProyecto" name="nombrep" >
+
+      </section>
+      <div class="row">
+        <section class="input-field col s12 m9">
+          <label for="">Nombre del Instituto: </label><br><br>
+          <input type="email" formControlName="nombreInstituto" name="nombrei">
+
+        </section>
+        <section class="input-field col s12 m3">
+          <label for="">Ciclo:</label><br><br>
+          <input type="text" formControlName="ciclo" name="ciclo" >
+
+        </section>
+      </div>
+      <div class="row">
+        <section class="input-field col s12">
+          <label for="">Cobertura y Localización:</label><br><br>
+          <input type="text" class="materialize-textarea" formControlName="coberturaLocalizacion" name="cobertura">
+
+        </section>
+      </div>
+    </div>
+    <div class="row">
+      <section class="input-field col s12 m3">
+        <label for="">Carrera:</label><br><br>
+        <select  class="browser-default" formControlName="carreraId" name="carrera">
+        <option value="" disabled="" selected="">Seleccione una Carrera</option>
+        <option ></option>
+        </select>
+
+      </section>
+      <section class="input-field col s12 m3">
+        <label for="Modalidad">Modalidad:</label><br><br>
+        <form formGroupName="modalidad">
+          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="presencial"
+            value="1">
+          <label for="presencial">Presencial</label> &nbsp;&nbsp;
+          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="dual" value="2">
+          <label for="dual">Dual</label>
+        </form>
+      </section>
+      <div class="row">
+        <section class="input-field col s12 m9">
+          <label for="">Financiamiento:</label><br><br>
+          <input type="text" formControlName="financiamiento" name="financiamiento" >
+        </section>
+
+        <section class="input-field col s12 m3">
+          <label for="">Plazo de Ejecución:</label><br><br>
+          <input type="text" formControlName="plazoEjecucion" name="plazo" >
+        </section>
+      </div>
+      <div class="row">
+        <section class="input-field col s12 m9">
+          <label for="">Fecha:</label><br><br>
+          <input type="date" formControlName="fecha" name="fecha">
+
+        </section>
+        <section class="input-field col s12 m3">
+          <label for="">Plazo de Vigencia del Convenio:</label><br><br>
+          <input type="date" formControlName="plazoVigenciaConvenio" name="vigencia" >
+
+        </section>
+      </div>
+      <div class="row">
+        <section class="input-field col s12">
+          <label for="">Fecha de Presentación:</label><br><br>
+          <input type="date" class="materialize-textarea" formControlName="fechaPresentacion" name="fechaPresentacion" >
+
+        </section>
+      </div>
+      <div class="row">
+        <section class="input-field col s12">
+          <label for="">Fecha de Inicio:</label><br><br>
+          <input type="date" class="materialize-textarea" formControlName="fechaInicio" name="fechaInicio" >
+
+        </section>
+      </div>
+      <div class="row">
+        <section class="input-field col s12">
+          <label for="">Fecha Final:</label><br><br>
+          <input type="date" class="materialize-textarea" formControlName="fechaFinal" name="fechaFinal" >
+
+        </section>
+      </div>
+      <button class="btn waves-effect waves-light right" type="submit">
+        Confirmar
+          <img class="small pull-right" src="../../../../assets/image/visto.png" alt="">
+      </button>
+    </div>
+  </form>
+</div>
