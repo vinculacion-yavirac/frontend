@@ -1,11 +1,11 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios-list/archived"
+      routerLink="/system/portafolio/list/archived"
       class="tab tab-lifted !-mr-0 archived"
       *permissions="[
-        'RESTAURAR_' + route.toUpperCase(),
-        'ELIMINAR_' + route.toUpperCase()
+      'RESTAURAR_' + route.toUpperCase(),
+      'ELIMINAR_' + route.toUpperCase(),
       ]"
     >
       <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>

@@ -1,6 +1,6 @@
 <module-header title="Solicitudes">
   <solicitud-breadcrumbs breadcrumbs></solicitud-breadcrumbs>
-  <solicitud-tabs tabs route="solicitudes"></solicitud-tabs>
+  <solicitud-tabs tabs route="solicitud"></solicitud-tabs>
 </module-header>
 
 <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
@@ -90,11 +90,16 @@
                 <span>{{solicitud.status}}</span>
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
-                <span [routerLink]="['/system/personal/usuarios/form/', solicitud.id]"
+                <!-- <span [routerLink]="['/system/personal/usuarios/form/', solicitud.id]"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  *permissions="['ACTUALIZAR_SOLICITUD']"></span>
-                <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['ARCHIVAR_SOLICITUD']"></span>
+                  *permissions="['ACTUALIZAR_SOLICITUD']"></span> -->
+                <!-- <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                 click="archiveSolicitud(solicitud)" *permissions="['ARCHIVAR_SOLICITUD']"></span> -->
+                 <span
+                    (click)="openDialogArchiveRol(solicitud)"
+                    class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                    *permissions="['ARCHIVAR_SOLICITUD']"
+                  ></span>
               </th>
             </tr>
           </tbody>

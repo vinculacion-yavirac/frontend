@@ -29,4 +29,20 @@ export class SolicitudHttpService {
       `${this.url}/search/term/${encodeURIComponent(term)}`
       );
   };
+
+  public solicitudArchive(id:number): Observable<SolicitudModels>{
+    return this.http.put<SolicitudModels>(`${this.url}/archive/${id}`, this.httpOptions);
+  };
+
+  public getArchivedSolicitud(): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/archived/list`)
+  }
+
+  public searchArchivedSolicitud(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`)
+  }
+
+  public restaureSolicitud(id:number): Observable<SolicitudModels>{
+    return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions)
+  }
 }
