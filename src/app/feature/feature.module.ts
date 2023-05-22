@@ -91,7 +91,7 @@ import { PortafolioVinculacionTutorFormComponent } from './docente-vinculacion/i
 import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
-import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
+import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
 import { ActividadesComponent } from './proyecto/actividades/actividades.component';
 import { AnexosComponent } from './proyecto/anexos/anexos.component';
 import { BiliografiaComponent } from './proyecto/biliografia/biliografia.component';
@@ -100,8 +100,10 @@ import { DocumentosComponent } from './proyecto/documentos/documentos.component'
 import { EmpresaComponent } from './proyecto/empresa/empresa.component';
 import { FirmasComponent } from './proyecto/firmas/firmas.component';
 import { IntegrantesComponent } from './proyecto/integrantes/integrantes.component';
+import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
-import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
+
 
 
 
