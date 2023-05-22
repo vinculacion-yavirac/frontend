@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { createPopper } from "@popperjs/core";
+import { createPopper } from '@popperjs/core';
+
 
 @Component({
   selector: 'app-sidebar',
