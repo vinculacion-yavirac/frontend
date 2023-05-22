@@ -24,6 +24,11 @@ import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
 import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
+import { PortafolioVinculacionFormComponent } from '../feature/docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-form/portafolio-vinculacion-form.component';
+import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
+import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
+import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
+import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 
 
 const routes: Routes = [
@@ -161,6 +166,167 @@ const routes: Routes = [
           },
         ],
       },
+
+
+      {
+        path: 'docente-vinculacion',
+        children: [
+          { path: '', redirectTo: 'informe-control', pathMatch: 'full' },
+          {
+            path: 'informe-control',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: PortafolioVinculacionFormComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: PortafolioVinculacionFormComponent,
+                  },
+                ],
+              },
+            ],
+          },
+
+          {
+            path: 'informe-control/avance-cumplimiento',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: AvanceCumplimientoComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: AvanceCumplimientoComponent,
+                  },
+                ],
+              },
+            ],
+          },
+
+          {
+            path: 'informe-control/avance-cumplimiento2',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: AvanceCumplimiento2Component,
+                  },
+                  {
+                    path: 'archived',
+                    component: AvanceCumplimiento2Component,
+                  },
+                ],
+              },
+            ],
+          },
+
+          {
+            path: 'informe-inicial',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: InformeInicialComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: InformeInicialComponent,
+                  },
+                ],
+              },
+            ],
+          },
+
+
+          {
+            path: 'formulario-final-tutor',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: FormularioFinalTutorComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: FormularioFinalTutorComponent,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        path: 'estudiante',
+        children: [
+          { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
+          {
+            path: 'informe-final-estudiante',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: InformeFinalEstudianteComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: InformeFinalEstudianteComponent,
+                  },
+                ],
+              },
+            ],
+          },
+
+        
+        ],
+      },
+
     ],
   },
 ];

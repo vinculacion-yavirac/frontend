@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
    * Inicialización del componente.
    */
   ngOnInit(): void {
-    this.getCurrentUser();
+    // this.getCurrentUser();
   }
 
   /*

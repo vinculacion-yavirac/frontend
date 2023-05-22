@@ -1,92 +1,218 @@
-<div class="alert alert-danger"  *ngIf="esvacio">
+<module-header title="Administrador">
+  <docente_vinculacion-breadcrumbs breadcrumbs></docente_vinculacion-breadcrumbs>
+  <docente_vinculacion-tabs tabs route="usuarios"></docente_vinculacion-tabs>
+</module-header>
+<div class="alert alert-danger" *ngIf="esvacio">
 
-    <strong>Danger!</strong> Llenar al menos un campo
-  
-  </div>
-  
-  
-        <div class="row">
-  
-            <div class="card">
-              <div class="card-body">
-                <H2>Avance cumplimiento de objetivos</H2>
-  
-  
-  
-  
-  
-                <div class="container2 container-fuild">
-                  <br>
-  
-                  <div class="container container-fuild">
-  
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Resumen narrativo de objetivos </th>
-                          <th scope="col">Indicadores Verificables</th>
-                          <th scope="col">Medios de verificacion</th>
-                          <th scope="col">Avance y cumplimientos</th>
-  
-                        </tr>
-                      </thead>
-                      <tbody class="leters">
-                        <tr class="text-center">
-                        <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
-                          <th scope="row"> 1</th>
-                          <!-- <th scope="row"> {{avance1.id}}</th> -->
-                          <td>
-                            avance
-                            <!-- {{avance1.resumen}} -->
-                          </td>
-                          <td>
-                            indicadores
-                            <!-- {{avance1.indicadores}} -->
-                          </td>
-                          <td>
-                            <!-- {{avance1.medios}} -->
-                            medios
-                          </td>
-  
-  
-                           <td>
-                            <textarea required    class="form-control" placeholder="Leave a comment here"></textarea>
-                            <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
-                           </td>
-                           
-  
-  
-  
-  
-  
-  
-  
-                        </tr>
-  
-  
-                      </tbody>
-                    </table>
-  
-  
-  
+  <strong>Danger!</strong> Llenar al menos un campo
+
+</div>
+
+<div class="row" style="background-color: #3965B8;">
+
+  <div>
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+      <a href="dashboard/informe-control" style="    margin-right: 3rem;">
+        <button class="btn btn-primary" type="button">Agregar</button>
+      </a>
+    </div>
+    <div class="card" spellcheck="    margin-top: 4rem;">
+      <div class="card-body">
+        <H2>Avance cumplimiento de objetivos</H2>
+
+
+
+
+
+        <div class="container2 container-fuild">
+          <br>
+
+          <div class="container container-fuild">
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Resumen narrativo de objetivos </th>
+                  <th scope="col">Indicadores Verificables</th>
+                  <th scope="col">Medios de verificacion</th>
+                  <th scope="col">Avance y cumplimientos</th>
+                  <th scope="col">Acciones</th>
+
+                </tr>
+              </thead>
+              <tbody class="leters">
+                <tr class="text-center">
+                  <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
+                  <th scope="row"> 1</th>
+                  <!-- <th scope="row"> {{avance1.id}}</th> -->
+                  <td>
+                    avance
+                    <!-- {{avance1.resumen}} -->
+                  </td>
+                  <td>
+                    indicadores
+                    <!-- {{avance1.indicadores}} -->
+                  </td>
+                  <td>
+                    <!-- {{avance1.medios}} -->
+                    medios
+                  </td>
+
+
+                  <td>
+                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
+                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                  </td>
+                  <td>
+                    <button
+                      class="text-black fas fa-edit font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal()">
+                    </button>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
+
+                  </td>
+
+                </tr>
+                <tr class="text-center">
+                  <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
+                  <th scope="row"> 1</th>
+                  <!-- <th scope="row"> {{avance1.id}}</th> -->
+                  <td>
+                    avance
+                    <!-- {{avance1.resumen}} -->
+                  </td>
+                  <td>
+                    indicadores
+                    <!-- {{avance1.indicadores}} -->
+                  </td>
+                  <td>
+                    <!-- {{avance1.medios}} -->
+                    medios
+                  </td>
+
+
+                  <td>
+                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
+                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                  </td>
+                  <td>
+                    <button
+                      class="text-black fas fa-edit font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal()">
+                    </button>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="showModal"
+              class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+              <div class="relative w-auto my-6 mx-auto max-w-3xl">
+                <!--content-->
+                <div
+                  class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <!--header-->
+                  <!-- <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <h3 class="text-3xl font-semibold">
+                      Modal Title
+                    </h3>
+                    <button
+                      class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      (click)="toggleModal()">
+                      <span
+                        class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
+                  </div> -->
+                  <!--body-->
+                  <div class="relative p-6 flex-auto">
+                    <form class="row g-3 px-2" style="    margin-left: 11px;
+                    display: grid;">
+                      <br>
+                      <H6 style=" font-size: 25px;">Avance cumplimiento de objetivos</H6>
+                      <br>
+                      <div class="form-row">
+                        <div class="col-md-6">
+                          <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Resumen</label>
+                            <div class="col-sm-6">
+                              <input type="text" class="form-control" name="" id="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Indicadores</label>
+                            <div class="col-sm-6">
+                              <input type="text" class="form-control" name="" id="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+
+                        <div class="col-md-6">
+                          <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Medios</label>
+                            <div class="col-sm-6">
+                              <input type="text" class="form-control" name="" id="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Avance</label>
+                            <div class="col-sm-6">
+                              <input type="text" class="form-control" name="" id="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-  
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  
-                  <a href="dashboard/informe-control">
-                    <button  class="btn btn-primary" type="button">Atras</button>
-                  </a>
-                  <a href="dashboard/observacion-avance">
-  
-                    <button  class="btn btn-primary" type="button">Siguiente</button>
-                    <!-- <button  class="btn btn-primary" type="button"  (click)="save()">Siguiente</button> -->
-                  </a>
-  
-  
-  
+                  <!--footer-->
+                  <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <button
+                      class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal()">
+                      Close
+                    </button>
+                    <button
+                      class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal()">
+                      Save Changes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+            <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+
           </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <a href="/system/docente-vinculacion">
+              <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
+                routerLink="/system/docente-vinculacion" *permissions="[
+          'LEER_ROLES',
+          'CREAR_ROLES',
+          'ACTUALIZAR_ROLES',
+          'ELIMINAR_ROLES'
+        ]">Atras</button>
+            </a>
+            <a href="/system/docente-vinculacion/informe-control/avance-cumplimiento2">
+
+              <button class="btn btn-primary" type="button">Siguiente</button>
+              <!-- <button  class="btn btn-primary" type="button"  (click)="save()">Siguiente</button> -->
+            </a>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

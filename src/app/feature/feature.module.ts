@@ -24,6 +24,16 @@ import { ProfileBreadcrumbsComponent } from '../auth/profile/breadcrumbs/breadcr
 import { PersonalBreadcrumbsComponent } from './personal/header/breadcrumbs/personal.breadcrumbs.component';
 import { PersonalTabsComponent } from './personal/header/tabs/personal.tabs.component';
 
+/* import de componentes de reportl docentes */
+import { DocenteVinculacionBreadcrumbsComponent } from './docente-vinculacion/header/breadcrumbs/docente_vinculacion.breadcrumbs.component';
+import { DocenteVinculacionTabsComponent } from './docente-vinculacion/header/tabs/docente_vinculacion.tabs.component';
+
+
+/* import de componentes de reportl docentes */
+import { EstudianteBreadcrumbsComponent } from './estudiante/header/breadcrumbs/estudiante.breadcrumbs.component';
+import { EstudianteTabsComponent } from './estudiante/header/tabs/estudiante.tabs.component';
+
+
 /* import de componentes de usuarios */
 import { UsuariosBreadcrumbsComponent } from './personal/usuarios/breadcrumbs/usuario.breadcrumbs.component';
 import { UsuariosFormComponent } from './personal/usuarios/form/usuario.form.component';
@@ -72,6 +82,13 @@ import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/t
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
 import { AvanceCumplimientoComponent } from './docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
+import { PortafolioVinculacionFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-form/portafolio-vinculacion-form.component';
+import { PortafolioVinculacionEstudianteFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-estudiante-form/portafolio-vinculacion-estudiante-form.component';
+import { PortafolioVinculacionTutorFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-tutor-form/portafolio-vinculacion-tutor-form.component';
+import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
+import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
+import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
+import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
 
 
 
@@ -88,7 +105,9 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     NamesSurnamesCompletePipe,
 
     UploadComponent,
-
+    InformeInicialComponent,
+    FormularioFinalTutorComponent,
+    InformeFinalEstudianteComponent,
     HasPermissionsDirective,
     ModuleHeaderComponent,
     SpinnerComponent,
@@ -99,9 +118,12 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     ProfileBreadcrumbsComponent,
     ProfileSecurityComponent,
     ProfilePersonalDataComponent,
-
+    DocenteVinculacionBreadcrumbsComponent,
+    EstudianteBreadcrumbsComponent,
+    EstudianteTabsComponent,
     PersonalBreadcrumbsComponent,
     PersonalTabsComponent,
+    DocenteVinculacionTabsComponent,
     UsuariosBreadcrumbsComponent,
     UsuariosFormComponent,
     UsuariosListComponent,
@@ -113,7 +135,9 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     RolesComboboxComponent,
     PermisosListComponent,
     PermisosListCheckboxComponent,
-
+    PortafolioVinculacionFormComponent,
+    PortafolioVinculacionEstudianteFormComponent,
+    PortafolioVinculacionTutorFormComponent,
     IdentificationTypesComboboxComponent,
     GendersComboboxComponent,
     ProvincesComboboxComponent,
@@ -133,6 +157,8 @@ import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
     PortafolioFormComponent,
     PortafolioArchivedComponent,
     AvanceCumplimientoComponent,
+    AvanceCumplimiento2Component,
+
     EncuestaComponent,
   ],
   imports: [
