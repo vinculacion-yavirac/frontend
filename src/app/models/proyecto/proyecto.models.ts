@@ -4,15 +4,11 @@ import { User } from "../auth/users/usuario";
 
 export interface ProyectoModels {
     id: number;
-    subject: string;
-    files: FilesModels[];
-    comments: CommentsModels[];
-    description: string;
+    name: string;
     status: string;
-    created_by: User;
-    archived: boolean;
-    archived_at: Date;
-    archived_by: User;
-    created_at: Date;
-    updated_at: Date;
+    foundations: Fundacion[];
+    created_by: string;
+    created_at: string;
+    update_at:string;
+
 }
