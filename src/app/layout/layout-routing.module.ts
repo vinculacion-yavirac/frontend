@@ -31,6 +31,8 @@ import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-
 import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { EncuestaComponent } from '../feature/estudiante/encuenta/encuesta.component';
+import { AgregarPreguntaComponent } from '../feature/estudiante/encuenta/agregar-pregunta/agregar-pregunta.component';
 
 
 const routes: Routes = [
@@ -380,9 +382,25 @@ const routes: Routes = [
             ],
           },
 
-        
+
+          {
+            path: 'encuesta',component: EncuestaComponent,
+
+          },
+          {
+            path: 'encuesta/agregar-pregunta',component: AgregarPreguntaComponent,
+
+          },
+
+
         ],
       },
+
+
+
+      // {
+      //   path: 'encuesta',component: EncuestaComponent,
+      // },
 
     ],
   },

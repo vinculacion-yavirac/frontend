@@ -103,6 +103,7 @@ import { IntegrantesComponent } from './proyecto/integrantes/integrantes.compone
 import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
 import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
+import { AgregarPreguntaComponent } from './estudiante/encuenta/agregar-pregunta/agregar-pregunta.component';
 
 
 
@@ -193,6 +194,7 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     IntegrantesComponent,
     ObservacionesComponent,
     PlanDeTrabajoComponent,
+    AgregarPreguntaComponent,
   ],
   imports: [
     CommonModule,
