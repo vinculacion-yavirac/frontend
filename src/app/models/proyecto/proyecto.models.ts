@@ -1,18 +1,13 @@
-import { FilesModels } from "./files/file.models";
-import { CommentsModels } from "./comments/comments.models";
 import { User } from "../auth/users/usuario";
+import { FundacionModels } from "../fundacion/fundacion.models";
+
 
 export interface ProyectoModels {
     id: number;
-    subject: string;
-    files: FilesModels[];
-    comments: CommentsModels[];
-    description: string;
+    name: string;
     status: string;
+    foundations: FundacionModels;
     created_by: User;
-    archived: boolean;
-    archived_at: Date;
-    archived_by: User;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    update_at:string;
 }

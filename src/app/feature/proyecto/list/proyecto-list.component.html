@@ -27,7 +27,7 @@
 
   <div>
     <div class="px-4 py-1 text-xs">
-      <h3 class="font-medium"><span class="font-bold">{{proyectos.length}}</span>Proyecto</h3>
+      <h3 class="font-medium"><span class="font-bold">{{proyectos.length}}</span>Lista de Proyectos</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
       <div
@@ -48,16 +48,13 @@
                 </div>
               </th>
               <th scope="col" class="py-3 px-6">
-                Autor
+                Fundacion
               </th>
               <th scope="col" class="py-3 px-2">
-                Carrera
+                Encargado
               </th>
               <th scope="col" class="py-3 px-6">
-                Fecha
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Descripción
+                fecha de cración
               </th>
               <th scope="col" class="py-3 px-6">
                 Estado
@@ -79,13 +76,13 @@
                   }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{proyecto.created_by.person.names}}</span>
+                <span>{{proyecto.name}}</span>
               </td>
               <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                <span>{{proyecto.subject}}</span>
+                <span>{{proyecto.foundations.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{proyecto.description}}</span>
+                <span>{{proyecto.foundations.authorized_person }}</span>
               </td>
               <td class="py-[3.8px] px-6">
                 <span>{{pipe.transform(proyecto.created_at.toString(), 'dd/MM/yyyy')}}</span>
@@ -94,35 +91,6 @@
                 <span>{{proyecto.status}}</span>
 
               </td>
-              <div tabindex="0" class="collapse collapse-plus border border-base-10 bg-base-10 rounded-box">
-                <div class="collapse-title text-sm font-medium">
-                  Descargar
-                </div>
-                <div class="collapse-content py-1">
-                  <table class="my_table w-full text-sm text-left text-neutral">
-                    <thead class="text-xs text-white uppercase bg-primary rounded-md">
-                      <tr>
-                        <th scope="col" class="py-3 px-6">
-                          Nombre
-                        </th>
-                        <th scope="col" class="py-3 px-6">
-                          Acción
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let file of proyecto.files">
-                        <td class="py-[3.8px] px-6 capitalize">
-                          <span>{{file.name}}</span>
-                        </td>
-                        <td class="py-[3.8px] px-6 capitalize">
-                          <span class="fa-solid fa-download" (click)="downloadFile(file.id,file.name)"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_USUARIOS','ARCHIVAR_USUARIOS']">
                 <span [routerLink]="['/system/proyectos/', proyecto.id]"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
