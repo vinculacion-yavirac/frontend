@@ -15,7 +15,7 @@ export class ProyectoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private url = environment.API_URL + '/briefcase';
+  private url = environment.API_URL + '/project';
 
   // GET /Proyecto
   public getProyecto(): Observable<ProyectoModels[]> {

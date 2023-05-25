@@ -39,15 +39,15 @@ export class ProyectoListComponent implements OnInit {
     this.loading = true;
     this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.proyectos = res.data.briefcases;
+        this.proyectos = res.data.projects;
 
         // console.log(this.proyectos)
 
         this.proyectos.sort((a, b) => {
-          if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           }
-          if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
           }
           return 0;
@@ -79,17 +79,6 @@ export class ProyectoListComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    });
-}
+
 
 }
