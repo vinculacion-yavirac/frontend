@@ -81,3 +81,54 @@ input[type=number] { -moz-appearance:textfield; }
 input {
   color: #535a66 !important;
 }
+
+*******************/
+.text-white {
+  color: #fcf9f9 !important; }
+
+.text-dark {
+    color: #080808 !important; }
+
+.text-danger {
+  color: #ef5350 !important; }
+
+
+
+.text-warning {
+  color: #ffb22b !important; }
+
+.text-success {
+  color: #06d79c !important; }
+
+.text-info {
+  color: #398bf7 !important; }
+
+.text-inverse {
+  color: #2f3d4a !important; }
+
+/*******************
+Background Colors
+*******************/
+.bg-primary {
+  background-color: #19418B !important; }
+
+.bg-success {
+  background-color: #13ac80 !important; }
+
+.bg-info {
+  background-color: #398bf7 !important; }
+
+.bg-purple {
+  background-color: #701fdb !important; }
+
+.bg-warning {
+  background-color: #ffb22b !important; }
+
+.bg-danger {
+  background-color: #ef5350 !important; }
+.bg-secondary{
+  background-color: #3965B8 !important;
+}
+.table {
+  background-color: #3965B8 !important;
+}
