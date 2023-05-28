@@ -33,7 +33,7 @@ export class UsuariosListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsuarios();
-  }
+}
 
   getUsuarios(): void {
     this.loading = true;
@@ -55,6 +55,24 @@ export class UsuariosListComponent implements OnInit {
 
     });
   }
+
+
+  filterUsers = (rol:string) => {
+
+    const result = this.usuarios.filter((user) => user.role.name === rol)
+    this.usuarios = result;
+    return result;
+
+  }
+
+  filterUsersByEstado = (estado:number) => {
+
+    const result = this.usuarios.filter((user) => user.active === estado);
+    this.usuarios = result;
+    return result;
+
+  }
+
 
   searchUsuariosByTerm(term: string): void {
     this.loading = true;

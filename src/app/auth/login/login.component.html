@@ -1,16 +1,16 @@
 
 <body>
-
-<div class="container" id="container">
-	<div class="form-container sign-in-container">
+<div class="card-normal w-50">
+<div class="container card-body" id="container">
+	<div class="form-container sign-in-container card-bordered">
 		<form (ngSubmit)="login()" [formGroup]="formGroup">
-      <h2 class="text-3xl text-center font-semibold text-gray-800 md:text-4xl md:flex">
+      <h2 class="text-3xl text-center font-semibold text-gray-800 md:text-4xl card-title">
         Vinculación<span class="text-primary"></span>
       </h2>
-      <h3 class="text-1xl text-center font-semibold text-gray-800 md:text-1xl">
+      <h3 class="text-1xl text-center font-semibold text-gray-800 md:text-1xl card-title">
         Iniciar <span class="text-primary">Sesión</span>
       </h3>
-      <div class="mt-12 text-left">
+      <div class="mt-12 text-left card-normal">
         <mat-form-field appearance="fill" class="w-full mb-2">
           <mat-label>Correo Electrónico</mat-label>
           <input class="!text-neutral" type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
@@ -28,7 +28,7 @@
           <mat-label>Contraseña</mat-label>
           <input class="!text-neutral" matInput [type]="hide ? 'password' : 'text'" formControlName="password"
             [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" type="button"
+          <button class="card-actions" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" type="button"
             [attr.aria-pressed]="hide" style="top: -15px;background-color: white;border: none;">
             <mat-icon class="!text-neutral">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -37,7 +37,7 @@
           </mat-error>
         </mat-form-field>
 
-        <button class="btn btn-primary hover:btn-primary-focus w-full capitalize mt-5" type="submit"
+        <button class="btn btn-primary hover:btn-primary-focus w-full capitalize mt-1 card-actions" type="submit"
           [disabled]="formGroup.invalid || loading"
           [ngClass]="{ '!text-white !bg-neutral opacity-80': formGroup.invalid || loading }">
           Iniciar Sesión
@@ -45,10 +45,10 @@
       </div>
     </form>
 	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-right">
-        <img src="../../../assets/images/LogoYavirac.png" alt="" style="height: 50;">
+	<div class="overlay-container card">
+		<div class="overlay card-body">
+			<div class="overlay-panel overlay-right card-bordered image-full">
+        <img  src="../../../assets/images/LogoYavirac.png" alt="">
 				<h1>Hola, Yavirac</h1>
 				<p>Este sistema ayuda a la comunidad del yavirac a seguir el proceso de vinculación con la sociedad</p>
 			</div>
@@ -56,6 +56,6 @@
 	</div>
 
 </div>
-
+</div>
 </body>
 
