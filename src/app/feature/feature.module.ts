@@ -103,6 +103,11 @@ import { IntegrantesComponent } from './proyecto/integrantes/integrantes.compone
 import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
 import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
+import { ListFundacionComponent } from './fundacion/list/list-fundacion.component';
+import { BreadcrumbsFundacionComponent } from './fundacion/header/breadcrumbs/breadcrumbs-fundacion.component';
+import { TabsFundacionComponent } from './fundacion/header/tabs/tabs-fundacion.component';
+import { AsignarComponent } from './fundacion/asignar/asignar.component';
+
 
 
 
@@ -193,6 +198,10 @@ import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-traba
     IntegrantesComponent,
     ObservacionesComponent,
     PlanDeTrabajoComponent,
+    ListFundacionComponent,
+    BreadcrumbsFundacionComponent,
+    TabsFundacionComponent,
+    AsignarComponent,
   ],
   imports: [
     CommonModule,
