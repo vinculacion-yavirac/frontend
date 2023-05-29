@@ -2,7 +2,8 @@
   <app-portafolio-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/portafolio/form">Formulario</a></li>
     <li *ngIf="formGroup.get('subject')?.value">
-      <a>{{ formGroup.get("subject")?.value }}</a></li>
+      <a>{{ formGroup.get("subject")?.value }}</a>
+    </li>
   </app-portafolio-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
@@ -45,8 +46,10 @@
         <h5 class="text-sm  p-1.5">
           Encargado:
         </h5>
+        <h5 class="text-sm  p-1.5">
+          Nombre del Proyecto:
+        </h5>
       </div>
-
       <div class="grid h-20 flex-grow rounded-box">
         <h5 class="text-sm p-1.5">
           Dirección:
@@ -75,49 +78,50 @@
 
     <div class="flex flex-col w-full p-1">
       <div class="grid h-100 card bg-neutral-content rounded-box p-1">
-          <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-            <table class="my_table w-full text-sm text-left text-neutral">
-              <thead class="text-xs text-white uppercase bg-primary">
-                <tr>
-                  <th scope="col" class="py-3 px-6">#</th>
-                  <th scope="col" class="py-3 px-6">
-                    Nombre del Archivo
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Opciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Observaciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Aprobado
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-                <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                  <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-          
-                  </th>
+        <div
+          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-left text-neutral">
+            <thead class="text-xs text-white uppercase bg-primary">
+              <tr>
+                <th scope="col" class="py-3 px-6">#</th>
+                <th scope="col" class="py-3 px-6">
+                  Nombre del Archivo
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Opciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Observaciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Aprobado
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+              <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
 
-                  <td class="py-[3.8px] px-6 capitalize">
-                    Nombre del archivo
-                  </td>
-                  <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                    <a href="">
-                      <img class="icon" src="/src/assets/images/descarga.png" alt="">
-                    </a>
-                  </td>
-                  <td class="py-[3.8px] px-6">
-                    <textarea class="form-control" id="floatingTextarea2"></textarea>
-                  </td>
-                  <td class="py-[3.8px] px-6">
-                    <input type="checkbox" class="toggle toggle-primary" checked />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                </th>
+
+                <td class="py-[3.8px] px-6 capitalize">
+                  Nombre del archivo
+                </td>
+                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
+                  <a href="">
+                    <img class="icon" src="/src/assets/images/descarga.png" alt="">
+                  </a>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <textarea class="form-control" id="floatingTextarea2"></textarea>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <input type="checkbox" class="toggle toggle-primary" checked />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <br>
       <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
@@ -129,66 +133,67 @@
 
 
 
-  <div class="grid h-100 card bg-blue-800 rounded-box">
+  <div class="grid h-100 card rounded-box">
     <div class="flex w-full">
-      <div class="grid h-20 w-100 flex-grow bg-blue-800 rounded-box">
-        <h2 class="text-xl text-gray-50 p-7">
-          Portafolio Tutor
+      <div class="grid h-20 w-100 flex-grow  rounded-box">
+        <h2 class="text-xl  p-7">
+          Portafolio Docente
         </h2>
       </div>
-      <div class="grid h-20 flex-grow bg-blue-800 rounded-box place-items-right">
+      <div class="grid h-20 flex-grow  text-dark rounded-box place-items-right">
         <label class="label cursor-pointer place-items-right">
-          <span class="label-text">Estado del Portafolio</span>
-          <input type="checkbox" class="toggle toggle-secondary" checked />
+          <span class="label-text text-dark">Estado del Portafolio</span>
+          <input type="checkbox" class="toggle toggle-primary" checked />
         </label>
       </div>
     </div>
 
     <div class="flex flex-col w-full p-1">
       <div class="grid h-100 card bg-neutral-content rounded-box p-1">
-          <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-            <table class="my_table w-full text-sm text-left text-neutral">
-              <thead class="text-xs text-white uppercase bg-primary">
-                <tr>
-                  <th scope="col" class="py-3 px-6">#</th>
-                  <th scope="col" class="py-3 px-6">
-                    Nombre del Archivo
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Opciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Observaciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Aprobado
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-                <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                  <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-          
-                  </th>
+        <div
+          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-left text-neutral">
+            <thead class="text-xs text-white uppercase bg-primary">
+              <tr>
+                <th scope="col" class="py-3 px-6">#</th>
+                <th scope="col" class="py-3 px-6">
+                  Nombre del Archivo
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Opciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Observaciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Aprobado
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+              <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
 
-                  <td class="py-[3.8px] px-6 capitalize">
-                    Nombre del archivo
-                  </td>
-                  <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                    <a href="">
-                      <img class="icon" src="/src/assets/images/descarga.png" alt="">
-                    </a>
-                  </td>
-                  <td class="py-[3.8px] px-6">
-                    <textarea class="form-control" id="floatingTextarea2"></textarea>
-                  </td>
-                  <td class="py-[3.8px] px-6">
-                    <input type="checkbox" class="toggle toggle-primary" checked />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                </th>
+
+                <td class="py-[3.8px] px-6 capitalize">
+                  Nombre del archivo
+                </td>
+                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
+                  <a href="">
+                    <img class="icon" src="/src/assets/images/descarga.png" alt="">
+                  </a>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <textarea class="form-control" id="floatingTextarea2"></textarea>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <input type="checkbox" class="toggle toggle-primary" checked />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <br>
       <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
@@ -196,13 +201,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
 
   <div class="grid place-items-center">
     <button class="btn btn-info w-25">Enviar</button>
