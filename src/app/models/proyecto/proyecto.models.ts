@@ -10,4 +10,5 @@ export interface ProyectoModels {
     created_by: User;
     created_at: string;
     update_at:string;
+
 }

@@ -25,7 +25,33 @@
         'ELIMINAR_SOLICITUD'
       ]"
     >
-      Usuarios
+      Todos
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/personal/roles"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
+      Certificados
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/personal/roles"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
+      Vinculación
     </a>
     <a
       [routerLinkActive]="['tab-active']"
@@ -39,6 +65,19 @@
       ]"
     >
       Pendientes
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/personal/roles"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
+      Pre Aprobados
     </a>
   </div>
 </div>

@@ -9,7 +9,7 @@ export interface User {
   person: Person;
   role: Role;
 
-  active: boolean;
+  active: number;
   archived: boolean;
   archived_at: Date;
   archived_by: Person;

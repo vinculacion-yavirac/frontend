@@ -31,6 +31,8 @@ import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-
 import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { ListFundacionComponent } from '../feature/fundacion/list/list-fundacion.component';
+import { AsignarComponent } from '../feature/fundacion/asignar/asignar.component';
 
 
 const routes: Routes = [
@@ -146,6 +148,41 @@ const routes: Routes = [
               {
                 path: '',
                 component: ProyectoListComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'fundacion',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'asignar',
+            component:  AsignarComponent,
+          },
+          {
+            path: 'Asignar/:id',
+            component:  AsignarComponent,
+          },
+          {
+            path: 'form/:id',
+            component:  SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: ListFundacionComponent,
               },
               {
                 path: 'archived',
