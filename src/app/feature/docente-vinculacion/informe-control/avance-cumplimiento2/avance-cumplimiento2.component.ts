@@ -35,7 +35,6 @@ export class AvanceCumplimiento2Component implements OnInit {
 
   ngOnInit(): void {
     // this.findAll();
-    this.esvacio=false;
 
   }
 
