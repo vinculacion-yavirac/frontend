@@ -14,6 +14,15 @@ export class AvanceCumplimiento2Component implements OnInit {
 
 
 
+  showModal = false;
+  showModal2 = false;
+
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
+  toggleModal2(){
+    this.showModal2 = !this.showModal2;
+  }
 
 
 

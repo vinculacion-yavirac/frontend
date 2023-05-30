@@ -185,11 +185,11 @@ const routes: Routes = [
                 children: [
                   {
                     path: '',
-                    component: PortafolioVinculacionFormComponent,
+                    component: AvanceCumplimientoComponent,
                   },
                   {
                     path: 'archived',
-                    component: PortafolioVinculacionFormComponent,
+                    component: AvanceCumplimientoComponent,
                   },
                 ],
               },

@@ -56,8 +56,14 @@
                     <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
                   </td>
                   <td>
-                    <a class="fas fa-edit"></a>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
-
+                    <button
+                      class="text-black fas fa-edit font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal()">
+                    </button>&nbsp;
+                    <button
+                      class="text-black fa-solid fa-trash font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button" (click)="toggleModal2()">
+                    </button>
                   </td>
 
                 </tr>
@@ -66,7 +72,130 @@
               </tbody>
             </table>
 
+            <div *ngIf="showModal"
+            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            <div class="relative w-auto my-6 mx-auto max-w-3xl">
+              <!--content-->
+              <div
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <!-- <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 class="text-3xl font-semibold">
+                    Modal Title
+                  </h3>
+                  <button
+                    class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    (click)="toggleModal()">
+                    <span
+                      class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div> -->
+                <!--body-->
+                <div class="relative p-6 flex-auto" style="    background-color: #3965b8; ">
+                  <form class="row g-3 px-2"
+                    style="    margin-left: 11px; display: grid;background-color: #3965B8;color: white;">
+                    <br>
+                    <H6 style=" font-size: 25px;">Avance cumplimiento de objetivos</H6>
+                    <br>
+                    <div class="form-row">
+                      <div class="col-md-8">
+                        <div class="mb-3 row">
+                          <label for="" class="col-sm-3 col-form-label">Resumen</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="" id="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="mb-3 row">
+                          <label for="" class="col-sm-3 col-form-label">Indicadores</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="" id="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
 
+                      <div class="col-md-8">
+                        <div class="mb-3 row">
+                          <label for="" class="col-sm-3 col-form-label">Medios</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="" id="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="mb-3 row">
+                          <label for="" class="col-sm-3 col-form-label">Avance</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="" id="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!--footer-->
+                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b" style="    background-color: #3965b8;
+                ">
+                  <button
+                    class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button" (click)="toggleModal()">
+                    Cerrar
+                  </button>
+                  <button
+                    class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button" (click)="toggleModal()">
+                    Actualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="showModal2"
+            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            <div class="relative w-auto my-6 mx-auto max-w-3xl">
+              <!--content-->
+              <div
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <!-- <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <h3 class="text-3xl font-semibold">
+                  Modal Title
+                </h3>
+                <button
+                  class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                  (click)="toggleModal()">
+                  <span
+                    class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                    ×
+                  </span>
+                </button>
+              </div> -->
+                <!--body-->
+                <div class="relative p-6 flex-auto">
+                  <p>Seguro deseas eliminar este registro?</p>
+                </div>
+                <!--footer-->
+                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b ">
+                  <button
+                    class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button" (click)="toggleModal2()">
+                    Cerrar
+                  </button>
+                  <button
+                    class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button" (click)="toggleModal2()">
+                    ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           </div>
 
