@@ -31,7 +31,6 @@ export class AvanceCumplimiento2Component implements OnInit {
   // avance: AvanceCumplimiento = [4];
 
 
-  esvacio:Boolean=false ;
 
 
   ngOnInit(): void {
