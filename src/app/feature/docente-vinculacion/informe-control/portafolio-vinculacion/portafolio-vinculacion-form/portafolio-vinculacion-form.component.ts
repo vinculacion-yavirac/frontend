@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./portafolio-vinculacion-form.component.css']
 })
 export class PortafolioVinculacionFormComponent {
+  showModal = false;
+  showModal2 = false;
 
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
 }

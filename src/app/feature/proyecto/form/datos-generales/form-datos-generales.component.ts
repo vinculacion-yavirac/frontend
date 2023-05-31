@@ -1,0 +1,144 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { customDateValidation } from 'src/app/shared/validators/custom-date-validation.directive';
+import { DatosGenerales } from './../../../../models/proyecto/datos-generales.models';
+
+interface Carrera {
+  id: number;
+  carrera: string;
+}
+
+@Component({
+  selector: 'app-form-datos-generales',
+  templateUrl: './form-datos-generales.component.html',
+  styleUrls: ['./form-datos-generales.component.css']
+})
+export class FormDatosGeneralesComponent implements OnInit {
+
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+  }
+
+  carreraId: Carrera[] = [];
+
+  carrerasMapping: Carrera[] = [
+    {
+      id:1,
+      carrera: 'Software',
+    },
+    {
+      id:2,
+      carrera: 'Turismo',
+    },
+    {
+      id:3,
+      carrera: 'Diseño',
+    },
+    {
+      id:4,
+      carrera: 'Bomberos',
+    }];
+
+    currentEntity: DatosGenerales = {
+      dgId: 0,
+      codigo: '',
+      nombrep: '',
+      nombrei: '',
+      ciclo: '',
+      cobertura: '',
+      carreraId: 1,
+      modalidadId: 1,
+      fecha: '',
+      plazo: '',
+      financiamiento: '',
+      vigencia: '',
+      fechaPresentacion: '',
+      fechaInicio: '',
+      fechaFinal: '',
+    };
+
+    datosGeneralesForm = this.fb.group({
+      codigoProyecto: [this.currentEntity.codigo, [Validators.required, Validators.pattern(/^[a-z0-9]+$/i)]],
+      nombreProyecto: [this.currentEntity.nombrep, [Validators.required, Validators.pattern('[ñáéíóúA-Za-z ]+')]],
+      nombreInstituto: [this.currentEntity.nombrei, [Validators.required]],
+      ciclo: [this.currentEntity.ciclo, [Validators.required]],
+      coberturaLocalizacion: [this.currentEntity.cobertura, [Validators.required, Validators.pattern('[ñáéíóúA-Za-z ]+')]],
+      carrera: [this.currentEntity.carreraId, [Validators.required]],
+      modalidad: this.fb.group({
+        modalidadRadio: ['1'],
+      }),
+      fecha: [this.currentEntity.fecha, [Validators.required, customDateValidation(3000)]],
+      plazoEjecucion: [this.currentEntity.plazo, [Validators.required, customDateValidation(3000)]],
+      financiamiento: [this.currentEntity.financiamiento, [Validators.required, customDateValidation(3000)]],
+      plazoVigenciaConvenio: [this.currentEntity.vigencia, [Validators.required, customDateValidation(3000)]],
+      fechaPresentacion: [this.currentEntity.fechaPresentacion, [Validators.required, customDateValidation(3000)]],
+      fechaInicio: [this.currentEntity.fechaInicio, [Validators.required, customDateValidation(3000)]],
+      fechaFinal: [this.currentEntity.fechaFinal, [Validators.required, customDateValidation(3000)]],
+    });
+
+    onSubmit() {
+      console.warn(this.datosGeneralesForm.value);
+    }
+
+    get codigoProyecto() {
+      return this.datosGeneralesForm.get('codigoProyecto');
+    }
+    get nombreProyecto() {
+      return this.datosGeneralesForm.get('nombreProyecto');
+    }
+
+    get nombreInstituto() {
+      return this.datosGeneralesForm.get('nombreInstituto');
+    }
+
+    get ciclo() {
+      return this.datosGeneralesForm.get('ciclo');
+    }
+
+    get coberturaLocalizacion() {
+      return this.datosGeneralesForm.get('coberturaLocalizacion');
+    }
+
+    get carrera() {
+      return this.datosGeneralesForm.get('carrera');
+    }
+
+    get modalidad() {
+      return this.datosGeneralesForm.get('modalidad');
+    }
+
+    get fecha() {
+      return this.datosGeneralesForm.get('fecha');
+    }
+
+    get plazoEjecucion() {
+      return this.datosGeneralesForm.get('plazoEjecucion');
+    }
+
+    get financiamiento() {
+      return this.datosGeneralesForm.get('financiamiento');
+    }
+
+    get plazoVigenciaConvenio() {
+      return this.datosGeneralesForm.get('plazoVigenciaConvenio');
+    }
+
+    get fechaPresentacion() {
+      return this.datosGeneralesForm.get('fechaPresentacion');
+    }
+
+    get fechaInicio() {
+      return this.datosGeneralesForm.get('fechaInicio');
+    }
+
+    get fechaFinal() {
+      return this.datosGeneralesForm.get('fechaFinal');
+    }
+
+
+}
