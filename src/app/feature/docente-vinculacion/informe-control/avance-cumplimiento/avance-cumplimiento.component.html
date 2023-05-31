@@ -2,217 +2,261 @@
   <docente_vinculacion-breadcrumbs breadcrumbs></docente_vinculacion-breadcrumbs>
   <docente_vinculacion-tabs tabs route="usuarios"></docente_vinculacion-tabs>
 </module-header>
-<div class="alert alert-danger" *ngIf="esvacio">
-
-  <strong>Danger!</strong> Llenar al menos un campo
-
-</div>
 
 <div class="row" style="background-color: #3965B8;">
 
   <div>
     <br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <!-- Modal toggle -->
+      <button style="     margin-left: 63rem; margin-bottom: 0.5rem; " data-modal-target="defaultModal"
+        data-modal-toggle="defaultModal"
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        Agregar
+      </button>
 
-      <a href="dashboard/informe-control" style="    margin-right: 3rem;">
-        <button class="btn btn-primary" type="button">Agregar</button>
-      </a>
     </div>
     <div class="card" spellcheck="    margin-top: 4rem;">
       <div class="card-body">
-        <H2>Avance cumplimiento de objetivos</H2>
-
-
-
-
-
+        <H2 style="color: white;">Avance cumplimiento de objetivos</H2>
         <div class="container2 container-fuild">
           <br>
 
           <div class="container container-fuild">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                  <tr>
+                    <th scope="col" class="px-2 py-2">#</th>
+                    <th scope="col" class="px-6 py-3">Resumen narrativo de objetivos </th>
+                    <th scope="col" class="px-6 py-3">Indicadores Verificables</th>
+                    <th scope="col" class="px-6 py-3">Medios de verificacion</th>
+                    <th scope="col" class="px-6 py-3">Avance y cumplimientos</th>
+                    <th scope="col" class="px-6 py-3">Acciones</th>
 
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Resumen narrativo de objetivos </th>
-                  <th scope="col">Indicadores Verificables</th>
-                  <th scope="col">Medios de verificacion</th>
-                  <th scope="col">Avance y cumplimientos</th>
-                  <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="avanzeTable">
+                  <tr *ngFor="let avanze of avanzeList" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-                </tr>
-              </thead>
-              <tbody class="leters">
-                <tr class="text-center">
-                  <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
-                  <th scope="row"> 1</th>
-                  <!-- <th scope="row"> {{avance1.id}}</th> -->
-                  <td>
-                    avance
-                    <!-- {{avance1.resumen}} -->
-                  </td>
-                  <td>
-                    indicadores
-                    <!-- {{avance1.indicadores}} -->
-                  </td>
-                  <td>
-                    <!-- {{avance1.medios}} -->
-                    medios
-                  </td>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {{avanze.id}}
+                    </th>
+                    <td class="px-6 py-4">
+                      {{avanze.resumen}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{avanze.indicadores}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{avanze.medios}}
+                    </td>
 
 
-                  <td>
-                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
-                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
-                  </td>
-                  <td>
-                    <button
-                      class="text-black fas fa-edit font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button" (click)="toggleModal()">
-                    </button>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
+                    <td class="px-6 py-4">
+                      <textarea required class="form-control"
+                        placeholder="Leave a comment here">{{avanze.observacion}}</textarea>
+                      <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                    </td>
+                    <td class="px-6 py-4">
+                      <div
+                        class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-                  </td>
-
-                </tr>
-                <tr class="text-center">
-                  <!-- <tr class="text-center" *ngFor="let avance1 of avance"> -->
-                  <th scope="row"> 1</th>
-                  <!-- <th scope="row"> {{avance1.id}}</th> -->
-                  <td>
-                    avance
-                    <!-- {{avance1.resumen}} -->
-                  </td>
-                  <td>
-                    indicadores
-                    <!-- {{avance1.indicadores}} -->
-                  </td>
-                  <td>
-                    <!-- {{avance1.medios}} -->
-                    medios
-                  </td>
+                        <label for="my-modal" (click)="openUpdateModal(avanze.id)"
+                          class="text-white  fas fa-edit  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        </label>
 
 
-                  <td>
-                    <textarea required class="form-control" placeholder="Leave a comment here"></textarea>
-                    <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
-                  </td>
-                  <td>
-                    <button
-                      class="text-black fas fa-edit font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button" (click)="toggleModal()">
-                    </button>&nbsp;<a class="fa-solid fa-trash" style="color: #ff0000;"></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div *ngIf="showModal"
-              class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-              <div class="relative w-auto my-6 mx-auto max-w-3xl">
-                <!--content-->
-                <div
-                  class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  <!--header-->
-                  <!-- <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 class="text-3xl font-semibold">
-                      Modal Title
-                    </h3>
-                    <button
-                      class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      (click)="toggleModal()">
-                      <span
-                        class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                      </span>
-                    </button>
-                  </div> -->
-                  <!--body-->
-                  <div class="relative p-6 flex-auto">
-                    <form class="row g-3 px-2" style="    margin-left: 11px;
-                    display: grid;">
-                      <br>
-                      <H6 style=" font-size: 25px;">Avance cumplimiento de objetivos</H6>
-                      <br>
-                      <div class="form-row">
-                        <div class="col-md-6">
-                          <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Resumen</label>
-                            <div class="col-sm-6">
-                              <input type="text" class="form-control" name="" id="">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Indicadores</label>
-                            <div class="col-sm-6">
-                              <input type="text" class="form-control" name="" id="">
-                            </div>
-                          </div>
-                        </div>
+                        <label for="my-modal-2" (click)="openDeleteModal(avanze.id)"
+                          class="text-white  fa-trash  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></label>
                       </div>
-                      <div class="form-row">
-
-                        <div class="col-md-6">
-                          <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Medios</label>
-                            <div class="col-sm-6">
-                              <input type="text" class="form-control" name="" id="">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Avance</label>
-                            <div class="col-sm-6">
-                              <input type="text" class="form-control" name="" id="">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!--footer-->
-                  <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                    <button
-                      class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button" (click)="toggleModal()">
-                      Close
-                    </button>
-                    <button
-                      class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button" (click)="toggleModal()">
-                      Save Changes
-                    </button>
-                  </div>
-                </div>
-              </div>
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td *ngIf="avanzeList.length == 0" colspan="6"
+                      class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">No existen Registros</td>
+                  </tr> -->
+                </tbody>
+              </table>
             </div>
-            <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
+              <a href="/system/docente-vinculacion">
+                <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
+                  routerLink="/system/docente-vinculacion" *permissions="[
+                  'LEER_ROLES',
+                  'CREAR_ROLES',
+                  'ACTUALIZAR_ROLES',
+                  'ELIMINAR_ROLES'
+                ]">Atras</button>
+              </a>&nbsp;
+              <a href="/system/docente-vinculacion/informe-control/avance-cumplimiento2">
 
-          </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
-            <a href="/system/docente-vinculacion">
-              <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
-                routerLink="/system/docente-vinculacion" *permissions="[
-          'LEER_ROLES',
-          'CREAR_ROLES',
-          'ACTUALIZAR_ROLES',
-          'ELIMINAR_ROLES'
-        ]">Atras</button>
-            </a>
-            <a href="/system/docente-vinculacion/informe-control/avance-cumplimiento2">
-
-              <button class="btn btn-primary" type="button">Siguiente</button>
-              <!-- <button  class="btn btn-primary" type="button"  (click)="save()">Siguiente</button> -->
-            </a>
+                <button class="btn btn-primary" type="button">Siguiente</button>
+                <!-- <button  class="btn btn-primary" type="button"  (click)="save()">Siguiente</button> -->
+              </a>
 
 
 
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    <!-- Main modal save -->
+    <div id="defaultModal" tabindex="-1" aria-hidden="true"
+      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Avance cumplimiento de objetivos
+            </h3>
+            <button type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="defaultModal">
+              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+              <form #avanzeForm="ngForm">
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                  <div class="sm:col-span-2">
+                    <label for="resumen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RESUMEN
+                      NARRATIVO </label>
+                    <input type="text" [(ngModel)]="addAvanzeForm.resumen" name="resumen" id="resumen"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="RESUMEN NARRATIVO" required="">
+                  </div>
+                  <div class="w-full">
+                    <label for="indicadores"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">INDICADORES</label>
+                    <input type="text" [(ngModel)]="addAvanzeForm.indicadores" name="indicadores" id="indicadores"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="INDICADORES VERIFICABLES" required="">
+                  </div>
+                  <div class="w-full">
+                    <label for="medios"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">MEDIOS</label>
+                    <input type="text" [(ngModel)]="addAvanzeForm.medios" name="medios" id="medios"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="MEDIOS DE VERIFICACION" required="">
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label for="avanze" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANZE
+                      Y CUMPLIMIENTO</label>
+                    <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="addAvanzeForm.observacion"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="AVANZES Y CUMPLIMIENTOS"></textarea>
+                  </div>
+                </div>
+                <!-- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Add product
+                    </button> -->
+              </form>
+            </div>
+          </section>
+          <!-- Modal footer -->
+          <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+
+            <button (click)="addAvanze(avanzeForm.form.valid)" type="button" [disabled]="loading"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">AGREGAR</button>
+            <button data-modal-hide="defaultModal" type="button"
+              class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">CANCELRAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Main modal EDIT and update--->
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
+    <label for="my-modal" class="modal cursor-pointer">
+      <label class="modal-box relative" for="">
+        <section class="bg-white dark:bg-gray-900">
+          <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <form>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="sm:col-span-2">
+                  <label for="resumen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RESUMEN
+                    NARRATIVO </label>
+                  <input type="text" name="resumen" id="resumen" [(ngModel)]="post.resumen"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required="">
+
+                </div>
+                <div class="w-full">
+                  <label for="indicadores"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">INDICADORES</label>
+                  <input type="text" name="indicadores" id="indicadores" [(ngModel)]="post.indicadores"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="INDICADORES VERIFICABLES">
+                </div>
+                <div class="w-full">
+                  <label for="medios"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">MEDIOS</label>
+                  <input type="text" name="medios" id="medios" [(ngModel)]="post.medios"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="MEDIOS DE VERIFICACION" required="">
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="observacion " class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANZE
+                    Y CUMPLIMIENTO</label>
+                  <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="post.observacion"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="AVANZES Y CUMPLIMIENTOS"></textarea>
+                </div>
+              </div>
+              <!-- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+               Add product
+           </button> -->
+            </form>
+          </div>
+        </section>
+        <div class="modal-action">
+          <label (click)="update()" for="my-modal" class="btn">actualizar</label>
+        </div>
+      </label>
+    </label>
+ 
+
+
+    <!--Main modal DELETE--->
+    <input type="checkbox" id="my-modal-2" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box relative">
+        <label for="my-modal-2" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+        <div class="p-6 text-center">
+          <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Está seguro de que desea eliminar
+            este registro?</h3>
+          <label for="my-modal-2" (click)="delete()"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+            Yes, OK
+          </label>
+          <label for="my-modal-2"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+            cancelar
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
+
+</div>

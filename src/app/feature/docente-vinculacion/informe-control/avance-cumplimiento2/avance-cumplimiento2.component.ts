@@ -14,6 +14,15 @@ export class AvanceCumplimiento2Component implements OnInit {
 
 
 
+  showModal = false;
+  showModal2 = false;
+
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
+  toggleModal2(){
+    this.showModal2 = !this.showModal2;
+  }
 
 
 
@@ -22,12 +31,10 @@ export class AvanceCumplimiento2Component implements OnInit {
   // avance: AvanceCumplimiento = [4];
 
 
-  esvacio:Boolean=false ;
 
 
   ngOnInit(): void {
     // this.findAll();
-    this.esvacio=false;
 
   }
 
