@@ -43,7 +43,7 @@ export class AvanceCumplimiento2Component implements OnInit {
   ngOnInit(): void {
     this.getAllActividades();
   }
-
+/*añadir actividades*/
   public addActividades(isValid: any) {
     this.isSubmitted = true;
     if (isValid) {
@@ -67,7 +67,7 @@ export class AvanceCumplimiento2Component implements OnInit {
         });
     }
   }
-
+/*obtener todas las actividades*/
   public getAllActividades() {
     this.httpProvider.getActividades().subscribe((data: any) => {
 
@@ -93,7 +93,7 @@ export class AvanceCumplimiento2Component implements OnInit {
       });
   }
 
-
+/*Eliminar actividades*/
   public openDeleteModal(id: number) {
 
     this.idTodelete = id;
@@ -113,7 +113,7 @@ export class AvanceCumplimiento2Component implements OnInit {
 
     });
   }
-
+/*Actualizar actividades*/
   public update() {
     this.httpProvider.updateActividades(this.idToupdate,this.post)
     .subscribe({
@@ -127,6 +127,7 @@ export class AvanceCumplimiento2Component implements OnInit {
       }
     })
   }
+  /*confirmar eliminacion de registro*/
   public delete() {
     this.httpProvider.deleteActividadesById(this.idTodelete).subscribe((data: any) => {
       console.log(data);

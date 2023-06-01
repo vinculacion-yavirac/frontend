@@ -14,7 +14,6 @@ export class ActividadesService {
   };
   private url = environment.API_URL + '/actividades';
 
-
   public addActividades(data: any): Observable<any> {
     console.log(data);
 
@@ -44,7 +43,6 @@ export class ActividadesService {
       `${this.url}/update/${id}`, data, this.httpOptions
     );
   }
-
 
   public deleteActividadesById(id: any): Observable<any> {
 
