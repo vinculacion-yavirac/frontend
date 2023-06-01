@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalAlertComponent } from '../../../../../app/shared/material/modal-alert/modal-alert.component';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActividadesModels } from 'src/app/models/actividades/actividades';
+import { ActividadesService } from 'src/app/service/actividades/actividades.service';
 
 @Component({
   selector: 'app-avance-cumplimiento2',
@@ -7,73 +11,140 @@ import { ModalAlertComponent } from '../../../../../app/shared/material/modal-al
   styleUrls: ['./avance-cumplimiento2.component.css']
 })
 export class AvanceCumplimiento2Component implements OnInit {
+  form!: FormGroup;
+  id?: string;
+  title!: string;
+  loading = false;
+  submitting = false;
+  submitted = false;
+  addActividadesForm: actividadesForm = new actividadesForm();
+  avanzeList: any = [];
+  idTodelete: number = 0;
+  idToupdate: number = 0;
+  @ViewChild("actividadesForm")
 
+  actividadesForm!: NgForm;
+
+ 
+  isSubmitted: boolean = false;
+  post: ActividadesModels = {
+    id: 0,
+    actividades: '',
+    avance: '',
+    observacion: '',
+
+  };
   constructor(
-    // private avanceCumplimientoHttpService:AvanceCumplimientoHttpService
-  ) { }
-
-
-
-  showModal = false;
-  showModal2 = false;
-
-  toggleModal(){
-    this.showModal = !this.showModal;
-  }
-  toggleModal2(){
-    this.showModal2 = !this.showModal2;
-  }
-
-
-
-
-
-  // avance: AvanceCumplimiento = [4];
-
-
-
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private httpProvider: ActividadesService  ) { }
 
   ngOnInit(): void {
-    // this.findAll();
+    this.getAllActividades();
+  }
+/*añadir actividades*/
+  public addActividades(isValid: any) {
+    this.isSubmitted = true;
+    if (isValid) {
+      this.httpProvider.addActividades(this.addActividadesForm).subscribe(async data => {
 
+        if (data.data.avanze != null && data.data.avanze != null) {
+          if (data.status === 'success') {
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          }
+        }
+
+      },
+        async error => {
+          console.log(error.message);
+
+          // setTimeout(() => {
+          //   this.router.navigate(['/Home']);
+          // }, 500);
+        });
+    }
+  }
+/*obtener todas las actividades*/
+  public getAllActividades() {
+    this.httpProvider.getActividades().subscribe((data: any) => {
+
+
+
+      if (data.data.avanzes != null && data.data.avanzes != null) {
+        var resultData = data.data.avanzes;
+        if (resultData) {
+          console.log(resultData);
+
+          this.avanzeList = resultData;
+        }
+      }
+    },
+      (error: any) => {
+        if (error) {
+          if (error.status == 404) {
+            if (error.error && error.error.message) {
+              this.avanzeList = [];
+            }
+          }
+        }
+      });
   }
 
+/*Eliminar actividades*/
+  public openDeleteModal(id: number) {
+
+    this.idTodelete = id;
+  }
+
+  public openUpdateModal(id: number) {
+    this.idToupdate = id;
+
+    this.getById(id);
+
+  }
+  public getById(id: number) {
+    this.httpProvider.getActividadesById(id).subscribe((data) => {
+      console.log(data);
+      this.post = data.data.avanze[0];
 
 
-
-
-  save():void{
-
-
-    // for(let avance1 of this.avance){
-    //    if (avance1.avance==''){
-
-    //     this.esvacio=true;
+    });
+  }
+/*Actualizar actividades*/
+  public update() {
+    this.httpProvider.updateActividades(this.idToupdate,this.post)
+    .subscribe({
+      next:(data) => {
+        console.log(data);
         
-    //    }else{
-    //     this.avanceCumplimientoHttpService.save(avance1).subscribe()
-    //    }
+        window.location.reload();
+      },
+      error:(err) => {
+        console.log(err);
+      }
+    })
+  }
+  /*confirmar eliminacion de registro*/
+  public delete() {
+    this.httpProvider.deleteActividadesById(this.idTodelete).subscribe((data: any) => {
+      console.log(data);
+      if (data.status === 'success') {
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    },
+      (error: any) => { });
+  }
 
-    // }
-    }
+  
+}
 
-
-
-
-  // public findAll(): void{
-  //   this.avanceCumplimientoHttpService.findAll().subscribe(
-  //     (response) => this.avance = response
-  //   );
-  // }
-
-  // public findByDescription(term:string): void{
-  //   if(term.length >= 2){
-  //     this.avanceCumplimientoHttpService.findByDescription(term).subscribe(
-  //       (response) => this.avance = response
-  //     )
-  //   }
-  //   if(term.length == 0){
-  //     this.findAll();
-  //   }
-  // }
+export class actividadesForm {
+  actividades: string = "";
+  avance: string = "";
+  observacion: string = "";
 }
