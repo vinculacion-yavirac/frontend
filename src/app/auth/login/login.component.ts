@@ -43,11 +43,9 @@ export class LoginComponent implements OnInit {
         .login(this.formGroup.value.email, this.formGroup.value.password)
         .subscribe((res: any) => {
           if (res) {
-            console.log(res);
-            
-            // if (res.status === 'success') {
-            //   this.router.navigate(['/system']);
-            // }
+            if (res.status === 'success') {
+              this.router.navigate(['/system']);
+            }
           }
           this.loading = false;
         });

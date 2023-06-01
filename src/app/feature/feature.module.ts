@@ -80,6 +80,8 @@ import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/arch
 import { SolicitudFormComponent } from './docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudTabsComponent } from './docente-vinculacion/solicitud/header/tabs/solicitud.tabs.component';
 import { SolicitudListComponent } from './docente-vinculacion/solicitud/list/solicitud-list.component';
+import { ProyectoBreadcrumbsComponent } from './proyecto/header/breadcrumbs/proyecto-breadcrumbs.component';
+import { ProyectoTabsComponent } from './proyecto/header/tabs/proyecto-tabs.component';
 import { AvanceCumplimientoComponent } from './docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { EncuestaComponent } from './estudiante/encuenta/encuesta.component';
 import { PortafolioVinculacionFormComponent } from './docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-form/portafolio-vinculacion-form.component';
@@ -89,6 +91,26 @@ import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-cont
 import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { AsignarComponent } from './fundacion/asignar/asignar.component';
+import { BreadcrumbsFundacionComponent } from './fundacion/header/breadcrumbs/breadcrumbs-fundacion.component';
+import { TabsFundacionComponent } from './fundacion/header/tabs/tabs-fundacion.component';
+import { ListFundacionComponent } from './fundacion/list/list-fundacion.component';
+import { ProyectoArchivedComponent } from './proyecto/archived/proyecto-archived.component';
+import { FormActividadesComponent } from './proyecto/form/actividades/form-actividades.component';
+import { FormAnexosComponent } from './proyecto/form/anexos/form-anexos.component';
+import { FormBibliografiaComponent } from './proyecto/form/bibliografia/form-bibliografia.component';
+import { FormCertificadosComponent } from './proyecto/form/certificados/form-certificados.component';
+import { FormDatosGeneralesComponent } from './proyecto/form/datos-generales/form-datos-generales.component';
+import { FormDocumentosComponent } from './proyecto/form/documentos/form-documentos.component';
+import { FormEmpresaComponent } from './proyecto/form/empresa/form-empresa.component';
+import { FormFirmasComponent } from './proyecto/form/firmas/form-firmas.component';
+import { FormIntegrantesComponent } from './proyecto/form/integrantes/form-integrantes.component';
+import { FormObservacionesComponent } from './proyecto/form/observaciones/form-observaciones/form-observaciones.component';
+import { FormPlanDeTrabajoComponent } from './proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
+import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
+
+
+
 
 
 
@@ -144,22 +166,46 @@ import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estu
     CantonsComboboxComponent,
     ParishesComboboxComponent,
 
-    
+
     SolicitudBreadcrumbsComponent,
     SolicitudTabsComponent,
     PaginationComponent,
     SolicitudListComponent,
     SolicitudArchivedComponent,
     SolicitudFormComponent,
+
+    PortafolioFormComponent,
+    PortafolioArchivedComponent,
     PortafolioListComponent,
     PortafolioBreadcrumbsComponent,
     PortafolioTabsComponent,
-    PortafolioFormComponent,
-    PortafolioArchivedComponent,
+
+    ProyectoBreadcrumbsComponent,
+    ProyectoTabsComponent,
+    ProyectoListComponent,
+
+
     AvanceCumplimientoComponent,
     AvanceCumplimiento2Component,
 
     EncuestaComponent,
+    ProyectoArchivedComponent,
+    FormDatosGeneralesComponent,
+    FormAnexosComponent,
+    FormBibliografiaComponent,
+    FormCertificadosComponent,
+    FormActividadesComponent,
+    FormDocumentosComponent,
+    FormEmpresaComponent,
+    FormFirmasComponent,
+    FormIntegrantesComponent,
+    FormObservacionesComponent,
+    FormPlanDeTrabajoComponent,
+
+    AsignarComponent,
+    TabsFundacionComponent,
+    BreadcrumbsFundacionComponent,
+    ListFundacionComponent,
   ],
   imports: [
     CommonModule,

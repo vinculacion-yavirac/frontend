@@ -3,245 +3,206 @@
     <li><a routerLink="/system/portafolio/form">Formulario</a></li>
     <li *ngIf="formGroup.get('subject')?.value">
       <a>{{ formGroup.get("subject")?.value }}</a>
+    </li>
   </app-portafolio-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 
-
-<div class="w-full p-8 px-20 bg-white border-t-[1px] border-[#535a6650]">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-
-    <div class="grid grid-cols-5 gap-8 my-8">
-      <div class="col-span-1 text-neutral">
-        <h3 class="font-bold">Información</h3>
-        <p class="text-sm">Indicaciones generales para este formulario.</p>
+<div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
+  <div class="grid h-100 card bg-white text-dark  rounded-box">
+    <h2 class="text-xl p-3">
+      Datos del Estudiante
+    </h2>
+    <div class="flex w-full p-3.5 text-dark">
+      <div class="grid h-20 flex-grow rounded-box text-dark">
+        <h5 class="text-sm -50 p-1.5">
+          Cedula de Identidad:
+        </h5>
+        <h5 class="text-sm -50 p-1.5">
+          Nombres:
+        </h5>
+        <h5 class="text-sm 50 p-1.5">
+          Apellidos:
+        </h5>
       </div>
 
-      <div class="col-span-4 rounded-md bg-neutral-content w-full p-4 px-20 font-medium text-sm text-neutral">
-        <p>
-          1. Todos los campos son de carácter obligatorio si cuenta con (<span class="text-red-500">*</span>)
-        </p>
-        <p>
-          2. Si el campo se encuentra en rojo la información ingresada es
-          incorrecta.
-        </p>
-        <p>3. Estos son los datos de su Portafolio si desea editar antes de enviar puede hacerlo.</p>
+      <div class="grid h-20 flex-grow rounded-box">
+        <h5 class="text-sm  p-1.5">
+          Carrera:
+        </h5>
+        <h5 class="text-sm  p-1.5">
+          Semestre:
+        </h5>
+      </div>
+    </div>
+    <h2 class="text-xl p-3">
+      Datos de la Fundacion
+    </h2>
+    <div class="flex w-full p-3.5">
+      <div class="grid h-20 flex-grow  rounded-box">
+        <h5 class="text-sm p-1.5">
+          Nombre de la Fundacion:
+        </h5>
+        <h5 class="text-sm  p-1.5">
+          Encargado:
+        </h5>
+        <h5 class="text-sm  p-1.5">
+          Nombre del Proyecto:
+        </h5>
+      </div>
+      <div class="grid h-20 flex-grow rounded-box">
+        <h5 class="text-sm p-1.5">
+          Dirección:
+        </h5>
+        <h5 class="text-sm  p-1.5">
+          Telefono:
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid h-100 card rounded-box">
+    <div class="flex w-full">
+      <div class="grid h-20 w-100 flex-grow  rounded-box">
+        <h2 class="text-xl  p-7">
+          Portafolio Estudiante
+        </h2>
+      </div>
+      <div class="grid h-20 flex-grow  text-dark rounded-box place-items-right">
+        <label class="label cursor-pointer place-items-right">
+          <span class="label-text text-dark">Estado del Portafolio</span>
+          <input type="checkbox" class="toggle toggle-primary" checked />
+        </label>
       </div>
     </div>
 
-    <mat-divider></mat-divider>
+    <div class="flex flex-col w-full p-1">
+      <div class="grid h-100 card bg-neutral-content rounded-box p-1">
+        <div
+          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-left text-neutral">
+            <thead class="text-xs text-white uppercase bg-primary">
+              <tr>
+                <th scope="col" class="py-3 px-6">#</th>
+                <th scope="col" class="py-3 px-6">
+                  Nombre del Archivo
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Opciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Observaciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Aprobado
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+              <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
 
+                </th>
 
-    <div class="grid grid-cols-5 gap-8 my-8">
-      <div class="col-span-1 text-neutral">
-        <h3 class="font-bold">Importante</h3>
-        <p class="text-sm">Recuerde que el Portafolio se enviara con estos datos.</p>
-      </div>
-
-      <div class="col-span-4 rounded-md bg-neutral-content w-full p-4 px-20 font-medium text-sm text-neutral">
-
-        <div class="flex items-center justify-between">
-          <div class="flex">
-            <div class="font-bold ">Fecha de creación:</div>
-            <div class=" text-sm ml-2">{{currentDate | date}}</div>
-          </div>
-          <div class="flex">
-            <div class="font-bold ">Autor del Portafolio:</div>
-            <div class=" text-sm ml-2">{{currentUser | FullNameFirstMiddle}}</div>
-          </div>
+                <td class="py-[3.8px] px-6 capitalize">
+                  Nombre del archivo
+                </td>
+                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
+                  <a href="">
+                    <img class="icon" src="/src/assets/images/descarga.png" alt="">
+                  </a>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <textarea class="form-control" id="floatingTextarea2"></textarea>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <input type="checkbox" class="toggle toggle-primary" checked />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+      <br>
+      <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
+        <textarea placeholder="Comentario del Portafolio" class="textarea  textarea-lg w-full h-full "></textarea>
+      </div>
+    </div>
+  </div>
 
+
+
+
+  <div class="grid h-100 card rounded-box">
+    <div class="flex w-full">
+      <div class="grid h-20 w-100 flex-grow  rounded-box">
+        <h2 class="text-xl  p-7">
+          Portafolio Docente
+        </h2>
+      </div>
+      <div class="grid h-20 flex-grow  text-dark rounded-box place-items-right">
+        <label class="label cursor-pointer place-items-right">
+          <span class="label-text text-dark">Estado del Portafolio</span>
+          <input type="checkbox" class="toggle toggle-primary" checked />
+        </label>
       </div>
     </div>
 
+    <div class="flex flex-col w-full p-1">
+      <div class="grid h-100 card bg-neutral-content rounded-box p-1">
+        <div
+          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-left text-neutral">
+            <thead class="text-xs text-white uppercase bg-primary">
+              <tr>
+                <th scope="col" class="py-3 px-6">#</th>
+                <th scope="col" class="py-3 px-6">
+                  Nombre del Archivo
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Opciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Observaciones
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Aprobado
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+              <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
 
+                </th>
 
-    <div class="grid grid-cols-5 gap-8 my-8">
-
-      <div class="col-span-1 text-neutral">
-        <h3 class="font-bold ">Detalles del portafolio:</h3>
-        <p class="text-sm">Ingresa información relevante para subir el Poratafolio al sistema y mejorar el control de portafolio
-        </p>
-      </div>
-
-      <div class="col-span-4 py-12 px-20 border border-[#535a6650] relative bg-[#ebecf090] rounded-md">
-
-        <div class="col-span-2 grid gap-4">
-
-          <!-- input de asunto -->
-          <mat-form-field appearance="fill" class="w-full col-span-2">
-            <mat-label>Asunto</mat-label>
-            <input type="text" matInput formControlName="subject" [errorStateMatcher]="matcher" autocomplete="off"
-              spellcheck="false" placeholder="Ingresa el asunto de tu nombre del Portafolio, se breve y recuerda ser claro." />
-            <!-- validaciones -->
-            <mat-error
-              *ngIf="formGroup.get('subject')?.hasError('minlength') || formGroup.get('subject')?.hasError('maxlength')">
-              Ingrese un asunto <strong>valido</strong>, (min: 25, max: 100)
-            </mat-error>
-            <mat-error *ngIf="formGroup.get('subject')?.hasError('required')">
-              Este campo es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
-
-
-          <!-- textarea de descripcion -->
-          <mat-form-field appearance="fill" class="w-full col-span-2">
-            <mat-label>Descripción</mat-label>
-            <textarea class="h-20 !resize-none !text-gray-600" matInput formControlName="description"
-              [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false"
-              placeholder="Ingresa la descripción."></textarea>
-            <!-- validaciones -->
-            <mat-error
-              *ngIf="formGroup.get('description')?.hasError('minlength') || formGroup.get('description')?.hasError('maxlength')">
-              Ingrese una descripción <strong>valida</strong>, (min: 80, max: 300)
-            </mat-error>
-            <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
-              Este campo es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
-
-
+                <td class="py-[3.8px] px-6 capitalize">
+                  Nombre del archivo
+                </td>
+                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
+                  <a href="">
+                    <img class="icon" src="/src/assets/images/descarga.png" alt="">
+                  </a>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <textarea class="form-control" id="floatingTextarea2"></textarea>
+                </td>
+                <td class="py-[3.8px] px-6">
+                  <input type="checkbox" class="toggle toggle-primary" checked />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
       </div>
-
-
-      <div class="col-span-1 text-neutral">
-        <h3 class="font-bold ">Anexos multimedia y archivos:</h3>
-        <p class="text-sm ">Ingresa el documento del Portafolio para anexarlo y llevar un mejor
-          control.</p>
-      </div>
-
-      <div class="col-span-4 py-4 px-20 border border-[#535a6650] relative bg-[#ebecf090] rounded-md">
-
-        <div class="py-4">
-          <h1 class=" font-bold mb-4 text-gray-600">Subir archivos</h1>
-          <div class="relative">
-            <input type="file" multiple (change)="onFileSelected($event)" class="mb-4 opacity-0 absolute" #fileInput
-              formControlName="files">
-
-            <label for="file-upload"
-              class="bg-lime-700 cursor-pointer border border-gray-300 hover:border-blue-500 rounded-lg py-2 px-4 text-gray-800 shadow-sm hover:shadow-lg">
-              <span class="font-bold text-white">Escoger archivos</span>
-            </label>
-            <div class="text-gray-600 font-medium mt-2 text-sm">
-              {{ files.length }} archivo(s) seleccionado(s)
-            </div>
-          </div>
-          <div class="flex flex-wrap text-slate-600 mt-4">
-            <div *ngFor="let file of files" class="bg-gray-200 px-3 py-2 rounded-lg mr-2 mb-2 flex items-center">
-              <i [class]="getFileIcon(file) + ' icon mr-2'"></i>
-              <div>{{ file.name }}</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- validaciones -->
-        <mat-error class="text-xs"
-          *ngIf="formGroup.get('files')?.hasError('maxlength') && !formGroup.get('files')?.hasError('required')">
-          Se permite un máximo de <strong>3 archivos</strong>
-        </mat-error>
-        <mat-error class="text-xs" *ngIf="formGroup.get('files')?.hasError('required')">
-          Este campo es <strong>requerido</strong>
-        </mat-error>
-
-
-
-
-      </div>
-
-
-
-      <div class="col-span-1 text-neutral">
-        <h3 class="font-bold">Retroalimentación del Portafolio:</h3>
-        <p class="text-sm">En caso de rechazar el Portafolio indica el motivo para que el emisor lo pueda rectificar</p>
-      </div>
-
-      <div class="col-span-4 py-4 px-20 border border-[#535a6650] relative bg-[#ebecf090] rounded-md">
-
-        <br>
-
-        <div class="flex items-center">
-
-          <div class="flex-1">
-            <!-- <textarea
-                class="w-full border border-gray-300 rounded-lg py-2 px-4 leading-5 resize-none focus:outline-none focus:border-blue-500"
-                placeholder="Escribe un comentario..."></textarea> -->
-
-
-
-            <!-- textarea de comentario -->
-            <mat-form-field appearance="fill" class="w-full col-span-2">
-              <mat-label>Comentario</mat-label>
-              <textarea class="h-15 !resize-none !text-gray-600" matInput formControlName="comment"
-                [errorStateMatcher]="matcher" autocomplete="off" spellcheck="false"
-                placeholder="Ingresa un comentario."></textarea>
-              <!-- validaciones -->
-              <mat-error
-                *ngIf="formGroup.get('comment')?.hasError('minlength') || formGroup.get('comment')?.hasError('maxlength')">
-                Ingrese un comentario <strong>valido</strong>, (min: 30, max: 200)
-              </mat-error>
-
-            </mat-form-field>
-
-
-
-
-
-            <div class="flex justify-end mt-2">
-            </div>
-          </div>
-        </div>
-
-        <!--  <div class="col-span-1 col-start-5 row-span-1 flex items-start justify-end w-full pr-3">
-            <div class="flex items-start flex-col">
-  
-              <div class="flex justify-between items-center gap-4">
-                <button [routerLink]="['/system/oficios-list']"
-                  class="btn btn-outline btn-primary text-xs text-primary rounded-md flex justify-center items-center">
-                  <div class="flex justify-center items-center gap-2">
-                    <span class="fa-solid fa-arrow-left-long text-sm"></span>
-                    <span>Cancelar</span>
-                  </div>
-                </button>
-  
-                <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
-                  [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
-                  <div class="flex justify-center items-center gap-2">
-                    <span class="fa-solid fa-floppy-disk text-sm"></span>
-  
-                    <span>Guardar</span>
-                  </div>
-                </button>
-              </div>
-  
-            </div>
-          </div> -->
-
+      <br>
+      <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
+        <textarea placeholder="Comentario del Portafolio" class="textarea  textarea-lg w-full h-full "></textarea>
       </div>
     </div>
+  </div>
 
-
-
-    <div class="mb-8 w-full flex  justify-end  items-center">
-      <div class="flex justify-between items-center gap-4">
-        <button [routerLink]="['/system/portafolio']"
-          class="btn btn-outline btn-primary text-xs text-primary rounded-md flex justify-center items-center">
-          <div class="flex justify-center items-center gap-2">
-            <span class="fa-solid fa-arrow-left-long text-sm"></span>
-            <span>Cancelar</span>
-          </div>
-        </button>
-
-        <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
-          [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
-          <div class="flex justify-center items-center gap-2">
-            <span class="fa-solid fa-floppy-disk text-sm"></span>
-
-            <span>Guardar</span>
-          </div>
-        </button>
-      </div>
-    </div>
-  </form>
+  <div class="grid place-items-center">
+    <button class="btn btn-info w-25">Enviar</button>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
   <a
     [routerLinkActive]="['tab-active']"
-    routerLink="/system/oficios-list/archived"
+    routerLink="/system/solicitud/list/archived"
     class="tab tab-lifted !-mr-0 archived"
     *permissions="[
       'RESTAURAR_' + route.toUpperCase(),
@@ -14,35 +14,70 @@
   <div></div>
 
   <div class="flex items-end">
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
-                'LEER_ROLES',
-              ]">
-      Creados
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/solicitud"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
+      Todos
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios-list"
+      routerLink="/system/personal/roles"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_USUARIOS'
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
       ]"
     >
-      Recibidos
+      Certificados
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios/"
+      routerLink="/system/personal/roles"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_ROLES'
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
       ]"
     >
-      Finalizados
+      Vinculación
     </a>
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
-            'LEER_ROLES'
-          ]">
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/personal/roles"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
       Pendientes
+    </a>
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/personal/roles"
+      class="tab tab-lifted"
+      *permissions="[
+        'LEER_SOLICITUD',
+        'CREAR_SOLICITUD',
+        'ACTUALIZAR_SOLICITUD',
+        'ELIMINAR_SOLICITUD'
+      ]"
+    >
+      Pre Aprobados
     </a>
   </div>
 </div>

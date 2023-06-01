@@ -24,11 +24,27 @@ import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
 import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
+import { ProyectoListComponent } from '../feature/proyecto/list/proyecto-list.component';
+
 import { PortafolioVinculacionFormComponent } from '../feature/docente-vinculacion/informe-control/portafolio-vinculacion/portafolio-vinculacion-form/portafolio-vinculacion-form.component';
-import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
+import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { ProyectoArchivedComponent } from '../feature/proyecto/archived/proyecto-archived.component';
+import { FormDatosGeneralesComponent } from '../feature/proyecto/form/datos-generales/form-datos-generales.component';
+import { FormActividadesComponent } from '../feature/proyecto/form/actividades/form-actividades.component';
+import { FormAnexosComponent } from '../feature/proyecto/form/anexos/form-anexos.component';
+import { FormBibliografiaComponent } from '../feature/proyecto/form/bibliografia/form-bibliografia.component';
+import { FormCertificadosComponent } from '../feature/proyecto/form/certificados/form-certificados.component';
+import { FormDocumentosComponent } from '../feature/proyecto/form/documentos/form-documentos.component';
+import { FormEmpresaComponent } from '../feature/proyecto/form/empresa/form-empresa.component';
+import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas.component';
+import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
+import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
+import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
+import { ListFundacionComponent } from '../feature/fundacion/list/list-fundacion.component';
+import { AsignarComponent } from '../feature/fundacion/asignar/asignar.component';
 
 
 const routes: Routes = [
@@ -38,11 +54,8 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {path:'avance', component:AvanceCumplimientoComponent},
-      {path:'solicitud', component:SolicitudFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'solicitud-list', component: SolicitudListComponent },
-      { path: 'oficios-list/archived', component: SolicitudArchivedComponent },
       {
         path: 'perfil',
         children: [
@@ -61,10 +74,6 @@ const routes: Routes = [
           },
         ],
       },
-
-
-
-
       {
         path: 'portafolio',
         children: [
@@ -96,8 +105,183 @@ const routes: Routes = [
           },
         ],
       },
-
-
+      {
+        path: 'solicitud',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'form/:id',
+            component: SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: SolicitudListComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'proyecto',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'form-datos-generales',
+            component: FormDatosGeneralesComponent,
+          },
+          {
+            path: 'form-datos-generales/:id',
+            component: FormDatosGeneralesComponent,
+          },
+          {
+            path: 'form-actividades',
+            component: FormActividadesComponent,
+          },
+          {
+            path: 'form-actividades/:id',
+            component: FormActividadesComponent,
+          },
+          {
+            path: 'form-anexos',
+            component: FormAnexosComponent,
+          },
+          {
+            path: 'form-anexos/:id',
+            component: FormAnexosComponent,
+          },
+          {
+            path: 'form-bibliografia',
+            component: FormBibliografiaComponent,
+          },
+          {
+            path: 'form-bibliografia/:id',
+            component: FormBibliografiaComponent,
+          },
+          {
+            path: 'form-certificados',
+            component: FormCertificadosComponent,
+          },
+          {
+            path: 'form-certificados/:id',
+            component: FormCertificadosComponent,
+          },
+          {
+            path: 'form-documentos',
+            component: FormDocumentosComponent,
+          },
+          {
+            path: 'form-documentos/:id',
+            component: FormDocumentosComponent,
+          },
+          {
+            path: 'form-empresa',
+            component: FormEmpresaComponent,
+          },
+          {
+            path: 'form-empresa/:id',
+            component: FormEmpresaComponent,
+          },
+          {
+            path: 'form-firmas',
+            component: FormFirmasComponent,
+          },
+          {
+            path: 'form-firmas/:id',
+            component: FormFirmasComponent,
+          },
+          {
+            path: 'form-integrantes',
+            component: FormIntegrantesComponent,
+          },
+          {
+            path: 'form-integrantes/:id',
+            component: FormIntegrantesComponent,
+          },
+          {
+            path: 'form-observaciones',
+            component: FormObservacionesComponent,
+          },
+          {
+            path: 'form-observaciones/:id',
+            component: FormObservacionesComponent,
+          },
+          {
+            path: 'form-plan-de-trabajo',
+            component: FormPlanDeTrabajoComponent,
+          },
+          {
+            path: 'form-plan-de-trabajo/:id',
+            component: FormPlanDeTrabajoComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: ProyectoListComponent,
+              },
+              {
+                path: 'archived',
+                component: ProyectoArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'fundacion',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'asignar',
+            component:  AsignarComponent,
+          },
+          {
+            path: 'Asignar/:id',
+            component:  AsignarComponent,
+          },
+          {
+            path: 'form/:id',
+            component:  SolicitudFormComponent,
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path: '',
+                component: ListFundacionComponent,
+              },
+              {
+                path: 'archived',
+                component: SolicitudArchivedComponent,
+              },
+            ],
+          },
+        ],
+      },
       {
         path: 'personal',
         children: [
@@ -323,7 +507,7 @@ const routes: Routes = [
             ],
           },
 
-        
+
         ],
       },
 
