@@ -57,4 +57,5 @@ export class SolicitudHttpService {
   public asignarSolicitud(solicitude:SolicitudModels): Observable<SolicitudModels>{
     return this.http.put<SolicitudModels>(`${this.url}/assign/${solicitude.id}`,solicitude ,  this.httpOptions);
   }
+
 }

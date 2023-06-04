@@ -43,6 +43,13 @@
         <div class="grid h-20 flex-grow rounded-box text-dark py-5">
           <p class="p-2">Carrera: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
         </div>
+        <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+          <app-estados-solicitud-combobox class="w-full col-span-2" formControlName="status">
+          </app-estados-solicitud-combobox>
+        </div>
+        <div class="w-2/5">
+          <app-proyecto-combobox formControlName="projects"></app-proyecto-combobox>
+        </div>
       </div>
     </div>
 
