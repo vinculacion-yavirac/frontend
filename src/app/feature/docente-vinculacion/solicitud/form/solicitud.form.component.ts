@@ -1,29 +1,11 @@
 // importaciones de @angular
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {SolicitudHttpService} from "../../../../service/docente-vinculacion/solicitud/solicitud-http.service";
+import {SolicitudModels} from "../../../../models/docente-vinculacion/solicitud/solicitud";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-
-// importaciones de angular material
-import { MatDialog } from '@angular/material/dialog';
-
-// importaciones de los servicios y modelos
-
-
-// importaciones de los validadores
-import { MyErrorStateMatcher } from '../../../../../app/shared/matcher/error-state-matcher';
-import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { PortafolioHttpService } from '../../../../../app/service/portafolio/portafolio-http.service';
-import { PortafoliosModels } from '../../../../../app/models/portafolio/portafolio.models';
-import { User } from '../../../../../app/models/auth/user.interface';
-import { AuthHttpService } from '../../../../../app/service/auth/auth-http.service';
-import { FileIconsModels } from '../../../../../app/models/portafolio/files/fileIcons.models';
-
-//import { OficioService } from '../oficio.service';
+import {Subscription} from "rxjs";
+import {Person} from "../../../../models/auth/persona/persona";
 
 @Component({
   selector: 'app-solicitud-form',
@@ -31,195 +13,108 @@ import { FileIconsModels } from '../../../../../app/models/portafolio/files/file
   styleUrls: ['./solicitud.form.component.css'],
 })
 export class SolicitudFormComponent implements OnInit {
-  fileIcons: FileIconsModels = {
-    pdf: 'far fa-file-pdf',
-    doc: 'far fa-file-word',
-    docx: 'far fa-file-word',
-    xls: 'far fa-file-excel',
-    xlsx: 'far fa-file-excel',
-    ppt: 'far fa-file-powerpoint',
-    pptx: 'far fa-file-powerpoint',
-    jpg: 'far fa-file-image',
-    jpeg: 'far fa-file-image',
-    png: 'far fa-file-image',
-    gif: 'far fa-file-image',
-    txt: 'far fa-file-alt',
-    default: 'far fa-file',
-  };
 
-  // Variables de clase que son inyectadas
-  currentOficio = {} as PortafoliosModels;
+  currentSolicitude = {} as SolicitudModels;
 
-  title = 'Asignar Solicitud';
+  persons: Person [] = [];
+
+  solicitudes: SolicitudModels [] = [];
+
   paramsSubscription: Subscription;
 
+  public formGroup: FormGroup;
+  title = 'Asignar EStudiante';
   loading: boolean = true;
 
-  // Variables de clase que son inyectadas por referencia
-  matcher = new MyErrorStateMatcher();
-
-  // Variables de clase que son inyectadas por referencia
-  formGroup: FormGroup;
-
-  files: File[] = [];
-
-  currentUser = {} as User;
-  currentDate = new Date();
-
-  comments: Comment[] = [];
-
   constructor(
-    private portafolioHttpService: PortafolioHttpService,
-    private authHttpService: AuthHttpService,
+    private solicitudeHttpService:SolicitudHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
   ) {
     this.initForm();
   }
 
-  /**
-   * Inicializa el formulario de oficios con los validadores y los valores por defecto.
-   * Suscribe al formulario para detectar los cambios en los valores de los campos.
-   */
   initForm() {
-    this.formGroup = this.formBuilder.group({
-      subject: [
-        '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(25),
-            Validators.maxLength(100),
-          ],
-        },
-      ],
-      description: [
-        '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(80),
-            Validators.maxLength(300),
-          ],
-        },
-      ],
-      files: [
-        [],
-        {
-          validators: [Validators.required, Validators.maxLength(3)],
-        },
-      ],
-      comment: [
-        '',
-        {
-          validators: [Validators.minLength(30), Validators.maxLength(200)],
-        },
-      ],
-    });
 
+    this.formGroup = this.formBuilder.group({
+      id: [0],
+      type_of_request: ['', Validators.required],
+      status: ['', Validators.required],
+      created_by: this.formBuilder.group({
+        id: [0],
+        // Otros campos del modelo User
+        email:[
+          '',
+          Validators.required,
+        ],
+        person: this.formBuilder.group({
+          names:[
+            '', Validators.required,
+          ],
+          identification:[
+            '', Validators.required,
+          ],
+          last_names:[
+            '',
+            Validators.required
+          ]
+        })
+      }),
+      created_at: [
+        '',
+        Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/),
+      ],
+      updated_at: [null],
+    });
     this.formGroup.valueChanges.subscribe((values) => {
-      this.currentOficio = values;
-      console.log(this.currentOficio);
+      this.currentSolicitude = values;
+      console.log(this.currentSolicitude);
     });
   }
 
-  ngOnInit(): void {
-    this.getCurrentUser();
+  ngOnInit() {
     this.paramsSubscription = this.activatedRoute.params.subscribe(
-      (params: Params) => {
+      (params: Params) =>{
         if (params['id']) {
-          this.title = 'Editar oficio';
-          // this.getOficio(params['id']);
+          this.title = 'Asignar Estudiante';
+          this.getSolicitudById(params['id']);
         } else {
           setTimeout(() => {
             this.loading = false;
           }, 1000);
         }
       }
-    );
+    )
   }
 
-  onSubmit(): void {
+
+  public onSubmit(): void {
     if (this.formGroup.valid) {
-      console.log('success');
-      this.createOficio();
+      if (!this.currentSolicitude.id) {
+        this.asignarSolicitude();
+      } else {
+        this.asignarSolicitude();
+      }
     }
   }
 
-  ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
-  }
-
-  getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: User) => {
-      if (user) {
-        this.currentUser = user;
+  public asignarSolicitude():void{
+    this.solicitudeHttpService.asignarSolicitud(this.currentSolicitude).subscribe( (rest:any) => {
+      if (rest.status === 'success'){
+        console.log('creando');
+        this.router.navigate(['system/solicitud/list']);
       }
     });
   }
 
-  getComments() {
-    this.portafolioHttpService
-      .getComments(this.currentOficio.id)
-      .subscribe((res: any) => {
-        if (res.status === 'success') {
-          this.comments = res.data.comments;
-        }
-      });
-  }
-
-  //método para crear un oficio nuevo
-  createOficio() {
-    this.portafolioHttpService.addPortafolios(this.currentOficio).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.uploadFiles(res.data.official_document.id, this.files);
-        this.router.navigate(['/system/oficios-list']);
+  public getSolicitudById(id:number):void{
+    this.solicitudeHttpService.getSolicitudById(id).subscribe((rest:any)=>{
+      if(rest.status === 'success'){
+        this.currentSolicitude = rest.data.solicitudes;
+        this.formGroup.patchValue(this.currentSolicitude);
       }
     });
   }
 
-  /**
-   * Metodos para el drang and drop del input de archivos.
-   */
-
-  getFileIcon(file: File): string {
-    const extension = file.name.split('.').pop()?.toLowerCase() || '';
-    return this.fileIcons[extension] || this.fileIcons['default'];
-  }
-
-  onFileSelected(event: any): void {
-    this.files = Array.from(event.target.files);
-    this.updateSelectedFilesList();
-  }
-
-  updateSelectedFilesList(): void {
-    this.cdr.detectChanges();
-  }
-
-  /*   uploadFiles(id:number): void {
-    const formData = new FormData();
-    this.files.forEach((file: File) => {
-      formData.append('archivo', file, file.name);
-    });
-    this.http
-      .post(
-        `http://127.0.0.1:8000/api/files/upload/${id}`,
-        formData
-      )
-      .subscribe();
-  } */
-
-  uploadFiles(id: number, files: File[]): void {
-    const formData = new FormData();
-    files.forEach((file: File) => {
-      formData.append('archivos[]', file, file.name);
-    });
-    this.http
-      .post(`http://127.0.0.1:8000/api/files/upload/${id}`, formData)
-      .subscribe();
-  }
 }

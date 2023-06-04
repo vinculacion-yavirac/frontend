@@ -1,10 +1,91 @@
 <module-header title="{{ title }}">
   <solicitud-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/solicitud/form">Formulario</a></li>
-    <li *ngIf="formGroup.get('subject')?.value">
-      <a>{{ formGroup.get("subject")?.value }}</a>
+    <li *ngIf="formGroup.get('created_by.person.names')?.value">
+      <a>{{ formGroup.get("created_by.person.names")?.value }}</a>
     </li>
   </solicitud-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 
+
+<div class="p-1 grid grid-cols-1 bg-white border-t-[1px] border-[#535a6650]">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="grid h-60 card bg-white text-dark  rounded-box">
+      <div formGroupName="created_by" class="flex w-full p-3.5 text-dark py-3">
+        <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
+          <h2 class="text-xl p-2">
+            Datos del Estudiante
+          </h2>
+          <p class="p-2">Nombre: {{ formGroup.get('created_by.person.names')?.value}}</p>
+          <p class="p-2">Identificacion: {{ formGroup.get('created_by.person.identification')?.value}}</p>
+        </div>
+        <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+          <p class="p-2">Apellidos: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
+          <p class="p-2">Email: {{ formGroup.get('created_by.email')?.value}}</p>
+        </div>
+        <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+          <p class="p-2">Carrera: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
+          <p class="p-2">Semestre: {{ formGroup.get('created_by.email')?.value}}</p>
+        </div>
+      </div>
+      <div formGroupName="created_by" class="flex w-full p-7.5 text-dark py-3">
+        <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
+          <h2 class="text-xl p-2">
+            Datos de la solicitud
+          </h2>
+          <p class="p-2">solicitud de: {{ formGroup.get('type_of_request')?.value}}</p>
+        </div>
+        <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+          <p class="p-2">Fecha de Emisión: {{ formGroup.get('created_at')?.value | date:'yyyy-MM-dd' }}</p>
+
+        </div>
+        <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+          <p class="p-2">Carrera: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div
+      formGroupName="created_by"
+      class="col-span-4 grid grid-cols-4 gap-4"
+    >
+      <input
+        type="text"
+        matInput
+        formControlName="email"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div
+        formGroupName="person"
+        class="col-span-4 grid grid-cols-4 gap-4"
+      >
+        <input
+          type="text"
+          matInput
+          formControlName="names"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+    </div>
+    <input
+      type="text"
+      matInput
+      formControlName="type_of_request"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <input
+      type="text"
+      matInput
+      formControlName="status"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </form>
+</div>
