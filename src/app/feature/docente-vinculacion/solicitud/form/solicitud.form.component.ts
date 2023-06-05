@@ -50,7 +50,7 @@ export class SolicitudFormComponent implements OnInit {
   // Variables de clase que son inyectadas
   currentOficio = {} as PortafoliosModels;
 
-  title = 'Nuevo Oficio';
+  title = 'Asignar Solicitud';
   paramsSubscription: Subscription;
 
   loading: boolean = true;

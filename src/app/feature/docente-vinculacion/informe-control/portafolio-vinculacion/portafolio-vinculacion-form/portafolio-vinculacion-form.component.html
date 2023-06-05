@@ -64,7 +64,7 @@
       <form class="row g-3 px-2" style="    margin-left: 11px;
       display: grid;">
         <label for="">
-          <h5  style=" font-size: 25px;">Entidad</h5>
+          <h5 style=" font-size: 25px;">Entidad</h5>
         </label>
         <br>
         <div class="form-row">
@@ -87,22 +87,22 @@
         </div>
         <div class="form-row">
 
-        <div class="col-md-6">
-          <div class="mb-3 row">
-            <label for="" class="col-sm-3 col-form-label">Encargado</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="" id="">
+          <div class="col-md-6">
+            <div class="mb-3 row">
+              <label for="" class="col-sm-3 col-form-label">Encargado</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="" id="">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-3 row">
-            <label for="" class="col-sm-3 col-form-label">Telefono</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="" id="">
+          <div class="col-md-6">
+            <div class="mb-3 row">
+              <label for="" class="col-sm-3 col-form-label">Telefono</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="" id="">
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </form>
     </div>
@@ -116,25 +116,89 @@
       <app-portafolio-vinculacion-tutor-form></app-portafolio-vinculacion-tutor-form>
       <!--Portafolio Tutor-->
       <br>
+      <button
+        class="text-black font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        type="button" style="    background-color: green;
+        color: white;" (click)="toggleModal()">Adjuntar
+      </button>
+
+      <div *ngIf="showModal"
+        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <div class="relative w-auto my-6 mx-auto max-w-3xl">
+          <!--content-->
+          <div
+            class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            <!--header-->
+            <!-- <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-3xl font-semibold">
+            Modal Title
+          </h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="toggleModal()">
+            <span
+              class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
+        </div> -->
+            <!--body-->
+            <div class="relative p-6 flex-auto">
+              <form class="row g-3 px-2"
+                style="    margin-left: 11px; display: grid;">
+                <br>
+                <H6 style=" font-size: 25px;">Avance cumplimiento de objetivos</H6>
+                <br>
+                <div class="form-row">
+                  <div class="col-md-8">
+                    <div class="mb-3 row">
+                      <label for="" class="col-sm-3 col-form-label">Upload File</label>
+                      <div class="col-sm-4">
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="submit" value="Upload Image" name="submit">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+            <!--footer-->
+            <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b" >
+
+              <button
+                class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleModal()">
+                Cerrar
+              </button>
+              <button
+                class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleModal()">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <br>
     <div class="d-grid gap-2 col-4 mx-auto">
       <button class="btn btn-primary" type="button">
         <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
         Enviar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" type="button"  [routerLinkActive]="['tab-active']"
-        routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento"
-        *permissions="[
+      <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
+        routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
           'LEER_ROLES',
           'CREAR_ROLES',
           'ACTUALIZAR_ROLES',
           'ELIMINAR_ROLES'
         ]">
-          <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
-          Siguiente</button>
-          
+        <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
+        Siguiente</button>
+
     </div>
-   
+
     <br>
   </div>
 </div>
