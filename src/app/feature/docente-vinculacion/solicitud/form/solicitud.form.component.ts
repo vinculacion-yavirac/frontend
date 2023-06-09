@@ -67,9 +67,9 @@ export class SolicitudFormComponent implements OnInit {
       ],
       projects: ['', Validators.required],
     });
-    this.formGroup.valueChanges.subscribe((values) => {
-      this.currentSolicitude = values;
-      console.log(this.currentSolicitude);
+    this.formGroup.valueChanges.subscribe((val) => {
+      this.currentSolicitude = val;
+      console.log('tgisss' + this.currentSolicitude)
     });
   }
 
@@ -109,12 +109,21 @@ export class SolicitudFormComponent implements OnInit {
   }
 
   public getSolicitudById(id:number):void{
+    this.loading = true;
     this.solicitudeHttpService.getSolicitudById(id).subscribe((rest:any)=>{
       if(rest.status === 'success'){
         this.currentSolicitude = rest.data.solicitudes;
+        console.log('curreentSolicitude'+''+this.currentSolicitude);
         this.formGroup.patchValue(this.currentSolicitude);
       }
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
   }
 
 }

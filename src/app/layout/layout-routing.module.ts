@@ -45,10 +45,12 @@ import { FormObservacionesComponent } from '../feature/proyecto/form/observacion
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
 import { ListFundacionComponent } from '../feature/fundacion/list/list-fundacion.component';
 import { AsignarComponent } from '../feature/fundacion/asignar/asignar.component';
+import {ProyectoInfoComponent} from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
 
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
+  { path: 'info', component: ProyectoInfoComponent },
   {
     path: '',
     component: MainComponent,

@@ -44,4 +44,8 @@ export class ProyectoService {
   public getProjectByFoundation(foundationId: number): Observable<ProyectoModels[]> {
     return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
   }
+
+  public getProjectById(foundationId: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/${foundationId}`);
+  }
 }
