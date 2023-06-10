@@ -131,6 +131,39 @@ const routes: Routes = [
                 component: SolicitudListComponent,
               },
               {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Certificado',
+                    component: SolicitudListComponent,
+                    data:{
+                      filterCertificado: 'Certificado'
+                    }
+                  },
+                  {
+                    path: 'Vinculación',
+                    component: SolicitudListComponent,
+                    data:{
+                      filterVinculacion: 'Vinculación'
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: SolicitudListComponent,
+                    data: {
+                      filterPendiente: 'Pendiente',
+                    },
+                  },
+                  {
+                    path: 'Pre Aprobado',
+                    component: SolicitudListComponent,
+                    data: {
+                      filterPreAprobado: 'Pre Aprobado',
+                    },
+                  },
+                ]
+              },
+              {
                 path: 'archived',
                 component: SolicitudArchivedComponent,
               },

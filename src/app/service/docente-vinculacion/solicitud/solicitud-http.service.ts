@@ -58,4 +58,28 @@ export class SolicitudHttpService {
     return this.http.put<SolicitudModels>(`${this.url}/assign/${solicitude.id}`,solicitude ,  this.httpOptions);
   }
 
+  public getSolicitudByStatus(status: string): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/filter/status/${status}`);
+  }
+
+  public getSolicitudByType(value: string): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/filter/type/${value}`);
+  }
+
+  public searchSolicitudeVinculacionByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodeURIComponent(term)}`)
+  }
+
+  public searchCertificateByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodeURIComponent(term)}`)
+  }
+
+  public searchPendienteByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`)
+  }
+
+  public searchPreAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`)
+  }
+
 }
