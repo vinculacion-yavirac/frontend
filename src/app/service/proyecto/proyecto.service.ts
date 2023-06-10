@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProyectoModels } from '../../../app/models/proyecto/proyecto.models';
 import { environment } from '../../../environments/environment';
+import {SolicitudModels} from "../../models/docente-vinculacion/solicitud/solicitud";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,13 @@ export class ProyectoService {
 
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
+  }
+
+  public getProjectByFoundation(foundationId: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
+  }
+
+  public getProjectById(foundationId: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/${foundationId}`);
   }
 }

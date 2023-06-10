@@ -37,16 +37,8 @@ export class SolicitudArchivedComponent implements OnInit {
     this.loading = true;
     this.solicitudHttpService.getArchivedSolicitud().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.solicitudes = res.data.solicitudes;
-        this.solicitudes.sort((a, b) => {
-          if (a.type_of_request.toLowerCase() > b.type_of_request.toLowerCase()) {
-            return 1;
-          }
-          if (a.type_of_request.toLowerCase() < b.type_of_request.toLowerCase()) {
-            return -1;
-          }
-          return 0;
-        });
+        this.handleSearchResponse(res);
+        this.sortSolicitudes();
       }
       this.loading = false;
     });
@@ -54,7 +46,6 @@ export class SolicitudArchivedComponent implements OnInit {
 
   public searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
-
     this.solicitudHttpService.searchArchivedSolicitud(term).subscribe((res: any) => {
       if (res.status === 'success') {
         this.solicitudes = res.data.solicitudes;
@@ -64,13 +55,26 @@ export class SolicitudArchivedComponent implements OnInit {
         this.reverse = false;
       }
       this.loading = false;
-
     });
   }
 
   reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
+  }
+
+  public sortSolicitudes(): void {
+    this.solicitudes.sort((a, b) => {
+      return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
+    });
+  }
+
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.solicitudes = res.data.solicitudes;
+      this.reverse = false;
+    }
+    this.loading = false;
   }
 
   public restaureSolicitud(solicitud:SolicitudModels): void{

@@ -13,33 +13,37 @@ import { FeatureModule } from './feature/feature.module';
 import { LayoutModule } from './layout/layout.module';
 import { NotificationInterceptor } from './shared/notification/notification.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { ProyectoComboboxComponent } from './shared/comboboxes/proyecto/proyecto-combobox.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, NotFoundComponent],
-  providers: [
-    CookieService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NotificationInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    FeatureModule,
-    LayoutModule,
-  ],
+    declarations: [AppComponent, LoginComponent, NotFoundComponent],
+    providers: [
+        CookieService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: NotificationInterceptor,
+            multi: true,
+        },
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FeatureModule,
+        LayoutModule,
+    ],
+    exports: [
+
+    ]
 })
 export class AppModule {}

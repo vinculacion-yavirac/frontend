@@ -38,7 +38,7 @@
               <th scope="col" class="py-3 px-6">#</th>
               <th scope="col" class="py-3 px-6">
                 <div class="flex items-center">
-                  Tipo de Solicitud
+                  Nombre del Estudiante
                   <a class="cursor-pointer ml-1" *ngIf="reverse && solicitudes.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-up"></span>
                   </a>
@@ -48,7 +48,7 @@
                 </div>
               </th>
               <th scope="col" class="py-3 px-6">
-                Nombre del Estudiante
+                Tipo de Solicitud
               </th>
               <th scope="col" class="py-3 px-6">
                 Cedula del Estudiante
@@ -75,10 +75,10 @@
                   }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{solicitud.type_of_request}}</span>
+                <span>{{solicitud.created_by.person.names}}</span>
               </td>
               <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                <span>{{solicitud.created_by.person.names}}</span>
+                <span>{{solicitud.type_request_id.catalog_value}}</span>
               </td>
               <td class="py-[3.8px] px-6">
                 <span>{{solicitud.created_by.person.identification }}</span>
@@ -87,7 +87,7 @@
                 <span>{{pipe.transform(solicitud.created_at, 'dd/MM/yyyy')}}</span>
               </td>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{solicitud.status}}</span>
+                <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
                 <span [routerLink]="['/system/solicitud/form/', solicitud.id]"

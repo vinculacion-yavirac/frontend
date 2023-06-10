@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill" class="w-full ">
+  <mat-label>Tipo de Solicitud</mat-label>
+  <mat-select [formControl]="estadosSolicitudFormControl">
+    <mat-option *ngFor="let estadoSolicitud of estadoSolicitudes" [value]="estadoSolicitud.value">
+      {{ estadoSolicitud.value }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="estadosSolicitudFormControl.hasError('required')">
+    Este campo es <strong>requerido</strong>
+  </mat-error>
+  <mat-hint *ngIf="estadoSolicitudes == null ||
+      estadoSolicitudes.length == 0">No hay Estados</mat-hint>
+</mat-form-field>

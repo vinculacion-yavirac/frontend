@@ -45,10 +45,12 @@ import { FormObservacionesComponent } from '../feature/proyecto/form/observacion
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
 import { ListFundacionComponent } from '../feature/fundacion/list/list-fundacion.component';
 import { AsignarComponent } from '../feature/fundacion/asignar/asignar.component';
+import {ProyectoInfoComponent} from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
 
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
+  { path: 'info', component: ProyectoInfoComponent },
   {
     path: '',
     component: MainComponent,
@@ -127,6 +129,39 @@ const routes: Routes = [
               {
                 path: '',
                 component: SolicitudListComponent,
+              },
+              {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Certificado',
+                    component: SolicitudListComponent,
+                    data:{
+                      filterCertificado: 'Certificado'
+                    }
+                  },
+                  {
+                    path: 'Vinculación',
+                    component: SolicitudListComponent,
+                    data:{
+                      filterVinculacion: 'Vinculación'
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: SolicitudListComponent,
+                    data: {
+                      filterPendiente: 'Pendiente',
+                    },
+                  },
+                  {
+                    path: 'Pre Aprobado',
+                    component: SolicitudListComponent,
+                    data: {
+                      filterPreAprobado: 'Pre Aprobado',
+                    },
+                  },
+                ]
               },
               {
                 path: 'archived',

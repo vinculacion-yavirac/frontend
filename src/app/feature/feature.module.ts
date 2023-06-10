@@ -108,6 +108,14 @@ import { FormIntegrantesComponent } from './proyecto/form/integrantes/form-integ
 import { FormObservacionesComponent } from './proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from './proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
 import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
+import {
+  TipoSolicitudesComboboxComponent
+} from "../shared/comboboxes/tipos-solicitudes/tipo-solicitudes-combobox.component";
+import {
+  EstadosSolicitudComboboxComponent
+} from "../shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component";
+import {ProyectoComboboxComponent} from "../shared/comboboxes/proyecto/proyecto-combobox.component";
+import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-info/proyecto-info.component';
 
 
 
@@ -206,6 +214,10 @@ import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
     TabsFundacionComponent,
     BreadcrumbsFundacionComponent,
     ListFundacionComponent,
+    TipoSolicitudesComboboxComponent,
+    EstadosSolicitudComboboxComponent,
+    ProyectoComboboxComponent,
+    ProyectoInfoComponent
   ],
   imports: [
     CommonModule,

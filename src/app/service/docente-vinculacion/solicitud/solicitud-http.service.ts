@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +21,15 @@ export class SolicitudHttpService {
 
   private url = environment.API_URL + '/solicitud';
 
+
+  //funcion para obtener todas las solicitudes
   public getSolicitud(): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(this.url);
+  };
+
+  //Funcion para obtener las solicitudes por el id
+  public getSolicitudById(id:number): Observable<SolicitudModels> {
+    return this.http.get<SolicitudModels>(`${this.url}/${id}`);
   };
 
   public searchSolicitudByTerm(term:string): Observable<SolicitudModels[]>{
@@ -45,4 +53,33 @@ export class SolicitudHttpService {
   public restaureSolicitud(id:number): Observable<SolicitudModels>{
     return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions)
   }
+
+  public asignarSolicitud(solicitude:SolicitudModels): Observable<SolicitudModels>{
+    return this.http.put<SolicitudModels>(`${this.url}/assign/${solicitude.id}`,solicitude ,  this.httpOptions);
+  }
+
+  public getSolicitudByStatus(status: string): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/filter/status/${status}`);
+  }
+
+  public getSolicitudByType(value: string): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/filter/type/${value}`);
+  }
+
+  public searchSolicitudeVinculacionByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodeURIComponent(term)}`)
+  }
+
+  public searchCertificateByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodeURIComponent(term)}`)
+  }
+
+  public searchPendienteByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`)
+  }
+
+  public searchPreAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`)
+  }
+
 }
