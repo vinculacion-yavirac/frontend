@@ -89,14 +89,15 @@
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
               </td>
-              <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
+              <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
+                      *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  *permissions="['ACTUALIZAR_SOLICITUD']"></span>
+                  ></span>
                  <span
                     (click)="openDialogArchiveRol(solicitud)"
                     class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                    *permissions="['ARCHIVAR_SOLICITUD']"
+                    *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"
                   ></span>
               </th>
             </tr>

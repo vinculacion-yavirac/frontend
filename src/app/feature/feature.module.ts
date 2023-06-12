@@ -116,6 +116,9 @@ import {
 } from "../shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component";
 import {ProyectoComboboxComponent} from "../shared/comboboxes/proyecto/proyecto-combobox.component";
 import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-info/proyecto-info.component';
+import {
+  ProyectosComboboxComponent
+} from "../shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component";
 
 
 
@@ -217,7 +220,8 @@ import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-i
     TipoSolicitudesComboboxComponent,
     EstadosSolicitudComboboxComponent,
     ProyectoComboboxComponent,
-    ProyectoInfoComponent
+    ProyectoInfoComponent,
+    ProyectosComboboxComponent,
   ],
   imports: [
     CommonModule,
