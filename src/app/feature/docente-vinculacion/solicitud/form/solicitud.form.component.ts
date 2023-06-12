@@ -1,11 +1,13 @@
-// importaciones de @angular
-import { Component, OnInit } from '@angular/core';
 import {SolicitudHttpService} from "../../../../service/docente-vinculacion/solicitud/solicitud-http.service";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {
+  ProyectoParticipanteHttpService
+} from "../../../../service/proyecto/participante/proyecto-participante-http.service";
 import {SolicitudModels} from "../../../../models/docente-vinculacion/solicitud/solicitud";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {ProyectoParticipanteModels} from "../../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
 import {Subscription} from "rxjs";
-import {Person} from "../../../../models/auth/persona/persona";
+import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'app-solicitud-form',
@@ -14,116 +16,101 @@ import {Person} from "../../../../models/auth/persona/persona";
 })
 export class SolicitudFormComponent implements OnInit {
 
-  currentSolicitude = {} as SolicitudModels;
-
-  persons: Person [] = [];
-
-  solicitudes: SolicitudModels [] = [];
-
+  currentSolicitude: SolicitudModels = {} as SolicitudModels;
+  currentProyectoParticipante: ProyectoParticipanteModels = {} as ProyectoParticipanteModels;
+  proyectoParticipante: ProyectoParticipanteModels[] = [];
   paramsSubscription: Subscription;
+  formGroup: FormGroup;
+  title = 'Asignar Estudiante';
+  loading = true;
 
-  public formGroup: FormGroup;
-  title = 'Asignar EStudiante';
-  loading: boolean = true;
 
   constructor(
-    private solicitudeHttpService:SolicitudHttpService,
+    private solicitudeHttpService: SolicitudHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-  ) {
-    this.initForm();
-  }
+    private proyectoParticipanteHttpService: ProyectoParticipanteHttpService
+  ) {}
 
-  initForm() {
-
-    this.formGroup = this.formBuilder.group({
-      id: [0],
-      type_of_request: ['', Validators.required],
-      status: ['', Validators.required],
-      created_by: this.formBuilder.group({
-        id: [0],
-        // Otros campos del modelo User
-        email:[
-          '',
-          Validators.required,
-        ],
-        person: this.formBuilder.group({
-          names:[
-            '', Validators.required,
-          ],
-          identification:[
-            '', Validators.required,
-          ],
-          last_names:[
-            '',
-            Validators.required
-          ]
-        })
-      }),
-      created_at: [
-        '',
-        Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/),
-      ],
-      projects: ['', Validators.required],
-    });
-    this.formGroup.valueChanges.subscribe((val) => {
-      this.currentSolicitude = val;
-      console.log('tgisss' + this.currentSolicitude)
-    });
-  }
-
-  ngOnInit() {
-    this.paramsSubscription = this.activatedRoute.params.subscribe(
-      (params: Params) =>{
-        if (params['id']) {
-          this.title = 'Asignar Estudiante';
-          this.getSolicitudById(params['id']);
-        } else {
-          setTimeout(() => {
-            this.loading = false;
-          }, 1000);
-        }
-      }
-    )
-  }
-
-
-  public onSubmit(): void {
-    if (this.formGroup.valid) {
-      if (!this.currentSolicitude.id) {
-        this.asignarSolicitude();
+  ngOnInit(): void {
+    this.buildForm();
+    this.getProyectoParticipante();
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      if (params['id']) {
+        this.title = 'Asignar Estudiante';
+        this.getSolicitudById(params['id']);
       } else {
-        this.asignarSolicitude();
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       }
+    });
+  }
+
+  buildForm(): void {
+    this.formGroup = this.formBuilder.group({
+      approval_date: ['', Validators.nullValidator],
+      who_made_request_id: ['', Validators.required],
+      //created_at: ['', [Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/)]],
+      created_by:this.formBuilder.group({
+        id:[0],
+        email:[''],
+        person:this.formBuilder.group({
+          name:[''],
+          identification:[''],
+          last_names:[''],
+        })
+      })
+    });
+  }
+
+  onSubmit(): void {
+    if (this.formGroup.valid) {
+      const id = this.currentSolicitude.id || 0;
+      this.solicitudeHttpService.asignarSolicitud(id, this.formGroup.value).subscribe(
+        (response: any) => {
+          if (response.status === 'success') {
+            console.log('Relación actualizada correctamente');
+            this.router.navigate(['system/solicitud/list']);
+          }
+        },
+        (error: any) => {
+          console.log('Error al actualizar la relación:', error.message);
+        }
+      );
     }
   }
 
-  public asignarSolicitude():void{
-    this.solicitudeHttpService.asignarSolicitud(this.currentSolicitude).subscribe( (rest:any) => {
-      if (rest.status === 'success'){
-        console.log('creando');
-        this.router.navigate(['system/solicitud/list']);
+  getProyectoParticipante(): void {
+    this.proyectoParticipanteHttpService.getProyectoParticipante().subscribe((rest:any) => {
+      this.proyectoParticipante = rest.data.projectParticipants;
+    });
+  }
+
+  getSolicitudById(id: number): void {
+    this.loading = true;
+    this.solicitudeHttpService.getSolicitudById(id).subscribe({
+      next: (response: any) => {
+        if (response.status === 'success') {
+          this.currentSolicitude = response.data.solicitudes;
+          this.formGroup.patchValue(this.currentSolicitude);
+        }
+      },
+      error: (error: any) => {
+        console.log('Error al obtener la solicitud:', error.message);
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }
 
-  public getSolicitudById(id:number):void{
-    this.loading = true;
-    this.solicitudeHttpService.getSolicitudById(id).subscribe((rest:any)=>{
-      if(rest.status === 'success'){
-        this.currentSolicitude = rest.data.solicitudes;
-        console.log('curreentSolicitude'+''+this.currentSolicitude);
-        this.formGroup.patchValue(this.currentSolicitude);
-      }
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
-    });
-  }
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
   }
+
+
 
 }

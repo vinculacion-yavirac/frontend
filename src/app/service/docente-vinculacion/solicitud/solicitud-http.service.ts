@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
+import {ProyectoParticipanteModels} from "../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
 
 
 
@@ -54,8 +55,8 @@ export class SolicitudHttpService {
     return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions)
   }
 
-  public asignarSolicitud(solicitude:SolicitudModels): Observable<SolicitudModels>{
-    return this.http.put<SolicitudModels>(`${this.url}/assign/${solicitude.id}`,solicitude ,  this.httpOptions);
+  public asignarSolicitud(id: number, solicitud: SolicitudModels): Observable<SolicitudModels>{
+    return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud ,  this.httpOptions);
   }
 
   public getSolicitudByStatus(status: string): Observable<SolicitudModels[]> {

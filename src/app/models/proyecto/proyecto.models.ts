@@ -4,6 +4,7 @@ import { FundacionModels } from "../fundacion/fundacion.models";
 
 export interface ProyectoModels {
     id: number;
+    code:string;
     name: string;
     status: string;
     foundations: FundacionModels;

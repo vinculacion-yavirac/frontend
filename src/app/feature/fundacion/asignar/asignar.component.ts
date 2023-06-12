@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/auth/user.interface';
+import { UserAuth } from 'src/app/models/auth/user.interface';
 import { FundacionDetalleModels } from 'src/app/models/fundacion/fundacion-detalle.models';
 import { FileIconsModels } from 'src/app/models/portafolio/files/fileIcons.models';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
@@ -51,7 +51,7 @@ export class AsignarComponent implements OnInit {
 
   files: File[] = [];
 
-  currentUser = {} as User;
+  currentUser = {} as UserAuth;
   currentDate = new Date();
 
   comments: Comment[] = [];
@@ -143,7 +143,7 @@ export class AsignarComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: UserAuth) => {
       if (user) {
         this.currentUser = user;
       }
