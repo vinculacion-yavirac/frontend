@@ -1,7 +1,7 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
   <a
     [routerLinkActive]="['tab-active']"
-    routerLink="/system/solicitud/list/archived"
+    routerLink="/system/{{ route }}/list/archived"
     class="tab tab-lifted !-mr-0 archived"
     *permissions="[
       'RESTAURAR_' + route.toUpperCase(),
@@ -16,20 +16,21 @@
   <div class="flex items-end">
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/solicitud"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="'/system/' + route + '/list/'"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_SOLICITUD',
-        'CREAR_SOLICITUD',
-        'ACTUALIZAR_SOLICITUD',
-        'ELIMINAR_SOLICITUD'
-      ]"
+    'LEER_SOLICITUD',
+    'CREAR_SOLICITUD',
+    'ACTUALIZAR_SOLICITUD',
+    'ELIMINAR_SOLICITUD'
+  ]"
     >
-      Todas
+      Todo
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/solicitud/list/filter/Vinculación"
+      routerLink="/system/{{ route }}/list/filter/Vinculación"
       class="tab tab-lifted"
       *permissions="[
         'LEER_SOLICITUD',
@@ -42,7 +43,7 @@
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/solicitud/list/filter/Certificado"
+      routerLink="/system/{{ route }}/list/filter/Certificado"
       class="tab tab-lifted"
       *permissions="[
         'LEER_SOLICITUD',
@@ -55,7 +56,7 @@
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/solicitud/list/filter/Pendiente"
+      routerLink="/system/{{ route }}/list/filter/Pendiente"
       class="tab tab-lifted"
       *permissions="[
         'LEER_SOLICITUD',
