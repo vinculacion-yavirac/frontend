@@ -127,7 +127,7 @@
         'ACTUALIZAR_ROLES',
         'ELIMINAR_ROLES'
     ]">
-          <div class="w-full sm:w-6/12 md:w-4/12 px-4" style="width: 150rem;">
+          <div class="w-full sm:w-6/12 md:w-4/12 px-4" style="width: 150rem;" [ngClass]="{ hidden: !sidebar }">
             <div class="relative inline-flex align-middle w-full">
 
               <button class="text-white py-2 rounded  focus:outline-none  ease-linear transition-all duration-150 "
@@ -141,7 +141,7 @@
         <div class="z-50" style="min-width: 12rem" #popoverDropdownRef>
           <div class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
             style="min-width: 12rem" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'">
-            <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/informe-inicial" *permissions="[
+            <li [routerLinkActive]="['active']"   routerLink="/system/docente-vinculacion/informe-inicial" *permissions="[
             'LEER_USUARIOS',
             'CREAR_USUARIOS',
             'ACTUALIZAR_USUARIOS',

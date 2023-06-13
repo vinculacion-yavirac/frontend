@@ -6,6 +6,8 @@ import {
   ProyectoParticipanteHttpService
 } from "../../../../service/proyecto/participante/proyecto-participante-http.service";
 import {Subscription} from "rxjs";
+import {ProyectoService} from "../../../../service/proyecto/proyecto.service";
+import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
 
 @Component({
   selector: 'app-proyectos-combobox',
@@ -27,9 +29,9 @@ export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlVal
   //Validación de errores en el formulario
   matcher = new MyErrorStateMatcher();
 
-  proyectoParticipantes: ProyectoParticipanteModels[] = [];
+  proyectos: ProyectoModels[] = [];
 
-  constructor(private proyectoParticipanteHttpService: ProyectoParticipanteHttpService) {}
+  constructor(private proyectoService: ProyectoService) {}
 
   private sub?: Subscription;
   //propiedad privada que contiene una referencia a la suscripción que se crea cuando roleFormControl cambia el valor.
@@ -61,9 +63,9 @@ export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlVal
   }
 
   getProyectos(): void {
-    this.proyectoParticipanteHttpService.getProyectoParticipante().subscribe((res: any) => {
+    this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status === 'success') {
-        this.proyectoParticipantes = res.data.projectParticipants;
+        this.proyectos = res.data.projects;
       }
     });
   }

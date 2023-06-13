@@ -42,7 +42,7 @@
                   <a class="cursor-pointer ml-1" *ngIf="reverse && proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-up"></span>
                   </a>
-                  <a class="cursor-pointer ml-1" *ngIf="!reverse && proyectos.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="!reverse &&  proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-down"></span>
                   </a>
                 </div>
@@ -79,16 +79,16 @@
                 <span>{{proyecto.name}}</span>
               </td>
               <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                <span>{{proyecto.foundations.name}}</span>
+                <span>{{proyecto.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{proyecto.foundations.authorized_person }}</span>
+                <span>{{proyecto.code }}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{pipe.transform(proyecto.created_at.toString(), 'dd/MM/yyyy')}}</span>
+               <!-- <span>{{pipe.transform(proyecto.created_at.toString(), 'dd/MM/yyyy')}}</span>-->
               </td>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{proyecto.status}}</span>
+                <span>{{proyecto.name}}</span>
 
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_USUARIOS','ARCHIVAR_USUARIOS']">

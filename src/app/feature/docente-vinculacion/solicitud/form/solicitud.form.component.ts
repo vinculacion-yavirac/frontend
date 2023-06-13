@@ -51,7 +51,7 @@ export class SolicitudFormComponent implements OnInit {
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
       approval_date: ['', Validators.nullValidator],
-      who_made_request_id: ['', Validators.required],
+      project_id: ['', Validators.required],
       //created_at: ['', [Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/)]],
       created_by:this.formBuilder.group({
         id:[0],

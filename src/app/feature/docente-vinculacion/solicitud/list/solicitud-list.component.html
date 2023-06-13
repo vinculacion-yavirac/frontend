@@ -51,7 +51,7 @@
                 Tipo de Solicitud
               </th>
               <th scope="col" class="py-3 px-6">
-                Cedula del Estudiante
+                Cedula
               </th>
               <th scope="col" class="py-3 px-6">
                 Fecha de Emisión
@@ -75,7 +75,7 @@
                   }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{solicitud.created_by.person.names}}</span>
+                <span>{{solicitud.created_by.person | NamesSurnamesComplete}}</span>
               </td>
               <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
                 <span>{{solicitud.type_request_id.catalog_value}}</span>

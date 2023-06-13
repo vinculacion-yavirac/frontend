@@ -70,10 +70,8 @@ import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos
 import { UploadComponent } from './upload/upload.component';
 
 import { PortafolioListComponent } from './portafolio/list/portafolio-list.component';
-import { PortafolioBreadcrumbsComponent } from './portafolio/header/breadcrumbs/portafolio-breadcrumbs.component';
-import { PortafolioTabsComponent } from './portafolio/header/tabs/portafolio-tabs.component';
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
-import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
+
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
 import { SolicitudBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/solicitud.breadcrumbs.component';
 import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/archived/solicitud-archived.component';
@@ -107,7 +105,6 @@ import { FormFirmasComponent } from './proyecto/form/firmas/form-firmas.componen
 import { FormIntegrantesComponent } from './proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from './proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from './proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import {
   TipoSolicitudesComboboxComponent
 } from "../shared/comboboxes/tipos-solicitudes/tipo-solicitudes-combobox.component";
@@ -119,6 +116,10 @@ import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-i
 import {
   ProyectosComboboxComponent
 } from "../shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component";
+import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
+import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
+import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 
 
 
@@ -190,6 +191,7 @@ import {
     PortafolioListComponent,
     PortafolioBreadcrumbsComponent,
     PortafolioTabsComponent,
+
 
     ProyectoBreadcrumbsComponent,
     ProyectoTabsComponent,

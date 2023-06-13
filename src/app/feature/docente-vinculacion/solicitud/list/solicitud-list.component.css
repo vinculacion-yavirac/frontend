@@ -1,28 +1,80 @@
-.my_table tbody tr {
-  border-bottom: 0.5px solid #535a6650;
+#checkbox {
+  print-color-adjust: exact;
+  --tw-shadow: 0 0 #0000;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-origin: border-box;
+  border-color: #6b7280;
+  border-width: 1px;
+  color: #1c64f2;
+  display: inline-block;
+  flex-shrink: 0;
+  height: 1rem;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  width: 1rem;
 }
 
-.mat-expansion-panel:not([class*="mat-elevation-z"]) {
-  box-shadow: none;
-  border-radius: none !important;
-  -webkit-border-radius: none !important;
-  -moz-border-radius: none !important;
-  -ms-border-radius: none !important;
-  -o-border-radius: none !important;
+#checkbox:checked {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
 }
 
-.my_table tbody tr:nth-child(even) {
-  background-color: #ebecf080;
+#checkbox:disabled {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+  color: #9ca3af;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
-.my_table tbody tr:nth-child(even):hover {
-  background-color: #4052b510;
+.icon {
+  font-size: 24px;
 }
 
-.my_table tbody tr td span {
-  display: block;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.hoja {
+  width: 210mm;
+  height: 297mm;
+  font-family: "Times New Roman", serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  padding: 2.54cm !important;
 }
+
+h2 {
+  font-size: 14pt;
+  text-align: center;
+  margin-bottom: 12pt;
+}
+h4 {
+  font-size: 12pt;
+  margin-bottom: 12pt;
+}
+p {
+  margin-bottom: 12pt;
+  text-align: justify;
+}
+
+@media (max-width: 640px){
+  .a4-container {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/*
+@media (max-width: 640px) {
+  .a4-container {
+    width: 100%;
+    height:auto;
+}
+}*/
