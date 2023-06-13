@@ -1,0 +1,28 @@
+.my_table tbody tr {
+  border-bottom: 0.5px solid #535a6650;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+  border-radius: none !important;
+  -webkit-border-radius: none !important;
+  -moz-border-radius: none !important;
+  -ms-border-radius: none !important;
+  -o-border-radius: none !important;
+}
+
+.my_table tbody tr:nth-child(even) {
+  background-color: #ebecf080;
+}
+
+.my_table tbody tr:nth-child(even):hover {
+  background-color: #4052b510;
+}
+
+.my_table tbody tr td span {
+  display: block;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

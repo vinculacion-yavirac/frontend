@@ -1,0 +1,36 @@
+.my_table tbody tr:nth-child(even) {
+  background-color: #ebecf080;
+}
+
+.my_table tbody tr:nth-child(even):hover {
+  background-color: #4052b510;
+}
+
+
+.my_table tbody tr td span {
+  display: block;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font-small{
+  font-size: 15px;
+}
+
+.left{
+  position: absolute;
+  right: 3%;
+  width: 120px;
+  transform: translateY(-50%);
+}
+
+.right{
+  position: absolute;
+  padding-top: 1%;
+  left: 6%;
+  width: 1200px;
+  transform: translateY(-50%);
+}
+
