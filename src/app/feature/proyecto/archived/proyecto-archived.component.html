@@ -69,11 +69,11 @@
               </td>
 
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{proyecto.created_by.person.names}}</span>
+                <span>{{proyecto.code}}</span>
               </td>
 
               <td class="py-[3.8px] px-6">
-                <span>{{pipe.transform(proyecto.created_at.toString(), 'dd/MM/yyyy')}}</span>
+                <!--<span>{{pipe.transform(proyecto.created_at.toString(), 'dd/MM/yyyy')}}</span>-->
               </td>
 
               <th class="py-[3.8px]" *permissions="['RESTAURAR_USUARIOS','ELIMINAR_USUARIOS']">

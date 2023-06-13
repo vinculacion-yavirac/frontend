@@ -21,7 +21,7 @@ export class ProyectoListComponent implements OnInit {
   };
 
 
-  proyectos: ProyectoModels[] = [];
+  projects: ProyectoModels[] = [];
 
   loading: boolean = true;
 
@@ -39,11 +39,11 @@ export class ProyectoListComponent implements OnInit {
     this.loading = true;
     this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.proyectos = res.data.projects;
+        this.projects = res.data.projects;
 
         // console.log(this.proyectos)
 
-        this.proyectos.sort((a, b) => {
+        this.projects.sort((a, b) => {
           if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           }
@@ -57,13 +57,21 @@ export class ProyectoListComponent implements OnInit {
     });
   }
 
+
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.projects = res.data.projects;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
   searchproyectoByTerm(term: string): void {
     this.loading = true;
 
     this.proyectoService.searchProyectoByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.proyectos = res.data.briefcase;
-        console.log(this.proyectos)
+        this.projects = res.data.briefcase;
+        console.log(this.projects)
         if (term === '') {
           this.getproyecto();
         }
@@ -75,7 +83,7 @@ export class ProyectoListComponent implements OnInit {
   }
 
   reversOrder(): void {
-    this.proyectos.reverse();
+    this.projects.reverse();
     this.reverse = !this.reverse;
   }
 

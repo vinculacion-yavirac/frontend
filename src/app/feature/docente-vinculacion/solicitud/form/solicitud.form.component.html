@@ -39,7 +39,7 @@
   </div>
   -->
   <div class="grid h-20 flex-grow rounded-box text-dark py-5">
-    <p class="p-2">Carrera: {{ formGroup.get('http://who_made_request_id.project.name')?.value}}</p>
+    <p class="p-2">Carrera: {{ formGroup.get('who_made_request_id.project.name')?.value}}</p>
   </div>
 </div>
 
@@ -51,7 +51,7 @@
 
   <div>
     <label for="whoMadeRequestId">ID del Solicitante:</label>
-    <app-proyectos-combobox id="whoMadeRequestId" formControlName="who_made_request_id" ></app-proyectos-combobox>
+    <app-proyectos-combobox id="whoMadeRequestId" formControlName="project_id" ></app-proyectos-combobox>
     <!--<input type="text" id="whoMadeRequestId" formControlName="who_made_request_id" />-->
   </div>
 
