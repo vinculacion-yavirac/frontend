@@ -105,7 +105,6 @@ import { FormFirmasComponent } from './proyecto/form/firmas/form-firmas.componen
 import { FormIntegrantesComponent } from './proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from './proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from './proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import {
   TipoSolicitudesComboboxComponent
 } from "../shared/comboboxes/tipos-solicitudes/tipo-solicitudes-combobox.component";
@@ -120,6 +119,7 @@ import {
 import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
 import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
 import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 
 
 

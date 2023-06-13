@@ -21,57 +21,36 @@ export class ProyectoListComponent implements OnInit {
   };
 
 
-  projects: ProyectoModels[] = [];
+  proyectos: ProyectoModels[] = [];
 
   loading: boolean = true;
 
 
   constructor(
     private proyectoService: ProyectoService,
-    private filesService: FilesService,
   ) { }
 
   ngOnInit(): void {
     this.getproyecto();
   }
 
-  getproyecto(): void {
+  public getproyecto(): void {
     this.loading = true;
     this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.projects = res.data.projects;
-
-        // console.log(this.proyectos)
-
-        this.projects.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) {
-            return 1;
-          }
-          if (a.name.toLowerCase() < b.name.toLowerCase()) {
-            return -1;
-          }
-          return 0;
-        });
+        this.handleSearchResponse(res);
+        this.sortSolicitudes();
       }
       this.loading = false;
     });
   }
 
-
-  private handleSearchResponse(res: any): void {
-    if (res.status === 'success') {
-      this.projects = res.data.projects;
-      this.reverse = false;
-    }
-    this.loading = false;
-  }
-  searchproyectoByTerm(term: string): void {
+  public searchproyectoByTerm(term: string): void {
     this.loading = true;
-
     this.proyectoService.searchProyectoByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.projects = res.data.briefcase;
-        console.log(this.projects)
+        this.handleSearchResponse(res);
+        console.log(this.proyectos);
         if (term === '') {
           this.getproyecto();
         }
@@ -83,10 +62,22 @@ export class ProyectoListComponent implements OnInit {
   }
 
   reversOrder(): void {
-    this.projects.reverse();
+    this.proyectos.reverse();
     this.reverse = !this.reverse;
   }
 
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.proyectos = res.data.projects;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
 
+  public sortSolicitudes(): void {
+    this.proyectos.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+  }
 
 }

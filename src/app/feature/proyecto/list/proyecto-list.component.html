@@ -27,7 +27,7 @@
 
   <div>
     <div class="px-4 py-1 text-xs">
-      <h3 class="font-medium"><span class="font-bold">{{projects.length}}</span>Lista de Proyectos</h3>
+      <h3 class="font-medium"><span class="font-bold">{{proyectos.length}}</span>Lista de Proyectos</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
       <div
@@ -39,10 +39,10 @@
               <th scope="col" class="py-3 px-6">
                 <div class="flex items-center">
                   Nombre del Proyecto
-                  <a class="cursor-pointer ml-1" *ngIf="reverse && projects.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="reverse && proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-up"></span>
                   </a>
-                  <a class="cursor-pointer ml-1" *ngIf="!reverse &&  projects.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="!reverse &&  proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-down"></span>
                   </a>
                 </div>
@@ -67,12 +67,12 @@
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
             <tr class="bg-white hover:bg-[#4052b510] transition-all"
-              *ngFor="let proyecto of projects | paginate: config; let index = index">
+              *ngFor="let proyecto of proyectos | paginate: config; let index = index">
               <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
                 <!-- Indice en orden ascendente -->
                 <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
                 <!-- indice en orden descentente -->
-                <span *ngIf="reverse">{{ projects.length - (config.itemsPerPage * (config.currentPage - 1) + index)
+                <span *ngIf="reverse">{{ proyectos.length - (config.itemsPerPage * (config.currentPage - 1) + index)
                   }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
@@ -101,11 +101,11 @@
             </tr>
           </tbody>
         </table>
-        <div *ngIf="loading || projects.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
+        <div *ngIf="loading || proyectos.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
           <div *ngIf="loading" class="h-full w-full bg-[#535a6610] backdrop-blur-sm">
             <loader></loader>
           </div>
-          <no-content *ngIf="projects.length == 0 && !loading"></no-content>
+          <no-content *ngIf="proyectos.length == 0 && !loading"></no-content>
         </div>
       </div>
       <!-- Paginación de tabla -->

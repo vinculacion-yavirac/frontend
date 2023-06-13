@@ -1,11 +1,17 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
   <a
     [routerLinkActive]="['tab-active']"
-    routerLink="/system/proyecto/list/archived"
+    routerLink="/system/{{ route }}/list/archived"
     class="tab tab-lifted !-mr-0 archived"
     *permissions="[
-    'RESTAURAR_PORTAFOLIO',
-    'ELIMINAR_PORTAFOLIO',
+            'LEER_PRTOYECTO',
+            'CREAR_PRTOYECTO',
+            'ACTUALIZAR_PRTOYECTO',
+            'ARCHIVAR_PRTOYECTO',
+            'RESTAURAR_PRTOYECTO',
+            'ELIMINAR_PRTOYECTO',
+            'EXPORTAR_PRTOYECTO',
+            'IMPORTAR_PRTOYECTO',
     ]"
   >
     <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>
@@ -14,35 +20,23 @@
   <div></div>
 
   <div class="flex items-end">
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
-                'LEER_ROLES',
-              ]">
-      Creados
-    </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios-list"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="'/system/' + route + '/list/'"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_USUARIOS'
-      ]"
+            'LEER_PRTOYECTO',
+            'CREAR_PRTOYECTO',
+            'ACTUALIZAR_PRTOYECTO',
+            'ARCHIVAR_PRTOYECTO',
+            'RESTAURAR_PRTOYECTO',
+            'ELIMINAR_PRTOYECTO',
+            'EXPORTAR_PRTOYECTO',
+            'IMPORTAR_PRTOYECTO',
+  ]"
     >
-      Recibidos
-    </a>
-    <a
-      [routerLinkActive]="['tab-active']"
-      routerLink="/system/oficios/"
-      class="tab tab-lifted"
-      *permissions="[
-        'LEER_ROLES'
-      ]"
-    >
-      Finalizados
-    </a>
-    <a [routerLinkActive]="['tab-active']" routerLink="/system/oficios/" class="tab tab-lifted" *permissions="[
-            'LEER_ROLES'
-          ]">
-      Pendientes
+      Todo
     </a>
   </div>
 </div>
