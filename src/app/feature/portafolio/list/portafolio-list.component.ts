@@ -36,7 +36,7 @@ export class PortafolioListComponent implements OnInit {
     this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
-        this.sortSolicitudes();
+        this.sortPortafolio();
         // console.log(this.portafolios)
 
       }
@@ -87,7 +87,7 @@ export class PortafolioListComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortSolicitudes(): void {
+  public sortPortafolio(): void {
     this.portafolios.sort((a, b) => {
       return a.project_participant_id.participant_id.person.names.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.names.toLowerCase());
     });
