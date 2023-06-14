@@ -23,6 +23,8 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   idTodelete: number = 0;
   idToupdate: number = 0;
   public doc: any;
+  public first: any;
+
   @ViewChild("avanzeForm")
 
   avanzeForm!: NgForm;
@@ -103,105 +105,125 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       // HEADER
       this.doc.setFontSize(16);
       // this.doc.setFontStyle('bold');
+      this.doc.setFont("Roboto", 'bold');
       this.doc.text('INSTITUTO SUPERIOR TECNOLÓGICO', 175, 85);
       this.doc.text('D E   T U R I S M O   Y	P A T R I M O N I O', 155, 115);
       this.doc.text('“Y A V I R A C”', 255, 145);
 
-      this.doc.setFontSize(7);
-      this.doc.text('Quito- Ecuador', 215, 165);
+      // this.doc.setFontSize(7);
+      // this.doc.text('Quito- Ecuador', 215, 165);
 
-      this.doc.setFontSize(11);  
+      this.doc.setFontSize(11);
       // this.doc.setFontStyle('bold');
-      this.doc.text('DEPARTAMENTO DE VINCULACIÓN CON LA  SOCIEDAD :', 180, 210);
+      this.doc.text('DEPARTAMENTO DE VINCULACIÓN CON LA  SOCIEDAD ', 155, 210);
       // this.doc.setFontSize(11);
       // this.doc.setFontStyle('normal');
       // this.doc.text('VINCULACIÓN CON LA  SOCIEDAD', 280, 210);
 
       this.doc.setFontSize(11);
-      // this.doc.setFontStyle('bold');
       this.doc.text('CARRERA:', 155, 230);
       this.doc.setFontSize(10);
-      // this.doc.setFontStyle('normal');
-      this.doc.text('TECNOLOGÍA EN DESARROLLO DE SOFTWARE', 205, 230);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('TECNOLOGÍA EN DESARROLLO DE SOFTWARE', 215, 230);
 
-      this.doc.setFontSize(8);
-      this.doc.text('NOMBRE DEL PROYECTO:', 160, 185);
-      this.doc.setFontSize(7);
-      this.doc.text('IMPLEMENTACIÓN DE UN SISTEMA WEB QUE PERMITA DAR A CONOCER LOS SERVICIOS Y PRODUCTOS QUE OFRECE LA FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL “FUNAPACE”', 280, 185, { maxWidth: 200, align: 'justify' });
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('NOMBRE DEL PROYECTO:', 115, 255);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('IMPLEMENTACIÓN DE UN SISTEMA WEB QUE PERMITA DAR A CONOCER LOS SERVICIOS Y PRODUCTOS QUE OFRECE LA FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL “FUNAPACE”', 260, 255, { maxWidth: 250, align: 'justify' });
 
-      this.doc.setFontSize(8);
-      this.doc.text('COORDINADOR DE CARRERA:', 45, 295);
-      this.doc.setFontSize(7);
-      this.doc.text('ING. DIEGO YANEZ', 175, 295);
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('COORDINADOR DE CARRERA:', 45, 355);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('ING. DIEGO YANEZ', 215, 355);
       this.doc.setFontSize(10);
 
-      this.doc.setFontSize(8);
-      this.doc.text('ACTORES:/TUTORES:', 45, 315);
-      this.doc.setFontSize(7);
-      this.doc.text('BYRON MORENO / YOGLEDIS HERRERA', 175, 315);
-      this.doc.setFontSize(10);
-
-
-      this.doc.setFontSize(8);
-      this.doc.text('INSTITUCIÓN BENEFICIARIA:', 45, 335);
-      this.doc.setFontSize(7);
-      this.doc.text('FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL FUNAPACE', 175, 335);
-      this.doc.setFontSize(10);
-
-
-      this.doc.setFontSize(8);
-      this.doc.text('COORDINADOR(ES) INSTITUCIÓN BENEFICIARIA:', 45, 355);
-      this.doc.setFontSize(7);
-      this.doc.text('DIEGO YANEZ', 250, 355);
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('ACTORES:/TUTORES:', 45, 380);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('BYRON MORENO / YOGLEDIS HERRERA', 170, 380);
       this.doc.setFontSize(10);
 
 
-      this.doc.setFontSize(8);
-      this.doc.text('CODIGO DEL PROYECTO:', 45, 375);
-      this.doc.setFontSize(7);
-      this.doc.text('IST Yavirac-VC-DS-002-2023', 175, 375);
-      this.doc.setFontSize(10);
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('INSTITUCIÓN BENEFICIARIA:', 45, 405);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL FUNAPACE', 210, 405);
 
 
-      this.doc.setFontSize(8);
-      this.doc.text('CODIGO DEL PROYECTO:', 45, 375);
-      this.doc.setFontSize(7);
-      this.doc.text('IST Yavirac-VC-DS-002-2023', 175, 375);
-      this.doc.setFontSize(10);
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('COORDINADOR(ES) INSTITUCIÓN BENEFICIARIA:', 45, 435);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('DIEGO YANEZ', 320, 435);
 
 
-      this.doc.setFontSize(8);
-      this.doc.text('Quito-Ecuador', 185, 450);
-      this.doc.setFontSize(8);
-      this.doc.text('MAYO - 2023', 185, 470);
+      this.doc.setFontSize(11);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('CODIGO DEL PROYECTO:', 45, 465);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('IST Yavirac-VC-DS-002-2023', 190, 465);
+
+
+
+
+      this.doc.setFontSize(16);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Quito-Ecuador', 255, 575);
+      this.doc.setFontSize(16);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('MAYO - 2023', 255, 600);
+
+    }
+
+    const pageContent2 = (data: any) => {
+      // HEADER
+      this.doc.line(40, 25, 550, 25);
+      this.doc.line(40, 10, 40, 50);
+
 
     }
 
 
 
 
-    // this.doc.autoTable({
-    //   addPageContent: pageContent,
-
-    //   head: [['Name', 'Email', 'Country']],
-
-    //   body: [
-    //     ['David', 'david@example.com', 'Sweden'],
-    //     ['Castille', 'castille@example.com', 'Spain'],
-    //     // ...
-    //   ],
-    //   startY: 400,
-    //   // Default for all columns
-    //   styles: { overflow: 'ellipsize', cellWidth: 'wrap' },
-    //   // Override the default above for the text column
-    //   columnStyles: { text: { cellWidth: 'auto' } },
-
-    // })
-
     this.doc.autoTable({
       addPageContent: pageContent,
+
     })
 
+
+    this.doc.autoTable({
+      addPageContent: pageContent2,
+
+      head: [['Name', 'Email', 'Country']],
+
+      body: [
+        ['David', 'david@example.com', 'Sweden'],
+        ['Castille', 'castille@example.com', 'Spain'],
+        // ...
+      ],
+      startY: 1100,
+      // Default for all columns
+      styles: { overflow: 'ellipsize', cellWidth: 'wrap' },
+      // Override the default above for the text column
+      columnStyles: { text: { cellWidth: 'auto' } },
+
+    })
+    var requiredPages = 4
+    for (var i = 0; i < requiredPages; i++) {
+      this.doc.addPage();
+      //doc.text(20, 100, 'Some Text.');
+    }
     this.doc.save("table.pdf");
 
 
