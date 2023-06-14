@@ -1,5 +1,5 @@
 import { User } from "../auth/users/usuario";
-import { FundacionModels } from "../fundacion/fundacion.models";
+import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
 
 
 export interface ProyectoModels {
@@ -25,7 +25,7 @@ export interface ProyectoModels {
     attached_project: any[];
     convention_id: number | null;
     school_period_id: number | null;
-    beneficiary_institution_id: number | null;
+    beneficiary_institution_id: InstitucionBeneficiariaModels;
     career_id: number | null;
     sub_line_investigation_id: number | null;
     authorized_by: number | null;
@@ -35,4 +35,10 @@ export interface ProyectoModels {
     state_id: number | null;
     stateTwo_id: number | null;
     frequency_id: number | null;
+    created_by: User;
+    archived: boolean;
+    archived_at: Date;
+    archived_by: User;
+    created_at: Date;
+    updated_at: Date;
 }

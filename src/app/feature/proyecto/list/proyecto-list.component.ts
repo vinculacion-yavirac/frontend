@@ -39,7 +39,7 @@ export class ProyectoListComponent implements OnInit {
     this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
-        this.sortSolicitudes();
+        this.sortProyectos();
       }
       this.loading = false;
     });
@@ -74,7 +74,7 @@ export class ProyectoListComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortSolicitudes(): void {
+  public sortProyectos(): void {
     this.proyectos.sort((a, b) => {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });

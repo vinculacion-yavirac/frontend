@@ -89,10 +89,6 @@ import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-cont
 import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
-import { AsignarComponent } from './fundacion/asignar/asignar.component';
-import { BreadcrumbsFundacionComponent } from './fundacion/header/breadcrumbs/breadcrumbs-fundacion.component';
-import { TabsFundacionComponent } from './fundacion/header/tabs/tabs-fundacion.component';
-import { ListFundacionComponent } from './fundacion/list/list-fundacion.component';
 import { ProyectoArchivedComponent } from './proyecto/archived/proyecto-archived.component';
 import { FormActividadesComponent } from './proyecto/form/actividades/form-actividades.component';
 import { FormAnexosComponent } from './proyecto/form/anexos/form-anexos.component';
@@ -119,7 +115,16 @@ import {
 import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
 import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
 import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
-import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";import {
+  ListInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/list/list-institucion-beneficiaria.component";
+import {
+  BreadcrumbsInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/header/breadcrumbs/breadcrumbs-institucion-beneficiaria.component";
+import {
+  TabsInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
+import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 
 
 
@@ -216,9 +221,10 @@ import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
     FormPlanDeTrabajoComponent,
 
     AsignarComponent,
-    TabsFundacionComponent,
-    BreadcrumbsFundacionComponent,
-    ListFundacionComponent,
+    TabsInstitucionBeneficiariaComponent,
+    BreadcrumbsInstitucionBeneficiariaComponent,
+    ListInstitucionBeneficiariaComponent,
+
     TipoSolicitudesComboboxComponent,
     EstadosSolicitudComboboxComponent,
     ProyectoComboboxComponent,

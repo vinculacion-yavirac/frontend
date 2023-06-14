@@ -1,6 +1,6 @@
-<module-header title="Fundaciones">
-  <app-breadcrumbs-fundacion breadcrumbs></app-breadcrumbs-fundacion>
-  <app-tabs-fundacion tabs route="solicitud"></app-tabs-fundacion>
+<module-header title="Institución Beneficiaria">
+  <app-breadcrumbs-institucion-beneficiaria breadcrumbs></app-breadcrumbs-institucion-beneficiaria>
+  <app-tabs-institucion-beneficiaria tabs route="institucion-beneficiaria"></app-tabs-institucion-beneficiaria>
 </module-header>
 
 <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
@@ -27,7 +27,7 @@
 
   <div>
     <div class="px-4 py-1 text-xs">
-      <h3 class="font-medium"><span class="font-bold">{{fundaciones.length}}</span>Fundaciones</h3>
+      <h3 class="font-medium"><span class="font-bold">{{institucionesBeneficiarias.length}}</span>Fundaciones</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
       <div
@@ -39,10 +39,10 @@
               <th scope="col" class="py-3 px-6">
                 <div class="flex items-center">
                   Nombre
-                  <a class="cursor-pointer ml-1" *ngIf="reverse && fundaciones.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="reverse && institucionesBeneficiarias.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-up"></span>
                   </a>
-                  <a class="cursor-pointer ml-1" *ngIf="!reverse && fundaciones.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="!reverse && institucionesBeneficiarias.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-down"></span>
                   </a>
                 </div>
@@ -69,50 +69,53 @@
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
             <tr class="bg-white hover:bg-[#4052b510] transition-all"
-              *ngFor="let fundacion of fundaciones | paginate: config; let index = index">
+              *ngFor="let institucionBeneficiaria of institucionesBeneficiarias | paginate: config; let index = index">
               <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
                 <!-- Indice en orden ascendente -->
                 <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
                 <!-- indice en orden descentente -->
-                <span *ngIf="reverse">{{ fundaciones.length - (config.itemsPerPage * (config.currentPage - 1) + index)
+                <span *ngIf="reverse">{{ institucionesBeneficiarias.length - (config.itemsPerPage * (config.currentPage - 1) + index)
                   }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
-                <span>{{fundacion.name}}</span>
+                <span>{{institucionBeneficiaria.name}}</span>
               </td>
               <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                <span>{{fundacion.authorized_person}}</span>
+                <span>{{institucionBeneficiaria.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{fundacion.received_students}}</span>
+                <span>{{institucionBeneficiaria.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{fundacion.received_students}}</span>
+                <span>{{institucionBeneficiaria.name}}</span>
+              </td>
+              <td class="py-[3.8px] px-6">
+                <div *ngIf="institucionBeneficiaria.state" class="flex items-center">
+                  <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Activo
+                </div>
+                <div *ngIf="!institucionBeneficiaria.state" class="flex items-center">
+                  <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Inactivo
+                </div>
               </td>
               <td class="py-[3.8px] px-6 capitalize">
-                <!-- <input type="checkbox" checked="checked" class="toggle toggle-lg"> -->
-                <input class="toggle toggle-primary" type="checkbox" name="" id="" [ngModel]="fundacion.status">
-                <!-- <span>{{fundacion.status}}</span> -->
-              </td>
-              <td class="py-[3.8px] px-6 capitalize">
-                <span [routerLink]="['/system/solicitud/form/', fundacion.id]"
+                <span [routerLink]="['/system/solicitud/form/', institucionBeneficiaria.id]"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
                   *permissions="['ACTUALIZAR_SOLICITUD']"></span>
               </td>
 
               <th class="py-[3.8px] px-6 capitalize" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
-                <span *permissions="['ARCHIVAR_SOLICITUD']" class="btn btn-primary btn btn-sm btn btn-outline btn-primary" [routerLink]="['/system/fundacion/asignar/', fundacion.id ]" >
+                <span *permissions="['ARCHIVAR_SOLICITUD']" class="btn btn-primary btn btn-sm btn btn-outline btn-primary" [routerLink]="['/system/institucion-beneficiaria/asignar/', institucionBeneficiaria.id ]" >
                   Asignar
                 </span>
               </th>
             </tr>
           </tbody>
         </table>
-        <div *ngIf="loading || fundaciones.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
+        <div *ngIf="loading || institucionesBeneficiarias.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
           <div *ngIf="loading" class="h-full w-full bg-[#535a6610] backdrop-blur-sm">
             <loader></loader>
           </div>
-          <no-content *ngIf="fundaciones.length == 0 && !loading"></no-content>
+          <no-content *ngIf="institucionesBeneficiarias.length == 0 && !loading"></no-content>
         </div>
       </div>
       <!-- Paginación de tabla -->

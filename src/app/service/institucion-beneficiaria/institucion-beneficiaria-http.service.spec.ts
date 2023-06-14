@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FundacionHttpService } from './fundacion-http.service';
+import { InstitucionBeneficiariaHttpService } from './institucion-beneficiaria-http.service';
 
 describe('FundacionHttpService', () => {
-  let service: FundacionHttpService;
+  let service: InstitucionBeneficiariaHttpService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FundacionHttpService);
+    service = TestBed.inject(InstitucionBeneficiariaHttpService);
   });
 
   it('should be created', () => {

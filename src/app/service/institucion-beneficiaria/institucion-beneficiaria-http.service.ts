@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FundacionModels } from 'src/app/models/fundacion/fundacion.models';
+import { InstitucionBeneficiariaModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FundacionHttpService {
+export class InstitucionBeneficiariaHttpService {
 
   constructor(private http: HttpClient) { }
 
@@ -15,10 +15,10 @@ export class FundacionHttpService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private url = environment.API_URL + '/fundacion';
+  private url = environment.API_URL + '/beneficiary-institution';
 
 
-  public getFundaciones(): Observable<FundacionModels[]>{
-    return this.http.get<FundacionModels[]>(this.url);
+  public getInstitucionesBeneficiarias(): Observable<InstitucionBeneficiariaModels[]>{
+    return this.http.get<InstitucionBeneficiariaModels[]>(this.url);
   };
 }

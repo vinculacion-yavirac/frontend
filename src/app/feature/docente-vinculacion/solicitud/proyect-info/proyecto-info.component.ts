@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ProyectoService} from "../../../../service/proyecto/proyecto.service";
 import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
-import {FundacionModels} from "../../../../models/fundacion/fundacion.models";
+import {InstitucionBeneficiariaModels} from "../../../../models/institucion-beneficiaria/institucion-beneficiaria.models";
 
 @Component({
   selector: 'app-proyecto-info',
@@ -24,7 +24,7 @@ export class ProyectoInfoComponent implements OnChanges {
     }
   }
 
-  project:FundacionModels[] = [];
+  project:InstitucionBeneficiariaModels[] = [];
   @Input() foundationId: number;
 
   public getProjectByFoundation(foundationId: number): void {
