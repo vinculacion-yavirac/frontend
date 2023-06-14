@@ -5,6 +5,7 @@ import 'jspdf-autotable';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { AvanzeCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
+import { ImageConstants } from 'src/app/constanst/imageConstants';
 
 @Component({
   selector: 'app-avance-cumplimiento',
@@ -184,9 +185,11 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.text('MAYO - 2023', 255, 600);
 
     }
+    this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
 
     const pageContent2 = (data: any) => {
       // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
       this.doc.line(40, 25, 550, 25);
       this.doc.line(40, 10, 40, 50);
 
