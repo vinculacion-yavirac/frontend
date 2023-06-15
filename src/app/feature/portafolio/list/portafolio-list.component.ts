@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { FilesService } from '../../upload/upload.service';
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-portafolio-list',
@@ -23,22 +24,47 @@ export class PortafolioListComponent implements OnInit {
 
   loading: boolean = true;
 
+  filterAprobado: boolean;
+  filterPendiente: boolean;
+
   constructor(
     private portafolioHttpService: PortafolioHttpService,
     private filesService: FilesService,
-  ) { }
+    private route: ActivatedRoute
+  ) {
+    this.route.data.subscribe((data: any) => {
+      this.filterAprobado = data.filterAprobado;
+      this.filterPendiente = data.filterPendiente;
+    });
+  }
 
   ngOnInit(): void {
-    this.getportafolio();
+    if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else {
+      this.getportafolio();
+    }
   }
+
+  public  filterBriefcaseByState(state: string): void {
+    this.loading = true;
+    this.portafolioHttpService.filterBriefcaseByStatus(state).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.handleSearchResponse(res);
+        this.sortPortafolio();
+      }
+      this.loading = false;
+    });
+  }
+
   public getportafolio(): void {
     this.loading = true;
     this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortPortafolio();
-        // console.log(this.portafolios)
-
       }
       this.loading = false;
     });

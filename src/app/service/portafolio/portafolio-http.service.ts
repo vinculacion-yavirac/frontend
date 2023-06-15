@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PortafoliosModels } from '../../../app/models/portafolio/portafolio.models';
 import { environment } from '../../../environments/environment';
+import {SolicitudModels} from "../../models/docente-vinculacion/solicitud/solicitud";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class PortafolioHttpService {
 
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
+  }
+
+  public filterBriefcaseByStatus(state: string): Observable<PortafoliosModels[]> {
+    return this.http.get<PortafoliosModels[]>(`${this.url}/filter/state/${state}`);
   }
 }

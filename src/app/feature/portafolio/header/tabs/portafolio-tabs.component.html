@@ -30,7 +30,7 @@
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/Vinculación"
+      routerLink="/system/{{ route }}/list/filter/Aprobado"
       class="tab tab-lifted"
       *permissions="[
         'LEER_PORTAFOLIO',
@@ -39,11 +39,11 @@
         'ELIMINAR_PORTAFOLIO'
       ]"
     >
-      Aceptadas
+      Aprobado
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/Certificado"
+      routerLink="/system/{{ route }}/list/filter/Pendiente"
       class="tab tab-lifted"
       *permissions="[
         'LEER_PORTAFOLIO',
@@ -52,7 +52,7 @@
         'ELIMINAR_PORTAFOLIO'
       ]"
     >
-      Por Aceptar
+      Pendiente
     </a>
   </div>
 </div>
