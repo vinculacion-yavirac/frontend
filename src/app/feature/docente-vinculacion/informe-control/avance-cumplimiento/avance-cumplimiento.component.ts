@@ -5,7 +5,7 @@ import 'jspdf-autotable';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { AvanzeCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
-import { ImageConstants } from 'src/app/constanst/imageConstants';
+import { ImageConstants } from 'src/app/constanst/ImageConstants';
 
 @Component({
   selector: 'app-avance-cumplimiento',
@@ -190,9 +190,88 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     const pageContent2 = (data: any) => {
       // HEADER
       this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
-      this.doc.line(40, 25, 550, 25);
-      this.doc.line(40, 10, 40, 50);
+      this.doc.line(40, 150, 550, 150);
+      this.doc.line(40, 150, 40, 650);
+      this.doc.line(550, 150, 550, 650);
 
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('1. PROYECTO/ACTIVIDAD', 45, 165);
+      this.doc.line(40, 170, 550, 170);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('TITULO:', 45, 185);
+      this.doc.setFontSize(6);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Debe responder a estas tres preguntas: ¿Qué se va a hacer? ¿Sobre qué? ¿Dónde?', 85, 185);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('IMPLEMENTACIÓN DE UN SISTEMA WEB QUE PERMITA DAR A CONOCER LOS SERVICIOS Y PRODUCTOS QUE OFRECE LA FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL “FUNAPACE”', 45, 200, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 230, 550, 230);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('CARRERA:', 45, 240);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('TECNOLOGÍA EN DESARROLLO DE SOFTWARE', 95, 240);
+      this.doc.line(40, 250, 550, 250);
+      
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('CICLO:', 45, 260);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Estudiantes de la carrera de Desarrollo de Software de 4to Y 5to semestre y egresados', 75, 260, { maxWidth: 250, align: 'justify' });
+      this.doc.line(40, 275, 550, 275);
+
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('COBERTURA Y LOCALIZACION:', 45, 295);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Barrio: LA MOYA Calle: JOSE PLACIDO CAAMAÑO Número: S7-136 Intersección: ESPEJO Número de oficina: PB Número de piso: 0 Referencia: JUNTO AL HOGAR DE TRÁNSITO DE MUJERES', 200, 285, { maxWidth: 345, align: 'justify' });
+      this.doc.line(40, 315, 550, 315);
+     
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('PLAZO DE EJECUCION:', 45, 340);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
+      this.doc.line(40, 355, 550, 355);
+
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('PLAZO DE EJECUCION:', 45, 340);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
+      this.doc.line(40, 355, 550, 355);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('FECHA PRESENTACIÓN:', 45, 375);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('05/10/2023', 200, 375, { maxWidth: 345, align: 'justify' });
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('FECHA INICIO:', 250, 375);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('05/10/2023', 325, 375, { maxWidth: 345, align: 'justify' });
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.setFontSize(9);
+      this.doc.text('FECHA FIN:', 385, 375);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('05/10/2023', 450, 375, { maxWidth: 345, align: 'justify' });
+
+      this.doc.line(40, 390, 550, 390);
 
     }
 
