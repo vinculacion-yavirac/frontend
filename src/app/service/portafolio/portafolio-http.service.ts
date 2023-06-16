@@ -43,4 +43,12 @@ export class PortafolioHttpService {
   public filterBriefcaseByStatus(state: string): Observable<PortafoliosModels[]> {
     return this.http.get<PortafoliosModels[]>(`${this.url}/filter/state/${state}`);
   }
+
+  public searchAprobadoByTerm(term:string): Observable<PortafoliosModels[]>{
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/aprobado/${encodeURIComponent(term)}`)
+  }
+
+  public searchPendienteByTerm(term:string): Observable<PortafoliosModels[]>{
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/pendiente/${encodeURIComponent(term)}`)
+  }
 }

@@ -48,6 +48,30 @@ export class PortafolioListComponent implements OnInit {
     }
   }
 
+  public searchPortafoliosByTerm(term: string): void {
+    this.loading = true;
+
+    if (!term) {
+      this.handleEmptyTerm();
+    } else if (this.filterPendiente === false) {
+      this.searchPendienteByTerm(term);
+    } else if (this.filterAprobado === true) {
+      this.searchAprobadoByTerm(term);
+    } else {
+      this.searchPortafolioByTerm(term);
+    }
+  }
+
+  private handleEmptyTerm(): void {
+    if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else {
+      this.getportafolio();
+    }
+  }
+
   public  filterBriefcaseByState(state: string): void {
     this.loading = true;
     this.portafolioHttpService.filterBriefcaseByStatus(state).subscribe((res: any) => {
@@ -70,20 +94,21 @@ export class PortafolioListComponent implements OnInit {
     });
   }
 
-  searchportafolioByTerm(term: string): void {
-    this.loading = true;
-
+  private searchPortafolioByTerm(term: string): void {
     this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.handleSearchResponse(res);
-        console.log(this.portafolios)
-        if (term === '') {
-          this.getportafolio();
-        }
-        this.reverse = false;
-      }
-      this.loading = false;
+      this.handleSearchResponse(res);
+    });
+  }
 
+  private searchPendienteByTerm(term: string): void {
+    this.portafolioHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchAprobadoByTerm(term: string): void {
+    this.portafolioHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
     });
   }
 
