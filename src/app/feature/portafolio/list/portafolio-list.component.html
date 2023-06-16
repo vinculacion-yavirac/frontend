@@ -10,7 +10,7 @@
           <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <span class="fa-solid fa-magnifying-glass"></span>
           </div>
-          <input type="text" id="table-search" #search (keyup)="searchportafolioByTerm(search.value)"
+          <input type="text" id="table-search" #search (keyup)="searchPortafoliosByTerm(search.value)"
             class="input input-sm block h-8 p-2 pl-5 w-full max-w-xs text-sm text-neutral bg-[#ebecf0] !border-[#535A6640] rounded-md border !outline-[#535A6620]"
             placeholder="Buscar">
         </div>
@@ -115,10 +115,10 @@
                 </td>
                 <td class="py-[3.8px] px-6">
                   <div *ngIf="portafolio.state" class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Aceptado
+                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Aprobado
                   </div>
                   <div *ngIf="!portafolio.state" class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Por Aceptar
+                    <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
                   </div>
                 </td>
                 <div tabindex="0" class="collapse collapse-plus border border-base-10 bg-base-10 rounded-box">

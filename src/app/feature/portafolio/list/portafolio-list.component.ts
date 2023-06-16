@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { FilesService } from '../../upload/upload.service';
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-portafolio-list',
@@ -23,41 +24,91 @@ export class PortafolioListComponent implements OnInit {
 
   loading: boolean = true;
 
+  filterAprobado: boolean;
+  filterPendiente: boolean;
+
   constructor(
     private portafolioHttpService: PortafolioHttpService,
     private filesService: FilesService,
-  ) { }
+    private route: ActivatedRoute
+  ) {
+    this.route.data.subscribe((data: any) => {
+      this.filterAprobado = data.filterAprobado;
+      this.filterPendiente = data.filterPendiente;
+    });
+  }
 
   ngOnInit(): void {
-    this.getportafolio();
+    if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else {
+      this.getportafolio();
+    }
   }
+
+  public searchPortafoliosByTerm(term: string): void {
+    this.loading = true;
+
+    if (!term) {
+      this.handleEmptyTerm();
+    } else if (this.filterPendiente === false) {
+      this.searchPendienteByTerm(term);
+    } else if (this.filterAprobado === true) {
+      this.searchAprobadoByTerm(term);
+    } else {
+      this.searchPortafolioByTerm(term);
+    }
+  }
+
+  private handleEmptyTerm(): void {
+    if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else {
+      this.getportafolio();
+    }
+  }
+
+  public  filterBriefcaseByState(state: string): void {
+    this.loading = true;
+    this.portafolioHttpService.filterBriefcaseByStatus(state).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.handleSearchResponse(res);
+        this.sortPortafolio();
+      }
+      this.loading = false;
+    });
+  }
+
   public getportafolio(): void {
     this.loading = true;
     this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortPortafolio();
-        // console.log(this.portafolios)
-
       }
       this.loading = false;
     });
   }
 
-  searchportafolioByTerm(term: string): void {
-    this.loading = true;
-
+  private searchPortafolioByTerm(term: string): void {
     this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.handleSearchResponse(res);
-        console.log(this.portafolios)
-        if (term === '') {
-          this.getportafolio();
-        }
-        this.reverse = false;
-      }
-      this.loading = false;
+      this.handleSearchResponse(res);
+    });
+  }
 
+  private searchPendienteByTerm(term: string): void {
+    this.portafolioHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchAprobadoByTerm(term: string): void {
+    this.portafolioHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
     });
   }
 

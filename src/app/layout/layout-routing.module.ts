@@ -102,6 +102,25 @@ const routes: Routes = [
                 component: PortafolioListComponent,
               },
               {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Aprobado',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterAprobado: true
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterPendiente: false
+                    }
+                  },
+                ]
+              },
+              {
                 path: 'archived',
                 component: PortafolioArchivedComponent,
               },
