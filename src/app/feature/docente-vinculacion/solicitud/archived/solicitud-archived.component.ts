@@ -3,6 +3,9 @@ import { DatePipe } from '@angular/common';
 import { FilesService } from '../../../../../app/feature/upload/upload.service';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
+import {PortafoliosModels} from "../../../../models/portafolio/portafolio.models";
+import {finalize} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -27,6 +30,7 @@ export class SolicitudArchivedComponent implements OnInit {
   constructor(
     private solicitudHttpService: SolicitudHttpService,
     private filesService: FilesService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +54,7 @@ export class SolicitudArchivedComponent implements OnInit {
       if (res.status === 'success') {
         this.solicitudes = res.data.solicitudes;
         if (term === '') {
-          this.getArchivedSolicituds();
+          this.handleSearchResponse(res);
         }
         this.reverse = false;
       }
@@ -77,12 +81,19 @@ export class SolicitudArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public restaureSolicitud(solicitud:SolicitudModels): void{
-    this.solicitudHttpService.restaureSolicitud(solicitud.id).subscribe((res:any) =>{
-      if(res.solicitudes.status == 'success'){
-        this.getArchivedSolicituds()
-      }
-    })
+  public restaureSolicitud(solicitud:SolicitudModels): void {
+    this.solicitudHttpService.restaureSolicitud(solicitud.id)
+      .pipe(
+        finalize(() => {
+          this.router.navigate(['/system/solicitud/list']);
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.solicitudes.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      });
+
   }
 
 

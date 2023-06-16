@@ -44,43 +44,43 @@ export class SolicitudHttpService {
   };
 
   public getArchivedSolicitud(): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/archived/list`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/archived/list`);
+  };
 
   public searchArchivedSolicitud(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`);
+  };
 
   public restaureSolicitud(id:number): Observable<SolicitudModels>{
-    return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions)
-  }
+    return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions);
+  };
 
   public asignarSolicitud(id: number, solicitud: SolicitudModels): Observable<SolicitudModels>{
     return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud ,  this.httpOptions);
-  }
+  };
 
   public getSolicitudByStatus(status: string): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(`${this.url}/filter/status/${status}`);
-  }
+  };
 
   public getSolicitudByType(value: string): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(`${this.url}/filter/type/${value}`);
-  }
+  };
 
   public searchSolicitudeVinculacionByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodeURIComponent(term)}`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodeURIComponent(term)}`);
+  };
 
   public searchCertificateByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodeURIComponent(term)}`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodeURIComponent(term)}`);
+  };
 
   public searchPendienteByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`);
+  };
 
   public searchPreAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`)
-  }
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`);
+  };
 
 }

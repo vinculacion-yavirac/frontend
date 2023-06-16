@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { FilesService } from '../../upload/upload.service';
-import {ActivatedRoute, Params} from "@angular/router";
-
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ModalAlertComponent} from "../../../shared/material/modal-alert/modal-alert.component";
+import {MatDialog} from "@angular/material/dialog";
+import { tap, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-portafolio-list',
   templateUrl: './portafolio-list.component.html',
@@ -30,7 +32,9 @@ export class PortafolioListComponent implements OnInit {
   constructor(
     private portafolioHttpService: PortafolioHttpService,
     private filesService: FilesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
   ) {
     this.route.data.subscribe((data: any) => {
       this.filterAprobado = data.filterAprobado;
@@ -115,6 +119,41 @@ export class PortafolioListComponent implements OnInit {
   reversOrder(): void {
     this.portafolios.reverse();
     this.reverse = !this.reverse;
+  }
+
+  public archiveBriefcases(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.archiveBriefcase(briefcase.id).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+          console.log('archive id');
+        }
+      }),
+      switchMap(() => this.router.navigate(['/system/portafolio/list/archived']))
+    ).subscribe();
+  }
+
+  public openDialogArchiveBriefcase(briefcase: PortafoliosModels): void {
+    console.log('entraaaaaaaaaaaaaaaaaaaaa')
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de archivar esta solicitud?',
+        message:
+          'El portafolio será archivado y no podrá ser utilizado por los usuarios.',
+        dato:['Nombre:',briefcase.project_participant_id.participant_id.person.names  ],
+        button: 'Archivar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.archiveBriefcases(briefcase);
+        this.router.navigate(['/system/portafolio/list']);
+        console.log('entra dialog')
+      }
+    });
   }
 
   downloadFile(id: number, name: string) {

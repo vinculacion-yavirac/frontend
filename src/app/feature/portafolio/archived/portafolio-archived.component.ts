@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
+import { finalize } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-portafolio-archived',
@@ -27,16 +29,18 @@ export class PortafolioArchivedComponent implements OnInit {
   constructor(
     private portafolioHttpService: PortafolioHttpService,
     private fileHttpService: FileHttpService,
-  ) { }
-
-  ngOnInit(): void {
-    this.getportafolios();
+    private router: Router,
+  ) {
   }
 
-  getportafolios(): void {
+  ngOnInit(): void {
+    this.getPortafolios();
+  }
+
+  getPortafolios(): void {
     this.loading = true;
-    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
-      if (res.status == 'success') {
+    this.portafolioHttpService.getArchivedBriefcase().subscribe((res: any) => {
+      if (res.status === 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
         console.log(this.portafolios);
@@ -45,20 +49,20 @@ export class PortafolioArchivedComponent implements OnInit {
     });
   }
 
-  searchportafoliosByTerm(term: string): void {
+  searchPortafoliosByTerm(term: string): void {
     this.loading = true;
 
-    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.handleSearchResponse(res);
-        if (term === '') {
-          this.getportafolios();
+    if (term === '') {
+      this.getPortafolios();
+    } else {
+      this.portafolioHttpService.searchArchivedBriefcaseByTerm(term).subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+          this.reverse = false;
         }
-        this.reverse = false;
-      }
-      this.loading = false;
-
-    });
+        this.loading = false;
+      });
+    }
   }
 
   reversOrder(): void {
@@ -68,16 +72,16 @@ export class PortafolioArchivedComponent implements OnInit {
 
   downloadFile(id: number, name: string) {
     this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
-}
+  }
 
 
   private handleSearchResponse(res: any): void {
@@ -92,5 +96,20 @@ export class PortafolioArchivedComponent implements OnInit {
     this.portafolios.sort((a, b) => {
       return a.project_participant_id.participant_id.person.identification.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
     });
+  }
+
+  public restaurePortafolio(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.restaureBriefcase(briefcase.id)
+      .pipe(
+        finalize(() => {
+          this.router.navigate(['/system/portafolio/list']);
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.portafolios.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      });
+
   }
 }
