@@ -341,20 +341,25 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     // var ult =this.reportReport[0].nombres.charAt(this.reportReport[0].nombres.length - 1);
 
     //numeros aleatorios//
-    var data = []
+    var data = [{
+      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC"
+
+    }
+    ]
 
     this.doc2 = new jsPDF('p', 'pt');
     let rows: never[] = [];
 
     const pageContent = (data: any) => {
+      
       // HEADER
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc2.setFontSize(9);
-      this.doc2.text('VC-ISTBJ-2020-002', 250, 165);
+      this.doc2.text('VC-ISTBJ-2020-002', 250, 140);
 
       this.doc2.setFont("Roboto", 'bold');
       this.doc2.setFontSize(11);
-      this.doc2.text('CONVENIO DE VINCULACIÓN CON LA SOCIEDAD ENTRE EL   ', 155, 210);
+      this.doc2.text('CONVENIO DE VINCULACIÓN CON LA SOCIEDAD ENTRE EL   ', 120, 210);
 
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc2.text('INSTITUTO TECNOLOGICO SUPERIOR YAVIRAC', 175, 230);
@@ -368,7 +373,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el INSTITUTO TECNOLÓGICO SUPERIOR XXXXXXXXX, legalmente representado por el XXXXXXXXXXXXX, en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + data[0].Instituto + ', legalmente representado por el XXXXXXXXXXXXX, en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -433,10 +438,9 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     }
 
 
-
     const pageContent3 = (data: any) => {
       // HEADER
-      this.doc2.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      // this.doc2.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
       // this.doc2.line(40, 150, 550, 150);
       // this.doc2.line(40, 150, 40, 650);
       // this.doc2.line(550, 150, 550, 650);
@@ -740,29 +744,29 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto", 'bold');
-      this.doc2.text('“Por delegación del Secretario de Educación Superior, Ciencia, Tecnología e Innovación”:', 110, 415 ,{ maxWidth: 185, align: 'justify' });
-    
+      this.doc2.text('“Por delegación del Secretario de Educación Superior, Ciencia, Tecnología e Innovación”:', 110, 415, { maxWidth: 185, align: 'justify' });
+
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto", 'bold');
-      this.doc2.text('Por la Entidad Receptora:', 350, 415 ,{ maxWidth: 200, align: 'justify' });
-      
+      this.doc2.text('Por la Entidad Receptora:', 350, 415, { maxWidth: 200, align: 'justify' });
+
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Mgs.', 110, 460, );
-      this.doc2.text('RECTOR', 110,480 );
+      this.doc2.text('Mgs.', 110, 460,);
+      this.doc2.text('RECTOR', 110, 480);
       this.doc2.setFontSize(9);
       this.doc2.setFont("Roboto", 'bold');
-      this.doc2.text('INSTITUTO TECNÓLOGICO SUPERIOR', 110, 500 ,{ maxWidth: 200, align: 'justify' });
-      
+      this.doc2.text('INSTITUTO TECNÓLOGICO SUPERIOR', 110, 500, { maxWidth: 200, align: 'justify' });
+
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('SR.', 350, 460, );
-      this.doc2.text('RUC', 350,480 );
+      this.doc2.text('SR.', 350, 460,);
+      this.doc2.text('RUC', 350, 480);
       this.doc2.setFontSize(9);
       this.doc2.setFont("Roboto", 'bold');
-      this.doc2.text('EMPRESA', 350, 500 ,{ maxWidth: 200, align: 'justify' });
-    
+      this.doc2.text('EMPRESA', 350, 500, { maxWidth: 200, align: 'justify' });
+
     }
     this.doc2.autoTable({
       addPageContent: pageContent,
@@ -816,7 +820,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
     })
 
-  
+
     this.doc2.save("Convenio.pdf");
 
 
