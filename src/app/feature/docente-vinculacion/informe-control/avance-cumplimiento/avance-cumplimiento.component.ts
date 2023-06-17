@@ -487,9 +487,9 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('17.  Con los antecedentes expuestos, el Instituto Tecnológico Superior xxxxxx y el xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx, acuerdan suscribir el presente convenio referente'+
-      'a la implementación de un programa de vinculación con la colectividad que versará'+
-      'sobre el proyecto que tiene como objetivo:”xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx”, por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.', 115, 290, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('17.  Con los antecedentes expuestos, el Instituto Tecnológico Superior xxxxxx y el xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx, acuerdan suscribir el presente convenio referente' +
+        'a la implementación de un programa de vinculación con la colectividad que versará' +
+        'sobre el proyecto que tiene como objetivo:”xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx”, por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.', 115, 290, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto", 'bold');
@@ -499,16 +499,271 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc2.text('Por medio del presente convenio, las partes, en el ámbito de sus competencias, se comprometen a realizar la implementación del proyecto de vinculación con la colectividad'
-      +'propuesto por el INSTITUTO, referente a (NOMBRE DEL PROYECTO).', 115,385, { maxWidth: 400, align: 'justify' });
+        + 'propuesto por el INSTITUTO, referente a (NOMBRE DEL PROYECTO).', 115, 385, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA TERCERA.- OBLIGACIONES DE LAS PARTES:', 110, 440);
+      this.doc2.setFontSize(10);
+      this.doc2.text('3.1 DEL INSTITUTO:', 110, 455);
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Son obligaciones del INSTITUTO:', 110, 470);
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('a) Designar a las y los estudiantes del INSTITUTO a fin de que accedan a las actividades de vinculación  en la ENTIDAD RECEPTORA, remitiendo para el efecto la base de datos con la información que acuerden las partes.', 155, 490, { maxWidth: 350, align: 'justify' });
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('b) Asegurar que la  unidad de vinculación pueda desarrollar los distintos programas y actividades en las instalaciones existentes en la ENTIDAD RECEPTORA.', 155, 540, { maxWidth: 350, align: 'justify' });
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('c) Cumplir a cabalidad las horas establecidas para el proyecto.', 155, 580, { maxWidth: 350, align: 'justify' });
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('3.2  DE LA ENTIDAD RECEPTORA:', 110, 600);
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Son obligaciones de la ENTIDAD RECEPTORA  las siguientes:', 110, 615);
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('a) Permitir que los estudiantes del Instituto Tecnológico Superior xxxxxxxxx efectúen actividades de vinculación en las instalaciones de acuerdo a los lineamientos pedagógicos establecidos.', 155, 640, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('b) Vincular a las y los estudiantes a las áreas relacionadas con la carrera que se encuentren cursando la correspondiente actividad de vinculación en sus instalaciones, de acuerdo a las necesidades de la ENTIDAD RECEPTORA y de conformidad a la normativa vigente.', 155, 685, { maxWidth: 350, align: 'justify' });
+
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('c) Otorgar el apoyo necesario para el desarrollo de los estudiantes y sus actividades, además de evaluar el desarrollo de las actividades que se asignen a los estudiantes dentro de las actividades de vinculación  a realizarse en la ENTIDAD RECEPTORA', 155, 735, { maxWidth: 350, align: 'justify' });
+
+    }
+
+    const pageContent5 = (data: any) => {
+      // HEADER
+      this.doc2.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA CUARTA.- PLAZO:', 115, 150);
+
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('14. El XXXXXXXXXXXXXXXXX, ubicado en la ciudad de xxxxxxxxx, provincia de xxxxxxx, es una Institución de Educación Superior Pública, con licencia de funcionamiento otorgada mediante Acuerdo Nro. Xxx y registro institucionalNro.Xxxxx conferido por el Consejo de Educación Superior CONESUP, que se dedica a la formación de profesionales de nivel tecnológico.;', 115, 650, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('El presente Convenio de Vinculación con la Sociedad tendrá la vigencia de (1) un año contados a partir de la fecha de suscripción, mismo que podrá ser renovado previo ' +
+        'consentimiento de las partes de manera escrita con un mínimo de quince (15) días de anticipación a la fecha de terminación, para lo cual las partes deberán suscribir el instrumento pertinente prorrogando' +
+        +'el mismo y estableciendo, de existir, las nuevas condiciones.', 110, 165, { maxWidth: 400, align: 'justify' });
 
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA QUINTA.- RÉGIMEN FINANCIERO:', 110, 235);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Debido a la naturaleza del Convenio, el presente convenio no generará obligaciones financieras recíprocas, erogación alguna ni transferencias de recursos económicos' +
+        ' entre las partes; las erogaciones generadas por las acciones ejecutadas por el cumplimiento de las obligaciones contraídas en el presente instrumento serán asumidas con cargo a la Institución que las ejecute.', 110, 250, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA SEXTA.- MODIFICACIONES:', 110, 320);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Los términos de este convenio podrán ser modificados, ampliados o reformados de mutuo acuerdo durante su vigencia, siempre que dichas modificaciones no alteren la naturaleza ni el objeto del convenio y sean justificadas técnica, legal o académicamente; para cuyo efecto, las PARTES suscribirán el instrumento jurídico pertinente.'
+        + 'Ninguna modificación podrá ir en detrimento de los derechos de los estudiantes que se encuentren vinculados en la ENTIDAD RECEPTORA. ', 110, 335, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA SÉPTIMA.- ADMINISTRADOR DEL CONVENIO:', 110, 420);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Para realizar la coordinación, ejecución y seguimiento del presente convenio, las partes designan a los funcionarios que a continuación se detallan para que actúen en calidad de administradores, quienes velarán por la cabal y oportuna ejecución de todas y cada una de las obligaciones derivadas del mismo, así como de su seguimiento y coordinación, debiendo informar por escrito a la máxima autoridad del INSTITUTO y al/la representante de la ENTIDAD RECEPTORA, mediante informes semestrales por cada ciclo académico respecto del cumplimiento del objeto del presente instrumento:', 110, 440, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Por el INSTITUTO se designa al Coordinador de la Carrera.', 110, 530, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Por la ENTIDAD RECEPTORA  se designa al Asistente Administrativo', 110, 540, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Los Administradores del Convenio a la conclusión del plazo, presentarán un informe consolidado sobre la  ejecución del Convenio.', 110, 550, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('En caso de presentarse cambios del personal asignado para la administración, serán designados con la debida antelación, notificando a la parte contraria de manera inmediata y sin que sea necesaria la modificación del texto convencional, a fin de no interrumpir la ejecución y el plazo del convenio; para lo cual el o los administradores salientes deberán presentar un informe de su gestión y la entrega recepción de actividades.', 110, 585, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA OCTAVA.- TERMINACIÓN DEL CONVENIO: ', 110, 655);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('1.  Por vencimiento del plazo;', 110, 675, { maxWidth: 400, align: 'justify' });
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('2.  Por mutuo acuerdo de las partes, siempre que se evidencie que no pueda continuarse su ejecución por motivos técnicos, económicos, legales, sociales o físicos para lo cual celebrarán una acta de terminación por mutuo acuerdo. La parte que por los motivos antes expuestos no pudiere continuar con la ejecución del presente Convenio, deberá poner en conocimiento de su contraparte su intención de dar por terminado el convenio por mutuo con al menos treinta (30) días de antelación a la fecha de terminación del convenio;', 110, 695, { maxWidth: 400, align: 'justify' });
+      // this.doc2.setFontSize(11);
+      // this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      // this.doc2.text('3.  Por terminación unilateral por incumplimiento de una de las partes, lo cual deberá ser técnicamente y legalmente justificado por quien lo alegaré; y, ', 110,710, { maxWidth: 400, align: 'justify' });
+      // this.doc2.setFontSize(11);
+      // this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      // this.doc2.text('4.  Por fuerza mayor o caso fortuito debidamente justificado por la parte que lo alegare, y notificado dentro del plazo de cuarenta y ocho (48) horas de ocurrido el hecho. En estos casos, se suscribirá la respectiva acta de terminación en el que se determinarán las causas descritas como causales de terminación del Convenio. Se considerarán causas de fuerza mayor o caso fortuito '+
+      // 'las establecidas en el artículo 30 del Código Civil. ', 110,685, { maxWidth: 400, align: 'justify' });
+    }
+
+
+    const pageContent6 = (data: any) => {
+      // HEADER
+      this.doc2.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('3.  Por terminación unilateral por incumplimiento de una de las partes, lo cual deberá ser técnicamente y legalmente justificado por quien lo alegaré; y, ', 110, 150, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('4.  Por fuerza mayor o caso fortuito debidamente justificado por la parte que lo alegare, y notificado dentro del plazo de cuarenta y ocho (48) horas de ocurrido el hecho. En estos casos, se suscribirá la respectiva acta de terminación en el que se determinarán las causas descritas como causales de terminación del Convenio. Se considerarán causas de fuerza mayor o caso fortuito ' +
+        'las establecidas en el artículo 30 del Código Civil. ', 110, 185, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('La terminación del presente convenio, por cualquiera de las causales antes señaladas, generará la obligación de las partes a suscribir un acta de finiquito; sin embargo, no afectará la conclusión del objeto y las obligaciones que las partes hubieren adquirido y que se encuentren ejecutando en ese momento, salvo que éstas lo acuerden de otra forma. No obstante, la terminación del presente convenio no implicará el pago de indemnización alguna ni entre las partes ni entre éstas y los estudiantes o terceros.', 110, 255, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA NOVENA. -INEXISTENCIA DE RELACIÓN LABORAL:', 110, 340);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Por la naturaleza del presente Convenio, se entiende que ninguna de las partes comparecientes, adquieren relación laboral ni de dependencia respecto del personal de la otra institución que trabaje en el cumplimiento de este instrumento.' +
+        'De igual manera, la ENTIDAD RECEPTORA no tendrá relación laboral ni obligaciones laborales  con los estudiantes que se vinculen a ella, ni éstos tendrán subordinación ni dependencia laboral para con la ENTIDAD RECEPTORA, se aclara que la relación estudiante-entidad receptora es  únicamente de formación académica.', 110, 360, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA DÉCIMA.- CONTROVERSIAS: ', 110, 455);
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Basándose en la buena fe como fundamental para la ejecución de este convenio para el caso de controversias derivadas de su interpretación, aplicación, ejecución o terminación, las partes aceptan solucionarlas de manera amistosa a través de las máximas autoridades de las instituciones comparecientes; de no ser posible una solución amistosa, las controversias producto del presente Convenio se ventilarán ante el Centro de Mediación de la Procuraduría General del Estado, con sede en la Quito provincia de Pichincha, y a la falta de acuerdo se ventilarán las controversias de conformidad con lo establecido en el Código Orgánico General de Procesos (COGEP); siendo competente para conocer dichas controversias el/la Tribunal de lo Contencioso Administrativo o la Unidad Judicial de lo Contencioso Administrativo.', 110, 475, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA DÉCIMA PRIMERA.- DOCUMENTOS HABILITANTES:', 110, 605);
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Forman parte integrante del convenio los siguientes documentos:', 110, 620, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('a)	Los que acreditan la calidad y capacidad de los comparecientes; y,', 120, 635, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('b)	Los documentos a que se hace referencia en la cláusula de antecedentes', 120, 645, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA DÉCIMA SEGUNDA.- COMUNICACIONES Y NOTIFICACIONES:', 110, 665);
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Todas las comunicaciones y notificaciones entre las partes, se realizarán por escrito y serán entregadas a las siguientes direcciones:', 110, 680, { maxWidth: 400, align: 'justify' });
 
 
     }
 
+    const pageContent7 = (data: any) => {
+      // HEADER
+      this.doc2.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('INSTITUTO TECNOLOGICO SUPERIOR DE PATRIMONIO Y TURISMO YAVIRAC', 110, 150);
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Dirección:', 110, 170);
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 170, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Ciudad-Provincia:', 110, 185);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 185, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Teléfono:', 110, 200);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 200, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Mail:', 110, 215);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 215, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('NOMBRE DE LA PERSONA NATURAL O JURIDICA', 110, 235);
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Dirección:', 110, 250);
+      this.doc2.setFontSize(10);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 250, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Ciudad-Provincia:', 110, 265);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 265, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Teléfono:', 110, 280);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 280, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Mail:', 110, 295);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text(' direccion', 195, 295, { maxWidth: 400, align: 'justify' });
+
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('CLÁUSULA DECIMA TERCERA.- ACEPTACIÓN:', 110, 320);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Libre y voluntariamente, previo el cumplimiento de los requisitos de Ley, los comparecientes expresan su aceptación a todo lo convenido en el presente instrumento, a cuyas estipulaciones se someten, por convenir a sus legítimos intereses institucionales, en fe de lo cual proceden a suscribirlo en tres (3) ejemplares de igual tenor y valor jurídico.', 110, 335, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Dado, en la ciudad de Quito a los           días del mes de            de 202', 110, 395, { maxWidth: 400, align: 'justify' });
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('“Por delegación del Secretario de Educación Superior, Ciencia, Tecnología e Innovación”:', 110, 415 ,{ maxWidth: 185, align: 'justify' });
+    
+
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('Por la Entidad Receptora:', 350, 415 ,{ maxWidth: 200, align: 'justify' });
+      
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('Mgs.', 110, 460, );
+      this.doc2.text('RECTOR', 110,480 );
+      this.doc2.setFontSize(9);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('INSTITUTO TECNÓLOGICO SUPERIOR', 110, 500 ,{ maxWidth: 200, align: 'justify' });
+      
+      this.doc2.setFontSize(11);
+      this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc2.text('SR.', 350, 460, );
+      this.doc2.text('RUC', 350,480 );
+      this.doc2.setFontSize(9);
+      this.doc2.setFont("Roboto", 'bold');
+      this.doc2.text('EMPRESA', 350, 500 ,{ maxWidth: 200, align: 'justify' });
+    
+    }
     this.doc2.autoTable({
       addPageContent: pageContent,
 
@@ -537,19 +792,32 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       startY: 2100,
 
     })
-
-
     this.doc2.autoTable({
-      addPageContent: pageContent4,
+      addPageContent: pageContent3,
       startY: 3100,
 
     })
-    var requiredPages = 4
-    for (var i = 0; i < requiredPages; i++) {
-      this.doc2.addPage();
-      //doc.text(20, 100, 'Some Text.');
-    }
-    this.doc2.save("table.pdf");
+
+
+    this.doc2.autoTable({
+      addPageContent: pageContent5,
+      startY: 3100,
+
+    })
+    this.doc2.autoTable({
+      addPageContent: pageContent6,
+      startY: 3100,
+
+    })
+
+    this.doc2.autoTable({
+      addPageContent: pageContent7,
+      startY: 3100,
+
+    })
+
+  
+    this.doc2.save("Convenio.pdf");
 
 
 
