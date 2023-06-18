@@ -155,31 +155,31 @@ const routes: Routes = [
                 path: 'filter',
                 children: [
                   {
-                    path: 'Certificado',
+                    path: 'certificado',
                     component: SolicitudListComponent,
                     data:{
                       filterCertificado: 'Certificado'
                     }
                   },
                   {
-                    path: 'Vinculación',
+                    path: 'vinculacion',
                     component: SolicitudListComponent,
                     data:{
                       filterVinculacion: 'Vinculación'
                     }
                   },
                   {
-                    path: 'Pendiente',
+                    path: 'pendiente',
                     component: SolicitudListComponent,
                     data: {
                       filterPendiente: 'Pendiente',
                     },
                   },
                   {
-                    path: 'Pre Aprobado',
+                    path: 'aprobado',
                     component: SolicitudListComponent,
                     data: {
-                      filterPreAprobado: 'Pre Aprobado',
+                      filterAprobado: 'Aprobado',
                     },
                   },
                 ]

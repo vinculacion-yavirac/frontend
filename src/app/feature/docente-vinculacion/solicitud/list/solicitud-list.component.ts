@@ -30,7 +30,7 @@ export class SolicitudListComponent implements OnInit {
   filterVinculacion: string;
   filterCertificado: string;
   filterPendiente: string;
-  filterPreAprobado: string;
+  filterAprobado: string;
 
   constructor(
     private solicitudHttpService: SolicitudHttpService,
@@ -41,15 +41,15 @@ export class SolicitudListComponent implements OnInit {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
     this.filterPendiente = this.route.snapshot.data['filterPendiente'];
-    this.filterPreAprobado = this.route.snapshot.data['filterPreAprobado'];
+    this.filterAprobado = this.route.snapshot.data['filterAprobado'];
   }
 
   ngOnInit(): void {
     if (this.filterPendiente) {
       this.getSolicitudByStatus(this.filterPendiente);
     }
-    else if (this.filterPreAprobado) {
-      this.getSolicitudByStatus(this.filterPreAprobado);
+    else if (this.filterAprobado) {
+      this.getSolicitudByStatus(this.filterAprobado);
     }
     else if(this.filterVinculacion){
       this.getSolicitudByType(this.filterVinculacion);
@@ -118,15 +118,15 @@ export class SolicitudListComponent implements OnInit {
       this.searchCertificateByTerm(term);
     } else if (this.filterPendiente) {
       this.searchPendienteByTerm(term);
-    } else if (this.filterPreAprobado) {
-      this.searchPreAprobadoByTerm(term);
+    } else if (this.filterAprobado) {
+      this.searchAprobadoByTerm(term);
     } else {
       this.searchSolicitudByTerm(term);
     }
   }
 
   private handleEmptyTerm(): void {
-    if (!this.filterVinculacion && !this.filterCertificado && !this.filterPendiente && !this.filterPreAprobado) {
+    if (!this.filterVinculacion && !this.filterCertificado && !this.filterPendiente && !this.filterAprobado) {
       this.getSolicitud();
     } else if (this.filterVinculacion) {
       this.getSolicitudByType(this.filterVinculacion);
@@ -134,8 +134,8 @@ export class SolicitudListComponent implements OnInit {
       this.getSolicitudByType(this.filterCertificado);
     } else if (this.filterPendiente) {
       this.getSolicitudByStatus(this.filterPendiente);
-    } else if (this.filterPreAprobado) {
-      this.getSolicitudByStatus(this.filterPreAprobado);
+    } else if (this.filterAprobado) {
+      this.getSolicitudByStatus(this.filterAprobado);
     }
   }
 
@@ -163,8 +163,8 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  private searchPreAprobadoByTerm(term: string): void {
-    this.solicitudHttpService.searchPreAprobadoByTerm(term).subscribe((res: any) => {
+  private searchAprobadoByTerm(term: string): void {
+    this.solicitudHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });
   }

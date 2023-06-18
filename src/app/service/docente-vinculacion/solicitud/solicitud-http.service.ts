@@ -79,8 +79,8 @@ export class SolicitudHttpService {
     return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`);
   };
 
-  public searchPreAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`);
+  public searchAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/aprobado/${encodeURIComponent(term)}`);
   };
 
 }
