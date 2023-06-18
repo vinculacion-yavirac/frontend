@@ -27,6 +27,8 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   public doc2: any;
   public first: any;
 
+  public avanzeData: any;
+
   @ViewChild("avanzeForm")
 
   avanzeForm!: NgForm;
@@ -60,6 +62,12 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
   ngOnInit(): void {
+    let data = [{
+      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC"
+    }];
+
+
+    this.avanzeData = data;
 
 
     this.getAllAvanze();
@@ -317,6 +325,8 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
   public pdf_convenio() {
+    console.log(this.avanzeData);
+
     var d = new Date();
     var s = new Date();
     var dia = s.getUTCDate();
@@ -341,17 +351,13 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     // var ult =this.reportReport[0].nombres.charAt(this.reportReport[0].nombres.length - 1);
 
     //numeros aleatorios//
-    var data = [{
-      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC"
 
-    }
-    ]
 
     this.doc2 = new jsPDF('p', 'pt');
     let rows: never[] = [];
 
     const pageContent = (data: any) => {
-      
+
       // HEADER
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc2.setFontSize(9);
@@ -373,7 +379,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + data[0].Instituto + ', legalmente representado por el XXXXXXXXXXXXX, en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanzeData[0].Instituto + ', legalmente representado por el XXXXXXXXXXXXX, en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -827,6 +833,676 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
   }
+
+
+
+  public pdf_itv() {
+    console.log(this.avanzeData);
+
+    var d = new Date();
+    var s = new Date();
+    var dia = s.getUTCDate();
+    var ed = this.id
+    const month_value = d.getMonth();
+
+    var months = new Array(12);
+    months[0] = "Enero";
+    months[1] = "Febrero";
+    months[2] = "Marzo";
+    months[3] = "Abril";
+    months[4] = "Mayo";
+    months[5] = "Junio";
+    months[6] = "Julio";
+    months[7] = "Agosto";
+    months[8] = "Septiembre";
+    months[9] = "Octubre";
+    months[10] = "Noviembre";
+    months[11] = "Diciembre";
+
+    // var fir =this.reportReport[0].nombres.charAt(0);
+    // var ult =this.reportReport[0].nombres.charAt(this.reportReport[0].nombres.length - 1);
+
+    //numeros aleatorios//
+
+
+    this.doc = new jsPDF('p', 'pt');
+    let rows: never[] = [];
+
+    const pageContent = (data: any) => {
+
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      this.doc.line(40, 130, 555, 130);
+      this.doc.line(40, 130, 40, 750);
+      this.doc.line(555, 130, 555, 750);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('INFORME TÉCNICO - ACADÉMICO DE VIABILIDAD', 170, 145);
+      this.doc.text('PARA LA FIRMA DE CONVENIO DE VINCULACIÓN CON LA SOCIEDAD', 125, 155);
+      this.doc.line(40, 160, 555, 160);
+      this.doc.line(40, 180, 555, 180);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('No. Informe', 40, 195);
+      this.doc.line(40, 200, 555, 200);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 195, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre del IST:', 40, 215);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 215, { maxWidth: 100, align: 'justify' });
+      this.doc.line(40, 220, 555, 220);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Fecha:', 40, 235);
+      this.doc.line(40, 240, 555, 240);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 235, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('PARA LA FIRMA DE CONVENIO DE VINCULACIÓN CON LA SOCIEDAD', 125, 255);
+      this.doc.line(40, 260, 555, 260);
+
+      this.doc.line(155, 260, 155, 750);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre de la Entidad Receptora:', 40, 270, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 270);
+      this.doc.line(40, 290, 555, 290);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre de la Entidad Receptora:', 40, 300, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 300);
+      this.doc.line(40, 320, 555, 320);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre de la persona  autorizada legalmente  para la suscripción del Convenio:', 40, 330, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 330);
+      this.doc.line(40, 365, 555, 365);
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Actividad económica que consta en el RUC:', 40, 385, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 385);
+      this.doc.line(40, 410, 555, 410);
+
+
+
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Plazo de vigencia del convenio:', 40, 430, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 430);
+      this.doc.line(40, 455, 555, 455);
+
+      this.doc.line(280, 455, 280, 630);
+      this.doc.line(395, 455, 395, 630);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('N° de estudiantes que recibiría inicialmente la Entidad Receptora:', 40, 480, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 490, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Total de estudiantes proyectados que recibirá la Entidad Receptora durante la vigencia del convenio:', 290, 470, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 405, 490, { maxWidth: 100, align: 'justify' });
+      this.doc.line(40, 510, 555, 510);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Datos: Tutor Académico', 40, 550, { maxWidth: 150, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('BARRIGA OLIVO SUSANJAC QUELINE', 160, 540, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Contacto: 022342563', 160, 560, { maxWidth: 150, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Datos: Tutor Académico', 290, 550, { maxWidth: 150, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('BARRIGA OLIVO SUSANJAC QUELINE', 395, 540, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Contacto: 022342563', 395, 560, { maxWidth: 150, align: 'justify' });
+
+      this.doc.line(40, 570, 555, 570);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Correo electrónico de la empresa: (información obligatoria que constará en el  Convenio)', 40, 585, { maxWidth: 100, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('joseostaiza57@gmail.com.edu.ec', 160, 600, { maxWidth: 150, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Número de contacto:(información obligatoria que constará en el Convenio)', 290, 585, { maxWidth: 75, align: 'justify' });
+
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('NOMBRE:BARRIGA OLIVO SUSANJAC QUELINE', 395, 585, { maxWidth: 150, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Contacto: 022342563', 395, 610, { maxWidth: 150, align: 'justify' });
+      this.doc.line(40, 630, 555, 630);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Provincia:', 160, 645, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 645, { maxWidth: 100, align: 'justify' });
+
+      this.doc.line(155, 650, 555, 650);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Canton:', 160, 665, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 665, { maxWidth: 100, align: 'justify' });
+
+
+      this.doc.line(155, 670, 555, 670);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Dirección Matriz:', 40, 655, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Direccion:', 160, 685, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 685, { maxWidth: 100, align: 'justify' });
+
+      this.doc.line(40, 690, 555, 690);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Provincia:', 160, 705, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 705, { maxWidth: 100, align: 'justify' });
+
+
+      this.doc.line(155, 710, 555, 710);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Dirección Matriz:', 40, 725, { maxWidth: 100, align: 'justify' });
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Canton', 160, 725, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 725, { maxWidth: 100, align: 'justify' });
+
+      this.doc.line(155, 730, 555, 730);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Dirección', 160, 745, { maxWidth: 100, align: 'justify' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 225, 745, { maxWidth: 100, align: 'justify' });
+
+      this.doc.line(40, 750, 555, 750);
+
+
+    }
+
+    const pageContent2 = (data: any) => {
+
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      this.doc.line(40, 130, 555, 130);
+      this.doc.line(40, 130, 40, 750);
+      this.doc.line(555, 130, 555, 750);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Criterios Generales', 255, 145);
+
+      this.doc.line(40, 150, 555, 150);
+      this.doc.line(150, 150, 150, 750);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Objeto:', 45, 190);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 170, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 225, 555, 225);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Ley Orgánica de Educación Superior -LOES', 45, 270, { maxWidth: 120, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Art. 87.- Requisitos previos a la obtención del grado académico.- Como requisito previo a la obtención del '
+        + 'grado académico, los y las estudiantes deberán acreditar servicios a la comunidad mediante programas,'
+        + 'proyectos de vinculación con la sociedad, prácticas o pasantías pre profesionales con el debido '
+        + 'acompañamiento pedagógico, en los campos de su especialidad.', 160, 240, { maxWidth: 350, align: 'justify' });
+
+      this.doc.line(40, 300, 555, 300);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Obligaciones Conjuntas:', 45, 340);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Las partes de común acuerdo diseñarán un plan de actividades académicas que'
+        + 'desarrollarán los estudiantes en la ENTIDAD RECEPTORA de acuerdo al número'
+        + 'de horas de vinculación establecidas en el proyecto de carrera y malla curricular'
+        + 'de la carrera de Tecnología en DESARROLLO DE SOFTWARE, dicho plan de'
+        + 'actividades complementará el aprendizaje y la aplicación de conocimientos,'
+        + 'desarrollo de destrezas y habilidades que se consideren necesarias para un'
+        + 'adecuado desempeño de su futura profesión.', 160, 315, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc.line(40, 375, 555, 375);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Obligaciones de las partes:', 45, 390);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Del Instituto:', 160, 385, { maxWidth: 350, align: 'justify' });
+      this.doc.text('a) Determinar el número de estudiantes participantes en la realización del proyecto de'
+        + 'vinculación con la sociedad conforme a las áreas y espacios definidos por la entidad'
+        + 'receptor', 160, 395, { maxWidth: 350, align: 'justify' });
+
+      this.doc.text('b) Considerar el número de horas determinados para la realización del proyecto de'
+        + 'vinculación con la sociedad conforme establece al proyecto de carrera y/o '
+        + 'planificación en el ciclo académico', 160, 420, { maxWidth: 350, align: 'justify' });
+
+      this.doc.text('c) Definir un cronograma de actividades para la ejecución del proyecto de vinculación'
+        + 'con la sociedad acorde al perfil de la carrera', 160, 445, { maxWidth: 350, align: 'justify' });
+
+      this.doc.text('d) Designar a los estudiantes de las carreras de Tecnología en DESARROLLO'
+        + 'DE SOFTWARE, a fin de que implementen el proyecto de vinculación'
+        + 'conforme a las competencias y conocimientos adquiridos en el lugar o'
+        + 'ubicación definido por la ENTIDAD RECEPTORA, remitiendo para el efecto'
+        + 'la base de datos con la información que acuerden las partes;', 160, 470, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc.text('e) Planificar, monitorear, y evaluar la ejecución del proyecto de vinculación en '
+        + 'coordinación con el tutor que designe la ENTIDAD RECEPTORA;', 160, 520, { maxWidth: 350, align: 'justify' });
+      this.doc.line(160, 670, 555, 670);
+
+      this.doc.text('f) Designar un tutor, cuya responsabilidad es el debido seguimiento a los '
+        + 'estudiantes que acoja la ENTIDAD RECEPTORA;     ', 160, 555, { maxWidth: 350, align: 'justify' });
+
+      this.doc.text('g) Velar para que los estudiantes de la carrera de Tecnología DESARROLLO '
+        + 'DE SOFTWARE, ejecuten las actividades del proyecto de vinculación y se '
+        + 'sometan a las políticas, directrices, reglamentos e instrucciones del '
+        + 'INSTITUTO y de la ENTIDAD RECEPTORA;', 160, 580, { maxWidth: 350, align: 'justify' });
+      this.doc.line(160, 670, 555, 670);
+
+      this.doc.text('h) Cumplir a cabalidad las horas establecidas para el proyecto;', 160, 620, { maxWidth: 350, align: 'justify' });
+      this.doc.line(160, 670, 555, 670);
+      this.doc.text('De la entidad receptora:', 160, 680, { maxWidth: 350, align: 'justify' });
+      this.doc.text('a) Definir el número de estudiantes participantes en la realización del proyecto de'
+        + 'vinculación con la sociedad conforme a las áreas, espacios y/o actividad '
+        + 'económica de la entidad receptora', 160, 695, { maxWidth: 350, align: 'justify' });
+      this.doc.text('b) El número de estudiantes que acoja la ENTIDAD RECEPTORA se '
+        + 'determinará al inicio del ciclo académico según su capacidad;', 160, 720, { maxWidth: 350, align: 'justify' });
+      this.doc.line(160, 670, 555, 670);
+      this.doc.line(40, 750, 555, 750);
+
+
+
+
+    }
+
+    const pageContent3 = (data: any) => {
+
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      this.doc.line(40, 130, 555, 130);
+      this.doc.line(40, 130, 40, 750);
+      this.doc.line(555, 130, 555, 750);
+      this.doc.line(150, 130, 150, 730);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Static Text', 45, 150);
+
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('c) Garantizar que los estudiantes de la carrera de Tecnología EN'
+        + 'DESARROLLO DE SOFTWARE, efectúen las actividades planificadas'
+        + 'del proyecto de vinculación en las áreas y  espacios acordados por las '
+        + 'partes;', 160, 150, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('d) Otorgar el apoyo necesario para el desarrollo de los estudiantes y sus'
+        + 'actividades, además de evaluar el desarrollo de las actividades que se '
+        + 'asignen a los estudiantes dentro de las actividades de vinculación a '
+        + 'realizarse.', 160, 195, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('e) Emitir un informe de evaluación a los estudiantes que participaron en la'
+        + 'ejecución del proyecto de vinculación con la sociedad conforme a las '
+        + 'actividades planificadas y principio de retribución de conocimientos.', 160, 240, { maxWidth: 350, align: 'justify' });
+
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('f) Emitir los certificados correspondientes a los estudiantes que hayan '
+        + 'cumplido exitosamente con la ejecución del proyecto de vinculación.', 160, 290, { maxWidth: 350, align: 'justify' });
+
+
+
+
+
+      this.doc.line(40, 670, 555, 670);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Administradores del convenio.', 40, 685, { maxWidth: 75, align: 'justify' });
+
+      this.doc.text('Por el Instituto:', 160, 685, { maxWidth: 75, align: 'justify' });
+
+      this.doc.text('Coordinador de Carrera', 265, 685, { maxWidth: 150, align: 'justify' });
+
+      this.doc.text('Por le Entidad Receptora: ', 385, 685, { maxWidth: 150, align: 'justify' });
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.line(40, 730, 555, 730);
+      this.doc.text('Nota: Los administradores y/o delegados del convenio no podrán ser los mismos suscribientes', 45, 745, { maxWidth: 450, align: 'justify' });
+
+      this.doc.line(40, 750, 555, 750);
+
+
+
+
+    }
+
+
+    const pageContent4 = (data: any) => {
+
+      // HEADER
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      this.doc.line(40, 130, 555, 130);
+      this.doc.line(40, 130, 40, 750);
+      this.doc.line(555, 130, 555, 750);
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Criterios Academicos', 255, 145);
+
+      this.doc.line(40, 150, 555, 150);
+      this.doc.line(150, 150, 150, 750);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Justificación:(Explique la pertinencia de '
+        + 'la suscripción del Convenio)', 45, 190, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 170, { maxWidth: 350, align: 'justify' });
+      // this.doc.line(40, 225, 555, 225);
+
+
+      this.doc.line(40, 300, 555, 300);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Documento de creación del IST', 45, 310, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 315, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 325, 555, 325);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre del Rector/a del IST:', 45, 335, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 335, { maxWidth: 350, align: 'justify' });
+
+      this.doc.line(40, 350, 555, 350);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('No. De acción de personal del Rector/a del IST:', 45, 360, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 360, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 380, 555, 380);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre de la/s carrera/s:', 45, 395, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 395, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 410, 555, 410);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('No. Resolución de aprobación, de cada carrera:', 45, 420, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 430, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 445, 555, 445);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Vinculación con la sociedad', 255, 460, { maxWidth: 250, align: 'left' });
+      this.doc.line(40, 465, 555, 465);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Nombre del proyecto: ', 45, 480, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 480, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 500, 555, 500);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Objeto del Proyecto:', 45, 520, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 520, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 530, 555, 530);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Número de Participantes:', 45, 550, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 550, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 560, 555, 560);
+
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Financiamiento:', 45, 580, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 580, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 590, 555, 590)
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Conclusiones y Recomendaciones', 250, 605, { maxWidth: 350, align: 'left' });
+      this.doc.line(40, 615, 555, 615)
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Conclusiones: (deberá constar en los antecedentes del '
+        + 'convenio a suscribir)', 40, 640, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 640, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 685, 555, 685)
+
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Conclusiones: (deberá constar en los antecedentes del '
+        + 'convenio a suscribir)', 40, 700, { maxWidth: 100, align: 'left' });
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('0', 160, 700, { maxWidth: 350, align: 'justify' });
+      this.doc.line(40, 750, 555, 750);
+
+
+
+    }
+
+    const pageContent5 = (data: any) => {
+
+      // HEADER
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+      this.doc.line(40, 130, 555, 130);
+      this.doc.line(40, 130, 40, 750);
+      this.doc.line(555, 130, 555, 750);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Elaborado y Revisado por:', 250, 145);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Yogledis Herrera', 270, 235,);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Docente del Instituto Superior Tecnológico Yavira', 220, 250,);
+
+      this.doc.line(40, 255, 555, 255);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Aprobado por:', 275, 275);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Iván Borja Carrera ', 270, 360,);
+      this.doc.text('Rector/a del Instituto', 260, 380,);
+      this.doc.line(40, 390, 555, 390);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('ANEXOS I: Documentos habilitantes', 40, 410);
+      this.doc.line(40, 415, 555, 415);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Copia simple de los documentos que acrediten la calidad del Representante Legal/ delegado o apoderado.', 40, 430,);
+      this.doc.text('Nota:', 40, 440,);
+      this.doc.text('*Para el caso de la persona jurídica de derecho privado solicitará el nombramiento debidamente inscrito en el Registro Mercantil.', 40, 450, { maxWidth: 500, align: 'justify' });
+      this.doc.text('*Para el caso de la persona jurídica de derecho público solicitará el nombramiento, acción de personal o credencial para el caso de'
+        + 'dignidades de elección popular.', 40, 470, { maxWidth: 500, align: 'justify' });
+      this.doc.text('* Para el caso de los delegados se presentará el documento que le acredite. (Acuerdo de Delegación Resolución, otros).', 40, 495, { maxWidth: 500, align: 'justify' });
+      this.doc.text('* Para el caso de los mandatarios, se deberá presentar el poder debidamente notariado.', 40, 510, { maxWidth: 500, align: 'justify' });
+      this.doc.line(40, 520, 555, 520);
+      this.doc.text('Copia simple de la cédula de identidad o pasaporte del representante legal/ delegado o apoderado legalmente'
+        + 'facultado para suscribir convenio', 40, 540, { maxWidth: 500, align: 'justify' });
+      this.doc.line(40, 570, 555, 570);
+      this.doc.text('Copia simple del Registro Único de Contribuyente (RUC)', 40, 590, { maxWidth: 500, align: 'justify' });
+      this.doc.line(40, 620, 555, 620);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Del instituto', 275, 630);
+      this.doc.line(40, 635, 555, 635);
+
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Copia simple de la acción de personal del Rector vigente y debidamente legalizado', 40, 645,);
+      this.doc.line(40, 655, 555, 655);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Copia simple de la cédula de identidad del rector ', 40, 665,);
+      this.doc.line(40, 675, 555, 675);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Resolución de creación del Instituto ', 40, 685,);
+      this.doc.line(40, 695, 555, 695);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Resolución de aprobación, registro o regularización de la/s carrera/s expedido por el CES', 40, 705,);
+      this.doc.line(40,715, 555, 715);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Resolución de aprobación, registro o regularización de la/s carrera/s expedido por el CES', 40, 725,);
+      this.doc.line(40,735, 555, 735);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Adjunto al informe deberá presentar:', 40, 745);
+      this.doc.setFontSize(10);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.text('Proyecto de vinculación ', 255, 745,);
+      
+      this.doc.line(40, 750, 555, 750);
+
+
+
+    }
+
+
+    this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+
+    this.doc.autoTable({
+      addPageContent: pageContent,
+
+    })
+    this.doc.autoTable({
+      addPageContent: pageContent2,
+      startY: 1100,
+
+    })
+
+    this.doc.autoTable({
+      addPageContent: pageContent3,
+      startY: 2100,
+
+    })
+
+    this.doc.autoTable({
+      addPageContent: pageContent4,
+      startY: 3100,
+
+    })
+
+    this.doc.autoTable({
+      addPageContent: pageContent5,
+      startY: 4100,
+
+    })
+
+
+
+    this.doc.save("Itv.pdf");
+
+
+
+
+  }
+
+
+
   public bodyRows(rowCount: any) {
     rowCount = rowCount || 10
     var body = []
@@ -841,6 +1517,8 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     }
     return body
   }
+
+
   public addAvanze(isValid: any) {
     this.isSubmitted = true;
     if (isValid) {
@@ -924,6 +1602,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
         }
       })
   }
+
   public delete() {
     this.httpProvider.deleteAvanzeById(this.idTodelete).subscribe((data: any) => {
       console.log(data);
