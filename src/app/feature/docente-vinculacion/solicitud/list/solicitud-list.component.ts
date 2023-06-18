@@ -5,7 +5,8 @@ import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/so
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-solicitud-list',
@@ -34,7 +35,8 @@ export class SolicitudListComponent implements OnInit {
   constructor(
     private solicitudHttpService: SolicitudHttpService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -175,17 +177,20 @@ export class SolicitudListComponent implements OnInit {
     this.loading = false;
   }
 
-
-  public archiveSolicitud(solicitud:SolicitudModels): void{
-    this.solicitudHttpService.solicitudArchive(solicitud.id).subscribe((res:any) =>{
-      if(res.status == 'success'){
-        this.getSolicitud();
-      }
-    })
+  public archiveSolicitud(solicitud:SolicitudModels): void {
+    this.solicitudHttpService.solicitudArchive(solicitud.id).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+          console.log('archive id');
+        }
+      }),
+      switchMap(() => this.router.navigate(['/system/solicitud/list/archived']))
+    ).subscribe();
   }
 
 
-  public openDialogArchiveRol(solicitud: SolicitudModels): void {
+  public openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
       width: '700px',
