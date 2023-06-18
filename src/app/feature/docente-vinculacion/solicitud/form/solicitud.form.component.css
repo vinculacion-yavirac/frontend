@@ -40,3 +40,33 @@
   font-size: 24px;
 }
 
+
+.hoja {
+  width: 210mm;
+  height: 297mm;
+  font-family: "Times New Roman", serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  padding: 2.54cm !important;
+}
+
+h2 {
+  font-size: 14pt;
+  text-align: center;
+  margin-bottom: 12pt;
+}
+h4 {
+  font-size: 12pt;
+  margin-bottom: 12pt;
+}
+p {
+  margin-bottom: 12pt;
+  text-align: justify;
+}
+
+@media (max-width: 640px) {
+  .a4-container {
+    width: 100%;
+    height: auto;
+  }
+}

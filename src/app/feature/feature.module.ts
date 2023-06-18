@@ -68,12 +68,8 @@ import { ProvincesComboboxComponent } from '../shared/comboboxes/división-terri
 import { GendersComboboxComponent } from '../shared/comboboxes/generos/generos.combobox.component';
 import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos-identificacion/tipos-identificacion.combobox.component';
 import { UploadComponent } from './upload/upload.component';
-
-import { PortafolioListComponent } from './portafolio/list/portafolio-list.component';
-import { PortafolioBreadcrumbsComponent } from './portafolio/header/breadcrumbs/portafolio-breadcrumbs.component';
-import { PortafolioTabsComponent } from './portafolio/header/tabs/portafolio-tabs.component';
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
-import { PortafolioArchivedComponent } from './portafolio/archived/portafolio-archived.component';
+
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
 import { SolicitudBreadcrumbsComponent } from './docente-vinculacion/solicitud/header/breadcrumbs/solicitud.breadcrumbs.component';
 import { SolicitudArchivedComponent } from './docente-vinculacion/solicitud/archived/solicitud-archived.component';
@@ -91,10 +87,6 @@ import { AvanceCumplimiento2Component } from './docente-vinculacion/informe-cont
 import { InformeInicialComponent } from './docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { FormularioFinalTutorComponent } from './docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
 import { InformeFinalEstudianteComponent } from './estudiante/informe-final-estudiante/informe-final-estudiante.component';
-import { AsignarComponent } from './fundacion/asignar/asignar.component';
-import { BreadcrumbsFundacionComponent } from './fundacion/header/breadcrumbs/breadcrumbs-fundacion.component';
-import { TabsFundacionComponent } from './fundacion/header/tabs/tabs-fundacion.component';
-import { ListFundacionComponent } from './fundacion/list/list-fundacion.component';
 import { ProyectoArchivedComponent } from './proyecto/archived/proyecto-archived.component';
 import { FormActividadesComponent } from './proyecto/form/actividades/form-actividades.component';
 import { FormAnexosComponent } from './proyecto/form/anexos/form-anexos.component';
@@ -107,7 +99,6 @@ import { FormFirmasComponent } from './proyecto/form/firmas/form-firmas.componen
 import { FormIntegrantesComponent } from './proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from './proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from './proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import {
   TipoSolicitudesComboboxComponent
 } from "../shared/comboboxes/tipos-solicitudes/tipo-solicitudes-combobox.component";
@@ -116,6 +107,23 @@ import {
 } from "../shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component";
 import {ProyectoComboboxComponent} from "../shared/comboboxes/proyecto/proyecto-combobox.component";
 import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-info/proyecto-info.component';
+import {
+  ProyectosComboboxComponent
+} from "../shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component";
+import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
+import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
+import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";import {
+  ListInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/list/list-institucion-beneficiaria.component";
+import {
+  BreadcrumbsInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/header/breadcrumbs/breadcrumbs-institucion-beneficiaria.component";
+import {
+  TabsInstitucionBeneficiariaComponent
+} from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
+import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
+import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 
 
 
@@ -188,6 +196,7 @@ import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-i
     PortafolioBreadcrumbsComponent,
     PortafolioTabsComponent,
 
+
     ProyectoBreadcrumbsComponent,
     ProyectoTabsComponent,
     ProyectoListComponent,
@@ -211,13 +220,15 @@ import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-i
     FormPlanDeTrabajoComponent,
 
     AsignarComponent,
-    TabsFundacionComponent,
-    BreadcrumbsFundacionComponent,
-    ListFundacionComponent,
+    TabsInstitucionBeneficiariaComponent,
+    BreadcrumbsInstitucionBeneficiariaComponent,
+    ListInstitucionBeneficiariaComponent,
+
     TipoSolicitudesComboboxComponent,
     EstadosSolicitudComboboxComponent,
     ProyectoComboboxComponent,
-    ProyectoInfoComponent
+    ProyectoInfoComponent,
+    ProyectosComboboxComponent,
   ],
   imports: [
     CommonModule,

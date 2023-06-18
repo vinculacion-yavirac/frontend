@@ -43,9 +43,11 @@ import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas
 import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ListFundacionComponent } from '../feature/fundacion/list/list-fundacion.component';
-import { AsignarComponent } from '../feature/fundacion/asignar/asignar.component';
 import {ProyectoInfoComponent} from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
+import {AsignarComponent} from "../feature/institucion-beneficiaria/asignar/asignar.component";
+import {
+  ListInstitucionBeneficiariaComponent
+} from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 
 
 const routes: Routes = [
@@ -98,6 +100,25 @@ const routes: Routes = [
               {
                 path: '',
                 component: PortafolioListComponent,
+              },
+              {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Aprobado',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterAprobado: true
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterPendiente: false
+                    }
+                  },
+                ]
               },
               {
                 path: 'archived',
@@ -283,7 +304,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'fundacion',
+        path: 'institucion-beneficiaria',
         children: [
           {
             path: '',
@@ -307,7 +328,7 @@ const routes: Routes = [
             children: [
               {
                 path: '',
-                component: ListFundacionComponent,
+                component: ListInstitucionBeneficiariaComponent,
               },
               {
                 path: 'archived',

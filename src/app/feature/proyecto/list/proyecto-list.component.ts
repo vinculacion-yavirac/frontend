@@ -28,42 +28,29 @@ export class ProyectoListComponent implements OnInit {
 
   constructor(
     private proyectoService: ProyectoService,
-    private filesService: FilesService,
   ) { }
 
   ngOnInit(): void {
     this.getproyecto();
   }
 
-  getproyecto(): void {
+  public getproyecto(): void {
     this.loading = true;
     this.proyectoService.getProyecto().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.proyectos = res.data.projects;
-
-        // console.log(this.proyectos)
-
-        this.proyectos.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) {
-            return 1;
-          }
-          if (a.name.toLowerCase() < b.name.toLowerCase()) {
-            return -1;
-          }
-          return 0;
-        });
+        this.handleSearchResponse(res);
+        this.sortProyectos();
       }
       this.loading = false;
     });
   }
 
-  searchproyectoByTerm(term: string): void {
+  public searchproyectoByTerm(term: string): void {
     this.loading = true;
-
     this.proyectoService.searchProyectoByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.proyectos = res.data.briefcase;
-        console.log(this.proyectos)
+        this.handleSearchResponse(res);
+        console.log(this.proyectos);
         if (term === '') {
           this.getproyecto();
         }
@@ -79,6 +66,18 @@ export class ProyectoListComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.proyectos = res.data.projects;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
 
+  public sortProyectos(): void {
+    this.proyectos.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+  }
 
 }

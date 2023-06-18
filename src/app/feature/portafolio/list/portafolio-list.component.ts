@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { FilesService } from '../../upload/upload.service';
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-portafolio-list',
@@ -23,51 +24,91 @@ export class PortafolioListComponent implements OnInit {
 
   loading: boolean = true;
 
+  filterAprobado: boolean;
+  filterPendiente: boolean;
+
   constructor(
     private portafolioHttpService: PortafolioHttpService,
     private filesService: FilesService,
-  ) { }
-
-  ngOnInit(): void {
-    this.getportafolio();
+    private route: ActivatedRoute
+  ) {
+    this.route.data.subscribe((data: any) => {
+      this.filterAprobado = data.filterAprobado;
+      this.filterPendiente = data.filterPendiente;
+    });
   }
 
-  getportafolio(): void {
+  ngOnInit(): void {
+    if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else {
+      this.getportafolio();
+    }
+  }
+
+  public searchPortafoliosByTerm(term: string): void {
     this.loading = true;
-    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
+
+    if (!term) {
+      this.handleEmptyTerm();
+    } else if (this.filterPendiente === false) {
+      this.searchPendienteByTerm(term);
+    } else if (this.filterAprobado === true) {
+      this.searchAprobadoByTerm(term);
+    } else {
+      this.searchPortafolioByTerm(term);
+    }
+  }
+
+  private handleEmptyTerm(): void {
+    if (this.filterPendiente === false) {
+      this.filterBriefcaseByState(this.filterPendiente.toString());
+    } else if (this.filterAprobado === true) {
+      this.filterBriefcaseByState(this.filterAprobado.toString());
+    } else {
+      this.getportafolio();
+    }
+  }
+
+  public  filterBriefcaseByState(state: string): void {
+    this.loading = true;
+    this.portafolioHttpService.filterBriefcaseByStatus(state).subscribe((res: any) => {
       if (res.status == 'success') {
-        this.portafolios = res.data.briefcases;
-
-        // console.log(this.portafolios)
-
-        this.portafolios.sort((a, b) => {
-          if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
-            return 1;
-          }
-          if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
-            return -1;
-          }
-          return 0;
-        });
+        this.handleSearchResponse(res);
+        this.sortPortafolio();
       }
       this.loading = false;
     });
   }
 
-  searchportafolioByTerm(term: string): void {
+  public getportafolio(): void {
     this.loading = true;
-
-    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.portafolios = res.data.briefcases;
-        console.log(this.portafolios)
-        if (term === '') {
-          this.getportafolio();
-        }
-        this.reverse = false;
+    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.handleSearchResponse(res);
+        this.sortPortafolio();
       }
       this.loading = false;
+    });
+  }
 
+  private searchPortafolioByTerm(term: string): void {
+    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchPendienteByTerm(term: string): void {
+    this.portafolioHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchAprobadoByTerm(term: string): void {
+    this.portafolioHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
     });
   }
 
@@ -88,5 +129,19 @@ export class PortafolioListComponent implements OnInit {
         window.URL.revokeObjectURL(url);
     });
 }
+
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.portafolios = res.data.briefcases;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
+
+  public sortPortafolio(): void {
+    this.portafolios.sort((a, b) => {
+      return a.project_participant_id.participant_id.person.names.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.names.toLowerCase());
+    });
+  }
 
 }

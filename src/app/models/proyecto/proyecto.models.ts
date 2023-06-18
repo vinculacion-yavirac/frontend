@@ -1,14 +1,44 @@
 import { User } from "../auth/users/usuario";
-import { FundacionModels } from "../fundacion/fundacion.models";
+import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
 
 
 export interface ProyectoModels {
     id: number;
+    code: string;
     name: string;
-    status: string;
-    foundations: FundacionModels;
+    field: string;
+    term_execution: number;
+    start_date: Date;
+    end_date: Date;
+    linking_activity: any[];
+    sectors_intervention: any[];
+    strategic_axes: any[];
+    description: string;
+    situational_analysis: string;
+    foundation: string;
+    justification: string;
+    direct_beneficiaries: any[];
+    indirect_beneficiaries: any[];
+    schedule: string;
+    evaluation_monitoring_strategy: any[];
+    bibliographies: any[];
+    attached_project: any[];
+    convention_id: number | null;
+    school_period_id: number | null;
+    beneficiary_institution_id: InstitucionBeneficiariaModels;
+    career_id: number | null;
+    sub_line_investigation_id: number | null;
+    authorized_by: number | null;
+    made_by: number | null;
+    approved_by: number | null;
+    catalogue_id: number | null;
+    state_id: number | null;
+    stateTwo_id: number | null;
+    frequency_id: number | null;
     created_by: User;
-    created_at: string;
-    update_at:string;
-
+    archived: boolean;
+    archived_at: Date;
+    archived_by: User;
+    created_at: Date;
+    updated_at: Date;
 }

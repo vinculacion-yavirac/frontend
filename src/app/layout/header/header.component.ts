@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { User } from '../../../app/models/auth/user.interface';
+import { UserAuth } from '../../../app/models/auth/user.interface';
 import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
 
 
@@ -11,7 +11,7 @@ import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  currentUser = {} as User;
+  currentUser = {} as UserAuth;
 
   toggle: boolean = false;
 
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: UserAuth) => {
       if (user) {
         this.currentUser = user;
       }

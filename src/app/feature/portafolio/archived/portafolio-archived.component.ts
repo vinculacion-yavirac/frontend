@@ -37,19 +37,9 @@ export class PortafolioArchivedComponent implements OnInit {
     this.loading = true;
     this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.portafolios = res.data.official_documents;
-
-        console.log(this.portafolios)
-
-        this.portafolios.sort((a, b) => {
-          if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
-            return 1;
-          }
-          if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
-            return -1;
-          }
-          return 0;
-        });
+        this.handleSearchResponse(res);
+        this.sortSolicitudes();
+        console.log(this.portafolios);
       }
       this.loading = false;
     });
@@ -60,7 +50,7 @@ export class PortafolioArchivedComponent implements OnInit {
 
     this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.portafolios = res.data.portafolios;
+        this.handleSearchResponse(res);
         if (term === '') {
           this.getportafolios();
         }
@@ -88,4 +78,19 @@ export class PortafolioArchivedComponent implements OnInit {
         window.URL.revokeObjectURL(url);
     });
 }
+
+
+  private handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.portafolios = res.data.briefcases;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
+
+  public sortSolicitudes(): void {
+    this.portafolios.sort((a, b) => {
+      return a.project_participant_id.participant_id.person.identification.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
+    });
+  }
 }

@@ -4,12 +4,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/auth/user.interface';
-import { FundacionDetalleModels } from 'src/app/models/fundacion/fundacion-detalle.models';
+import { UserAuth } from 'src/app/models/auth/user.interface';
+import { InstitucionBeneficiariaDetalleModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria-detalle.models';
 import { FileIconsModels } from 'src/app/models/portafolio/files/fileIcons.models';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 import { AuthHttpService } from 'src/app/service/auth/auth-http.service';
-import { FundacionDetalleHttpService } from 'src/app/service/fundacion/fundacion-detalle-http.service';
+import { InstitucionBeneficiariaDetalleHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-detalle-http.service';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
 import { MyErrorStateMatcher } from 'src/app/shared/matcher/error-state-matcher';
 
@@ -51,7 +51,7 @@ export class AsignarComponent implements OnInit {
 
   files: File[] = [];
 
-  currentUser = {} as User;
+  currentUser = {} as UserAuth;
   currentDate = new Date();
 
   comments: Comment[] = [];
@@ -143,7 +143,7 @@ export class AsignarComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: User) => {
+    this.authHttpService.getUser().subscribe((user: UserAuth) => {
       if (user) {
         this.currentUser = user;
       }

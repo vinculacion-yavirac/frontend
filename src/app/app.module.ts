@@ -14,6 +14,7 @@ import { LayoutModule } from './layout/layout.module';
 import { NotificationInterceptor } from './shared/notification/notification.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { ProyectoComboboxComponent } from './shared/comboboxes/proyecto/proyecto-combobox.component';
+import { ProyectosComboboxComponent } from './shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, NotFoundComponent],

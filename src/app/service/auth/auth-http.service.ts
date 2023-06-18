@@ -6,7 +6,7 @@ import { AuthCookieStorage } from '../../../app/auth/auth-cookie-storage';
 import { AuthLocalStorage } from '../../../app/auth/auth-local-storage';
 import { AuthTokenDecoder } from '../../../app/auth/auth-token-decoder';
 import { AuthValidator } from '../../../app/auth/auth-validator';
-import { User } from '../../../app/models/auth/user.interface';
+import { UserAuth } from '../../../app/models/auth/user.interface';
 import { environment } from '../../../environments/environment';
 
 const API_URL = environment.API_URL + '/auth';
@@ -61,13 +61,13 @@ export class AuthHttpService {
     );
   }
 
-  getProfile(): Observable<User> {
-    return this.http.get<User>(`${API_URL}/profile`, this.httpOptions);
+  getProfile(): Observable<UserAuth> {
+    return this.http.get<UserAuth>(`${API_URL}/profile`, this.httpOptions);
   }
 
-  updateProfile(user: User): Observable<User> {
+  updateProfile(user: UserAuth): Observable<UserAuth> {
     return this.http
-      .put<User>(`${API_URL}/profile`, user, this.httpOptions)
+      .put<UserAuth>(`${API_URL}/profile`, user, this.httpOptions)
       .pipe(
         map((response) => {
           return response;
