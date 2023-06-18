@@ -6,7 +6,6 @@ import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solici
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from "@angular/router";
-import {PortafoliosModels} from "../../../../models/portafolio/portafolio.models";
 import {switchMap, tap} from "rxjs/operators";
 
 @Component({

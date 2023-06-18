@@ -1,5 +1,7 @@
 import { User } from "../auth/users/usuario";
 import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
+import {CatalogoModels} from "../catalogo/catalogo.models";
+import {ResponsibleModels} from "../Responsable/responsable.models";
 
 
 export interface ProyectoModels {
@@ -28,12 +30,12 @@ export interface ProyectoModels {
     beneficiary_institution_id: InstitucionBeneficiariaModels;
     career_id: number | null;
     sub_line_investigation_id: number | null;
-    authorized_by: number | null;
-    made_by: number | null;
-    approved_by: number | null;
-    catalogue_id: number | null;
+    authorized_by:ResponsibleModels;
+    made_by:ResponsibleModels;
+    approved_by: ResponsibleModels;
+    catalogue_id: CatalogoModels;
     state_id: number | null;
-    stateTwo_id: number | null;
+    state_two_id:CatalogoModels;
     frequency_id: number | null;
     created_by: User;
     archived: boolean;
