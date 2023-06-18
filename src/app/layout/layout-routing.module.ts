@@ -331,6 +331,25 @@ const routes: Routes = [
                 component: ListInstitucionBeneficiariaComponent,
               },
               {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'activa',
+                    component: ListInstitucionBeneficiariaComponent,
+                    data:{
+                      filterActiva: true
+                    }
+                  },
+                  {
+                    path: 'inactiva',
+                    component: ListInstitucionBeneficiariaComponent,
+                    data:{
+                      filterInactiva: false
+                    }
+                  },
+                ]
+              },
+              {
                 path: 'archived',
                 component: SolicitudArchivedComponent,
               },
