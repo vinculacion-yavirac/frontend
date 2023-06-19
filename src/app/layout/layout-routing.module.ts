@@ -456,30 +456,6 @@ const routes: Routes = [
           },
 
           {
-            path: 'informe-control/avance-cumplimiento',
-            children: [
-              {
-                path: '',
-                redirectTo: 'list',
-                pathMatch: 'full',
-              },
-              {
-                path: 'list',
-                children: [
-                  {
-                    path: '',
-                    component: AvanceCumplimientoComponent,
-                  },
-                  {
-                    path: 'archived',
-                    component: AvanceCumplimientoComponent,
-                  },
-                ],
-              },
-            ],
-          },
-
-          {
             path: 'informe-control/avance-cumplimiento2',
             children: [
               {

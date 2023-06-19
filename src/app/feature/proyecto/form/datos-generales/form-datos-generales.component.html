@@ -10,15 +10,15 @@
     <li><a routerLink="/system/proyecto/form-datos-generales">Datos Generales</a></li>
   </app-proyecto-breadcrumbs>
 
-  <button ng-disabled="registro.$invalid" class="btn button waves-effect waves-light " type="submit">Generar PDF
+  <button ng-disabled="registro.$invalid" class="btn button waves-effect waves-light " (click)="pdf()" type="submit">Generar PDF
       <!--<img class="pullsito" src="../../../../assets/images/pdf.png" alt="">-->
   </button>&nbsp;&nbsp;&nbsp;
 
-  <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar Convenio
+  <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light "  (click)="pdf_convenio()" type="submit">Generar Convenio
       <!--<img class="pullsito" src="../../../../assets/images/convenio.png" alt="">-->
   </button>&nbsp;&nbsp;&nbsp;
 
-  <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar ITV
+  <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " (click)="pdf_itv()" type="submit">Generar ITV
   </button>
 
   <br><br>
