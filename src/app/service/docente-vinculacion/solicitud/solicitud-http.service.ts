@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
-import {ProyectoParticipanteModels} from "../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
+
 
 
 
@@ -11,12 +11,21 @@ import {ProyectoParticipanteModels} from "../../../models/proyecto/ProjectPartic
   providedIn: 'root'
 })
 export class SolicitudHttpService {
+  setSelectedProject(selectedProject: import("../../../models/proyecto/proyecto.models").ProyectoModels | undefined) {
+    throw new Error("Method not implemented.");
+  }
+
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+
   private url = `${environment.API_URL}/solicitud`;
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-
-  constructor(private http: HttpClient) { }
 
   getSolicitudes(): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(this.url);
