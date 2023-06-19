@@ -22,7 +22,7 @@ export class FormDatosGeneralesComponent implements OnInit {
   /*Variables para generar pdfs*/
   public doc: any;
   public doc2: any;
-  public avanzeData: any;
+  public avanceData: any;
   id?: string;
 
   constructor(
@@ -40,7 +40,7 @@ export class FormDatosGeneralesComponent implements OnInit {
     }];
 
 
-    this.avanzeData = data;
+    this.avanceData = data;
   }
 
   carreraId: Carrera[] = [];
@@ -162,7 +162,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
 
 
-    
+
     /*Seccion generear reportes Convenio,Itv,Proyecto  */
 
   /* pdf proyecto*/
@@ -411,7 +411,7 @@ export class FormDatosGeneralesComponent implements OnInit {
   /*pdf comvenio */
 
   public pdf_convenio() {
-    console.log(this.avanzeData);
+    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -465,7 +465,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanzeData[0].Instituto + ', legalmente representado por el ' + this.avanzeData[0].Nombre + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanceData[0].Instituto + ', legalmente representado por el ' + this.avanceData[0].Nombre + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -923,7 +923,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
   /*pdf documento itv*/
   public pdf_itv() {
-    console.log(this.avanzeData);
+    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -975,7 +975,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 200, 555, 200);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.avanzeData[0].Instituto, 160, 195);
+      this.doc.text(this.avanceData[0].Instituto, 160, 195);
 
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto", 'bold');
@@ -991,7 +991,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 240, 555, 240);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.avanzeData[0].fecha, 160, 235, { maxWidth: 100, align: 'justify' });
+      this.doc.text(this.avanceData[0].fecha, 160, 235, { maxWidth: 100, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');

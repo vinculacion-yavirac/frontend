@@ -52,44 +52,44 @@
 
                   </tr>
                 </thead>
-                <tbody id="avanzeTable">
-                  <tr *ngFor="let avanze of avanzeList" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tbody id="avanceTable">
+                  <tr *ngFor="let avance of avanceList" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {{avanze.id}}
+                      {{avance.id}}
                     </th>
                     <td class="px-6 py-4">
-                      {{avanze.resumen}}
+                      {{avance.resumen}}
                     </td>
                     <td class="px-6 py-4">
-                      {{avanze.indicadores}}
+                      {{avance.indicadores}}
                     </td>
                     <td class="px-6 py-4">
-                      {{avanze.medios}}
+                      {{avance.medios}}
                     </td>
 
 
                     <td class="px-6 py-4">
                       <textarea required class="form-control"
-                        placeholder="Leave a comment here">{{avanze.observacion}}</textarea>
+                        placeholder="Leave a comment here">{{avance.observacion}}</textarea>
                       <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
                     </td>
                     <td class="px-6 py-4">
                       <div
                         class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-                        <label for="my-modal" (click)="openUpdateModal(avanze.id)"
+                        <label for="my-modal" (click)="openUpdateModal(avance.id)"
                           class="text-white  fas fa-edit  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         </label>
 
 
-                        <label for="my-modal-2" (click)="openDeleteModal(avanze.id)"
+                        <label for="my-modal-2" (click)="openDeleteModal(avance.id)"
                           class="text-white  fa-trash  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></label>
                       </div>
                     </td>
                   </tr>
                   <!-- <tr>
-                    <td *ngIf="avanzeList.length == 0" colspan="6"
+                    <td *ngIf="avanceList.length == 0" colspan="6"
                       class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">No existen Registros</td>
                   </tr> -->
                 </tbody>
@@ -129,35 +129,35 @@
       <label class="modal-box relative" for="">
         <section class="bg-white dark:bg-gray-900">
           <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-            <form #avanzeForm="ngForm">
+            <form #avanceForm="ngForm">
               <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div class="sm:col-span-2">
                   <label for="resumen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RESUMEN
                     NARRATIVO </label>
-                  <input type="text" [(ngModel)]="addAvanzeForm.resumen" name="resumen" id="resumen"
+                  <input type="text" [(ngModel)]="addAvanceForm.resumen" name="resumen" id="resumen"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="RESUMEN NARRATIVO" required="">
                 </div>
                 <div class="w-full">
                   <label for="indicadores"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">INDICADORES</label>
-                  <input type="text" [(ngModel)]="addAvanzeForm.indicadores" name="indicadores" id="indicadores"
+                  <input type="text" [(ngModel)]="addAvanceForm.indicadores" name="indicadores" id="indicadores"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="INDICADORES VERIFICABLES" required="">
                 </div>
                 <div class="w-full">
                   <label for="medios"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">MEDIOS</label>
-                  <input type="text" [(ngModel)]="addAvanzeForm.medios" name="medios" id="medios"
+                  <input type="text" [(ngModel)]="addAvanceForm.medios" name="medios" id="medios"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="MEDIOS DE VERIFICACION" required="">
                 </div>
                 <div class="sm:col-span-2">
-                  <label for="avanze" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANZE
+                  <label for="avance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANcE
                     Y CUMPLIMIENTO</label>
-                  <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="addAvanzeForm.observacion"
+                  <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="addAvanceForm.observacion"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="AVANZES Y CUMPLIMIENTOS"></textarea>
+                    placeholder="AVANcES Y CUMPLIMIENTOS"></textarea>
                 </div>
               </div>
               <!-- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
@@ -167,7 +167,7 @@
           </div>
         </section>
         <div class="modal-action">
-          <label for="my-modal-add" (click)="addAvanze(avanzeForm.form.valid)"
+          <label for="my-modal-add" (click)="addAvance(avanceForm.form.valid)"
             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Agregar
           </label>
@@ -213,11 +213,11 @@
                     placeholder="MEDIOS DE VERIFICACION" required="">
                 </div>
                 <div class="sm:col-span-2">
-                  <label for="observacion " class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANZE
+                  <label for="observacion " class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AVANcE
                     Y CUMPLIMIENTO</label>
                   <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="post.observacion"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="AVANZES Y CUMPLIMIENTOS"></textarea>
+                    placeholder="AVANcES Y CUMPLIMIENTOS"></textarea>
                 </div>
               </div>
               <!-- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
