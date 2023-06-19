@@ -9,278 +9,153 @@
 </module-header>
 
 
-<section class="relative">
-  <div
-    class="bg-neutral-content flex justify-center items-center  w-full h-full p-20 border-t-[1px] border-[#535a6650]">
+<section>
+  <div class="bg-neutral-content flex items-center  w-90 h-full p-20 border-t-[1px] border-[#535a6650]">
     <div class="a4-container bg-white text-black border border-gray-400 p-30 relative">
+      <!-- cuadro de asigancion
+  <form *ngFor="let solicitud of solicitudes" >
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">-->
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="hoja">
+          <!-- Fecha -->
+          <div class="h-40">
+            <p class="!text-right font-bold">{{ obtenerFechaActual() }}</p>
+          </div>
 
-      <div class="hoja">
-        <!-- Título -->
-        <h2 class="text-xl font-bold text-center mb-4"></h2>
+          <h3 class="text-center font-bold uppercase h-20">
+            SOLICITUD{{formGroup.get('type_request_id.catalog_value')?.value}}</h3>
+          <div class=" h-50">
+            <p class="text-left">
+              El Sr/Sra:
+              <span class="text-left font-bold uppercase ">{{
+                formGroup.get('created_by.person.names')?.value}} {{
+                formGroup.get('created_by.person.last_names')?.value}}</span>,
+              con numero de Cedula: <span class="text-left font-bold uppercase ">{{
+                formGroup.get('created_by.person.identification')?.value}}</span>,
+            </p>
+            <p class="text-left ">
+              y Correo Electronico: <span class="text-left font-bold ">{{
+                formGroup.get('created_by.email')?.value}}</span>, cursando la carrera: <span
+                class="text-left font-bold uppercase ">{{formGroup.get('who_made_request_id.project.career_id.name')?.value}}</span>,
+            </p>
+            <p class="text-left h-20">
+              en el Semestre <span
+                class="text-left font-bold uppercase ">{{formGroup.get('created_by.person.last_names')?.value}}</span>
+            </p>
 
-        <!-- Fecha -->
-        <p class="!text-right font-bold !m-0">Of, Circular N.° 0112-GADPG-2023</p>
+            <!-- combobox-->
+            <div *ngIf="selectedProject">
+              <div class="h-20">
+                <h4 class="text-center font-bold uppercase">Información del proyecto</h4>
+                <p>Fundacion:</p>
+                <p>Encargado:</p>
+                <p>Direccion:</p>
+                <p>Proyecto: {{selectedProject.names}}</p>
+              </div>
+            </div>
 
-        <p class="!text-right mb-4">Guayallabamba, </p>
+          </div>
 
-        <p class="text-left !m-0">Señores/as</p>
-        <p class="text-left font-bold uppercase !m-0">Presidentes/as de los barrios</p>
-        <p class="text-left font-bold uppercase !m-0">Parroquia de Guayallabamba</p>
 
-        <p class="text-left mb-4">Presente.</p>
 
-        <h4 class="text-left">De mi consideración:</h4>
 
-        <!-- Desarrollo -->
-        <div class="text-center mb-8">
-          <p></p>
-        </div>
 
-        <h4 class="text-left">Atentamente,</h4>
 
-        <!-- Sección de firmas -->
-        <div class="flex justify-between">
-          <div class="w-1/3">
-            <hr class="border border-gray-400 mb-1">
-            <p class="text-center">Firma del emisor</p>
+          <div>
+            <p class="text-left mb-16">Presente.</p>
+
+            <h4 class="text-left">De mi consideración:</h4>
+
+            <!-- Desarrollo -->
+            <div class="text-center mb-20">
+              <p></p>
+            </div>
+
+            <h4 class="text-left">Atentamentessssss</h4>
+
+            <!-- Sección de firmas -->
+            <div class="flex justify-between">
+              <div class="w-1/3">
+                <hr class="border border-gray-400 mb-1">
+                <p class="text-center">Firma del emisor</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
 
 
-      <div class="absolute -right-12 top-0">
+      <!-- cuadro de asigancion -->
+      <div class="absolute right-12 -top-40">
         <div class="relative">
-          <div class="h-30 w-10 bg-white rounded-md shadow-lg cursor-pointer">
-            <div class="flex items-center justify-center h-10 hover:bg-[#535a6620] transition-all rounded-t-md">
-              <span class="fa-regular fa-message"></span>
-            </div>
-
-            <div class="flex items-center justify-center h-10 hover:bg-[#535a6620] transition-all">
-              <span class="fa-regular fa-share-from-square"></span>
-            </div>
-
-            <div class="flex items-center justify-center h-10 hover:bg-[#535a6620] transition-all rounded-b-md">
-              <span class="fa-regular fa-file"></span>
-            </div>
-          </div>
-
-          <div class="absolute top-20 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0 divide-y-[1px]">
-            <div
-              class="bg-white hover:bg-[#535a6620] bg-opacity-10 px-3 py-2 flex items-center justify-between">
-              <div class="flex items-center">
-                <i class="fa-solid fa-file- mr-2"></i>
-                <div class="truncate w-40 text-xs !cursor-default"></div>
-              </div>
-              <span class="fa-solid fa-download cursor-pointer text-primary hover:text-[#0C9707] ml-2"></span>
-            </div>
-          </div>
-
-          <div class="absolute w-60 top-10 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0">
-            <div class="border-b pb-2 mb-2 font-light">
-              <h1>Compartir</h1>
-            </div>
-
-            <span class="text-xs opacity-50">Roles</span>
-
-            <div
-              class="bg-white hover:bg-[#535a6620] bg-opacity-10 px-3 py-2 flex items-center justify-between">
-              <div class="flex items-center">
-                <input class="mr-2" type="checkbox" name="{" id="">
-                <div class="truncate w-40 text-xs !cursor-default"></div>
-              </div>
-              <span  class="fa-solid fa-magnifying-glass cursor-pointer text-primary hover:text-[#0C9707] ml-2"></span>
-            </div>
-
-            <div class="w-full flex items-center justify-between border-t">
-              <div class="flex items-center">
-                <span class="text-xs opacity-50"> usuarios seleccionados</span>
-              </div>
-              <button type="button" class="btn btn-xs btn-primary text-xs capitalize rounded-md border-0 my-2">
-                Compartir
-              </button>
-            </div>
-          </div>
-
-
           <div class="absolute w-60 top-60 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0">
             <div class="border-b pb-2 mb-2 font-light flex items-center justify-between">
-              <h1>Compartir</h1>
-              <span class="fa-solid fa-arrow-left cursor-pointer text-primary"></span>
+              <h1>Asignar Fundacion</h1>
             </div>
 
-            <span class="text-xs opacity-50">Rol: </span>
+            <span class="text-xs opacity-50">Fundacion: </span>
 
             <div class="w-full !my-2">
               <div class="relative">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <span class="fa-solid fa-magnifying-glass"></span>
-                </div>
-                <input type="text" id="table-search" #search
-                       class="input input-sm block h-8 p-2 pl-10 w-full max-w-xs text-sm text-neutral bg-[#ebecf0] !border-[#535A6640] rounded-md border !outline-[#535A6620]"
-                       placeholder="Buscar">
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>Proyectos</mat-label>
+                  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher"
+                    [(ngModel)]="selectedProject">
+                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.beneficiary_institution_id.name + proyecto.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es
+                    <strong>requerido</strong></mat-error>
+                  <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
+                </mat-form-field>
               </div>
-            </div>
-
-            <div
-              class="bg-white hover:bg-[#535a6620] bg-opacity-10 px-3 py-2 flex items-center justify-between">
-              <div class="flex items-center">
-                <input class="mr-2" type="checkbox" name="" >
-                <div class="truncate w-40 text-xs !cursor-default"></div>
-              </div>
-            </div>
-
-            <div class="w-full flex items-center justify-between border-t">
-              <div class="flex items-center">
-                <span  class="text-xs opacity-50"> usuarios seleccionados</span>
-              </div>
-              <button type="button" class="btn btn-xs btn-primary text-xs capitalize rounded-md border-0 my-2">
-                Compartir
-              </button>
             </div>
           </div>
-
         </div>
-
-
       </div>
-
-    </div>
-
-
-
-  </div>
-
-  <div
-    class="absolute left-0 bottom-0 h-full w-[18%] bg-white border-t-[1px] border-r-[1px] border-[#535a6650] shadow-lg">
-    <div class="flex justify-between items-center text-primary p-4 font-light">
-      <h1 class="uppercase">Comentarios <span ></span>
-      </h1>
-      <div class="h-5 w-5 flex justify-center items-center hover:bg-[#535a6620] rounded-sm cursor-pointer">
-        <span class="las la-times text-lg"></span>
+      <!-- cuadro de asigancion -->
+      <div *ngIf="selectedProject" class="grid place-items-center">
+        <button class="btn btn-info w-25">Asignar</button>
       </div>
     </div>
-
-    <div class="w-full flex justify-end px-4">
-      <button type="button"
-              class="btn btn-xs btn-primary text-xs capitalize rounded-md border-0 flex items-center justify-center gap-1">
-        Nuevo
-        <span class="fa-solid fa-plus"></span>
-      </button>
-    </div>
-
-    <div class="bg-neutral-content bg-opacity-50">
-      <mat-divider></mat-divider>
-
-      <article
-        class="p-4 m-4 text-base bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden">
-
-        <footer class="flex justify-between items-center mb-2">
-          <div class="flex items-center w-full">
-            <div tabindex="0" class="avatar py-1 mr-2">
-              <div class="w-8 mask mask-squircle">
-                <div class="inline-flex overflow-hidden relative justify-center items-center w-8 h-8 bg-neutral">
-                  <span class="font-medium text-sm text-white uppercase"></span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <p class="font-medium text-sm text-gray-900 !m-0">
-
-              </p>
-            </div>
-          </div>
-        </footer>
-
-        <form >
-          <div class="bg-white rounded-lg border border-gray-200 flex justify-between">
-
-            <textarea class="bg-white p-2 resize-none text-gray-500 text-sm outline-none appearance-none rounded-lg" matInput
-                      formControlName="comment"  spellcheck="false"
-                      placeholder="Nuevo comentario.">
-            </textarea>
-
-            <button type="submit" [disabled]="!formGroup.get('comment')?.value"
-                    [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.get('comment')?.value }"
-                    class="flex items-center p-2 text-xs font-medium text-center text-white bg-primary rounded-r-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800">
-              <span class="fa-solid fa-paper-plane"></span>
-            </button>
-
-          </div>
-
-          <mat-error class="text-xs" >
-            Máximo <strong>300</strong> caracteres.
-          </mat-error>
-
-        </form>
-      </article>
-
-      <mat-divider></mat-divider>
-
-    </div>
-
-    <div class="my-4 overflow-y-auto h-[calc(100%-100px)]">
-      <article
-        class="p-4 m-4 text-base bg-white bg-opacity-20 border border-gray-300 rounded-lg shadow-sm overflow-hidden">
-        <footer class="flex justify-between items-center mb-2">
-          <div class="flex items-center w-full">
-            <div tabindex="0" class="avatar py-1 mr-2">
-              <div class="w-8 mask mask-squircle">
-                <div class="inline-flex overflow-hidden relative justify-center items-center w-8 h-8 bg-neutral">
-                  <span class="font-medium text-sm text-white uppercase"></span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <p class="font-medium text-sm text-gray-900 !m-0">
-
-              </p>
-              <time class="text-xs text-gray-400"></time>
-            </div>
-          </div>
-
-        </footer>
-        <p class="text-gray-500 truncate"></p>
-        <time class="text-gray-400 text-xs lowercase"></time>
-
-      </article>
-    </div>
-
   </div>
+
+
 </section>
 
 
-<!--otra tabla -->
+<!--otra tabla
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 
-<div formGroupName="created_by" class="flex w-full p-3.5 text-dark py-3">
-  <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
-    <h2 class="text-xl p-2">
-      Datos del Estudiante
-    </h2>
-    <p class="p-2">Nombre: {{ formGroup.get('created_by.person.names')?.value}}</p>
-    <p class="p-2">Identificacion: {{ formGroup.get('created_by.person.identification')?.value}}</p>
+  <div formGroupName="created_by" class="flex w-full p-3.5 text-dark py-3">
+    <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
+      <h2 class="text-xl p-2">
+        Datos del Estudiante
+      </h2>
+      <p class="p-2">Nombre: {{ formGroup.get('created_by.person.names')?.value}}</p>
+      <p class="p-2">Identificacion: {{ formGroup.get('created_by.person.identification')?.value}}</p>
+    </div>
+    <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+      <p class="p-2">Apellidos: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
+      <p class="p-2">Email: {{ formGroup.get('created_by.email')?.value}}</p>
+    </div>
+    <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+      <p class="p-2">Carrera: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
+      <p class="p-2">Semestre: {{ formGroup.get('created_by.email')?.value}}</p>
+    </div>
   </div>
-  <div class="grid h-20 flex-grow rounded-box text-dark py-5">
-    <p class="p-2">Apellidos: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
-    <p class="p-2">Email: {{ formGroup.get('created_by.email')?.value}}</p>
+  <div formGroupName="created_by" class="flex w-full p-7.5 text-dark py-3">
+    <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
+      <h2 class="text-xl p-2">
+        Datos de la solicitud
+      </h2>
+      <p class="p-2">solicitud de: </p>
+    </div>
+    <div class="grid h-20 flex-grow rounded-box text-dark py-5">
+      <p class="p-2">Carrera: {{ formGroup.get('who_made_request_id.project.name')?.value}}</p>
+    </div>
   </div>
-  <div class="grid h-20 flex-grow rounded-box text-dark py-5">
-    <p class="p-2">Carrera: {{ formGroup.get('created_by.person.last_names')?.value}}</p>
-    <p class="p-2">Semestre: {{ formGroup.get('created_by.email')?.value}}</p>
-  </div>
-</div>
-<div formGroupName="created_by" class="flex w-full p-7.5 text-dark py-3">
-  <div formGroupName="person" class="grid h-20 flex-grow rounded-box text-dark">
-    <h2 class="text-xl p-2">
-      Datos de la solicitud
-    </h2>
-    <p class="p-2">solicitud de: </p>
-  </div>
-  <div class="grid h-20 flex-grow rounded-box text-dark py-5">
-    <p class="p-2">Carrera: {{ formGroup.get('who_made_request_id.project.name')?.value}}</p>
-  </div>
-</div>
 
 
   <div>
@@ -290,13 +165,11 @@
 
   <div>
     <label for="whoMadeRequestId">ID del Solicitante:</label>
-    <app-proyectos-combobox id="whoMadeRequestId" formControlName="project_id" ></app-proyectos-combobox>
+    <app-proyectos-combobox id="whoMadeRequestId" formControlName="project_id"></app-proyectos-combobox>
 
   </div>
 
   <button type="submit">Asignar</button>
 </form>
 
-<div *ngIf="loading">Cargando...</div>
-
-
+<div *ngIf="loading">Cargando...</div>-->

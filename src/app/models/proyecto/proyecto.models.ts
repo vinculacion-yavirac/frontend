@@ -1,7 +1,8 @@
+import { ResponsibleModels } from "../Responsable/responsable.models";
 import { User } from "../auth/users/usuario";
+import { CatalogoModels } from "../catalogo/catalogo.models";
 import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
-import {CatalogoModels} from "../catalogo/catalogo.models";
-import {ResponsibleModels} from "../Responsable/responsable.models";
+import { CareersModel } from "./careers.model";
 
 
 export interface ProyectoModels {
@@ -28,7 +29,7 @@ export interface ProyectoModels {
     convention_id: number | null;
     school_period_id: number | null;
     beneficiary_institution_id: InstitucionBeneficiariaModels;
-    career_id: number | null;
+    career_id: CareersModel;
     sub_line_investigation_id: number | null;
     authorized_by:ResponsibleModels;
     made_by:ResponsibleModels;

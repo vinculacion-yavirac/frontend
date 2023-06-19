@@ -1,7 +1,7 @@
 <mat-form-field appearance="fill" class="w-full">
   <mat-label>Proyectos</mat-label>
-  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher">
-    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.id +' '+ proyecto.name}}
+  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher" [(ngModel)]="selectedProject">
+    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.name}}
     </mat-option>
   </mat-select>
   <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es <strong>requerido</strong></mat-error>

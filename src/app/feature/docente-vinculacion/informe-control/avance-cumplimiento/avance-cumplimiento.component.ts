@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core' ;
 import { Router, ActivatedRoute } from '@angular/router' ;
 import { jsPDF } from "jspdf" ;
@@ -7,6 +8,16 @@ import { FormBuilder, FormGroup, NgForm,  Validators } from '@angular/forms';
 import { AvanceCumplimientoService }  from 'src/app/service/avance_cumplimiento/avance-cumplimiento.service';
 import { AvanceCumplimientoModels }  from 'src/app/models/avance/avance_cumplimiento/avance_cumplimiento';
 import { ImageConstants } from  'src/app/constanst/ImageConstants';
+=======
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { AvanceCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
+>>>>>>> ab488b6ffdd1909dc22e1316f57b42777562f587
 
 @Component({
   selector: 'app-avance-cumplimiento',
