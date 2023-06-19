@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { AvanceCumplimientoService } from 'src/app/service/avance_cumplimiento/avance-cumplimiento.service';
-import { AvanceCumplimientoModels } from 'src/app/models/avance/avance_cumplimiento/avance_cumplimiento';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { AvanceCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
 
 @Component({
   selector: 'app-avance-cumplimiento',
