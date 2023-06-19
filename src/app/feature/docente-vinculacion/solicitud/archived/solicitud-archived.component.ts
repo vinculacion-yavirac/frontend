@@ -37,7 +37,7 @@ export class SolicitudArchivedComponent implements OnInit {
     this.getArchivedSolicituds();
   }
 
-  public getArchivedSolicituds(): void {
+  getArchivedSolicituds(): void {
     this.loading = true;
     this.solicitudHttpService.getArchivedSolicitude().subscribe((res: any) => {
       if (res.status == 'success') {
@@ -48,7 +48,7 @@ export class SolicitudArchivedComponent implements OnInit {
     });
   }
 
-  public searchArchivedSolicitudByTerm(term: string): void {
+  searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
     this.solicitudHttpService.searchArchivedSolicitudeByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
@@ -59,18 +59,18 @@ export class SolicitudArchivedComponent implements OnInit {
     });
   }
 
-  public reversOrder(): void {
+  reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.solicitudes.sort((a, b) => {
       return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
@@ -78,7 +78,7 @@ export class SolicitudArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public restaureSolicitud(solicitud: SolicitudModels): void {
+  restaureSolicitud(solicitud: SolicitudModels): void {
     this.solicitudHttpService.restoreSolicitud(solicitud.id)
         .pipe(
             finalize(() => {

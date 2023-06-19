@@ -62,7 +62,7 @@ export class SolicitudListComponent implements OnInit {
     }
   }
 
-  public getSolicitud():void{
+  getSolicitud():void{
     this.loading = true;
     this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
@@ -74,7 +74,7 @@ export class SolicitudListComponent implements OnInit {
   };
 
 
- public  getSolicitudByStatus(status: string): void {
+  getSolicitudByStatus(status: string): void {
     this.loading = true;
     this.solicitudHttpService.filterSolicitudeByStatus(status).subscribe((res: any) => {
       if (res.status == 'success') {
@@ -86,7 +86,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
 
-  public  getSolicitudByType(value: string): void {
+  getSolicitudByType(value: string): void {
     this.loading = true;
     this.solicitudHttpService.filterSolicitudeByValue(value).subscribe((res: any) => {
       if (res.status == 'success') {
@@ -97,17 +97,17 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.solicitudes.sort((a, b) => {
       return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 
-  public reversOrder(): void {
+  reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   };
-  public searchSolicitudesByTerm(term: string): void {
+  searchSolicitudesByTerm(term: string): void {
     this.loading = true;
 
     if (!term) {
@@ -177,7 +177,7 @@ export class SolicitudListComponent implements OnInit {
     this.loading = false;
   }
 
-  public archiveSolicitud(solicitud:SolicitudModels): void {
+  archiveSolicitud(solicitud:SolicitudModels): void {
     this.solicitudHttpService.archiveSolicitud(solicitud.id).pipe(
       tap((res: any) => {
         if (res.status === 'success') {
@@ -190,7 +190,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
 
-  public openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
+  openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
       width: '700px',
