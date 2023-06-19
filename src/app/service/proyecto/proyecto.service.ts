@@ -19,13 +19,36 @@ export class ProyectoService {
   private url = environment.API_URL + '/project';
 
   // GET /Proyecto
-  public getProyecto(): Observable<ProyectoModels[]> {
+  getProject(): Observable<ProyectoModels[]> {
     return this.http.get<ProyectoModels[]>(this.url);
   }
 
-  public getArchivedProject(): Observable<ProyectoModels[]>{
+  getProjectById(id: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/${id}`);
+  }
+
+  getArchivedProject(): Observable<ProyectoModels[]>{
     return this.http.get<ProyectoModels[]>(`${this.url}/archived/list`);
   };
+
+  searchProjectByTerm(term:string): Observable<ProyectoModels[]>{
+    return this.http.get<ProyectoModels[]>(
+      `${this.url}/search/term/${encodeURIComponent(term)}`
+    );
+  };
+
+  searchArchivedProjectByTerm(term:string): Observable<ProyectoModels[]>{
+    return this.http.get<ProyectoModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`);
+  };
+
+  archiveProject(id:number): Observable<ProyectoModels>{
+    return this.http.put<ProyectoModels>(`${this.url}/archive/${id}`, this.httpOptions);
+  };
+
+  restoreProject(id:number): Observable<ProyectoModels>{
+    return this.http.put<ProyectoModels>(`${this.url}/restore/${id}`, this.httpOptions);
+  };
+
   public addProyecto(ProyectoModels: ProyectoModels): Observable<ProyectoModels> {
     return this.http.post<ProyectoModels>(
       `${this.url}/create`,
@@ -33,12 +56,6 @@ export class ProyectoService {
       this.httpOptions
     );
   }
-
-  public searchProjectByTerm(term:string): Observable<ProyectoModels[]>{
-    return this.http.get<ProyectoModels[]>(
-      `${this.url}/search/term/${encodeURIComponent(term)}`
-    );
-  };
 
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
@@ -48,19 +65,4 @@ export class ProyectoService {
     return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
   }
 
-  public getProjectById(foundationId: number): Observable<ProyectoModels[]> {
-    return this.http.get<ProyectoModels[]>(`${this.url}/${foundationId}`);
-  }
-
-  public searchArchivedProjectByTerm(term:string): Observable<ProyectoModels[]>{
-    return this.http.get<ProyectoModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`);
-  };
-
-  public archiveProject(id:number): Observable<ProyectoModels>{
-    return this.http.put<ProyectoModels>(`${this.url}/archive/${id}`, this.httpOptions);
-  };
-
-  public restaureProject(id:number): Observable<ProyectoModels>{
-    return this.http.put<ProyectoModels>(`${this.url}/restore/${id}`, this.httpOptions);
-  };
 }
