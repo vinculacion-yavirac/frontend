@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@popperjs/core": "^2.11.7",
     "@types/core-js": "^2.5.5",
+    "@types/jspdf": "^2.0.0",
     "angular-animations": "^0.11.0",
     "chart.js": "^2.9.4",
     "crypto-browserify": "^3.12.0",
