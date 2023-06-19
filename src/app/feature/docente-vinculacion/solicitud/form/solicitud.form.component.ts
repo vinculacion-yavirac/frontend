@@ -1,22 +1,30 @@
 import {SolicitudHttpService} from "../../../../service/docente-vinculacion/solicitud/solicitud-http.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {
   ProyectoParticipanteHttpService
 } from "../../../../service/proyecto/participante/proyecto-participante-http.service";
 import {SolicitudModels} from "../../../../models/docente-vinculacion/solicitud/solicitud";
 import {ProyectoParticipanteModels} from "../../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
 import {Subscription} from "rxjs";
-import {Component, OnInit} from "@angular/core";
+import {Component, forwardRef, OnInit} from "@angular/core";
 import { MyErrorStateMatcher } from "src/app/shared/matcher/error-state-matcher";
 import { ProyectoModels } from "src/app/models/proyecto/proyecto.models";
 import { ProyectoService } from "src/app/service/proyecto/proyecto.service";
 import { format } from "date-fns";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-solicitud-form',
   templateUrl: './solicitud.form.component.html',
   styleUrls: ['./solicitud.form.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SolicitudFormComponent),
+      multi: true,
+    },
+  ],
 })
 export class SolicitudFormComponent implements OnInit {
 
@@ -29,7 +37,9 @@ export class SolicitudFormComponent implements OnInit {
   loading = true;
   selectedProject: any;
 
-  
+  onProjectSelectionChange(projectId: any) {
+    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
+  }
 
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
@@ -123,17 +133,21 @@ export class SolicitudFormComponent implements OnInit {
   //combobox
 
   // validators
-  proyectosFormControl = new FormControl('', [Validators.required]);
+  proyectosFormControl = new FormControl(
+
+    '', [Validators.required]);
 
   //Validación de errores en el formulario
   matcher = new MyErrorStateMatcher();
 
   proyectos: ProyectoModels[] = [];
 
-
   onProjectSelected(project_id: string) {
     const selectedProject = this.proyectos.find(project => project.id === parseInt(project_id));
-    this.solicitudeHttpService.setSelectedProject(selectedProject);
+    if (selectedProject) {
+      this.selectedProject = selectedProject;
+      this.solicitudeHttpService.setSelectedProject(selectedProject);
+    }
   }
 
   private sub?: Subscription;
@@ -171,6 +185,6 @@ export class SolicitudFormComponent implements OnInit {
     const fechaFormateada = format(fecha, "'Quito,' d 'de' MMMM 'del' yyyy");
 
     return fechaFormateada;
-  }
+  }
 
 }
