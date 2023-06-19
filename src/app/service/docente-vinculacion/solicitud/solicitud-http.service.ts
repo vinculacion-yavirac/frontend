@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
-import {ProyectoParticipanteModels} from "../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
+
 
 
 
@@ -11,83 +11,81 @@ import {ProyectoParticipanteModels} from "../../../models/proyecto/ProjectPartic
   providedIn: 'root'
 })
 export class SolicitudHttpService {
+  setSelectedProject(selectedProject: import("../../../models/proyecto/proyecto.models").ProyectoModels | undefined) {
+    throw new Error("Method not implemented.");
+  }
+
 
   constructor(
     private http: HttpClient
   ) { }
 
-  private selectedProjectSubject = new BehaviorSubject<any>(null);
-  selectedProject$ = this.selectedProjectSubject.asObservable();
 
-  setSelectedProject(project: any) {
-    this.selectedProjectSubject.next(project);
-  }
+  private url = `${environment.API_URL}/solicitud`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private url = environment.API_URL + '/solicitud';
-
-
-  //funcion para obtener todas las solicitudes
-  public getSolicitud(): Observable<SolicitudModels[]> {
+  getSolicitudes(): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(this.url);
-  };
+  }
 
-  //Funcion para obtener las solicitudes por el id
-  public getSolicitudById(id:number): Observable<SolicitudModels> {
+  getSolicitudeById(id: number): Observable<SolicitudModels> {
     return this.http.get<SolicitudModels>(`${this.url}/${id}`);
-  };
-
-  public searchSolicitudByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(
-      `${this.url}/search/term/${encodeURIComponent(term)}`
-      );
-  };
-
-  public solicitudArchive(id:number): Observable<SolicitudModels>{
-    return this.http.put<SolicitudModels>(`${this.url}/archive/${id}`, this.httpOptions);
-  };
-
-  public getArchivedSolicitud(): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/archived/list`)
   }
 
-  public searchArchivedSolicitud(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`)
+  getArchivedSolicitude(): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/archived/list`);
   }
 
-  public restaureSolicitud(id:number): Observable<SolicitudModels>{
-    return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, this.httpOptions)
+  searchSolicitudeByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/term/${encodedTerm}`);
   }
 
-  public asignarSolicitud(id: number, solicitud: SolicitudModels): Observable<SolicitudModels>{
-    return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud ,  this.httpOptions);
+  searchArchivedSolicitudeByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/archived/term/${encodedTerm}`);
   }
 
-  public getSolicitudByStatus(status: string): Observable<SolicitudModels[]> {
+  filterSolicitudeByValue(value: string): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/filter/value/${value}`);
+  }
+
+  filterSolicitudeByStatus(status: string): Observable<SolicitudModels[]> {
     return this.http.get<SolicitudModels[]>(`${this.url}/filter/status/${status}`);
   }
 
-  public getSolicitudByType(value: string): Observable<SolicitudModels[]> {
-    return this.http.get<SolicitudModels[]>(`${this.url}/filter/type/${value}`);
+  searchSolicitudeVinculacionByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodedTerm}`);
   }
 
-  public searchSolicitudeVinculacionByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/vinculacion/${encodeURIComponent(term)}`)
+  searchCertificateByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodedTerm}`);
   }
 
-  public searchCertificateByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/type/certificado/${encodeURIComponent(term)}`)
+  searchPendienteByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodedTerm}`);
   }
 
-  public searchPendienteByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/pendiente/${encodeURIComponent(term)}`)
+  searchAprobadoByTerm(term: string): Observable<SolicitudModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/aprobado/${encodedTerm}`);
   }
 
-  public searchPreAprobadoByTerm(term:string): Observable<SolicitudModels[]>{
-    return this.http.get<SolicitudModels[]>(`${this.url}/search/status/preaprobado/${encodeURIComponent(term)}`)
+  archiveSolicitud(id: number): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/archive/${id}`, null, this.httpOptions);
   }
 
+  restoreSolicitud(id: number): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/restore/${id}`, null, this.httpOptions);
+  }
+
+  assignSolicitude(id: number, solicitud: SolicitudModels): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud, this.httpOptions);
+  }
 }

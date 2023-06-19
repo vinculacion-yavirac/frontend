@@ -102,6 +102,25 @@ const routes: Routes = [
                 component: PortafolioListComponent,
               },
               {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Aprobado',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterAprobado: true
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: PortafolioListComponent,
+                    data:{
+                      filterPendiente: false
+                    }
+                  },
+                ]
+              },
+              {
                 path: 'archived',
                 component: PortafolioArchivedComponent,
               },
@@ -136,31 +155,31 @@ const routes: Routes = [
                 path: 'filter',
                 children: [
                   {
-                    path: 'Certificado',
+                    path: 'certificado',
                     component: SolicitudListComponent,
                     data:{
                       filterCertificado: 'Certificado'
                     }
                   },
                   {
-                    path: 'Vinculación',
+                    path: 'vinculacion',
                     component: SolicitudListComponent,
                     data:{
                       filterVinculacion: 'Vinculación'
                     }
                   },
                   {
-                    path: 'Pendiente',
+                    path: 'pendiente',
                     component: SolicitudListComponent,
                     data: {
                       filterPendiente: 'Pendiente',
                     },
                   },
                   {
-                    path: 'Pre Aprobado',
+                    path: 'aprobado',
                     component: SolicitudListComponent,
                     data: {
-                      filterPreAprobado: 'Pre Aprobado',
+                      filterAprobado: 'Aprobado',
                     },
                   },
                 ]
@@ -312,6 +331,25 @@ const routes: Routes = [
                 component: ListInstitucionBeneficiariaComponent,
               },
               {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'activa',
+                    component: ListInstitucionBeneficiariaComponent,
+                    data:{
+                      filterActiva: true
+                    }
+                  },
+                  {
+                    path: 'inactiva',
+                    component: ListInstitucionBeneficiariaComponent,
+                    data:{
+                      filterInactiva: false
+                    }
+                  },
+                ]
+              },
+              {
                 path: 'archived',
                 component: SolicitudArchivedComponent,
               },
@@ -395,30 +433,6 @@ const routes: Routes = [
           { path: '', redirectTo: 'informe-control', pathMatch: 'full' },
           {
             path: 'informe-control',
-            children: [
-              {
-                path: '',
-                redirectTo: 'list',
-                pathMatch: 'full',
-              },
-              {
-                path: 'list',
-                children: [
-                  {
-                    path: '',
-                    component: AvanceCumplimientoComponent,
-                  },
-                  {
-                    path: 'archived',
-                    component: AvanceCumplimientoComponent,
-                  },
-                ],
-              },
-            ],
-          },
-
-          {
-            path: 'informe-control/avance-cumplimiento',
             children: [
               {
                 path: '',

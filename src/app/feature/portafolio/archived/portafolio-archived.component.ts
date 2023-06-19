@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
+import { finalize } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-portafolio-archived',
@@ -10,55 +12,49 @@ import { PortafolioHttpService } from '../../../../app/service/portafolio/portaf
   styleUrls: ['./portafolio-archived.component.css']
 })
 export class PortafolioArchivedComponent implements OnInit {
-
-
   reverse = false;
   pipe = new DatePipe('en-US');
-
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
-
   portafolios: PortafoliosModels[] = [];
-
-  loading: boolean = true;
+  loading = true;
 
   constructor(
-    private portafolioHttpService: PortafolioHttpService,
-    private fileHttpService: FileHttpService,
-  ) { }
+      private portafolioHttpService: PortafolioHttpService,
+      private fileHttpService: FileHttpService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getportafolios();
+    this.getPortafolios();
   }
 
-  getportafolios(): void {
+  getPortafolios(): void {
     this.loading = true;
-    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
-      if (res.status == 'success') {
-        this.handleSearchResponse(res);
-        this.sortSolicitudes();
-        console.log(this.portafolios);
-      }
-      this.loading = false;
-    });
-  }
-
-  searchportafoliosByTerm(term: string): void {
-    this.loading = true;
-
-    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
+    this.portafolioHttpService.getArchivedBriefcase().subscribe((res: any) => {
       if (res.status === 'success') {
         this.handleSearchResponse(res);
-        if (term === '') {
-          this.getportafolios();
-        }
-        this.reverse = false;
       }
       this.loading = false;
-
     });
+  }
+
+  searchPortafoliosByTerm(term: string): void {
+    this.loading = true;
+
+    if (term === '') {
+      this.getPortafolios();
+    } else {
+      this.portafolioHttpService.searchArchivedBriefcaseByTerm(term).subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+          this.reverse = false;
+        }
+        this.loading = false;
+      });
+    }
   }
 
   reversOrder(): void {
@@ -66,21 +62,20 @@ export class PortafolioArchivedComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string) {
+  downloadFile(id: number, name: string): void {
     this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
-}
+  }
 
-
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.portafolios = res.data.briefcases;
       this.reverse = false;
@@ -88,9 +83,21 @@ export class PortafolioArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.portafolios.sort((a, b) => {
-      return a.project_participant_id.participant_id.person.identification.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
+      return a.project_participant_id.participant_id.person.identification
+          .toLowerCase()
+          .localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
     });
+  }
+
+  restaurePortafolio(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.restoreBriefcase(briefcase.id)
+        .subscribe((res: any) => {
+          if (res.portafolios.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+          this.router.navigate(['/system/portafolio/list']);
+        });
   }
 }

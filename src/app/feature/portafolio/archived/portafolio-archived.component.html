@@ -11,7 +11,7 @@
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <span class="fa-solid fa-magnifying-glass"></span>
         </div>
-        <input type="text" id="table-search" #search
+        <input type="text" id="table-search" #search (keyup)="searchPortafoliosByTerm(search.value)"
                class="input input-sm block h-8 p-2 pl-5 w-full max-w-xs text-sm text-neutral bg-[#ebecf0] !border-[#535A6640] rounded-md border !outline-[#535A6620]"
                placeholder="Buscar">
       </div>
@@ -154,11 +154,16 @@
               -->
             </div>
             <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
-                  <span [routerLink]="['/system/portafolio/form/', portafolio.id]"
-                        class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                        *permissions="['ACTUALIZAR_PORTAFOLIO']"></span>
-              <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                    *permissions="['ARCHIVAR_PORTAFOLIO']"></span>
+                  <span
+                    (click)="restaurePortafolio(portafolio)"
+                    class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
+                    *permissions="['RESTAURAR_PORTAFOLIO']">
+                </span>
+              <span
+
+                class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                *permissions="['ARCHIVAR_PORTAFOLIO']"
+              ></span>
             </th>
           </tr>
           </tbody>

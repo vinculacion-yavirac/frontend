@@ -20,39 +20,39 @@
       [routerLink]="'/system/' + route + '/list/'"
       class="tab tab-lifted"
       *permissions="[
-    'LEER_PORTAFOLIO',
-    'CREAR_PORTAFOLIO',
-    'ACTUALIZAR_PORTAFOLIO',
-    'ELIMINAR_PORTAFOLIO'
+    'LEER_FUNDACION',
+    'CREAR_FUNDACION',
+    'ACTUALIZAR_FUNDACION',
+    'ELIMINAR_FUNDACION'
   ]"
     >
       Todo
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/Vinculación"
+      routerLink="/system/{{ route }}/list/filter/activa"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_PORTAFOLIO',
-        'CREAR_PORTAFOLIO',
-        'ACTUALIZAR_PORTAFOLIO',
-        'ELIMINAR_PORTAFOLIO'
+        'LEER_FUNDACION',
+        'CREAR_FUNDACION',
+        'ACTUALIZAR_FUNDACION',
+        'ELIMINAR_FUNDACION'
       ]"
     >
-      Activas
+      Activa
     </a>
     <a
       [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/Certificado"
+      routerLink="/system/{{ route }}/list/filter/inactiva"
       class="tab tab-lifted"
       *permissions="[
-        'LEER_PORTAFOLIO',
-        'CREAR_PORTAFOLIO',
-        'ACTUALIZAR_PORTAFOLIO',
-        'ELIMINAR_PORTAFOLIO'
+        'LEER_FUNDACION',
+        'CREAR_FUNDACION',
+        'ACTUALIZAR_FUNDACION',
+        'ELIMINAR_FUNDACION'
       ]"
     >
-      Inactivas
+      Inactiva
     </a>
   </div>
 </div>

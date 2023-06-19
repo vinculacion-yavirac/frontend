@@ -68,8 +68,6 @@ import { ProvincesComboboxComponent } from '../shared/comboboxes/división-terri
 import { GendersComboboxComponent } from '../shared/comboboxes/generos/generos.combobox.component';
 import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos-identificacion/tipos-identificacion.combobox.component';
 import { UploadComponent } from './upload/upload.component';
-
-import { PortafolioListComponent } from './portafolio/list/portafolio-list.component';
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
 
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
@@ -115,7 +113,7 @@ import {
 import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
 import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
 import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
-import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";import {
+import {
   ListInstitucionBeneficiariaComponent
 } from "./institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 import {
@@ -125,11 +123,8 @@ import {
   TabsInstitucionBeneficiariaComponent
 } from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
 import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
-
-
-
-
-
+import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 
 
 @NgModule({

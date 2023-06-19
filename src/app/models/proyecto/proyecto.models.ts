@@ -1,4 +1,6 @@
+import { ResponsibleModels } from "../Responsable/responsable.models";
 import { User } from "../auth/users/usuario";
+import { CatalogoModels } from "../catalogo/catalogo.models";
 import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
 import { CareersModel } from "./careers.model";
 
@@ -29,12 +31,12 @@ export interface ProyectoModels {
     beneficiary_institution_id: InstitucionBeneficiariaModels;
     career_id: CareersModel;
     sub_line_investigation_id: number | null;
-    authorized_by: number | null;
-    made_by: number | null;
-    approved_by: number | null;
-    catalogue_id: number | null;
+    authorized_by:ResponsibleModels;
+    made_by:ResponsibleModels;
+    approved_by: ResponsibleModels;
+    catalogue_id: CatalogoModels;
     state_id: number | null;
-    stateTwo_id: number | null;
+    state_two_id:CatalogoModels;
     frequency_id: number | null;
     created_by: User;
     archived: boolean;
