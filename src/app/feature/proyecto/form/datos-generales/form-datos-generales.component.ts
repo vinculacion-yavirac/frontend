@@ -31,9 +31,12 @@ export class FormDatosGeneralesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    /*Array para generear pdf con datos dinamicos*/
     let data = [{
       "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC",
-      "Nombre": "Maria Jose Ortega"
+      "Nombre": "Maria Jose Ortega",
+      "fecha":"10/05/2023"
     }];
 
 
@@ -988,7 +991,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 240, 555, 240);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 235, { maxWidth: 100, align: 'justify' });
+      this.doc.text(this.avanzeData[0].fecha, 160, 235, { maxWidth: 100, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');
@@ -1586,5 +1589,5 @@ export class FormDatosGeneralesComponent implements OnInit {
 
 
 
-  
+
 }
