@@ -64,7 +64,7 @@ export class SolicitudListComponent implements OnInit {
 
   public getSolicitud():void{
     this.loading = true;
-    this.solicitudHttpService.getSolicitud().subscribe((res:any) =>{
+    this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -76,7 +76,7 @@ export class SolicitudListComponent implements OnInit {
 
  public  getSolicitudByStatus(status: string): void {
     this.loading = true;
-    this.solicitudHttpService.getSolicitudByStatus(status).subscribe((res: any) => {
+    this.solicitudHttpService.filterSolicitudeByStatus(status).subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -88,7 +88,7 @@ export class SolicitudListComponent implements OnInit {
 
   public  getSolicitudByType(value: string): void {
     this.loading = true;
-    this.solicitudHttpService.getSolicitudByType(value).subscribe((res: any) => {
+    this.solicitudHttpService.filterSolicitudeByValue(value).subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -140,7 +140,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
   private searchSolicitudByTerm(term: string): void {
-    this.solicitudHttpService.searchSolicitudByTerm(term).subscribe((res: any) => {
+    this.solicitudHttpService.searchSolicitudeByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });
   }
@@ -178,7 +178,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
   public archiveSolicitud(solicitud:SolicitudModels): void {
-    this.solicitudHttpService.solicitudArchive(solicitud.id).pipe(
+    this.solicitudHttpService.archiveSolicitud(solicitud.id).pipe(
       tap((res: any) => {
         if (res.status === 'success') {
           this.handleSearchResponse(res);

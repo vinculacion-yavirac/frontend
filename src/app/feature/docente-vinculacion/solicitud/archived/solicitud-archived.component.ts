@@ -28,9 +28,9 @@ export class SolicitudArchivedComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private solicitudHttpService: SolicitudHttpService,
-    private filesService: FilesService,
-    private router: Router,
+      private solicitudHttpService: SolicitudHttpService,
+      private filesService: FilesService,
+      private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class SolicitudArchivedComponent implements OnInit {
 
   public getArchivedSolicituds(): void {
     this.loading = true;
-    this.solicitudHttpService.getArchivedSolicitud().subscribe((res: any) => {
+    this.solicitudHttpService.getArchivedSolicitude().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -50,19 +50,16 @@ export class SolicitudArchivedComponent implements OnInit {
 
   public searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
-    this.solicitudHttpService.searchArchivedSolicitud(term).subscribe((res: any) => {
+    this.solicitudHttpService.searchArchivedSolicitudeByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.solicitudes = res.data.solicitudes;
-        if (term === '') {
-          this.handleSearchResponse(res);
-        }
+        this.handleSearchResponse(res);
         this.reverse = false;
       }
       this.loading = false;
     });
   }
 
-  reversOrder(): void {
+  public reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   }
@@ -81,32 +78,32 @@ export class SolicitudArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public restaureSolicitud(solicitud:SolicitudModels): void {
-    this.solicitudHttpService.restaureSolicitud(solicitud.id)
-      .pipe(
-        finalize(() => {
-          this.router.navigate(['/system/solicitud/list']);
-        })
-      )
-      .subscribe((res: any) => {
-        if (res.solicitudes.status === 'success') {
-          this.handleSearchResponse(res);
-        }
-      });
-
+  public restaureSolicitud(solicitud: SolicitudModels): void {
+    this.solicitudHttpService.restoreSolicitud(solicitud.id)
+        .pipe(
+            finalize(() => {
+              this.router.navigate(['/system/solicitud/list']);
+            })
+        )
+        .subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        });
   }
 
+  //   downloadFile(id: number, name: string) {
+  //     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
+  //         const url = window.URL.createObjectURL(blob);
+  //         const a = document.createElement('a');
+  //         a.href = url;
+  //         a.download = name;
+  //         document.body.appendChild(a);
+  //         a.click();
+  //         document.body.removeChild(a);
+  //         window.URL.revokeObjectURL(url);
+  //     });
+  // }
 
-//   downloadFile(id: number, name: string) {
-//     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-//         const url = window.URL.createObjectURL(blob);
-//         const a = document.createElement('a');
-//         a.href = url;
-//         a.download = name;
-//         document.body.appendChild(a);
-//         a.click();
-//         document.body.removeChild(a);
-//         window.URL.revokeObjectURL(url);
-//     });
-// }
 }
+
