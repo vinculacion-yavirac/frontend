@@ -1,5 +1,6 @@
 import { User } from "../auth/users/usuario";
 import { InstitucionBeneficiariaModels } from "../institucion-beneficiaria/institucion-beneficiaria.models";
+import { CareersModel } from "./careers.model";
 
 
 export interface ProyectoModels {
@@ -26,7 +27,7 @@ export interface ProyectoModels {
     convention_id: number | null;
     school_period_id: number | null;
     beneficiary_institution_id: InstitucionBeneficiariaModels;
-    career_id: number | null;
+    career_id: CareersModel;
     sub_line_investigation_id: number | null;
     authorized_by: number | null;
     made_by: number | null;

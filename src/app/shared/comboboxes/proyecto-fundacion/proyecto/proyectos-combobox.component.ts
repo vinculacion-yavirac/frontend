@@ -8,6 +8,7 @@ import {
 import {Subscription} from "rxjs";
 import {ProyectoService} from "../../../../service/proyecto/proyecto.service";
 import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
+import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 
 @Component({
   selector: 'app-proyectos-combobox',
@@ -23,6 +24,8 @@ import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
 })
 export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  selectedProject: any;
+
 // validators
   proyectosFormControl = new FormControl('', [Validators.required]);
 
@@ -31,7 +34,15 @@ export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlVal
 
   proyectos: ProyectoModels[] = [];
 
-  constructor(private proyectoService: ProyectoService) {}
+  constructor(
+    private proyectoService: ProyectoService,
+    private solicitudHttpService: SolicitudHttpService,
+  ) {}
+
+  onProjectSelected(project_id: string) {
+    const selectedProject = this.proyectos.find(project => project.id === parseInt(project_id));
+    this.solicitudHttpService.setSelectedProject(selectedProject);
+  }
 
   private sub?: Subscription;
   //propiedad privada que contiene una referencia a la suscripción que se crea cuando roleFormControl cambia el valor.

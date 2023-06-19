@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
@@ -15,6 +15,13 @@ export class SolicitudHttpService {
   constructor(
     private http: HttpClient
   ) { }
+
+  private selectedProjectSubject = new BehaviorSubject<any>(null);
+  selectedProject$ = this.selectedProjectSubject.asObservable();
+
+  setSelectedProject(project: any) {
+    this.selectedProjectSubject.next(project);
+  }
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
