@@ -12,26 +12,20 @@ import {Router} from "@angular/router";
   styleUrls: ['./portafolio-archived.component.css']
 })
 export class PortafolioArchivedComponent implements OnInit {
-
-
   reverse = false;
   pipe = new DatePipe('en-US');
-
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
-
   portafolios: PortafoliosModels[] = [];
-
-  loading: boolean = true;
+  loading = true;
 
   constructor(
-    private portafolioHttpService: PortafolioHttpService,
-    private fileHttpService: FileHttpService,
-    private router: Router,
-  ) {
-  }
+      private portafolioHttpService: PortafolioHttpService,
+      private fileHttpService: FileHttpService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getPortafolios();
@@ -42,8 +36,6 @@ export class PortafolioArchivedComponent implements OnInit {
     this.portafolioHttpService.getArchivedBriefcase().subscribe((res: any) => {
       if (res.status === 'success') {
         this.handleSearchResponse(res);
-        this.sortSolicitudes();
-        console.log(this.portafolios);
       }
       this.loading = false;
     });
@@ -70,7 +62,7 @@ export class PortafolioArchivedComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string) {
+  downloadFile(id: number, name: string): void {
     this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -83,8 +75,7 @@ export class PortafolioArchivedComponent implements OnInit {
     });
   }
 
-
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.portafolios = res.data.briefcases;
       this.reverse = false;
@@ -92,24 +83,21 @@ export class PortafolioArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.portafolios.sort((a, b) => {
-      return a.project_participant_id.participant_id.person.identification.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
+      return a.project_participant_id.participant_id.person.identification
+          .toLowerCase()
+          .localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
     });
   }
 
-  public restaurePortafolio(briefcase: PortafoliosModels): void {
-    this.portafolioHttpService.restaureBriefcase(briefcase.id)
-      .pipe(
-        finalize(() => {
+  restaurePortafolio(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.restoreBriefcase(briefcase.id)
+        .subscribe((res: any) => {
+          if (res.portafolios.status === 'success') {
+            this.handleSearchResponse(res);
+          }
           this.router.navigate(['/system/portafolio/list']);
-        })
-      )
-      .subscribe((res: any) => {
-        if (res.portafolios.status === 'success') {
-          this.handleSearchResponse(res);
-        }
-      });
-
+        });
   }
 }

@@ -9,62 +9,74 @@ import {SolicitudModels} from "../../models/docente-vinculacion/solicitud/solici
   providedIn: 'root'
 })
 export class PortafolioHttpService {
+  private url = `${environment.API_URL}/briefcase`;
+  private httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+  };
+
   constructor(private http: HttpClient) {}
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
-  private url = environment.API_URL + '/briefcase';
-
   // GET /Portafolios
-  public getPortafolios(): Observable<PortafoliosModels[]> {
+  getBriefcase(): Observable<PortafoliosModels[]> {
     return this.http.get<PortafoliosModels[]>(this.url);
-  };
+  }
 
-  public addPortafolios(PortafoliosModels: PortafoliosModels): Observable<PortafoliosModels> {
-    return this.http.post<PortafoliosModels>(
-      `${this.url}/create`,
-      PortafoliosModels,
-      this.httpOptions
-    );
-  };
+  // GET /Portafolios id
+  getBriefcaseById(id: number): Observable<PortafoliosModels> {
+    return this.http.get<PortafoliosModels>(`${this.url}/${id}`);
+  }
 
-  public searchPortafoliosByTerm(term: string): Observable<PortafoliosModels[]> {
-    return this.http.get<PortafoliosModels[]>(
-      `${this.url}/search/term/${encodeURIComponent(term)}`
-    );
-  };
-
-  public getComments(id: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
-  };
-
-  public filterBriefcaseByStatus(state: string): Observable<PortafoliosModels[]> {
-    return this.http.get<PortafoliosModels[]>(`${this.url}/filter/state/${state}`);
-  };
-
-  public searchAprobadoByTerm(term:string): Observable<PortafoliosModels[]>{
-    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/aprobado/${encodeURIComponent(term)}`);
-  };
-
-  public searchPendienteByTerm(term:string): Observable<PortafoliosModels[]>{
-    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/pendiente/${encodeURIComponent(term)}`);
-  };
-
-  public getArchivedBriefcase(): Observable<PortafoliosModels[]>{
+  // GET /Portafolios archivados
+  getArchivedBriefcase(): Observable<PortafoliosModels[]> {
     return this.http.get<PortafoliosModels[]>(`${this.url}/archived/list`);
-  };
+  }
 
-  public searchArchivedBriefcaseByTerm(term:string): Observable<PortafoliosModels[]>{
-    return this.http.get<PortafoliosModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`);
-  };
+  // GET / buscador de Portafolios
+  searchBriefcaseByTerm(term: string): Observable<PortafoliosModels[]> {
+    const encodedTerm = encodeURIComponent(term.toLowerCase());
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/term/${encodedTerm}`);
+  }
 
-  public archiveBriefcase(id:number): Observable<PortafoliosModels>{
-    return this.http.put<PortafoliosModels>(`${this.url}/archive/${id}`, this.httpOptions);
-  };
+  // GET / buscador de Portafolios archivados
+  searchArchivedBriefcaseByTerm(term: string): Observable<PortafoliosModels[]> {
+    const encodedTerm = encodeURIComponent(term.toLowerCase());
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/archived/term/${encodedTerm}`);
+  }
 
-  public restaureBriefcase(id:number): Observable<PortafoliosModels>{
-    return this.http.put<PortafoliosModels>(`${this.url}/restore/${id}`, this.httpOptions);
-  };
+  // GET / buscador de Portafolios por su estado
+  filterBriefcaseByStatus(state: string): Observable<PortafoliosModels[]> {
+    return this.http.get<PortafoliosModels[]>(`${this.url}/filter/state/${state}`);
+  }
+
+  // GET / buscador de Portafolios por su estado aprobado
+  searchAprobadoByTerm(term: string): Observable<PortafoliosModels[]> {
+    const encodedTerm = encodeURIComponent(term.toLowerCase());
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/aprobado/${encodedTerm}`);
+  }
+
+  // GET / buscador de Portafolios por su estado pendiente
+  searchPendienteByTerm(term: string): Observable<PortafoliosModels[]> {
+    const encodedTerm = encodeURIComponent(term.toLowerCase());
+    return this.http.get<PortafoliosModels[]>(`${this.url}/search/state/pendiente/${encodedTerm}`);
+  }
+
+  // PUT / Archivar portafolio
+  archiveBriefcase(id: number): Observable<PortafoliosModels> {
+    return this.http.put<PortafoliosModels>(`${this.url}/archive/${id}`, {}, this.httpOptions);
+  }
+
+  // PUT / Restarurar portafolio
+  restoreBriefcase(id: number): Observable<PortafoliosModels> {
+    return this.http.put<PortafoliosModels>(`${this.url}/restore/${id}`, {}, this.httpOptions);
+  }
+
+  // POST / Crear portafolio
+  addPortafolios(portafolio: PortafoliosModels): Observable<PortafoliosModels> {
+    return this.http.post<PortafoliosModels>(`${this.url}/create`, portafolio, this.httpOptions);
+  }
+
+  // GET / Obtener comentarios
+  getComments(id: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
+  }
 }

@@ -68,7 +68,7 @@ export class SolicitudFormComponent implements OnInit {
   onSubmit(): void {
     if (this.formGroup.valid) {
       const id = this.currentSolicitude.id || 0;
-      this.solicitudeHttpService.asignarSolicitud(id, this.formGroup.value).subscribe(
+      this.solicitudeHttpService.assignSolicitude(id, this.formGroup.value).subscribe(
         (response: any) => {
           if (response.status === 'success') {
             console.log('Relación actualizada correctamente');
@@ -90,7 +90,7 @@ export class SolicitudFormComponent implements OnInit {
 
   getSolicitudById(id: number): void {
     this.loading = true;
-    this.solicitudeHttpService.getSolicitudById(id).subscribe({
+    this.solicitudeHttpService.getSolicitudeById(id).subscribe({
       next: (response: any) => {
         if (response.status === 'success') {
           this.currentSolicitude = response.data.solicitudes;

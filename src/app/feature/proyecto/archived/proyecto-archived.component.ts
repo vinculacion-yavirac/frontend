@@ -35,7 +35,7 @@ export class ProyectoArchivedComponent implements OnInit {
     this.getproyectos();
   }
 
- private getproyectos(): void {
+  getproyectos(): void {
     this.loading = true;
     this.proyectoService.getArchivedProject().subscribe((res: any) => {
       if (res.status == 'success') {
@@ -62,8 +62,8 @@ export class ProyectoArchivedComponent implements OnInit {
     });
   }
 
-  public restaureProjects(proyecto: ProyectoModels): void {
-    this.proyectoService.restaureProject(proyecto.id)
+  restaureProjects(proyecto: ProyectoModels): void {
+    this.proyectoService.restoreProject(proyecto.id)
       .pipe(
         finalize(() => {
           this.router.navigate(['/system/proyecto/list']);
@@ -95,7 +95,7 @@ export class ProyectoArchivedComponent implements OnInit {
     });
   }
 
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.proyectos = res.data.projects;
       this.reverse = false;
@@ -103,7 +103,7 @@ export class ProyectoArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortProjects(): void {
+  sortProjects(): void {
     this.proyectos.sort((a, b) => {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });

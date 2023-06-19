@@ -63,7 +63,7 @@ export class ProyectoComboboxComponent implements OnInit, OnDestroy, ControlValu
   }
 
   getProyectos(): void {
-    this.proyectoService. getProyecto().subscribe((res: any) => {
+    this.proyectoService. getProject().subscribe((res: any) => {
       if (res.status === 'success') {
         this.proyectos = res.data.projects;
       }

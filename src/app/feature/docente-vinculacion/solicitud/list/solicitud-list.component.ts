@@ -30,7 +30,7 @@ export class SolicitudListComponent implements OnInit {
   filterVinculacion: string;
   filterCertificado: string;
   filterPendiente: string;
-  filterPreAprobado: string;
+  filterAprobado: string;
 
   constructor(
     private solicitudHttpService: SolicitudHttpService,
@@ -41,15 +41,15 @@ export class SolicitudListComponent implements OnInit {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
     this.filterPendiente = this.route.snapshot.data['filterPendiente'];
-    this.filterPreAprobado = this.route.snapshot.data['filterPreAprobado'];
+    this.filterAprobado = this.route.snapshot.data['filterAprobado'];
   }
 
   ngOnInit(): void {
     if (this.filterPendiente) {
       this.getSolicitudByStatus(this.filterPendiente);
     }
-    else if (this.filterPreAprobado) {
-      this.getSolicitudByStatus(this.filterPreAprobado);
+    else if (this.filterAprobado) {
+      this.getSolicitudByStatus(this.filterAprobado);
     }
     else if(this.filterVinculacion){
       this.getSolicitudByType(this.filterVinculacion);
@@ -62,9 +62,9 @@ export class SolicitudListComponent implements OnInit {
     }
   }
 
-  public getSolicitud():void{
+  getSolicitud():void{
     this.loading = true;
-    this.solicitudHttpService.getSolicitud().subscribe((res:any) =>{
+    this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -74,9 +74,9 @@ export class SolicitudListComponent implements OnInit {
   };
 
 
- public  getSolicitudByStatus(status: string): void {
+  getSolicitudByStatus(status: string): void {
     this.loading = true;
-    this.solicitudHttpService.getSolicitudByStatus(status).subscribe((res: any) => {
+    this.solicitudHttpService.filterSolicitudeByStatus(status).subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -86,9 +86,9 @@ export class SolicitudListComponent implements OnInit {
   }
 
 
-  public  getSolicitudByType(value: string): void {
+  getSolicitudByType(value: string): void {
     this.loading = true;
-    this.solicitudHttpService.getSolicitudByType(value).subscribe((res: any) => {
+    this.solicitudHttpService.filterSolicitudeByValue(value).subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -97,17 +97,17 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.solicitudes.sort((a, b) => {
       return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 
-  public reversOrder(): void {
+  reversOrder(): void {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   };
-  public searchSolicitudesByTerm(term: string): void {
+  searchSolicitudesByTerm(term: string): void {
     this.loading = true;
 
     if (!term) {
@@ -118,15 +118,15 @@ export class SolicitudListComponent implements OnInit {
       this.searchCertificateByTerm(term);
     } else if (this.filterPendiente) {
       this.searchPendienteByTerm(term);
-    } else if (this.filterPreAprobado) {
-      this.searchPreAprobadoByTerm(term);
+    } else if (this.filterAprobado) {
+      this.searchAprobadoByTerm(term);
     } else {
       this.searchSolicitudByTerm(term);
     }
   }
 
   private handleEmptyTerm(): void {
-    if (!this.filterVinculacion && !this.filterCertificado && !this.filterPendiente && !this.filterPreAprobado) {
+    if (!this.filterVinculacion && !this.filterCertificado && !this.filterPendiente && !this.filterAprobado) {
       this.getSolicitud();
     } else if (this.filterVinculacion) {
       this.getSolicitudByType(this.filterVinculacion);
@@ -134,13 +134,13 @@ export class SolicitudListComponent implements OnInit {
       this.getSolicitudByType(this.filterCertificado);
     } else if (this.filterPendiente) {
       this.getSolicitudByStatus(this.filterPendiente);
-    } else if (this.filterPreAprobado) {
-      this.getSolicitudByStatus(this.filterPreAprobado);
+    } else if (this.filterAprobado) {
+      this.getSolicitudByStatus(this.filterAprobado);
     }
   }
 
   private searchSolicitudByTerm(term: string): void {
-    this.solicitudHttpService.searchSolicitudByTerm(term).subscribe((res: any) => {
+    this.solicitudHttpService.searchSolicitudeByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });
   }
@@ -163,8 +163,8 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  private searchPreAprobadoByTerm(term: string): void {
-    this.solicitudHttpService.searchPreAprobadoByTerm(term).subscribe((res: any) => {
+  private searchAprobadoByTerm(term: string): void {
+    this.solicitudHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });
   }
@@ -177,8 +177,8 @@ export class SolicitudListComponent implements OnInit {
     this.loading = false;
   }
 
-  public archiveSolicitud(solicitud:SolicitudModels): void {
-    this.solicitudHttpService.solicitudArchive(solicitud.id).pipe(
+  archiveSolicitud(solicitud:SolicitudModels): void {
+    this.solicitudHttpService.archiveSolicitud(solicitud.id).pipe(
       tap((res: any) => {
         if (res.status === 'success') {
           this.handleSearchResponse(res);
@@ -190,7 +190,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
 
-  public openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
+  openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
       width: '700px',
