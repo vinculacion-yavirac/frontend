@@ -50,7 +50,7 @@
                 <p>Fundacion:</p>
                 <p>Encargado:</p>
                 <p>Direccion:</p>
-                <p>Proyecto: {{selectedProject.name}}</p>
+                <p>Proyecto: {{selectedProject.names}}</p>
               </div>
             </div>
 
@@ -97,21 +97,17 @@
 
             <div class="w-full !my-2">
               <div class="relative">
-                <!--<app-proyectos-combobox id="whoMadeRequestId" formControlName="project_id" [(ngModel)]="selectedProject"></app-proyectos-combobox>-->
-
                 <mat-form-field appearance="fill" class="w-full">
                   <mat-label>Proyectos</mat-label>
                   <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher"
                     [(ngModel)]="selectedProject">
-                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.name}}
+                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.beneficiary_institution_id.name + proyecto.name }}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es
                     <strong>requerido</strong></mat-error>
                   <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
                 </mat-form-field>
-
-
               </div>
             </div>
           </div>
