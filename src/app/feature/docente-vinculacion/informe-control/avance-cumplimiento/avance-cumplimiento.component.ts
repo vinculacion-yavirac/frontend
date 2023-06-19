@@ -62,8 +62,11 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
   ngOnInit(): void {
+
+    /*Implementacion de data dinamica */
     let data = [{
-      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC"
+      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC",
+      "Nombre": "Maria Jose Ortega"
     }];
 
 
@@ -80,7 +83,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   ngOnDestroy() {
 
   }
-
+/* pdf proyecto*/
   public pdf() {
     var d = new Date();
     var s = new Date();
@@ -323,6 +326,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
 
 
+/*pdf comvenio */
 
   public pdf_convenio() {
     console.log(this.avanzeData);
@@ -375,11 +379,11 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc2.text('Y', 275, 245);
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPEF ', 155, 255);
+      this.doc2.text('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 155, 255);
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanzeData[0].Instituto + ', legalmente representado por el XXXXXXXXXXXXX, en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanzeData[0].Instituto + ', legalmente representado por el '+ this.avanzeData[0].Nombre+', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -835,7 +839,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
 
 
-
+/*pdf documento itv*/
   public pdf_itv() {
     console.log(this.avanzeData);
 
@@ -889,7 +893,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.line(40, 200, 555, 200);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 195, { maxWidth: 100, align: 'justify' });
+      this.doc.text(this.avanzeData[0].Instituto, 160, 195);
 
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto", 'bold');
