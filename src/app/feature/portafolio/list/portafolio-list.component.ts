@@ -13,7 +13,6 @@ import { tap, switchMap } from 'rxjs/operators';
   styleUrls: ['./portafolio-list.component.css']
 })
 export class PortafolioListComponent implements OnInit {
-
   reverse = false;
   pipe = new DatePipe('en-US');
 
@@ -23,9 +22,7 @@ export class PortafolioListComponent implements OnInit {
   };
 
   portafolios: PortafoliosModels[] = [];
-
-  loading: boolean = true;
-
+  loading = true;
   filterAprobado: boolean;
   filterPendiente: boolean;
 
@@ -34,7 +31,7 @@ export class PortafolioListComponent implements OnInit {
     private filesService: FilesService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.route.data.subscribe((data: any) => {
       this.filterAprobado = data.filterAprobado;
@@ -48,11 +45,11 @@ export class PortafolioListComponent implements OnInit {
     } else if (this.filterPendiente === false) {
       this.filterBriefcaseByState(this.filterPendiente.toString());
     } else {
-      this.getportafolio();
+      this.getPortafolio();
     }
   }
 
-  public searchPortafoliosByTerm(term: string): void {
+  searchPortafoliosByTerm(term: string): void {
     this.loading = true;
 
     if (!term) {
@@ -66,54 +63,56 @@ export class PortafolioListComponent implements OnInit {
     }
   }
 
-  private handleEmptyTerm(): void {
+  handleEmptyTerm(): void {
     if (this.filterPendiente === false) {
       this.filterBriefcaseByState(this.filterPendiente.toString());
     } else if (this.filterAprobado === true) {
       this.filterBriefcaseByState(this.filterAprobado.toString());
     } else {
-      this.getportafolio();
+      this.getPortafolio();
     }
   }
 
-  public  filterBriefcaseByState(state: string): void {
+  filterBriefcaseByState(state: string): void {
     this.loading = true;
-    this.portafolioHttpService.filterBriefcaseByStatus(state).subscribe((res: any) => {
-      if (res.status == 'success') {
+    this.portafolioHttpService
+      .filterBriefcaseByStatus(state)
+      .subscribe((res: any) => {
         this.handleSearchResponse(res);
-        this.sortPortafolio();
-      }
+        this.loading = false;
+      });
+  }
+
+  getPortafolio(): void {
+    this.loading = true;
+    this.portafolioHttpService.getBriefcase().subscribe((res: any) => {
+      this.handleSearchResponse(res);
       this.loading = false;
     });
   }
 
-  public getportafolio(): void {
-    this.loading = true;
-    this.portafolioHttpService.getPortafolios().subscribe((res: any) => {
-      if (res.status == 'success') {
+  searchPortafolioByTerm(term: string): void {
+    this.portafolioHttpService
+      .searchBriefcaseByTerm(term)
+      .subscribe((res: any) => {
         this.handleSearchResponse(res);
-        this.sortPortafolio();
-      }
-      this.loading = false;
-    });
+      });
   }
 
-  private searchPortafolioByTerm(term: string): void {
-    this.portafolioHttpService.searchPortafoliosByTerm(term).subscribe((res: any) => {
-      this.handleSearchResponse(res);
-    });
+  searchPendienteByTerm(term: string): void {
+    this.portafolioHttpService
+      .searchPendienteByTerm(term)
+      .subscribe((res: any) => {
+        this.handleSearchResponse(res);
+      });
   }
 
-  private searchPendienteByTerm(term: string): void {
-    this.portafolioHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
-      this.handleSearchResponse(res);
-    });
-  }
-
-  private searchAprobadoByTerm(term: string): void {
-    this.portafolioHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
-      this.handleSearchResponse(res);
-    });
+  searchAprobadoByTerm(term: string): void {
+    this.portafolioHttpService
+      .searchAprobadoByTerm(term)
+      .subscribe((res: any) => {
+        this.handleSearchResponse(res);
+      });
   }
 
   reversOrder(): void {
@@ -121,20 +120,23 @@ export class PortafolioListComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  public archiveBriefcases(briefcase: PortafoliosModels): void {
-    this.portafolioHttpService.archiveBriefcase(briefcase.id).pipe(
-      tap((res: any) => {
-        if (res.status === 'success') {
-          this.handleSearchResponse(res);
-          console.log('archive id');
-        }
-      }),
-      switchMap(() => this.router.navigate(['/system/portafolio/list/archived']))
-    ).subscribe();
+  archiveBriefcases(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService
+      .archiveBriefcase(briefcase.id)
+      .pipe(
+        tap((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+            console.log('archive id');
+          }
+        }),
+        switchMap(() => this.router.navigate(['/system/portafolio/list/archived']))
+      )
+      .subscribe();
   }
 
-  public openDialogArchiveBriefcase(briefcase: PortafoliosModels): void {
-    console.log('entraaaaaaaaaaaaaaaaaaaaa')
+  openDialogArchiveBriefcase(briefcase: PortafoliosModels): void {
+    console.log('entraaaaaaaaaaaaaaaaaaaaa');
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
       width: '700px',
@@ -142,7 +144,7 @@ export class PortafolioListComponent implements OnInit {
         title: '¿Está seguro de archivar esta solicitud?',
         message:
           'El portafolio será archivado y no podrá ser utilizado por los usuarios.',
-        dato:['Nombre:',briefcase.project_participant_id.participant_id.person.names  ],
+        dato: ['Nombre:', briefcase.project_participant_id.participant_id.person.names],
         button: 'Archivar',
       },
     });
@@ -151,25 +153,25 @@ export class PortafolioListComponent implements OnInit {
       if (result) {
         this.archiveBriefcases(briefcase);
         this.router.navigate(['/system/portafolio/list']);
-        console.log('entra dialog')
+        console.log('entra dialog');
       }
     });
   }
 
   downloadFile(id: number, name: string) {
     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
-}
+  }
 
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.portafolios = res.data.briefcases;
       this.reverse = false;
@@ -177,7 +179,7 @@ export class PortafolioListComponent implements OnInit {
     this.loading = false;
   }
 
-  public sortPortafolio(): void {
+  sortPortafolio(): void {
     this.portafolios.sort((a, b) => {
       return a.project_participant_id.participant_id.person.names.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.names.toLowerCase());
     });
