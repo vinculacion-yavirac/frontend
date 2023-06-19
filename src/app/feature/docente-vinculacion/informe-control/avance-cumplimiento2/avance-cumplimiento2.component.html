@@ -37,7 +37,7 @@
                   </tr>
                 </thead>
                 <tbody class="leters">
-                  <tr *ngFor="let actividades of avanzeList"
+                  <tr *ngFor="let actividades of avanceList"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {{actividades.id}}
@@ -71,7 +71,7 @@
 
                   </tr>
                   <tr>
-                    <td *ngIf="avanzeList.length == 0" colspan="6"
+                    <td *ngIf="avanceList.length == 0" colspan="6"
                       class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">No existen Registros</td>
                   </tr>
 
@@ -142,7 +142,7 @@
                   </div>
 
                   <div class="sm:col-span-2">
-                    <label for="avanze"
+                    <label for="avance"
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">OBSERVACIONES</label>
                     <textarea id="observacion" name="observacion" rows="2" [(ngModel)]="addActividadesForm.observacion"
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"

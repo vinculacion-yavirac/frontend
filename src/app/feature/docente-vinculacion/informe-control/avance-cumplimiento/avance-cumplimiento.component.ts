@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
-import { AvanzeCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
+import { AvanceCumplimientoService } from 'src/app/service/avance_cumplimiento/avance-cumplimiento.service';
+import { AvanceCumplimientoModels } from 'src/app/models/avance/avance_cumplimiento/avance_cumplimiento';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
 
 @Component({
@@ -19,22 +19,22 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   loading = false;
   submitting = false;
   submitted = false;
-  addAvanzeForm: avanzeForm = new avanzeForm();
-  avanzeList: any = [];
+  addAvanceForm: avanceForm = new avanceForm();
+  avanceList: any = [];
   idTodelete: number = 0;
   idToupdate: number = 0;
   public doc: any;
   public doc2: any;
   public first: any;
 
-  public avanzeData: any;
+  public avanceData: any;
 
-  @ViewChild("avanzeForm")
+  @ViewChild("avanceForm")
 
-  avanzeForm!: NgForm;
+  avanceForm!: NgForm;
 
   isSubmitted: boolean = false;
-  post: AvanzeCumplimientoModels = {
+  post: AvanceCumplimientoModels = {
     id: 0,
     resumen: '',
     indicadores: '',
@@ -70,10 +70,10 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     }];
 
 
-    this.avanzeData = data;
+    this.avanceData = data;
 
 
-    this.getAllAvanze();
+    this.getAllAvance();
 
 
   }
@@ -329,7 +329,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 /*pdf comvenio */
 
   public pdf_convenio() {
-    console.log(this.avanzeData);
+    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -383,7 +383,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanzeData[0].Instituto + ', legalmente representado por el '+ this.avanzeData[0].Nombre+', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanceData[0].Instituto + ', legalmente representado por el '+ this.avanceData[0].Nombre+', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -841,7 +841,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 /*pdf documento itv*/
   public pdf_itv() {
-    console.log(this.avanzeData);
+    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -893,7 +893,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.line(40, 200, 555, 200);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.avanzeData[0].Instituto, 160, 195);
+      this.doc.text(this.avanceData[0].Instituto, 160, 195);
 
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto", 'bold');
@@ -1456,7 +1456,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.text('Proyecto de vinculación ', 255, 745,);
-      
+
       this.doc.line(40, 750, 555, 750);
 
 
@@ -1523,12 +1523,12 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
 
 
-  public addAvanze(isValid: any) {
+  public addAvance(isValid: any) {
     this.isSubmitted = true;
     if (isValid) {
-      this.httpProvider.addAvanze(this.addAvanzeForm).subscribe(async data => {
+      this.httpProvider.addAvance(this.addAvanceForm).subscribe(async data => {
 
-        if (data.data.avanze != null && data.data.avanze != null) {
+        if (data.data.avance != null && data.data.avance != null) {
           if (data.status === 'success') {
             setTimeout(() => {
               window.location.reload();
@@ -1547,17 +1547,17 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  public getAllAvanze() {
-    this.httpProvider.getAvanze().subscribe((data: any) => {
+  public getAllAvance() {
+    this.httpProvider.getAvance().subscribe((data: any) => {
 
 
 
-      if (data.data.avanzes != null && data.data.avanzes != null) {
-        var resultData = data.data.avanzes;
+      if (data.data.avances != null && data.data.avances != null) {
+        var resultData = data.data.avances;
         if (resultData) {
           console.log(resultData);
 
-          this.avanzeList = resultData;
+          this.avanceList = resultData;
         }
       }
     },
@@ -1565,7 +1565,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
         if (error) {
           if (error.status == 404) {
             if (error.error && error.error.message) {
-              this.avanzeList = [];
+              this.avanceList = [];
             }
           }
         }
@@ -1584,17 +1584,17 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
   }
   public getById(id: number) {
-    this.httpProvider.getAvanzeById(id).subscribe((data) => {
+    this.httpProvider.getAvanceById(id).subscribe((data) => {
       console.log(data);
 
-      this.post = data.data.avanze[0];
+      this.post = data.data.avance[0];
 
 
     });
   }
 
   public update() {
-    this.httpProvider.updateAvanze(this.idToupdate, this.post)
+    this.httpProvider.updateAvance(this.idToupdate, this.post)
       .subscribe({
         next: (data) => {
           console.log(data);
@@ -1608,7 +1608,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
 
   public delete() {
-    this.httpProvider.deleteAvanzeById(this.idTodelete).subscribe((data: any) => {
+    this.httpProvider.deleteAvanceById(this.idTodelete).subscribe((data: any) => {
       console.log(data);
       if (data.status === 'success') {
         setTimeout(() => {
@@ -1620,7 +1620,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
 
 }
-export class avanzeForm {
+export class avanceForm {
   resumen: string = "";
   indicadores: string = "";
   medios: string = "";

@@ -1,5 +1,5 @@
 
-export interface AvanzeCumplimientoModels {
+export interface AvanceCumplimientoModels {
     id: number;
     resumen: string;
     indicadores: string;

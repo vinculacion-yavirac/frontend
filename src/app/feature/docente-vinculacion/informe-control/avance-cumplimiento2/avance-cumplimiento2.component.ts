@@ -18,14 +18,14 @@ export class AvanceCumplimiento2Component implements OnInit {
   submitting = false;
   submitted = false;
   addActividadesForm: actividadesForm = new actividadesForm();
-  avanzeList: any = [];
+  avanceList: any = [];
   idTodelete: number = 0;
   idToupdate: number = 0;
   @ViewChild("actividadesForm")
 
   actividadesForm!: NgForm;
 
- 
+
   isSubmitted: boolean = false;
   post: ActividadesModels = {
     id: 0,
@@ -49,7 +49,7 @@ export class AvanceCumplimiento2Component implements OnInit {
     if (isValid) {
       this.httpProvider.addActividades(this.addActividadesForm).subscribe(async data => {
 
-        if (data.data.avanze != null && data.data.avanze != null) {
+        if (data.data.avance != null && data.data.avance != null) {
           if (data.status === 'success') {
             setTimeout(() => {
               window.location.reload();
@@ -73,12 +73,12 @@ export class AvanceCumplimiento2Component implements OnInit {
 
 
 
-      if (data.data.avanzes != null && data.data.avanzes != null) {
-        var resultData = data.data.avanzes;
+      if (data.data.avances != null && data.data.avances != null) {
+        var resultData = data.data.avances;
         if (resultData) {
           console.log(resultData);
 
-          this.avanzeList = resultData;
+          this.avanceList = resultData;
         }
       }
     },
@@ -86,7 +86,7 @@ export class AvanceCumplimiento2Component implements OnInit {
         if (error) {
           if (error.status == 404) {
             if (error.error && error.error.message) {
-              this.avanzeList = [];
+              this.avanceList = [];
             }
           }
         }
@@ -108,7 +108,7 @@ export class AvanceCumplimiento2Component implements OnInit {
   public getById(id: number) {
     this.httpProvider.getActividadesById(id).subscribe((data) => {
       console.log(data);
-      this.post = data.data.avanze[0];
+      this.post = data.data.avance[0];
 
 
     });
@@ -119,7 +119,7 @@ export class AvanceCumplimiento2Component implements OnInit {
     .subscribe({
       next:(data) => {
         console.log(data);
-        
+
         window.location.reload();
       },
       error:(err) => {
@@ -140,7 +140,7 @@ export class AvanceCumplimiento2Component implements OnInit {
       (error: any) => { });
   }
 
-  
+
 }
 
 export class actividadesForm {
