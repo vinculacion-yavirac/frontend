@@ -36,6 +36,7 @@ export class SolicitudFormComponent implements OnInit {
   title = 'Asignar Estudiante';
   loading = true;
   selectedProject: any;
+  selectedProjectIds: string | null;
 
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
@@ -65,12 +66,19 @@ export class SolicitudFormComponent implements OnInit {
 
   onProjectSelectionChange(projectId: any) {
     this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
+    if (this.proyectosFormControl.value !== null) {
+      this.selectedProjectIds = this.proyectosFormControl.value;
+    }else{
+      this.selectedProject = this.getSolicitudById(projectId)
+    }
   }
+
+
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
       approval_date: ['', Validators.nullValidator],
-      project_id: ['', Validators.required],
+      project_id: [this.selectedProject ? this.selectedProject.id : '', Validators.required],
       type_request_id: this.formBuilder.group({
         id: [0],
         catalog_type: [''],
@@ -95,12 +103,14 @@ export class SolicitudFormComponent implements OnInit {
       const lastName = person.last_names || '';
       return firstName + ' ' + lastName;
     }
-    return '';
-  }
+    return'';
+  }
+
 
   onSubmit(): void {
     if (this.formGroup.valid) {
       console.log("entra aqui" + this.formGroup.value);
+      this.loading = true;
       const id = this.currentSolicitude.id || 0;
       this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
 
@@ -113,6 +123,7 @@ export class SolicitudFormComponent implements OnInit {
             console.log('Relación actualizada correctamente');
             this.router.navigate(['system/solicitud/list']);
           }
+          this.loading = false;
         },
         (error: any) => {
           console.log('Error al actualizar la relación:', error.message);
@@ -155,6 +166,11 @@ export class SolicitudFormComponent implements OnInit {
         if (response.status === 'success') {
           this.currentSolicitude = response.data.solicitudes;
           this.formGroup.patchValue(this.currentSolicitude);
+          if (this.currentSolicitude.project_id) {
+            this.currentSolicitude= response.data.solicitudes;
+            this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
+            console.log(this.currentSolicitude.project_id.id)
+          }
         }
       },
       error: (error: any) => {
@@ -228,10 +244,10 @@ export class SolicitudFormComponent implements OnInit {
     const fechaFormateada = format(fecha, "'Quito,' d 'de' MMMM 'del' yyyy");
 
     return fechaFormateada;
-  }
+  }
 
-formatearFecha(fecha: string): string {
-  const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
-  return fechaFormateada;
-}
+  formatearFecha(fecha: string): string {
+    const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
+    return fechaFormateada;
+  }
 }

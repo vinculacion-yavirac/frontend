@@ -11,8 +11,8 @@
 <section>
   <div class="bg-neutral-content flex items-center w-90 h-full p-20 border-t-[1px] border-[#535a6650]">
     <div class="a4-container bg-white text-black border border-gray-400 p-30 relative">
-      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <div class="hoja">
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="!loading">
+        <div class="hoja" >
           <!-- Fecha -->
           <div class="h-40">
             <p class="text-right font-bold">{{ obtenerFechaActual() }}</p>
@@ -36,24 +36,29 @@
             <p class="text-left h-20">
               en el Semestre <span class="text-left font-bold uppercase">{{ formGroup.get('created_by.person.last_names')?.value }}</span>
             </p>
-
-            <!-- Formulario combobox-->
-            <div *ngIf="selectedProject">
-              <div class="h-20">
-              <h4 class="text-center font-bold uppercase">Información de la Fundación</h4>
-              <p>Nombre de la Fundacion: {{ selectedProject.beneficiary_institution_id.name }}</p>
-              <p>RUC: {{ selectedProject.beneficiary_institution_id.ruc }}</p>
-              <p>Ubicacion: {{ selectedProject.beneficiary_institution_id.place_location }}</p>
-
-              <h5 class="text-center font-bold uppercase">Información del Proyecto</h5>
-              <p>Nombre del Proyecto: {{ selectedProject.name }}</p>
-              <p>Descripción: {{ selectedProject.description }}</p>
-              <p>Beneficiario Directo: {{ selectedProject.direct_beneficiaries }}</p>
-              <p>Beneficiario Indirecto: {{ selectedProject.indirect_beneficiaries }}</p>
-              <p>Fecha de Inicio: {{ formatearFecha(selectedProject.start_date) }}</p>
-              <p>Fecha de Culminación: {{ formatearFecha(selectedProject.end_date) }}</p>
-
+            <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
+              <div class="h-[calc(100%)] absolute">
+                <loader></loader>
+                <no-content *ngIf="!loading"></no-content>
+              </div>
             </div>
+            <!-- Formulario combobox-->
+            <div id="whoMadeRequestId"  *ngIf="selectedProject">
+              <div class="h-20">
+                <h4 class="text-center font-bold uppercase">Información de la Fundación</h4>
+                <p>Nombre de la Fundacion: {{ selectedProject.beneficiary_institution_id.name }}</p>
+                <p>RUC: {{ selectedProject.beneficiary_institution_id.ruc }}</p>
+                <p>Ubicacion: {{ selectedProject.beneficiary_institution_id.place_location }}</p>
+
+                <h5 class="text-center font-bold uppercase">Información del Proyecto</h5>
+                <p>Nombre del Proyecto: {{ selectedProject.name }}</p>
+                <p>Descripción: {{ selectedProject.description }}</p>
+                <p>Beneficiario Directo: {{ selectedProject.direct_beneficiaries }}</p>
+                <p>Beneficiario Indirecto: {{ selectedProject.indirect_beneficiaries }}</p>
+                <p>Fecha de Inicio: {{ formatearFecha(selectedProject.start_date) }}</p>
+                <p>Fecha de Culminación: {{ formatearFecha(selectedProject.end_date) }}</p>
+
+              </div>
               <!-- Agrega aquí más campos de información que desees mostrar -->
             </div>
 
@@ -63,10 +68,16 @@
           <button class="btn btn-info w-25" type="submit" (click)="onSubmit">Asignar</button>
         </div>
       </form>
-
+      <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
+        <div class="h-[calc(100%)] absolute">
+          <loader></loader>
+          <no-content *ngIf="!loading"></no-content>
+        </div>
+      </div>
+      <!--<div *ngIf="loading">Cargando...</div>-->
 
       <!-- cuadro de asignación -->
-      <div class="absolute right-12 -top-40">
+      <div class="absolute right-12 -top-40" *ngIf="!loading">
         <div class="relative">
           <div class="absolute w-60 top-60 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0">
             <div class="border-b pb-2 mb-2 font-light flex items-center justify-between">
