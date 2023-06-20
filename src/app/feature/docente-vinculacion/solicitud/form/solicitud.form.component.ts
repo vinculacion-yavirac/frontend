@@ -1,22 +1,30 @@
 import {SolicitudHttpService} from "../../../../service/docente-vinculacion/solicitud/solicitud-http.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {
   ProyectoParticipanteHttpService
 } from "../../../../service/proyecto/participante/proyecto-participante-http.service";
 import {SolicitudModels} from "../../../../models/docente-vinculacion/solicitud/solicitud";
 import {ProyectoParticipanteModels} from "../../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
 import {Subscription} from "rxjs";
-import {Component, OnInit} from "@angular/core";
+import {Component, forwardRef, OnInit} from "@angular/core";
 import { MyErrorStateMatcher } from "src/app/shared/matcher/error-state-matcher";
 import { ProyectoModels } from "src/app/models/proyecto/proyecto.models";
 import { ProyectoService } from "src/app/service/proyecto/proyecto.service";
 import { format } from "date-fns";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-solicitud-form',
   templateUrl: './solicitud.form.component.html',
   styleUrls: ['./solicitud.form.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SolicitudFormComponent),
+      multi: true,
+    },
+  ],
 })
 export class SolicitudFormComponent implements OnInit {
 
@@ -28,8 +36,7 @@ export class SolicitudFormComponent implements OnInit {
   title = 'Asignar Estudiante';
   loading = true;
   selectedProject: any;
-
-  
+  selectedProjectIds: string | null;
 
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
@@ -54,29 +61,83 @@ export class SolicitudFormComponent implements OnInit {
         }, 1000);
       }
     });
+
   }
+
+  onProjectSelectionChange(projectId: any) {
+    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
+    if (this.proyectosFormControl.value !== null) {
+      this.selectedProjectIds = this.proyectosFormControl.value;
+    }else{
+      this.selectedProject = this.getSolicitudById(projectId)
+    }
+  }
+
+
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
       approval_date: ['', Validators.nullValidator],
-      project_id: ['', Validators.required],
-      //created_at: ['', [Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/)]],
-      created_by:this.formBuilder.group({
-        id:[0],
-        email:[''],
-        person:this.formBuilder.group({
-          name:[''],
-          identification:[''],
-          last_names:[''],
+      project_id: [this.selectedProject ? this.selectedProject.id : '', Validators.required],
+      type_request_id: this.formBuilder.group({
+        id: [0],
+        catalog_type: [''],
+        catalog_value: ['']
+      }),
+      created_by: this.formBuilder.group({
+        id: [0],
+        email: [''],
+        person: this.formBuilder.group({
+          names: [''],
+          identification: [''],
+          last_names: [''],
         })
       })
     });
   }
 
+  getNamesSurnamesComplete(): string {
+    const person = this.formGroup.get('created_by.person')?.value;
+    if (person) {
+      const firstName = person.names || '';
+      const lastName = person.last_names || '';
+      return firstName + ' ' + lastName;
+    }
+    return'';
+  }
+
+
   onSubmit(): void {
     if (this.formGroup.valid) {
+      console.log("entra aqui" + this.formGroup.value);
+      this.loading = true;
       const id = this.currentSolicitude.id || 0;
-      this.solicitudeHttpService.assignSolicitude(id, this.formGroup.value).subscribe(
+      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
+
+      console.log('ID:', id);
+      console.log('Solicitud:', this.currentSolicitude);
+
+      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
+        (response: any) => {
+          if (response.status === 'success') {
+            console.log('Relación actualizada correctamente');
+            this.router.navigate(['system/solicitud/list']);
+          }
+          this.loading = false;
+        },
+        (error: any) => {
+          console.log('Error al actualizar la relación:', error.message);
+        }
+      );
+    } else if(!this.formGroup.valid){
+      console.log("entra aqui" + this.formGroup.value);
+      const id = this.currentSolicitude.id || 0;
+      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
+
+      console.log('ID:', id);
+      console.log('Solicitud:', this.currentSolicitude);
+
+      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
         (response: any) => {
           if (response.status === 'success') {
             console.log('Relación actualizada correctamente');
@@ -87,6 +148,8 @@ export class SolicitudFormComponent implements OnInit {
           console.log('Error al actualizar la relación:', error.message);
         }
       );
+    }else{
+      console.log("Error en la trans")
     }
   }
 
@@ -103,6 +166,11 @@ export class SolicitudFormComponent implements OnInit {
         if (response.status === 'success') {
           this.currentSolicitude = response.data.solicitudes;
           this.formGroup.patchValue(this.currentSolicitude);
+          if (this.currentSolicitude.project_id) {
+            this.currentSolicitude= response.data.solicitudes;
+            this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
+            console.log(this.currentSolicitude.project_id.id)
+          }
         }
       },
       error: (error: any) => {
@@ -123,17 +191,21 @@ export class SolicitudFormComponent implements OnInit {
   //combobox
 
   // validators
-  proyectosFormControl = new FormControl('', [Validators.required]);
+  proyectosFormControl = new FormControl(
+
+    '', [Validators.required]);
 
   //Validación de errores en el formulario
   matcher = new MyErrorStateMatcher();
 
   proyectos: ProyectoModels[] = [];
 
-
   onProjectSelected(project_id: string) {
     const selectedProject = this.proyectos.find(project => project.id === parseInt(project_id));
-    this.solicitudeHttpService.setSelectedProject(selectedProject);
+    if (selectedProject) {
+      this.selectedProject = selectedProject;
+      this.solicitudeHttpService.setSelectedProject(selectedProject);
+    }
   }
 
   private sub?: Subscription;
@@ -152,6 +224,7 @@ export class SolicitudFormComponent implements OnInit {
   registerOnTouched(fn: any): void {
     this.onTouchedCb = fn;
   }
+
   // este método se usa para habilitar o deshabilitar el control según el isDisabledState booleano pasado.
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.proyectosFormControl.disable() : this.proyectosFormControl.enable();
@@ -173,4 +246,8 @@ export class SolicitudFormComponent implements OnInit {
     return fechaFormateada;
   }
 
+  formatearFecha(fecha: string): string {
+    const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
+    return fechaFormateada;
+  }
 }

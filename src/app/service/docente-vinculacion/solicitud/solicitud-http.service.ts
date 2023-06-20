@@ -11,10 +11,10 @@ import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/so
   providedIn: 'root'
 })
 export class SolicitudHttpService {
+
   setSelectedProject(selectedProject: import("../../../models/proyecto/proyecto.models").ProyectoModels | undefined) {
     throw new Error("Method not implemented.");
-  }
-
+  }
 
   constructor(
     private http: HttpClient
