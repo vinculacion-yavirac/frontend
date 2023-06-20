@@ -24,7 +24,7 @@
             <p class="text-left">
               El Sr/Sra:
               <span class="text-left font-bold uppercase">
-                {{ formGroup.get('created_by.person.names')?.value }} {{ formGroup.get('created_by.person.last_names')?.value }}
+                {{ getNamesSurnamesComplete() }}
               </span>,
               con número de Cédula: <span class="text-left font-bold uppercase">
                 {{ formGroup.get('created_by.person.identification')?.value }}
@@ -50,8 +50,9 @@
               <p>Descripción: {{ selectedProject.description }}</p>
               <p>Beneficiario Directo: {{ selectedProject.direct_beneficiaries }}</p>
               <p>Beneficiario Indirecto: {{ selectedProject.indirect_beneficiaries }}</p>
-              <p>Fecha de Inicio: {{ selectedProject.start_date }}</p>
-              <p>Fecha de Culminación: {{ selectedProject.end_date }}</p>
+              <p>Fecha de Inicio: {{ formatearFecha(selectedProject.start_date) }}</p>
+              <p>Fecha de Culminación: {{ formatearFecha(selectedProject.end_date) }}</p>
+
             </div>
               <!-- Agrega aquí más campos de información que desees mostrar -->
             </div>
@@ -59,7 +60,7 @@
           </div>
         </div>
         <div *ngIf="selectedProject" class="grid place-items-center">
-          <button class="btn btn-info w-25" type="submit">Asignar</button>
+          <button class="btn btn-info w-25" type="submit" (click)="onSubmit">Asignar</button>
         </div>
       </form>
 

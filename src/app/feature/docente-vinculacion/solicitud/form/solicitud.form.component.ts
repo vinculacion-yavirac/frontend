@@ -37,10 +37,6 @@ export class SolicitudFormComponent implements OnInit {
   loading = true;
   selectedProject: any;
 
-  onProjectSelectionChange(projectId: any) {
-    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
-  }
-
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
     private router: Router,
@@ -64,29 +60,54 @@ export class SolicitudFormComponent implements OnInit {
         }, 1000);
       }
     });
+
+  }
+
+  onProjectSelectionChange(projectId: any) {
+    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
   }
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
       approval_date: ['', Validators.nullValidator],
       project_id: ['', Validators.required],
-      //created_at: ['', [Validators.required, Validators.pattern(/^(\\d{4}-\\d{2}-\\d{2})/)]],
-      created_by:this.formBuilder.group({
-        id:[0],
-        email:[''],
-        person:this.formBuilder.group({
-          name:[''],
-          identification:[''],
-          last_names:[''],
+      type_request_id: this.formBuilder.group({
+        id: [0],
+        catalog_type: [''],
+        catalog_value: ['']
+      }),
+      created_by: this.formBuilder.group({
+        id: [0],
+        email: [''],
+        person: this.formBuilder.group({
+          names: [''],
+          identification: [''],
+          last_names: [''],
         })
       })
     });
   }
 
+  getNamesSurnamesComplete(): string {
+    const person = this.formGroup.get('created_by.person')?.value;
+    if (person) {
+      const firstName = person.names || '';
+      const lastName = person.last_names || '';
+      return firstName + ' ' + lastName;
+    }
+    return '';
+  }
+
   onSubmit(): void {
     if (this.formGroup.valid) {
+      console.log("entra aqui" + this.formGroup.value);
       const id = this.currentSolicitude.id || 0;
-      this.solicitudeHttpService.assignSolicitude(id, this.formGroup.value).subscribe(
+      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
+
+      console.log('ID:', id);
+      console.log('Solicitud:', this.currentSolicitude);
+
+      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
         (response: any) => {
           if (response.status === 'success') {
             console.log('Relación actualizada correctamente');
@@ -97,6 +118,27 @@ export class SolicitudFormComponent implements OnInit {
           console.log('Error al actualizar la relación:', error.message);
         }
       );
+    } else if(!this.formGroup.valid){
+      console.log("entra aqui" + this.formGroup.value);
+      const id = this.currentSolicitude.id || 0;
+      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
+
+      console.log('ID:', id);
+      console.log('Solicitud:', this.currentSolicitude);
+
+      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
+        (response: any) => {
+          if (response.status === 'success') {
+            console.log('Relación actualizada correctamente');
+            this.router.navigate(['system/solicitud/list']);
+          }
+        },
+        (error: any) => {
+          console.log('Error al actualizar la relación:', error.message);
+        }
+      );
+    }else{
+      console.log("Error en la trans")
     }
   }
 
@@ -166,6 +208,7 @@ export class SolicitudFormComponent implements OnInit {
   registerOnTouched(fn: any): void {
     this.onTouchedCb = fn;
   }
+
   // este método se usa para habilitar o deshabilitar el control según el isDisabledState booleano pasado.
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.proyectosFormControl.disable() : this.proyectosFormControl.enable();
@@ -187,4 +230,8 @@ export class SolicitudFormComponent implements OnInit {
     return fechaFormateada;
   }
 
+formatearFecha(fecha: string): string {
+  const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
+  return fechaFormateada;
+}
 }
