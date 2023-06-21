@@ -1,8 +1,8 @@
 <module-header title="{{ title }}">
   <app-portafolio-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/portafolio/form">Formulario</a></li>
-    <li *ngIf="formGroup.get('observations')?.value">
-      <a>{{ formGroup.get("observations")?.value }}</a>
+    <li *ngIf="formGroup.get('project_participant_id.participant_id.person.names')?.value">
+      <a>{{ formGroup.get("project_participant_id.participant_id.person.names")?.value }}</a>
     </li>
   </app-portafolio-breadcrumbs>
   <div tabs class="h-8"></div>
