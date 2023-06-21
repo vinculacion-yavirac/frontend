@@ -87,6 +87,30 @@ export class PortafolioFormComponent implements OnInit {
           ],
         },
       ],
+      project_participant_id:this.formBuilder.group({
+        id:[0],
+        project_id:this.formBuilder.group({
+          id:[0],
+          name:[''],
+          code:[''],
+          beneficiary_institution_id:this.formBuilder.group({
+            id:[0],
+            name:[''],
+            ruc:[''],
+            place_location:['']
+          })
+        }),
+        participant_id:this.formBuilder.group({
+          id:[0],
+          person: this.formBuilder.group({
+            id:[0],
+            names: [''],
+            identification: [''],
+            last_names: [''],
+          })
+        })
+
+      })
     });
     this.formGroup.valueChanges.subscribe((values) => {
       this.currentPortafolio = values;

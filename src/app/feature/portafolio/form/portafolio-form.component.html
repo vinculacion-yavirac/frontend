@@ -10,20 +10,20 @@
 
 <div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <div class="grid h-100 card bg-white text-dark  rounded-box">
+  <div formGroupName=" project_participant_id" class="grid h-100 card bg-white text-dark  rounded-box">
     <h2 class="text-xl p-3">
       Datos del Estudiante
     </h2>
     <div class="flex w-full p-3.5 text-dark">
       <div class="grid h-20 flex-grow rounded-box text-dark">
         <h5 class="text-sm -50 p-1.5">
-          Cedula de Identidad:
+          Cedula de Identidad: {{ formGroup.get('project_participant_id.participant_id.person.identification')?.value }}
         </h5>
         <h5 class="text-sm -50 p-1.5">
-          Nombres:
+          Nombres: {{ formGroup.get('project_participant_id.participant_id.person.names')?.value }}
         </h5>
         <h5 class="text-sm 50 p-1.5">
-          Apellidos:
+          Apellidos:{{ formGroup.get('project_participant_id.participant_id.person.last_names')?.value }}
         </h5>
       </div>
 
@@ -42,18 +42,18 @@
     <div class="flex w-full p-3.5">
       <div class="grid h-20 flex-grow  rounded-box">
         <h5 class="text-sm p-1.5">
-          Nombre de la Fundacion:
+          Nombre de la Fundacion: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.name')?.value }}
         </h5>
         <h5 class="text-sm  p-1.5">
-          Encargado:
+          Ruc: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.ruc')?.value }}
         </h5>
         <h5 class="text-sm  p-1.5">
-          Nombre del Proyecto:
+          Nombre del Proyecto: {{ formGroup.get('project_participant_id.project_id.name')?.value }}
         </h5>
       </div>
       <div class="grid h-20 flex-grow rounded-box">
         <h5 class="text-sm p-1.5">
-          Dirección:
+          Dirección: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.place_location')?.value }}
         </h5>
         <h5 class="text-sm  p-1.5">
           Telefono:
