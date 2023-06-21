@@ -1,14 +1,15 @@
 <module-header title="{{ title }}">
   <app-portafolio-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/portafolio/form">Formulario</a></li>
-    <li *ngIf="formGroup.get('subject')?.value">
-      <a>{{ formGroup.get("subject")?.value }}</a>
+    <li *ngIf="formGroup.get('observations')?.value">
+      <a>{{ formGroup.get("observations")?.value }}</a>
     </li>
   </app-portafolio-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 
 <div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="grid h-100 card bg-white text-dark  rounded-box">
     <h2 class="text-xl p-3">
       Datos del Estudiante
@@ -204,13 +205,38 @@
         </div>
       </div>
       <br>
+
+      <mat-form-field appearance="fill" class="w-full col-span-2">
+        <mat-label>observación</mat-label>
+        <input type="text" matInput formControlName="observations" [errorStateMatcher]="matcher" autocomplete="off"
+               spellcheck="false" placeholder="Ingresa la observación." />
+        <!-- validaciones -->
+        <mat-error
+          *ngIf="formGroup.get('observations')?.hasError('minlength') || formGroup.get('observations')?.hasError('maxlength')">
+          Ingrese un asunto <strong>valido</strong>, (min: 5, max: 100)
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('observations')?.hasError('required')">
+          Este campo es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <!--
       <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
         <textarea placeholder="Comentario del Portafolio" class="textarea  textarea-lg w-full h-full "></textarea>
       </div>
+      -->
     </div>
   </div>
 
   <div class="grid place-items-center">
-    <button class="btn btn-info w-25">Enviar</button>
+    <!--<button class="btn btn-info w-25">Enviar</button>-->
+    <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
+            [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
+      <div class="flex justify-center items-center gap-2">
+        <span class="fa-solid fa-floppy-disk text-sm"></span>
+
+        <span>Guardar</span>
+      </div>
+    </button>
   </div>
+  </form>
 </div>

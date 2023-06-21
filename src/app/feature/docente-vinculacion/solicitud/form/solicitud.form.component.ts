@@ -249,5 +249,5 @@ export class SolicitudFormComponent implements OnInit {
   formatearFecha(fecha: string): string {
     const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
     return fechaFormateada;
-  }
+  }
 }

@@ -56,6 +56,7 @@ export class PortafolioFormComponent implements OnInit {
 
   comments: Comment[] = [];
 
+
   constructor(
     private portafolioHttpService:PortafolioHttpService,
     private authHttpService: AuthHttpService,
@@ -75,7 +76,8 @@ export class PortafolioFormComponent implements OnInit {
    */
   initForm() {
     this.formGroup = this.formBuilder.group({
-      subject: [
+      id:[0],
+      observations: [
         '',
         {
           validators: [
@@ -85,34 +87,7 @@ export class PortafolioFormComponent implements OnInit {
           ],
         },
       ],
-      description: [
-        '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(300),
-          ],
-        },
-      ],
-      files: [
-        [],
-        {
-          validators: [
-            // Validators.required,
-            // Validators.minLength(1),
-            // Validators.maxLength(7)
-          ],
-        },
-      ],
-      comment: [
-        '',
-        {
-          validators: [Validators.minLength(3), Validators.maxLength(200)],
-        },
-      ],
     });
-
     this.formGroup.valueChanges.subscribe((values) => {
       this.currentPortafolio = values;
       console.log(this.currentPortafolio);
@@ -125,7 +100,7 @@ export class PortafolioFormComponent implements OnInit {
       (params: Params) => {
         if (params['id']) {
           this.title = 'Editar Portafolio';
-          // this.getOficio(params['id']);
+          this.getBriefcaseById(params['id']);
         } else {
           setTimeout(() => {
             this.loading = false;
@@ -137,8 +112,12 @@ export class PortafolioFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-      console.log('success');
-      this.createPortafolio();
+        console.log(this.currentPortafolio.id +
+          'success entraaaaaaaaaaaaaaaaaaaaaa');
+        const ids = this.currentPortafolio.id;
+        this.updateBriefcase(ids);
+
+
     }
   }
 
@@ -163,6 +142,29 @@ export class PortafolioFormComponent implements OnInit {
         }
       });
   }
+  getBriefcaseById(id:number){
+    this.portafolioHttpService.getBriefcaseById(id).subscribe((res:any) =>{
+      if (res.status === 'success'){
+        this.currentPortafolio = res.data.briefcases;
+        this.formGroup.patchValue(this.currentPortafolio);
+      }
+    })
+  }
+
+ ids = this.currentPortafolio.id || 0;
+  updateBriefcase(ids:number ){
+    this.portafolioHttpService.updateBriefcase(ids,this.currentPortafolio).subscribe((res:any) =>{
+      if (res.status === 'success'){
+        this.router.navigate(['system/portafolio/list']);
+      }
+    },
+    (error: any) => {
+      console.log('Error al actualizar la relación:', error.message);
+    }
+    )
+}
+
+
 
   //método para crear un oficio nuevo
   createPortafolio() {

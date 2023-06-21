@@ -79,4 +79,8 @@ export class PortafolioHttpService {
   getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
   }
+
+  updateBriefcase(id: number, portafolio: PortafoliosModels): Observable<PortafoliosModels> {
+    return this.http.put<PortafoliosModels>(`${this.url}/update/${id}`, portafolio, this.httpOptions);
+  }
 }
