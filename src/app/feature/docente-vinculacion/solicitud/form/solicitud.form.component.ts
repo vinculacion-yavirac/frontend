@@ -43,13 +43,11 @@ export class SolicitudFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private proyectoParticipanteHttpService: ProyectoParticipanteHttpService,
     private proyectoService: ProyectoService,
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
-    this.getProyectoParticipante();
     this.getProyectos();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
@@ -109,54 +107,16 @@ export class SolicitudFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-      console.log("entra aqui" + this.formGroup.value);
-      this.loading = true;
-      const id = this.currentSolicitude.id || 0;
-      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
-
-      console.log('ID:', id);
-      console.log('Solicitud:', this.currentSolicitude);
-
-      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
-        (response: any) => {
-          if (response.status === 'success') {
-            console.log('Relación actualizada correctamente');
-            this.router.navigate(['system/solicitud/list']);
-          }
-          this.loading = false;
-        },
-        (error: any) => {
-          console.log('Error al actualizar la relación:', error.message);
-        }
-      );
+      const id = this.currentSolicitude.id;
+      console.log(this.currentSolicitude.id +
+        'success entraaaaaaaaaaaaaaaaaaaaaa');
+      this.assingSolicitud(id);
     } else if(!this.formGroup.valid){
-      console.log("entra aqui" + this.formGroup.value);
-      const id = this.currentSolicitude.id || 0;
-      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
-
-      console.log('ID:', id);
-      console.log('Solicitud:', this.currentSolicitude);
-
-      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
-        (response: any) => {
-          if (response.status === 'success') {
-            console.log('Relación actualizada correctamente');
-            this.router.navigate(['system/solicitud/list']);
-          }
-        },
-        (error: any) => {
-          console.log('Error al actualizar la relación:', error.message);
-        }
-      );
-    }else{
-      console.log("Error en la trans")
+      const id = this.currentSolicitude.id;
+      console.log(this.currentSolicitude.id +
+        'success entraaaaaaaaaaaaaaaaaaaaaa');
+      this.assingSolicitud(id);
     }
-  }
-
-  getProyectoParticipante(): void {
-    this.proyectoParticipanteHttpService.getProyectoParticipante().subscribe((rest:any) => {
-      this.proyectoParticipante = rest.data.projectParticipants;
-    });
   }
 
   getSolicitudById(id: number): void {
@@ -180,6 +140,21 @@ export class SolicitudFormComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  assingSolicitud(id:number ){
+    this.currentSolicitude.project_id = this.selectedProject.id;
+    this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
+      (response: any) => {
+        if (response.status === 'success') {
+          console.log('Relación actualizada correctamente');
+          this.router.navigate(['system/solicitud/list']);
+        }
+      },
+      (error: any) => {
+        console.log('Error al actualizar la relación:', error.message);
+      }
+    );
   }
 
 

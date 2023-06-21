@@ -175,7 +175,6 @@ export class PortafolioFormComponent implements OnInit {
     })
   }
 
- ids = this.currentPortafolio.id || 0;
   updateBriefcase(ids:number ){
     this.portafolioHttpService.updateBriefcase(ids,this.currentPortafolio).subscribe((res:any) =>{
       if (res.status === 'success'){
