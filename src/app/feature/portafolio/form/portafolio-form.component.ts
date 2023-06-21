@@ -11,6 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
 import { User } from 'src/app/models/auth/users/usuario';
+import {DocumentoModels} from "../../../models/portafolio/documentos/documento.models";
+import {DocumentoHttpService} from "../../../service/portafolio/documento/documento-http.service";
 
 @Component({
   selector: 'app-portafolio-form',
@@ -49,6 +51,8 @@ export class PortafolioFormComponent implements OnInit {
   // Variables de clase que son inyectadas por referencia
   formGroup: FormGroup;
 
+  documentos: DocumentoModels[] =[];
+
   files: File[] = [];
 
   currentUser = {} as User;
@@ -65,7 +69,8 @@ export class PortafolioFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private documentoHttpService:DocumentoHttpService,
   ) {
     this.initForm();
   }
@@ -120,6 +125,7 @@ export class PortafolioFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
+    this.getDocuments()
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params['id']) {
@@ -185,6 +191,15 @@ export class PortafolioFormComponent implements OnInit {
       console.log('Error al actualizar la relación:', error.message);
     }
     )
+}
+
+getDocuments(){
+    this.documentoHttpService.getDocuments().subscribe((res:any) =>{
+      if (res.status === 'success'){
+        this.documentos = res.data.documents
+        console.log(this.documentos+'entraaaaaaaaaaa')
+      }
+  })
 }
 
 

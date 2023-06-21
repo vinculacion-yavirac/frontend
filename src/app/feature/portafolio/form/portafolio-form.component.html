@@ -81,7 +81,7 @@
                   Nombre del Archivo
                 </th>
                 <th scope="col" class="py-3 px-6">
-                  Opciones
+                  template
                 </th>
                 <th scope="col" class="py-3 px-6">
                   Observaciones
@@ -92,16 +92,16 @@
               </tr>
             </thead>
             <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-              <tr class="bg-white hover:bg-[#4052b510] transition-all">
+              <tr *ngFor="let documento of documentos" class="bg-white hover:bg-[#4052b510] transition-all">
                 <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
 
                 </th>
 
                 <td class="py-[3.8px] px-6 capitalize">
-                  Nombre del archivo
+                  {{documento.name}}
                 </td>
                 <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                  <a href="">
+                  <a target="_blank" href="{{documento.template}}">
                     <div class="avatar">
                       <div class="w-8 rounded">
                         <img  src="../../../assets/images/descarga2.png" alt="">
