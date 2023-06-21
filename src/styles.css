@@ -132,3 +132,10 @@ Background Colors
 .table {
   background-color: #3965B8 !important;
 }
+.bg-ligth-white {
+  background-color: #f3f5fc !important; }
+
+.place-items-right {
+  justify-items: end;
+  text-align: right;
+}
