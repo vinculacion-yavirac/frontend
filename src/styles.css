@@ -139,3 +139,11 @@ Background Colors
   justify-items: end;
   text-align: right;
 }
+
+.p-4 {
+  padding: 1.0rem!important;
+}
+
+.h-16 {
+  height: 4.3rem!important;
+}

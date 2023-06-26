@@ -1,238 +1,29 @@
-<module-header title="{{ title }}">
+<module-header title="">
   <app-portafolio-breadcrumbs breadcrumbs>
-    <li><a routerLink="/system/portafolio/form">Formulario</a></li>
-    <li *ngIf="formGroup.get('project_participant_id.participant_id.person.names')?.value">
-      <a>{{ formGroup.get("project_participant_id.participant_id.person.names")?.value }}</a>
-    </li>
+
   </app-portafolio-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 
-<div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="py-2">
-  <div formGroupName=" project_participant_id" class="grid h-45 card bg-white text-dark  rounded-box">
-    <div class="grid h-70 flex text-white">
-      <div class="grid-sm-4 bg-ligth-white text-dark">
-        <h2 class="text-xl p-3">
-          Datos del Estudiante
-        </h2>
-      </div>
-      <div class="grid-sm-4 h-30 flex-grow rounded-box text-dark">
-        <h5 class="text-sm -50 p-1.5">
-          Cedula de Identidad: {{ formGroup.get('project_participant_id.participant_id.person.identification')?.value }}
-        </h5>
-        <h5 class="text-sm -50 p-1.5">
-          Nombres: {{ formGroup.get('project_participant_id.participant_id.person.names')?.value }}
-        </h5>
-        <h5 class="text-sm 50 p-1.5">
-          Apellidos:{{ formGroup.get('project_participant_id.participant_id.person.last_names')?.value }}
-        </h5>
-      </div>
-    </div>
-    <div class="grid h-70 flex text-dark">
-      <div class="grid-sm-4 bg-ligth-white text-dark">
-        <h2 class="text-xl p-3">
-          Datos de la Fundacion
-        </h2>
-      </div>
-      <div class="grid h-70 flex text-dark">
-        <h5 class="text-sm p-1.5">
-          Nombre de la Fundacion: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.name')?.value }}
-        </h5>
-        <h5 class="text-sm  p-1.5">
-          Ruc: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.ruc')?.value }}
-        </h5>
-        <h5 class="text-sm  p-1.5">
-          Nombre del Proyecto: {{ formGroup.get('project_participant_id.project_id.name')?.value }}
-        </h5>
-      </div>
-      <div class="grid h-10 flex-grow rounded-box">
-        <h5 class="text-sm p-1.5">
-          Dirección: {{ formGroup.get('project_participant_id.project_id.beneficiary_institution_id.place_location')?.value }}
-        </h5>
-      </div>
-    </div>
+
+<form>
+  <h2>Briefcase</h2>
+  <label>Observations:</label>
+  <input type="text" [(ngModel)]="briefcaseData.observations" name="observations">
+  <!-- Agrega más campos según las propiedades necesarias -->
+
+  <h2>Documents</h2>
+  <div *ngFor="let document of documents; let i = index">
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="document.name" name="name{{i}}">
+    <!-- Agrega más campos según las propiedades necesarias -->
+
+    <h3>File</h3>
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="document.files[0].name" name="fileName{{i}}">
+    <!-- Agrega más campos según las propiedades necesarias -->
   </div>
 
-    <!--PORTAFOLIO DEL ESTUDIANTE -->
-  <div class="grid h-45 card bg-white text-dark  rounded-box">
-    <div class="grid h-70 flex text-dark">
-      <div class="grid-sm-4 bg-ligth-white text-dark">
-        <h2 class="text-xl p-3">
-          Portafolio Estudiante
-        </h2>
-        <div class="h-10 flex-grow text-dark rounded-box place-items-right">
-          <label class="label cursor-pointer place-items-right">
-            <span class="">Estado del Portafolio</span>
-            <input type="checkbox" class="toggle toggle-primary" checked />
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex flex-col w-full">
-      <div class="grid h-100 card bg-neutral-content rounded-box p-1">
-        <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-          <table class="my_table w-full text-sm text-left text-neutral">
-            <thead class="text-xs text-white uppercase bg-primary">
-              <tr>
-                <th scope="col" class="py-3 px-6">#</th>
-                <th scope="col" class="py-3 px-6">
-                  Nombre del Archivo
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  template
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  Observaciones
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  Aprobado
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-              <tr *ngFor="let documento of documentos" class="bg-white hover:bg-[#4052b510] transition-all">
-                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-
-                </th>
-
-                <td class="py-[3.8px] px-6 capitalize">
-                  {{documento.name}}
-                </td>
-                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                  <a target="_blank" href="{{documento.template}}">
-                    <div class="avatar">
-                      <div class="w-8 rounded">
-                        <img  src="../../../assets/images/descarga2.png" alt="">
-                      </div>
-                    </div>
-                  </a>
-                </td>
-                <td class="py-[3.8px] px-6">
-                  <textarea class="form-control" id="floatingTextarea2"></textarea>
-                </td>
-                <td class="py-[3.8px] px-6">
-                  <input type="checkbox" class="toggle toggle-primary" checked />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <br>
-      <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
-        <textarea placeholder="Comentario del Portafolio" class="textarea  textarea-lg w-full h-full "></textarea>
-      </div>
-    </div>
-  </div>
-
-    <!--FIN DEL PORTAFOLIO DEL ESTUDIANTE -->
-
-    <!--FIN DEL PORTAFOLIO DEL DOCENTE -->
-
-
-    <div class="grid h-45 card bg-white text-dark rounded-box">
-      <div class="grid h-70 flex text-dark">
-        <div class="grid-sm-4 bg-ligth-white text-dark">
-          <h2 class="text-xl p-3">
-            Portafolio Docente
-          </h2>
-          <div class="h-10 flex-grow text-dark rounded-box place-items-right">
-            <label class="label cursor-pointer place-items-right">
-              <span class="">Estado del Portafolio</span>
-              <input type="checkbox" class="toggle toggle-primary" checked />
-            </label>
-          </div>
-        </div>
-      </div>
-
-    <div class="flex flex-col w-full p-1">
-      <div class="grid h-100 card bg-neutral-content rounded-box p-1">
-        <div
-          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-          <table class="my_table w-full text-sm text-left text-neutral">
-            <thead class="text-xs text-white uppercase bg-primary">
-              <tr>
-                <th scope="col" class="py-3 px-6">#</th>
-                <th scope="col" class="py-3 px-6">
-                  Nombre del Archivo
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  Opciones
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  Observaciones
-                </th>
-                <th scope="col" class="py-3 px-6">
-                  Aprobado
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-              <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-
-                </th>
-
-                <td class="py-[3.8px] px-6 capitalize">
-                  Nombre del archivo
-                </td>
-                <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-                  <a href="">
-                    <div class="avatar">
-                      <div class="w-8 rounded">
-                        <img  src="../../../assets/images/descarga2.png" alt="">
-                      </div>
-                    </div>
-                  </a>
-                </td>
-                <td class="py-[3.8px] px-6">
-                  <textarea class="form-control" id="floatingTextarea2"></textarea>
-                </td>
-                <td class="py-[3.8px] px-6">
-                  <input type="checkbox" class="toggle toggle-primary" checked />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <br>
-
-      <mat-form-field appearance="fill" class="w-full col-span-2">
-        <mat-label>observación</mat-label>
-        <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
-        <textarea type="text" matInput formControlName="observations" [errorStateMatcher]="matcher" autocomplete="off"
-               spellcheck="false" placeholder="Ingresa la observación." > </textarea>
-        </div>
-        <!-- validaciones -->
-        <mat-error
-          *ngIf="formGroup.get('observations')?.hasError('minlength') || formGroup.get('observations')?.hasError('maxlength')">
-          Ingrese un asunto <strong>valido</strong>, (min: 5, max: 100)
-        </mat-error>
-        <mat-error *ngIf="formGroup.get('observations')?.hasError('required')">
-          Este campo es <strong>requerido</strong>
-        </mat-error>
-      </mat-form-field>
-      <!--
-      <div class="grid h-20 card bg-neutral-content rounded-box place-items-center p-1">
-        <textarea placeholder="Comentario del Portafolio" class="textarea  textarea-lg w-full h-full "></textarea>
-      </div>
-      -->
-    </div>
-  </div>
-
-  <div class="grid place-items-center">
-    <!--<button class="btn btn-info w-25">Enviar</button>-->
-    <button type="submit" class="btn btn-primary text-xs rounded-md border-0 flex justify-center items-center"
-            [disabled]="!formGroup.valid" [ngClass]="{ '!text-white !bg-neutral opacity-80': !formGroup.valid }">
-      <div class="flex justify-center items-center gap-2">
-        <span class="fa-solid fa-floppy-disk text-sm"></span>
-
-        <span>Guardar</span>
-      </div>
-    </button>
-  </div>
-  </form>
-</div>
+  <button type="button" (click)="addDocument()">Add Document</button>
+  <button type="button" (click)="createBriefcase()">Create Briefcase</button>
+</form>

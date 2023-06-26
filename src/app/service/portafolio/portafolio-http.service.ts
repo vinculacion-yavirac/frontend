@@ -83,4 +83,6 @@ export class PortafolioHttpService {
   updateBriefcase(id: number, portafolio: PortafoliosModels): Observable<PortafoliosModels> {
     return this.http.put<PortafoliosModels>(`${this.url}/update/${id}`, portafolio, this.httpOptions);
   }
+
+
 }

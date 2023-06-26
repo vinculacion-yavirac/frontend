@@ -1,257 +1,74 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { FileIconsModels } from '../../../../app/models/portafolio/files/fileIcons.models';
-import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
-import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
-import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
-import { User } from 'src/app/models/auth/users/usuario';
-import {DocumentoModels} from "../../../models/portafolio/documentos/documento.models";
-import {DocumentoHttpService} from "../../../service/portafolio/documento/documento-http.service";
+
+import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
+import { DocumentoHttpService } from '../../../service/portafolio/documento/documento-http.service';
+import { DocumentoModels } from '../../../models/portafolio/documentos/documento.models';
+import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
+import { Role } from '../../../models/auth/role/rol';
+import {PortafoliosModels} from "../../../models/portafolio/portafolio.models";
+import {FilesModels} from "../../../models/portafolio/files/file.models";
+import {FileHttpService} from "../../../service/portafolio/files/file-http.service";
 
 @Component({
   selector: 'app-portafolio-form',
   templateUrl: './portafolio-form.component.html',
   styleUrls: ['./portafolio-form.component.css']
 })
-export class PortafolioFormComponent implements OnInit {
+export class PortafolioFormComponent  {
 
-  fileIcons: FileIconsModels = {
-    pdf: 'far fa-file-pdf',
-    doc: 'far fa-file-word',
-    docx: 'far fa-file-word',
-    xls: 'far fa-file-excel',
-    xlsx: 'far fa-file-excel',
-    ppt: 'far fa-file-powerpoint',
-    pptx: 'far fa-file-powerpoint',
-    jpg: 'far fa-file-image',
-    jpeg: 'far fa-file-image',
-    png: 'far fa-file-image',
-    gif: 'far fa-file-image',
-    txt: 'far fa-file-alt',
-    default: 'far fa-file',
-  };
+  briefcaseData: any = {};
+  documentData: any = {};
+  fileData: any = {};
+  documents: DocumentoModels[] = [];
+  files:FilesModels[] =[];
 
-  // Variables de clase que son inyectadas
-  currentPortafolio = {} as PortafoliosModels;
+  constructor(private http: HttpClient) {}
 
-  title = 'Nuevo Portafolio';
-  paramsSubscription: Subscription;
+  addDocument() {
+    const newDocument = { ...this.documentData, files: [this.fileData] };
+    this.documents.push(newDocument);
 
-  loading: boolean = true;
-
-  // Variables de clase que son inyectadas por referencia
-  matcher = new MyErrorStateMatcher();
-
-  // Variables de clase que son inyectadas por referencia
-  formGroup: FormGroup;
-
-  documentos: DocumentoModels[] =[];
-
-  files: File[] = [];
-
-  currentUser = {} as User;
-  currentDate = new Date();
-
-  comments: Comment[] = [];
-
-
-  constructor(
-    private portafolioHttpService:PortafolioHttpService,
-    private authHttpService: AuthHttpService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private dialog: MatDialog,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef,
-    private documentoHttpService:DocumentoHttpService,
-  ) {
-    this.initForm();
+    // Limpiar los datos
+    this.documentData = {};
+    this.fileData = {};
   }
 
-  /**
-   * Inicializa el formulario de oficios con los validadores y los valores por defecto.
-   * Suscribe al formulario para detectar los cambios en los valores de los campos.
-   */
-  initForm() {
-    this.formGroup = this.formBuilder.group({
-      id:[0],
-      observations: [
-        '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(100),
-          ],
+  createBriefcase() {
+    const data = {
+      briefcases: this.briefcaseData,
+      documents: this.documents
+    };
+
+    this.http.post('http://127.0.0.1:8000/api/briefcase/create', data).subscribe(
+        (response: any) => {
+          const createdBriefcaseId = response.document.id;
+          console.log(createdBriefcaseId + ' createdBriefcaseId');
+
+          // Asignar el ID del portafolio en la tabla files
+          if (createdBriefcaseId) {
+            this.documents.forEach(document => {
+              document.files.forEach(file => {
+                file.briefcase_id = createdBriefcaseId;
+              });
+            });
+          }
+
+          console.log(data);
+          // Realizar las acciones necesarias después de crear el portafolio
         },
-      ],
-      project_participant_id:this.formBuilder.group({
-        id:[0],
-        project_id:this.formBuilder.group({
-          id:[0],
-          name:[''],
-          code:[''],
-          beneficiary_institution_id:this.formBuilder.group({
-            id:[0],
-            name:[''],
-            ruc:[''],
-            place_location:['']
-          })
-        }),
-        participant_id:this.formBuilder.group({
-          id:[0],
-          person: this.formBuilder.group({
-            id:[0],
-            names: [''],
-            identification: [''],
-            last_names: [''],
-          })
-        })
-
-      })
-    });
-    this.formGroup.valueChanges.subscribe((values) => {
-      this.currentPortafolio = values;
-      console.log(this.currentPortafolio);
-    });
-  }
-
-  ngOnInit(): void {
-    this.getCurrentUser();
-    this.getDocuments()
-    this.paramsSubscription = this.activatedRoute.params.subscribe(
-      (params: Params) => {
-        if (params['id']) {
-          this.title = 'Editar Portafolio';
-          this.getBriefcaseById(params['id']);
-        } else {
-          setTimeout(() => {
-            this.loading = false;
-          }, 1000);
+        error => {
+          console.error(error);
+          // Manejar el error en caso de que ocurra
         }
-      }
     );
   }
 
-  onSubmit(): void {
-    if (this.formGroup.valid) {
-        console.log(this.currentPortafolio.id +
-          'success entraaaaaaaaaaaaaaaaaaaaaa');
-        const ids = this.currentPortafolio.id;
-        this.updateBriefcase(ids);
 
-
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
-  }
-
-  getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: User) => {
-      if (user) {
-        this.currentUser = user;
-      }
-    });
-  }
-
-  getComments() {
-    this.portafolioHttpService
-      .getComments(this.currentPortafolio.id)
-      .subscribe((res: any) => {
-        if (res.status === 'success') {
-          this.comments = res.data.comments;
-        }
-      });
-  }
-  getBriefcaseById(id:number){
-    this.portafolioHttpService.getBriefcaseById(id).subscribe((res:any) =>{
-      if (res.status === 'success'){
-        this.currentPortafolio = res.data.briefcases;
-        this.formGroup.patchValue(this.currentPortafolio);
-      }
-    })
-  }
-
-  updateBriefcase(ids:number ){
-    this.portafolioHttpService.updateBriefcase(ids,this.currentPortafolio).subscribe((res:any) =>{
-      if (res.status === 'success'){
-        this.router.navigate(['system/portafolio/list']);
-      }
-    },
-    (error: any) => {
-      console.log('Error al actualizar la relación:', error.message);
-    }
-    )
-}
-
-getDocuments(){
-    this.documentoHttpService.getDocuments().subscribe((res:any) =>{
-      if (res.status === 'success'){
-        this.documentos = res.data.documents
-        console.log(this.documentos+'entraaaaaaaaaaa')
-      }
-  })
-}
-
-
-
-  //método para crear un oficio nuevo
-  createPortafolio() {
-    this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.uploadFiles(res.data.briefcases.id, this.files);
-        this.router.navigate(['/system/portafolio']);
-      }
-    });
-  }
-
-  /**
-   * Metodos para el drang and drop del input de archivos.
-   */
-
-  getFileIcon(file: File): string {
-    const extension = file.name.split('.').pop()?.toLowerCase() || '';
-    return this.fileIcons[extension] || this.fileIcons['default'];
-  }
-
-  onFileSelected(event: any): void {
-    this.files = Array.from(event.target.files);
-    this.updateSelectedFilesList();
-  }
-
-  updateSelectedFilesList(): void {
-    this.cdr.detectChanges();
-  }
-
-  /*   uploadFiles(id:number): void {
-    const formData = new FormData();
-    this.files.forEach((file: File) => {
-      formData.append('archivo', file, file.name);
-    });
-    this.http
-      .post(
-        `http://127.0.0.1:8000/api/files/upload/${id}`,
-        formData
-      )
-      .subscribe();
-  } */
-
-  uploadFiles(id: number, files: File[]): void {
-    const formData = new FormData();
-    files.forEach((file: File) => {
-      formData.append('archivos[]', file, file.name);
-    });
-    this.http
-      .post(`http://127.0.0.1:8000/api/files/upload/${id}`, formData)
-      .subscribe();
-  }
+  //files
 }

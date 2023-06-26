@@ -1,10 +1,12 @@
 import {Role} from "../../auth/role/rol";
+import {FilesModels} from "../files/file.models";
 
 export interface DocumentoModels {
-  id: number;
+  id?: number;
   name: string;
-  template: string;
-  state: boolean;
-  order: number;
-  responsible_id: Role;
+  template?: string;
+  state?: boolean;
+  order?: number;
+  files:FilesModels[]
+  responsible_id?: Role;
 }
