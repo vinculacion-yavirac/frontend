@@ -3,13 +3,14 @@ import {PortafoliosModels} from "../portafolio.models";
 import {DocumentoModels} from "../documentos/documento.models";
 
 export interface FilesModels {
-    id: number;
-    name: string;
+    id?: number;
+    name?: string;
     type?: string;
-    content?: string;
+    content: string;
     size?: number;
     observation?: string;
     state?: boolean;
-    briefcase_id:PortafoliosModels;
-    document_id:DocumentoModels;
+    file: File;
+    briefcase_id?: number | PortafoliosModels;
+    document_id?: number | DocumentoModels;
   }

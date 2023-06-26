@@ -22,6 +22,29 @@
     <label>Name:</label>
     <input type="text" [(ngModel)]="document.files[0].name" name="fileName{{i}}">
     <!-- Agrega más campos según las propiedades necesarias -->
+
+    <label>Type:</label>
+    <input type="text" [(ngModel)]="document.files[0].type" name="fileType{{i}}">
+    <!-- Agrega más campos según las propiedades necesarias -->
+
+    <label>Content:</label>
+    <textarea [(ngModel)]="document.files[0].content" name="fileContent{{i}}"></textarea>
+    <!-- Agrega más campos según las propiedades necesarias -->
+
+    <label>Size:</label>
+    <input type="number" [(ngModel)]="document.files[0].size" name="fileSize{{i}}">
+    <!-- Agrega más campos según las propiedades necesarias -->
+
+    <label>Upload File:</label>
+    <input type="file" (change)="onFileChange($event, i)" accept=".txt,.pdf,.doc,.docx">
+    <!-- Agrega el evento onFileChange para manejar la carga del archivo -->
+
+    <!-- Mostrar información del archivo seleccionado -->
+    <div *ngIf="document.files[0].file">
+      <p>Selected File: {{ document.files[0].file.name }}</p>
+      <p>File Size: {{ document.files[0].file.size }}</p>
+      <p>File Type: {{ document.files[0].file.type }}</p>
+    </div>
   </div>
 
   <button type="button" (click)="addDocument()">Add Document</button>

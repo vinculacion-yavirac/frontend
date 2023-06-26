@@ -3,10 +3,14 @@ import {FilesModels} from "../files/file.models";
 
 export interface DocumentoModels {
   id?: number;
-  name: string;
+  name?: string;
   template?: string;
   state?: boolean;
   order?: number;
-  files:FilesModels[]
+  files: FilesModels[];
   responsible_id?: Role;
 }
+
+export const defaultDocumentoModels: DocumentoModels = {
+  files: [],
+};
