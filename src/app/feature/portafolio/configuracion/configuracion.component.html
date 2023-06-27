@@ -5,10 +5,52 @@
 
 <p>configuracion works!</p>
 
+
+<div class="container">
+  <h1>Configuración</h1>
+
+  <form [formGroup]="documentForm" (ngSubmit)="submitForm()">
+    <div formArrayName="documents">
+      <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i" class="document-item">
+        <h3>Documento {{ i + 1 }}</h3>
+        <div>
+          <label>Nombre:</label>
+          <input type="text" formControlName="name" required>
+        </div>
+        <div>
+          <label>Plantilla:</label>
+          <input type="text" formControlName="template" required>
+        </div>
+        <div>
+          <label>Estado:</label>
+          <input type="checkbox" formControlName="state" [checked]="true" required>
+        </div>
+        <div>
+          <label>Orden:</label>
+          <input type="number" formControlName="order" required>
+        </div>
+        <div>
+          <label>Rol responsable:</label>
+          <select formControlName="responsible_id" (change)="selectRole($event)">
+            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+          </select>
+        </div>
+        <button type="button" (click)="removeDocument(i)">Eliminar documento</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addDocument()">Agregar documento</button>
+    <button type="submit">Crear documentos</button>
+  </form>
+
+  <div *ngIf="loading">Cargando roles...</div>
+</div>
+
+<!--
 <form [formGroup]="documentForm" (ngSubmit)="submitForm()">
   <div formArrayName="documents">
     <div *ngFor="let documentGroup of documents.controls; let i = index" [formGroupName]="i">
-      <!-- Resto de los campos -->
+
       <label for="name">Nombre</label>
       <input type="text" formControlName="name">
 
@@ -30,3 +72,4 @@
   <button type="button" (click)="addDocument()">Agregar Documento</button>
   <button type="submit">Crear Documentos</button>
 </form>
+-->
