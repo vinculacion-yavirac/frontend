@@ -12,10 +12,11 @@ export class AvanceCumplimientoService {
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  private url = environment.API_URL + '/avance';
+  private url = environment.API_URL + '/avanze';
+  private url2 = environment.API_URL + '/project/3';
 
 
-  public addAvance(data: any): Observable<any> {
+  public addAvanze(data: any): Observable<any> {
     console.log(data);
 
     return this.http.post<any>(
@@ -23,14 +24,21 @@ export class AvanceCumplimientoService {
       this.httpOptions
     );
   }
-  public getAvance(): Observable<any> {
+  public getAvanze(): Observable<any> {
 
     return this.http.get<any>(
       `${this.url}/`,
       this.httpOptions
     );
   }
-  public getAvanceById(id:any): Observable<any> {
+  public getProyecto(): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url2}/`,
+      this.httpOptions
+    );
+  }
+  public getAvanzeById(id:any): Observable<any> {
 
     return this.http.get<any>(
       `${this.url}/${id}`,
@@ -38,7 +46,7 @@ export class AvanceCumplimientoService {
     );
   }
 
-  public updateAvance(id: any, data: any): Observable<any> {
+  public updateAvanze(id: any, data: any): Observable<any> {
 
     return this.http.put(
       `${this.url}/update/${id}`, data, this.httpOptions
@@ -46,7 +54,7 @@ export class AvanceCumplimientoService {
   }
 
 
-  public deleteAvanceById(id: any): Observable<any> {
+  public deleteAvanzeById(id: any): Observable<any> {
 
     return this.http.delete<any>(
       `${this.url}/delete/${id}`, this.httpOptions

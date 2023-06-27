@@ -27,14 +27,9 @@ export class SidebarComponent implements AfterViewInit{
     if (this.dropdownPopoverShow) {
       this.dropdownPopoverShow = false;
     } else {
-      this.dropdownPopoverShow = false;
+      this.dropdownPopoverShow = true;
     }
   }
 
-  mostrarReporte = false;
-
-  activarReporte() {
-    this.mostrarReporte = true;
-  }
 
 }

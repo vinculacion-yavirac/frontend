@@ -6,6 +6,8 @@ import { DatosGenerales } from './../../../../models/proyecto/datos-generales.mo
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { DatePipe } from '@angular/common';
 
 interface Carrera {
   id: number;
@@ -24,23 +26,22 @@ export class FormDatosGeneralesComponent implements OnInit {
   public doc2: any;
   public avanceData: any;
   id?: string;
+  public proyectData: any=[];
+
 
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private httpProvider: AvanceCumplimientoService,
+    private miDatePipe: DatePipe
+
   ) {}
 
   ngOnInit(): void {
 
     /*Array para generear pdf con datos dinamicos*/
-    let data = [{
-      "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC",
-      "Nombre": "Maria Jose Ortega",
-      "fecha":"10/05/2023"
-    }];
+    this.getAllProyecto();
 
-
-    this.avanceData = data;
   }
 
   carreraId: Carrera[] = [];
@@ -160,258 +161,687 @@ export class FormDatosGeneralesComponent implements OnInit {
     }
 
 
+    public getAllProyecto() {
+      this.httpProvider.getProyecto().subscribe((data: any) => {
+
+        console.log(data);
+
+
+        if (data.data.projects != null && data.data.projects != null) {
+          var resultData = data.data.projects;
+          if (resultData) {
+            console.log(resultData);
+            console.log(resultData);
+
+
+            this.proyectData = resultData;
+          }
+        }
+      },
+        (error: any) => {
+          if (error) {
+            if (error.status == 404) {
+              if (error.error && error.error.message) {
+                this.proyectData = [];
+              }
+            }
+          }
+        });
+    }
+
+
+
 
 
 
     /*Seccion generear reportes Convenio,Itv,Proyecto  */
 
   /* pdf proyecto*/
-  public pdf() {
-    var d = new Date();
-    var s = new Date();
-    var dia = s.getUTCDate();
-    var ed = this.id
-    const month_value = d.getMonth();
 
-    var months = new Array(12);
-    months[0] = "Enero";
-    months[1] = "Febrero";
-    months[2] = "Marzo";
-    months[3] = "Abril";
-    months[4] = "Mayo";
-    months[5] = "Junio";
-    months[6] = "Julio";
-    months[7] = "Agosto";
-    months[8] = "Septiembre";
-    months[9] = "Octubre";
-    months[10] = "Noviembre";
-    months[11] = "Diciembre";
+    /* pdf proyecto*/
+    public pdf() {
+      console.log(this.proyectData);
 
-    // var fir =this.reportReport[0].nombres.charAt(0);
-    // var ult =this.reportReport[0].nombres.charAt(this.reportReport[0].nombres.length - 1);
+      var d = new Date();
+      var s = new Date();
+      var dia = s.getUTCDate();
+      var ed = this.id
+      const month_value = d.getMonth();
 
-    //numeros aleatorios//
-    var data = []
+      var months = new Array(12);
+      months[0] = "Enero";
+      months[1] = "Febrero";
+      months[2] = "Marzo";
+      months[3] = "Abril";
+      months[4] = "Mayo";
+      months[5] = "Junio";
+      months[6] = "Julio";
+      months[7] = "Agosto";
+      months[8] = "Septiembre";
+      months[9] = "Octubre";
+      months[10] = "Noviembre";
+      months[11] = "Diciembre";
 
-    this.doc = new jsPDF('p', 'pt');
-    let rows: never[] = [];
+      // var fir =this.reportReport[0].nombres.charAt(0);
+      // var ult =this.reportReport[0].nombres.charAt(this.reportReport[0].nombres.length - 1);
 
-    const pageContent = (data: any) => {
-      // HEADER
-      this.doc.setFontSize(16);
-      // this.doc.setFontStyle('bold');
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('INSTITUTO SUPERIOR TECNOLÓGICO', 175, 85);
-      this.doc.text('D E   T U R I S M O   Y	P A T R I M O N I O', 155, 115);
-      this.doc.text('“Y A V I R A C”', 255, 145);
+      //numeros aleatorios//
+      var data = []
 
-      // this.doc.setFontSize(7);
-      // this.doc.text('Quito- Ecuador', 215, 165);
+      this.doc = new jsPDF('p', 'pt');
+      let rows: never[] = [];
 
-      this.doc.setFontSize(11);
-      // this.doc.setFontStyle('bold');
-      this.doc.text('DEPARTAMENTO DE VINCULACIÓN CON LA  SOCIEDAD ', 155, 210);
-      // this.doc.setFontSize(11);
-      // this.doc.setFontStyle('normal');
-      // this.doc.text('VINCULACIÓN CON LA  SOCIEDAD', 280, 210);
+      const pageContent = (data: any) => {
+        // HEADER
+        this.doc.setFontSize(16);
+        // this.doc.setFontStyle('bold');
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('INSTITUTO SUPERIOR TECNOLÓGICO', 175, 85);
+        this.doc.text('D E   T U R I S M O   Y	P A T R I M O N I O', 155, 115);
+        this.doc.text('“Y A V I R A C”', 255, 145);
 
-      this.doc.setFontSize(11);
-      this.doc.text('CARRERA:', 155, 230);
-      this.doc.setFontSize(10);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('TECNOLOGÍA EN DESARROLLO DE SOFTWARE', 215, 230);
+        // this.doc.setFontSize(7);
+        // this.doc.text('Quito- Ecuador', 215, 165);
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('NOMBRE DEL PROYECTO:', 115, 255);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('IMPLEMENTACIÓN DE UN SISTEMA WEB QUE PERMITA DAR A CONOCER LOS SERVICIOS Y PRODUCTOS QUE OFRECE LA FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL “FUNAPACE”', 260, 255, { maxWidth: 250, align: 'justify' });
+        this.doc.setFontSize(11);
+        // this.doc.setFontStyle('bold');
+        this.doc.text('DEPARTAMENTO DE VINCULACIÓN CON LA  SOCIEDAD ', 155, 210);
+        // this.doc.setFontSize(11);
+        // this.doc.setFontStyle('normal');
+        // this.doc.text('VINCULACIÓN CON LA  SOCIEDAD', 280, 210);
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('COORDINADOR DE CARRERA:', 45, 355);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('ING. DIEGO YANEZ', 215, 355);
-      this.doc.setFontSize(10);
+        this.doc.setFontSize(11);
+        this.doc.text('CARRERA:', 155, 230);
+        this.doc.setFontSize(10);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.career_id.name, 215, 230);
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('ACTORES:/TUTORES:', 45, 380);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('BYRON MORENO / YOGLEDIS HERRERA', 170, 380);
-      this.doc.setFontSize(10);
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('NOMBRE DEL PROYECTO:', 115, 255);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.name, 260, 255, { maxWidth: 250, align: 'justify' });
 
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('COORDINADOR DE CARRERA:', 45, 355);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('ING. DIEGO YANEZ', 215, 355);
+        this.doc.setFontSize(10);
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('INSTITUCIÓN BENEFICIARIA:', 45, 405);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL FUNAPACE', 210, 405);
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('ACTORES:/TUTORES:', 45, 380);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('BYRON MORENO / YOGLEDIS HERRERA', 170, 380);
+        this.doc.setFontSize(10);
 
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('COORDINADOR(ES) INSTITUCIÓN BENEFICIARIA:', 45, 435);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('DIEGO YANEZ', 320, 435);
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('INSTITUCIÓN BENEFICIARIA:', 45, 405);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.beneficiary_institution_id.name, 210, 405);
 
 
-      this.doc.setFontSize(11);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('CODIGO DEL PROYECTO:', 45, 465);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('IST Yavirac-VC-DS-002-2023', 190, 465);
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('COORDINADOR(ES) INSTITUCIÓN BENEFICIARIA:', 45, 435);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('DIEGO YANEZ', 320, 435);
+
+
+        this.doc.setFontSize(11);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('CODIGO DEL PROYECTO:', 45, 465);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.code, 190, 465);
 
 
 
 
-      this.doc.setFontSize(16);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('Quito-Ecuador', 255, 575);
-      this.doc.setFontSize(16);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('MAYO - 2023', 255, 600);
+        this.doc.setFontSize(16);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('Quito-Ecuador', 255, 575);
+        this.doc.setFontSize(16);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('MAYO - 2023', 255, 600);
 
-    }
-    this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
-
-    const pageContent2 = (data: any) => {
-      // HEADER
+      }
       this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
-      this.doc.line(40, 150, 550, 150);
-      this.doc.line(40, 150, 40, 650);
-      this.doc.line(550, 150, 550, 650);
 
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('1. PROYECTO/ACTIVIDAD', 45, 165);
-      this.doc.line(40, 170, 550, 170);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.text('TITULO:', 45, 185);
-      this.doc.setFontSize(6);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('Debe responder a estas tres preguntas: ¿Qué se va a hacer? ¿Sobre qué? ¿Dónde?', 85, 185);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('IMPLEMENTACIÓN DE UN SISTEMA WEB QUE PERMITA DAR A CONOCER LOS SERVICIOS Y PRODUCTOS QUE OFRECE LA FUNDACIÓN NACIONAL DE PARÁLISIS CEREBRAL “FUNAPACE”', 45, 200, { maxWidth: 350, align: 'justify' });
-      this.doc.line(40, 230, 550, 230);
+      const pageContent2 = (data: any) => {
+        // HEADER
+        this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+        this.doc.line(40, 150, 550, 150);
+        this.doc.line(40, 150, 40, 650);
+        this.doc.line(550, 150, 550, 650);
 
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('CARRERA:', 45, 240);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('TECNOLOGÍA EN DESARROLLO DE SOFTWARE', 95, 240);
-      this.doc.line(40, 250, 550, 250);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('1. PROYECTO/ACTIVIDAD', 45, 165);
+        this.doc.line(40, 170, 550, 170);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('TITULO:', 45, 185);
+        this.doc.setFontSize(6);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('Debe responder a estas tres preguntas: ¿Qué se va a hacer? ¿Sobre qué? ¿Dónde?', 85, 185);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.name, 45, 200, { maxWidth: 350, align: 'justify' });
+        this.doc.line(40, 230, 550, 230);
 
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('CICLO:', 45, 260);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('Estudiantes de la carrera de Desarrollo de Software de 4to Y 5to semestre y egresados', 75, 260, { maxWidth: 250, align: 'justify' });
-      this.doc.line(40, 275, 550, 275);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('CARRERA:', 45, 240);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.proyectData.career_id.name, 95, 240);
+        this.doc.line(40, 250, 550, 250);
 
-
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('COBERTURA Y LOCALIZACION:', 45, 295);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('Barrio: LA MOYA Calle: JOSE PLACIDO CAAMAÑO Número: S7-136 Intersección: ESPEJO Número de oficina: PB Número de piso: 0 Referencia: JUNTO AL HOGAR DE TRÁNSITO DE MUJERES', 200, 285, { maxWidth: 345, align: 'justify' });
-      this.doc.line(40, 315, 550, 315);
-
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('PLAZO DE EJECUCION:', 45, 340);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
-      this.doc.line(40, 355, 550, 355);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('CICLO:', 45, 260);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('Estudiantes de la carrera de Desarrollo de Software de 4to Y 5to semestre y egresados', 85, 260, { maxWidth: 250, align: 'justify' });
+        this.doc.line(40, 275, 550, 275);
 
 
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('PLAZO DE EJECUCION:', 45, 340);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
-      this.doc.line(40, 355, 550, 355);
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('FECHA PRESENTACIÓN:', 45, 375);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('05/10/2023', 200, 375, { maxWidth: 345, align: 'justify' });
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('COBERTURA Y LOCALIZACION:', 45, 295);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('Barrio: LA MOYA Calle: JOSE PLACIDO CAAMAÑO Número: S7-136 Intersección: ESPEJO Número de oficina: PB Número de piso: 0 Referencia: JUNTO AL HOGAR DE TRÁNSITO DE MUJERES', 200, 285, { maxWidth: 345, align: 'justify' });
+        this.doc.line(40, 315, 550, 315);
 
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('FECHA INICIO:', 250, 375);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('05/10/2023', 325, 375, { maxWidth: 345, align: 'justify' });
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('PLAZO DE EJECUCION:', 45, 340);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
+        this.doc.line(40, 355, 550, 355);
 
-      this.doc.setFont("Roboto", 'bold');
-      this.doc.setFontSize(9);
-      this.doc.text('FECHA FIN:', 385, 375);
-      this.doc.setFontSize(9);
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('05/10/2023', 450, 375, { maxWidth: 345, align: 'justify' });
 
-      this.doc.line(40, 390, 550, 390);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('PLAZO DE EJECUCION:', 45, 340);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('3 años', 200, 340, { maxWidth: 345, align: 'justify' });
+        this.doc.line(40, 355, 550, 355);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('FECHA PRESENTACIÓN:', 45, 375);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text('05/10/2023', 200, 375, { maxWidth: 345, align: 'justify' });
+
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('FECHA INICIO:', 250, 375);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.miDatePipe.transform(this.proyectData.start_date, 'dd/MM/yyyy'), 325, 375, { maxWidth: 345, align: 'justify' });
+
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('FECHA FIN:', 385, 375);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.text(this.miDatePipe.transform(this.proyectData.end_date, 'dd/MM/yyyy'), 450, 375, { maxWidth: 345, align: 'justify' });
+
+        this.doc.line(40, 390, 550, 390);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.setFontSize(9);
+        this.doc.text('FRECUENCIA ACTIVIDADES:', 240, 410);
+        this.doc.line(40, 420, 550, 420);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('DIARIA', 80, 440);
+        this.doc.text('SEMANAL', 195, 440);
+        this.doc.text('QUINCNAL', 320, 440);
+        this.doc.text('MENSUAL', 440, 440);
+
+
+        this.doc.line(40, 460, 550, 460);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 55, 480);
+        this.doc.text('0', 170, 480);
+        this.doc.text('0', 280, 480);
+        this.doc.text('0', 410, 480);
+
+        this.doc.line(40, 510, 550, 510);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('ACTIVIDADE DE VINCULACIÓN', 55, 530);
+        this.doc.text('SECTORES DE INTERVENCIÓN', 230, 530);
+        this.doc.text('EJES ESTRATEGICOS DE VINCULACION CON LA COLECTIVIDAD', 475, 525, { maxWidth: 120, align: 'center' });
+
+        this.doc.line(40, 550, 550, 550);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Convenios institucionales', 42, 570);
+        this.doc.text('0', 190, 570);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Educación', 270, 570);
+        this.doc.text('0', 365, 570);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Ambiental', 395, 570);
+        this.doc.text('0', 510, 570);
+
+        this.doc.line(40, 585, 550, 585);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Acuerdo', 80, 605);
+        this.doc.text('0', 190, 605);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Salud', 260, 605);
+        this.doc.text('0', 365, 605);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Interculturalidad/género', 395, 605);
+        this.doc.text('0', 510, 605);
+
+
+        this.doc.line(40, 620, 550, 620);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Proyecto de vinculación propio  IST JME', 42, 635, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 635);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Saneamiento Ambiental', 240, 635, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 635);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Investigativo Académico', 395, 635, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 510, 635);
+        this.doc.line(40, 650, 555, 650);
+
+      }
+
+
+      const pageContent3 = (data: any) => {
+        // HEADER
+        this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+        this.doc.line(40, 150, 555, 150);
+        this.doc.line(40, 150, 40, 750);
+        this.doc.line(555, 150, 555, 750);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text(' Programa de capacitación a la  comunidad', 42, 165, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.line(170, 150, 170, 510);
+        this.doc.line(210, 150, 210, 510);
+
+        this.doc.text('0', 190, 165);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Desarrollo Social', 240, 165, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 165);
+        this.doc.line(345, 150, 345, 510);
+        this.doc.line(385, 150, 385, 510);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text(' Desarrollo social, comunitario', 395, 165, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 165);
+        this.doc.line(510, 150, 510, 510);
+
+        this.doc.line(40, 185, 555, 185);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Practicas Vinculación con la comunidad', 42, 195, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 195);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Apoyo Productivo', 240, 195, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 195);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Desarrollo local', 395, 195, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 195);
+
+
+        this.doc.line(40, 210, 555, 210);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 220, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 220);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Vivienda', 240, 220, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 220);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Desarrollo técnico y tecnológico', 395, 220, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 220);
+
+        this.doc.line(40, 240, 555, 240);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 250, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 250);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Protección del medio ambiente y desastres naturales', 270, 250, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 250);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Innovación', 395, 250, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 250);
+
+
+
+        this.doc.line(40, 270, 555, 270);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 280, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 280);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Recursos naturales y energía', 270, 280, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 280);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Responsabilidad social  universitaria', 440, 280, { maxWidth: 120, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 280);
+
+        this.doc.line(40, 300, 555, 300);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 310, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 310);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Transporte, comunicación y viabilidad', 270, 310, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 310);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Matriz productiva.', 395, 310, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 310);
+
+
+        this.doc.line(40, 330, 555, 330);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 340, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 340);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text(' Desarrollo Urbano', 240, 340, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 340);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 395, 340, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 340);
+
+        this.doc.line(40, 360, 555, 360);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 370, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 370);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Turismo', 240, 370, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 370);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 395, 370, { maxWidth: 120, align: 'justify' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 370);
+
+
+        this.doc.line(40, 390, 555, 390);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 400, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 400);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Cultura', 260, 400, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 400);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 395, 400, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 400);
+
+        this.doc.line(40, 420, 555, 420);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 430, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 430);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Desarrollo de investigación científica', 270, 430, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 430);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 395, 430, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 430);
+
+        this.doc.line(40, 450, 555, 450);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 42, 460, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 460);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Deportes', 260, 460, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 460);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('', 395, 460, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 460);
+
+        this.doc.line(40, 480, 555, 480);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Otros', 55, 490, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 190, 490);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Justicia y Seguridad', 270, 490, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 365, 490);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Otros', 395, 490, { maxWidth: 100, align: 'center' });
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('0', 525, 490);
+
+        this.doc.line(40, 510, 555, 510);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('2.-DESCRIPCION GENERAL  DEL PROYECTO', 45, 530, { maxWidth: 400, align: 'justify' });
+        this.doc.line(40, 540, 555, 540);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(11);
+        this.doc.text(this.proyectData.description, 45, 555,{ maxWidth: 500, align: 'justify' });
+        this.doc.line(40, 750, 555, 750);
+
+      }
+      const pageContent4 = (data: any) => {
+        // HEADER
+        this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+        this.doc.line(40, 150, 555, 150);
+        this.doc.line(40, 150, 40, 730);
+        this.doc.line(555, 150, 555, 730);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('4.-DESCRIPCIÓN GENERAL  DE LA REALIZACION DEL PROYECTO POR PARTE DEL TUTOR ACADEMICO', 45, 165);
+        this.doc.line(40, 170, 550, 170);
+
+        this.doc.line(40, 540, 555, 540);
+        this.doc.setFontSize(9);
+        this.doc.setFont("Roboto", 'bold');
+        this.doc.text('5.-PARTICIPANTES', 45, 555);
+        this.doc.line(40, 570, 555, 570);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Docentes', 80, 585);
+        this.doc.text('Nombre y título profesional ', 195, 585, { maxWidth: 100, align: 'center' });
+        this.doc.text('Horario de trabajo para el proyecto.', 320, 585, { maxWidth: 100, align: 'center' });
+        this.doc.text('Funciones asignadas', 440, 585, { maxWidth: 100, align: 'center' });
+        this.doc.line(40, 600, 555, 600);
+        this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+        this.doc.setFontSize(9);
+        this.doc.text('Coordinador del proyecto', 50, 615);
+        this.doc.text('0', 195, 615, { maxWidth: 100, align: 'center' });
+        this.doc.text('0', 320, 615, { maxWidth: 100, align: 'center' });
+        this.doc.text('0', 440, 615, { maxWidth: 100, align: 'center' });
+        this.doc.line(40, 630, 555, 630);
+
+        this.doc.line(170, 660, 555, 660);
+
+        this.doc.line(170, 690, 555, 690);
+        this.doc.line(40, 730, 555, 730);
+      }
+
+      this.doc.autoTable({
+        addPageContent: pageContent,
+
+      })
+
+
+      this.doc.autoTable({
+        addPageContent: pageContent2,
+
+        head: [['Name', 'Email', 'Country']],
+
+        body: [
+          ['David', 'david@example.com', 'Sweden'],
+          ['Castille', 'castille@example.com', 'Spain'],
+          // ...
+        ],
+        startY: 1100,
+        // Default for all columns
+        styles: { overflow: 'ellipsize', cellWidth: 'wrap' },
+        // Override the default above for the text column
+        columnStyles: { text: { cellWidth: 'auto' } },
+
+      })
+
+      this.doc.autoTable({
+        addPageContent: pageContent3,
+        startY: 2100,
+
+
+      })
+      this.doc.autoTable({
+        addPageContent: pageContent4,
+        startY: 3100,
+
+
+      })
+      var requiredPages = 4
+      for (var i = 0; i < requiredPages; i++) {
+        this.doc.addPage();
+        //doc.text(20, 100, 'Some Text.');
+      }
+      this.doc.save("table.pdf");
+
+
+
 
     }
 
-
-
-
-    this.doc.autoTable({
-      addPageContent: pageContent,
-
-    })
-
-
-    this.doc.autoTable({
-      addPageContent: pageContent2,
-
-      head: [['Name', 'Email', 'Country']],
-
-      body: [
-        ['David', 'david@example.com', 'Sweden'],
-        ['Castille', 'castille@example.com', 'Spain'],
-        // ...
-      ],
-      startY: 1100,
-      // Default for all columns
-      styles: { overflow: 'ellipsize', cellWidth: 'wrap' },
-      // Override the default above for the text column
-      columnStyles: { text: { cellWidth: 'auto' } },
-
-    })
-    var requiredPages = 4
-    for (var i = 0; i < requiredPages; i++) {
-      this.doc.addPage();
-      //doc.text(20, 100, 'Some Text.');
-    }
-    this.doc.save("table.pdf");
-
-
-
-
-  }
 
 
   /*pdf comvenio */
 
   public pdf_convenio() {
-    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -461,11 +891,11 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc2.text('Y', 275, 245);
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 155, 255);
+      this.doc2.text(this.proyectData.beneficiary_institution_id.name, 155, 255);
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.avanceData[0].Instituto + ', legalmente representado por el ' + this.avanceData[0].Nombre + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + '"nombre instituti' + ', legalmente representado por el ' + 'Nombre representado' + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -923,7 +1353,6 @@ export class FormDatosGeneralesComponent implements OnInit {
 
   /*pdf documento itv*/
   public pdf_itv() {
-    console.log(this.avanceData);
 
     var d = new Date();
     var s = new Date();
@@ -975,14 +1404,14 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 200, 555, 200);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.avanceData[0].Instituto, 160, 195);
+      this.doc.text('0', 160, 195);
 
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('Nombre del IST:', 40, 215);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 215, { maxWidth: 100, align: 'justify' });
+      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 215, { maxWidth: 100, align: 'justify' });
       this.doc.line(40, 220, 555, 220);
 
       this.doc.setFontSize(10);
@@ -991,7 +1420,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 240, 555, 240);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.avanceData[0].fecha, 160, 235, { maxWidth: 100, align: 'justify' });
+      this.doc.text('0', 160, 235, { maxWidth: 100, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');
