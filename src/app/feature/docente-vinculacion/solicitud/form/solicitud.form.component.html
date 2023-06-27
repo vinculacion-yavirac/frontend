@@ -1,111 +1,99 @@
-<module-header title="{{ title }}">
+<module-header [title]="title">
   <solicitud-breadcrumbs breadcrumbs>
     <li><a routerLink="/system/solicitud/form">Asignar</a></li>
     <li *ngIf="formGroup.get('created_by.person.names')?.value">
-      <a>{{ formGroup.get("created_by.person.names")?.value }}</a>
+      <a>{{ formGroup.get('created_by.person.names')?.value }}</a>
     </li>
   </solicitud-breadcrumbs>
   <div tabs class="h-8"></div>
 </module-header>
 
-
 <section>
-  <div class="bg-neutral-content flex items-center  w-90 h-full p-20 border-t-[1px] border-[#535a6650]">
+  <div class="bg-neutral-content flex items-center w-90 h-full p-20 border-t-[1px] border-[#535a6650]">
     <div class="a4-container bg-white text-black border border-gray-400 p-30 relative">
-      <!-- cuadro de asigancion
-  <form *ngFor="let solicitud of solicitudes" >
-      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">-->
-      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <div class="hoja">
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="!loading">
+        <div class="hoja" >
           <!-- Fecha -->
           <div class="h-40">
-            <p class="!text-right font-bold">{{ obtenerFechaActual() }}</p>
+            <p class="text-right font-bold">{{ obtenerFechaActual() }}</p>
           </div>
 
           <h3 class="text-center font-bold uppercase h-20">
-            SOLICITUD{{formGroup.get('type_request_id.catalog_value')?.value}}</h3>
-          <div class=" h-50">
+            SOLICITUD {{ formGroup.get('type_request_id.catalog_value')?.value }}</h3>
+          <div class="h-50">
             <p class="text-left">
               El Sr/Sra:
-              <span class="text-left font-bold uppercase ">{{
-                formGroup.get('created_by.person.names')?.value}} {{
-                formGroup.get('created_by.person.last_names')?.value}}</span>,
-              con numero de Cedula: <span class="text-left font-bold uppercase ">{{
-                formGroup.get('created_by.person.identification')?.value}}</span>,
+              <span class="text-left font-bold uppercase">
+                {{ getNamesSurnamesComplete() }}
+              </span>,
+              con número de Cédula: <span class="text-left font-bold uppercase">
+                {{ formGroup.get('created_by.person.identification')?.value }}
+              </span>,
             </p>
-            <p class="text-left ">
-              y Correo Electronico: <span class="text-left font-bold ">{{
-                formGroup.get('created_by.email')?.value}}</span>, cursando la carrera: <span
-                class="text-left font-bold uppercase ">{{formGroup.get('who_made_request_id.project.career_id.name')?.value}}</span>,
+            <p class="text-left">
+              y Correo Electrónico: <span class="text-left font-bold">{{ formGroup.get('created_by.email')?.value }}</span>, cursando la carrera: <span class="text-left font-bold uppercase">{{ formGroup.get('who_made_request_id.project.career_id.name')?.value }}</span>,
             </p>
             <p class="text-left h-20">
-              en el Semestre <span
-                class="text-left font-bold uppercase ">{{formGroup.get('created_by.person.last_names')?.value}}</span>
+              en el Semestre <span class="text-left font-bold uppercase">{{ formGroup.get('created_by.person.last_names')?.value }}</span>
             </p>
-
-            <!-- combobox-->
-            <div *ngIf="selectedProject">
+            <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
+              <div class="h-[calc(100%)] absolute">
+                <loader></loader>
+                <no-content *ngIf="!loading"></no-content>
+              </div>
+            </div>
+            <!-- Formulario combobox-->
+            <div id="whoMadeRequestId"  *ngIf="selectedProject">
               <div class="h-20">
-                <h4 class="text-center font-bold uppercase">Información del proyecto</h4>
-                <p>Fundacion:</p>
-                <p>Encargado:</p>
-                <p>Direccion:</p>
-                <p>Proyecto: {{selectedProject.names}}</p>
+                <h4 class="text-center font-bold uppercase">Información de la Fundación</h4>
+                <p>Nombre de la Fundacion: {{ selectedProject.beneficiary_institution_id.name }}</p>
+                <p>RUC: {{ selectedProject.beneficiary_institution_id.ruc }}</p>
+                <p>Ubicacion: {{ selectedProject.beneficiary_institution_id.place_location }}</p>
+
+                <h5 class="text-center font-bold uppercase">Información del Proyecto</h5>
+                <p>Nombre del Proyecto: {{ selectedProject.name }}</p>
+                <p>Descripción: {{ selectedProject.description }}</p>
+                <p>Beneficiario Directo: {{ selectedProject.direct_beneficiaries }}</p>
+                <p>Beneficiario Indirecto: {{ selectedProject.indirect_beneficiaries }}</p>
+                <p>Fecha de Inicio: {{ formatearFecha(selectedProject.start_date) }}</p>
+                <p>Fecha de Culminación: {{ formatearFecha(selectedProject.end_date) }}</p>
+
               </div>
+              <!-- Agrega aquí más campos de información que desees mostrar -->
             </div>
 
-          </div>
-
-
-
-
-
-
-          <div>
-            <p class="text-left mb-16">Presente.</p>
-
-            <h4 class="text-left">De mi consideración:</h4>
-
-            <!-- Desarrollo -->
-            <div class="text-center mb-20">
-              <p></p>
-            </div>
-
-            <h4 class="text-left">Atentamentessssss</h4>
-
-            <!-- Sección de firmas -->
-            <div class="flex justify-between">
-              <div class="w-1/3">
-                <hr class="border border-gray-400 mb-1">
-                <p class="text-center">Firma del emisor</p>
-              </div>
-            </div>
           </div>
         </div>
+        <div *ngIf="selectedProject" class="grid place-items-center">
+          <button class="btn btn-info w-25" type="submit" (click)="onSubmit">Asignar</button>
+        </div>
       </form>
+      <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
+        <div class="h-[calc(100%)] absolute">
+          <loader></loader>
+          <no-content *ngIf="!loading"></no-content>
+        </div>
+      </div>
+      <!--<div *ngIf="loading">Cargando...</div>-->
 
-
-      <!-- cuadro de asigancion -->
-      <div class="absolute right-12 -top-40">
+      <!-- cuadro de asignación -->
+      <div class="absolute right-12 -top-40" *ngIf="!loading">
         <div class="relative">
           <div class="absolute w-60 top-60 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0">
             <div class="border-b pb-2 mb-2 font-light flex items-center justify-between">
-              <h1>Asignar Fundacion</h1>
+              <h1>Asignar Fundación</h1>
             </div>
 
-            <span class="text-xs opacity-50">Fundacion: </span>
+            <span class="text-xs opacity-50">Fundación: {{ selectedProject }}</span>
 
             <div class="w-full !my-2">
               <div class="relative">
                 <mat-form-field appearance="fill" class="w-full">
                   <mat-label>Proyectos</mat-label>
-                  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher"
-                    [(ngModel)]="selectedProject">
-                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{proyecto.beneficiary_institution_id.name + proyecto.name }}
-                    </mat-option>
+                  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher" (selectionChange)="onProjectSelectionChange($event.value)">
+                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{ proyecto.beneficiary_institution_id.name + proyecto.name }}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es
-                    <strong>requerido</strong></mat-error>
+                  <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es <strong>requerido</strong></mat-error>
                   <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
                 </mat-form-field>
               </div>
@@ -113,14 +101,10 @@
           </div>
         </div>
       </div>
-      <!-- cuadro de asigancion -->
-      <div *ngIf="selectedProject" class="grid place-items-center">
-        <button class="btn btn-info w-25">Asignar</button>
-      </div>
+      <!-- cuadro de asignación -->
+
     </div>
   </div>
-
-
 </section>
 
 
