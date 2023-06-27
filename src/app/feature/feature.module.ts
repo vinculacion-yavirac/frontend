@@ -125,6 +125,7 @@ import {
 import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
+import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
 
 
 @NgModule({
@@ -225,6 +226,7 @@ import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
     ProyectoComboboxComponent,
     ProyectoInfoComponent,
     ProyectosComboboxComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     CommonModule,

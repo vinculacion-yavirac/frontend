@@ -1,0 +1,32 @@
+<module-header title="Portafolio">
+  <app-portafolio-breadcrumbs breadcrumbs></app-portafolio-breadcrumbs>
+  <app-portafolio-tabs tabs route="portafolio"></app-portafolio-tabs>
+</module-header>
+
+<p>configuracion works!</p>
+
+<form [formGroup]="documentForm" (ngSubmit)="submitForm()">
+  <div formArrayName="documents">
+    <div *ngFor="let documentGroup of documents.controls; let i = index" [formGroupName]="i">
+      <!-- Resto de los campos -->
+      <label for="name">Nombre</label>
+      <input type="text" formControlName="name">
+
+      <label for="template">Plantilla</label>
+      <input type="text" formControlName="template">
+
+      <label for="state">Estado</label>
+      <input type="checkbox" formControlName="state">
+
+      <label for="order">Orden</label>
+      <input type="number" formControlName="order">
+
+      <label for="responsible_id">ID del responsable</label>
+      <input type="number" formControlName="responsible_id">
+      <button type="button" (click)="removeDocument(i)">Eliminar</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addDocument()">Agregar Documento</button>
+  <button type="submit">Crear Documentos</button>
+</form>
