@@ -21,4 +21,8 @@ export class DocumentoHttpService {
   getDocuments(): Observable<DocumentoModels[]> {
     return this.http.get<DocumentoModels[]>(this.url);
   }
+
+  addDocuments(documento: DocumentoModels): Observable<DocumentoModels> {
+    return this.http.post<DocumentoModels>(`${this.url}/create`, documento, this.httpOptions);
+  }
 }
