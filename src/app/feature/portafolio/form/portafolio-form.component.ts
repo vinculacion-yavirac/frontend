@@ -83,9 +83,9 @@ export class PortafolioFormComponent {
           const customFile: CustomFile = {
             file: file,
             content: content,
-            name: '',
-            type: '',
-            size: 0
+            name: file.name as string,
+            type: file.type,
+            size: file.size
           };
           files.push(customFile); // Agregar el objeto CustomFile al arreglo
         };
