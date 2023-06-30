@@ -122,6 +122,7 @@ export class PortafolioFormComponent {
           document_id: 1, // Asigna un valor válido para 'document_id'
         };
         briefcaseData.files.push(fileData);
+        
       });
   
       this.portafolioHttpService.addPortafolios(briefcaseData).subscribe(
