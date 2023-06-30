@@ -162,12 +162,7 @@ export class AsignarComponent implements OnInit {
 
   //método para crear un oficio nuevo
   createOficio() {
-    this.portafolioHttpService.addPortafolios(this.currentOficio).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.uploadFiles(res.data.official_document.id, this.files);
-        this.router.navigate(['/system/oficios-list']);
-      }
-    });
+    
   }
 
   /**
