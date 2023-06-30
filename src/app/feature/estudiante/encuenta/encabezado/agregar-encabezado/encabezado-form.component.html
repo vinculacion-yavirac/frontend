@@ -1,0 +1,156 @@
+<div class="container mx-auto m-3">
+
+  <form>
+    <div class="space-y-12">
+      <div class="border-b border-gray-900/10 pb-12">
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Encabezado Encuesta</h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">Lea detenidamente e ingrese los datos correspondientes</p>
+
+
+        <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-5">
+            <label for="tipo" class="block text-sm font-medium leading-6 text-gray-900">Titulo Encuesta</label>
+            <div class="mt-1">
+              <input type="text" placeholder="Ejemplo:Encuesta de Percepción para la comunidad" name="tipo"
+                id="tipo" [(ngModel)]="currentEntityadd.tipo"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+
+          <div class="sm:col-span-3">
+            <label for="nombre_institucion" class="block text-sm font-medium leading-6 text-gray-900">Nombre de la
+              institución:</label>
+            <div class="mt-1">
+              <input type="text" placeholder="Ejemplo:Gobierno Autonomo Desentralizado De Zambiza" name="nombre_institucion"
+                id="nombre_institucion"  [(ngModel)]="currentEntityadd.nombre_institucion"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+          <div class="sm:col-span-3">
+            <label for="actividad_realizada" class="block text-sm font-medium leading-6 text-gray-900">Nombre de la actividad
+              realizada: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:Vinculacion con la Sociedad" name="actividad_realizada" id="actividad_realizada" [(ngModel)]="currentEntityadd.actividad_realizada"
+                autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="docente_tutor" class="block text-sm font-medium leading-6 text-gray-900">Nombre del docente
+              tutor: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:Ing.Mauricio Tamayo" name="docente_tutor" id="docente_tutor" [(ngModel)]="currentEntityadd.docente_tutor"
+                autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="tutor_entidad_financiera" class="block text-sm font-medium leading-6 text-gray-900">Nombre del tutor de la
+              entidad beneficiaria: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:Dr. Reinaldo Arias" name="tutor_entidad_financiera" id="tutor_entidad_financiera" [(ngModel)]="currentEntityadd.tutor_entidad_financiera"
+                autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+
+          <div class="sm:col-span-5">
+            <label for="proyecto" class="block text-sm font-medium leading-6 text-gray-900">Proyecto</label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:Proyecto Pagina Web Del Gobierno Parroquial De Zambiza"
+                name="proyecto" id="proyecto" [(ngModel)]="currentEntityadd.proyecto" autocomplete="street-address"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+          <div class="sm:col-span-3">
+            <label for="codigo_proyecto" class="block text-sm font-medium leading-6 text-gray-900">Código del
+              proyecto:</label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:IST Yavirac-VC-GN- 002-2021" name="codigo_proyecto" id="codigo_proyecto" [(ngModel)]="currentEntityadd.codigo_proyecto"
+                autocomplete="given-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+          <div class="sm:col-span-3">
+            <label for="genero" class="block text-sm font-medium leading-6 text-gray-900">Género: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:Masculino  |  Femenino" name="genero" id="genero" [(ngModel)]="currentEntityadd.genero"
+                autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="rango_edad" class="block text-sm font-medium leading-6 text-gray-900">Rango de Edad: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:5-12 | 13-17 | 18-25 | 26-65 | 66 o más" name="rango_edad"
+                id="rango_edad" [(ngModel)]="currentEntityadd.rango_edad" autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="fecha" class="block text-sm font-medium leading-6 text-gray-900">Fecha: </label>
+            <div class="mt-2">
+              <input type="date" placeholder="Ejemplo:" name="fecha"
+                id="fecha" [(ngModel)]="currentEntityadd.fecha"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-5">
+            <label for="objetivo" class="block text-sm font-medium leading-6 text-gray-900">Objetivo: </label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo: Evaluar el proceso de vinculación con la sociedad organizado por el instituto.
+            " name="objetivo" id="objetivo" [(ngModel)]="currentEntityadd.objetivo" autocomplete="street-address"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-5">
+            <label for="instructivo" class="block text-sm font-medium leading-6 text-gray-900">Instructivo: </label>
+            <div class="mt-2">
+              <input type="text"
+                placeholder="Ejemplo:: Por favor registre su opinión en cada una de las preguntas formuladas en la encuesta, la cual será de mucha ayuda para mejorar la calidad del proceso"
+                name="instructivo" id="instructivo" [(ngModel)]="currentEntityadd.instructivo" autocomplete="street-address"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-5">
+            <label for="informacion_general" class="block text-sm font-medium leading-6 text-gray-900">Información
+              General</label>
+            <div class="mt-2">
+              <input type="text" placeholder="Ejemplo:La escala de estimación es la siguiente:" name="informacion_general"
+                id="informacion_general" [(ngModel)]="currentEntityadd.informacion_general"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+      <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+      <button type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" (click)="createEncabezado()">Save</button>
+    </div>
+  </form>
+</div>

@@ -103,7 +103,15 @@ import { IntegrantesComponent } from './proyecto/integrantes/integrantes.compone
 import { ProyectoListComponent } from './proyecto/list/proyecto-list.component';
 import { ObservacionesComponent } from './proyecto/observaciones/observaciones.component';
 import { PlanDeTrabajoComponent } from './proyecto/plan-de-trabajo/plan-de-trabajo.component';
-import { AgregarPreguntaComponent } from './estudiante/encuenta/agregar-pregunta/agregar-pregunta.component';
+import { AgregarPreguntaComponent } from './estudiante/encuenta/pregunta/agregar-pregunta/agregar-pregunta.component';
+import { RespuestaComponent } from './estudiante/encuenta/respuesta/respuesta.component';
+import { EncabezadoFormComponent } from './estudiante/encuenta/encabezado/agregar-encabezado/encabezado-form.component';
+import { AgregarRespuestaComponent } from './estudiante/encuenta/respuesta/agregar-respuesta/agregar-respuesta.component';
+import { EncabezadoDosFormComponent } from './estudiante/encuenta/encabezado-dos/agregar-encabezado-dos/encabezado-dos-form.component';
+import { EncuestaComboboxComponent } from './estudiante/encuenta/encabezado/combobox/encuesta-combobox.component';
+import { PreguntaComboboxComponent } from './estudiante/encuenta/pregunta/combobox/pregunta-combobox.component';
+
+
 
 
 
@@ -195,7 +203,14 @@ import { AgregarPreguntaComponent } from './estudiante/encuenta/agregar-pregunta
     ObservacionesComponent,
     PlanDeTrabajoComponent,
     AgregarPreguntaComponent,
-  ],
+    RespuestaComponent,
+    EncabezadoFormComponent,
+    AgregarRespuestaComponent,
+    EncabezadoDosFormComponent,
+    EncuestaComboboxComponent,
+    PreguntaComboboxComponent,
+
+    ],
   imports: [
     CommonModule,
     FeatureRoutingModule,

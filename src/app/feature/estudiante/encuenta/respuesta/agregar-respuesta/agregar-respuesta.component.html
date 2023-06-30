@@ -1,0 +1,19 @@
+<p>agregar-respuesta works!</p>
+<div class="card">
+  <div class="card-header">
+    Agregar respuesta
+  </div>
+  <div class="card-body">
+    <label for="name" class="form-label">respuesta:</label>
+    <input type="text" id="name" [(ngModel)]="addEntity.descripcion"  class="form-control">
+    <br>
+    <label for="preguntas_id" class="form-label">respuesta:</label>
+    <app-pregunta-combobox (preguntaIdEmmiter)="addEntity.preguntas_id=$event" [preguntaId]="addEntity.preguntas_id"> </app-pregunta-combobox>
+
+    <app-encuesta-combobox class="text-black" (encuestaIdEmmiter)="addEntity.encuestas_id=$event"
+    [encuestaId]="addEntity.encuestas_id"></app-encuesta-combobox>
+
+
+    <button class="btn btn-info" (click)="createRespuesta()">Guardar respuesta</button>
+  </div>
+</div>

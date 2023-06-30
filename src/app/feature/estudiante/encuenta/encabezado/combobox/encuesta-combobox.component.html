@@ -1,0 +1,8 @@
+
+<select #selectEncuesta (change)="onSelect(selectEncuesta.value)" class="select select-bordered text-Black">
+  <option  selected disabled>Seleccionar</option>
+  <option *ngFor="let encuesta of encuestas"
+    [value]="encuesta.id"
+     [selected]="encuesta.id === encuesta.id"
+  >{{encuesta.id}}.{{encuesta.tipo}}</option>
+</select>
