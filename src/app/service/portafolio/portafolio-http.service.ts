@@ -71,8 +71,8 @@ export class PortafolioHttpService {
   }
 
   // POST / Crear portafolio
-  addPortafolios(formData: FormData): Observable<PortafoliosModels> {
-    return this.http.post<PortafoliosModels>(`${this.url}/create`, formData, this.httpOptions);
+  addPortafolios(data: PortafoliosModels): Observable<any> {
+    return this.http.post<any>(`${this.url}/create`, data, this.httpOptions);
   }
 
   // GET / Obtener comentarios

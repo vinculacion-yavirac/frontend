@@ -1,15 +1,40 @@
-<form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="observations">Observations:</label>
-    <textarea id="observations" formControlName="observations"></textarea>
-  </div>
-  <div>
-    <label for="state">State:</label>
-    <input type="checkbox" id="state" formControlName="state">
-  </div>
-  <div>
-    <label for="files">Files:</label>
-    <input type="file" id="files" formControlName="files" multiple>
-  </div>
-  <button type="submit">Submit</button>
-</form>
+<div class="container">
+  <h2>Create Portafolio</h2>
+  <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="observations">Observations</label>
+      <textarea id="observations" formControlName="observations" class="form-control"></textarea>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['required']" class="text-danger">
+        Observations is required.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['minlength']" class="text-danger">
+        Observations should be at least 25 characters long.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['maxlength']" class="text-danger">
+        Observations cannot exceed 100 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="state">State</label>
+      <select id="state" formControlName="state" class="form-control">
+        <option value="" disabled selected>Select a state</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+      <div *ngIf="briefcaseForm.get('state')?.errors?.['required']" class="text-danger">
+        State is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="files">Files</label>
+      <input type="file" id="files" formControlName="files" (change)="onFileChange($event)" multiple>
+      <div *ngIf="briefcaseForm.get('files')?.errors?.['required']" class="text-danger">
+        Files are required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!briefcaseForm.valid">Create</button>
+  </form>
+</div>

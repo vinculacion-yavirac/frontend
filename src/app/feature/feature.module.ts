@@ -127,7 +127,6 @@ import {PortafolioListComponent} from "./portafolio/list/portafolio-list.compone
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
 
-
 @NgModule({
   declarations: [
     OficialDocumentsStatesComboboxComponent,
