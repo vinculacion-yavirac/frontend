@@ -5,7 +5,8 @@ import { InstitucionBeneficiariaDetalleModels } from 'src/app/models/institucion
 import { InstitucionBeneficiariaModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria.models';
 import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ModalSolicitudesComponent } from '../modal-solicitudes/modal-solicitudes.component';
 
 @Component({
   selector: 'app-list-institucion-beneficiaria',
@@ -17,19 +18,23 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
   reverse = false;
   pipe = new DatePipe('en-US');
 
-  model : boolean;
+  model: boolean;
 
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
 
-  institucionesBeneficiarias: InstitucionBeneficiariaModels [] = [];
+  institucionesBeneficiarias: InstitucionBeneficiariaModels[] = [];
 
   loading: boolean = true;
 
   filterActiva: boolean;
   filterInactiva: boolean;
+
+  solicitudes: any[] = [];
+
+  fundacionSeleccionadaId: number | null = null;
 
   constructor(
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
@@ -52,6 +57,36 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
       this.getInstitucionesBeneficiarias();
     }
   }
+
+  //---------
+  public openModal(institucionBeneficiariaId: number): void {
+    const dialogRef = this.dialog.open(ModalSolicitudesComponent, {
+      height: '500px',
+      width: '800px',
+      data: {
+        fundacionSeleccionadaId: institucionBeneficiariaId, // Pasar el ID de la institución beneficiaria al modal
+        solicitudes: this.solicitudes
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // Realiza las acciones necesarias después de que el modal se cierre
+      if (result) {
+        // Código a ejecutar si se hizo clic en el botón o se cerró el modal
+      }
+    });
+  }
+
+  isBeneficiaryInstitutionMatch(solicitud: any): boolean {
+    // Verificar si fundacionSeleccionadaId y solicitud.project_id.beneficiary_institution_id son números válidos
+    if (typeof this.fundacionSeleccionadaId === 'number' && typeof solicitud.project_id.beneficiary_institution_id === 'number') {
+      // Realizar la comparación
+      return this.fundacionSeleccionadaId === solicitud.project_id.beneficiary_institution_id;
+    }
+    // Si no se cumple la condición anterior, no hay coincidencia
+    return false;
+  }
+  //---------
 
   public searchInstitucionBeneficiariaByTerm(term: string): void {
     this.loading = true;
@@ -77,7 +112,7 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     }
   }
 
-  public  filterInstitucionBeneficiariaByState(state: string): void {
+  public filterInstitucionBeneficiariaByState(state: string): void {
     this.loading = true;
     this.institucionBeneficiariaHttpService.filterInstitucionesBeneficiariaByStatus(state).subscribe((res: any) => {
       if (res.status == 'success') {
@@ -129,12 +164,12 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     }
     this.loading = false;
   }
+
   public sortInstitucionesBeneficiarias(): void {
     this.institucionesBeneficiarias.sort((a, b) => {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });
   }
-
 
   public openDialogArchiveRol(fundacionDetalle: InstitucionBeneficiariaDetalleModels): void {
     const dialogRef = this.dialog.open(ModalAlertComponent, {
@@ -143,8 +178,8 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
       data: {
         title: '¿Está seguro de archivar esta solicitud?',
         message:
-          'La solicitud será archivado y no podrá ser utilizado por los usuarios.',
-        dato:['Nombre:', fundacionDetalle.foundations.name, 'Tipo de solicitud:', fundacionDetalle.foundations],
+          'La solicitud será archivada y no podrá ser utilizada por los usuarios.',
+        dato: ['Nombre:', fundacionDetalle.foundations.name, 'Tipo de solicitud:', fundacionDetalle.foundations],
         // dato: fundacionDetalle.foundations.name
         button: 'Archivar',
       },
