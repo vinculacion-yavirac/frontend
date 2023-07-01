@@ -1,52 +1,48 @@
-<module-header title="">
-  <app-portafolio-breadcrumbs breadcrumbs>
-
-  </app-portafolio-breadcrumbs>
-  <div tabs class="h-8"></div>
-</module-header>
-
-
-<form>
-  <h2>Briefcase</h2>
-  <label>Observations:</label>
-  <input type="text" [(ngModel)]="briefcaseData.observations" name="observations">
-  <!-- Agrega más campos según las propiedades necesarias -->
-
-  <h2>Documents</h2>
-  <div *ngFor="let document of documents; let i = index">
-    <label>Name:</label>
-    <input type="text" [(ngModel)]="document.name" name="name{{i}}">
-    <!-- Agrega más campos según las propiedades necesarias -->
-
-    <h3>File</h3>
-    <label>Name:</label>
-    <input type="text" [(ngModel)]="document.files[0].name" name="fileName{{i}}">
-    <!-- Agrega más campos según las propiedades necesarias -->
-
-    <label>Type:</label>
-    <input type="text" [(ngModel)]="document.files[0].type" name="fileType{{i}}">
-    <!-- Agrega más campos según las propiedades necesarias -->
-
-    <label>Content:</label>
-    <textarea [(ngModel)]="document.files[0].content" name="fileContent{{i}}"></textarea>
-    <!-- Agrega más campos según las propiedades necesarias -->
-
-    <label>Size:</label>
-    <input type="number" [(ngModel)]="document.files[0].size" name="fileSize{{i}}">
-    <!-- Agrega más campos según las propiedades necesarias -->
-
-    <label>Upload File:</label>
-    <input type="file" (change)="onFileChange($event, i)" accept=".txt,.pdf,.doc,.docx">
-    <!-- Agrega el evento onFileChange para manejar la carga del archivo -->
-
-    <!-- Mostrar información del archivo seleccionado -->
-    <div *ngIf="document.files[0].file">
-      <p>Selected File: {{ document.files[0].file.name }}</p>
-      <p>File Size: {{ document.files[0].file.size }}</p>
-      <p>File Type: {{ document.files[0].file.type }}</p>
+<div class="container">
+  <h2>Create Portafolio</h2>
+  <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="observations">Observations</label>
+      <textarea id="observations" formControlName="observations" class="form-control"></textarea>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['required']" class="text-danger">
+        Observations is required.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['minlength']" class="text-danger">
+        Observations should be at least 25 characters long.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['maxlength']" class="text-danger">
+        Observations cannot exceed 100 characters.
+      </div>
     </div>
-  </div>
 
-  <button type="button" (click)="addDocument()">Add Document</button>
-  <button type="button" (click)="createBriefcase()">Create Briefcase</button>
-</form>
+    <div class="form-group">
+      <label for="state">State</label>
+      <select id="state" formControlName="state" class="form-control">
+        <option value="" disabled selected>Select a state</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+      <div *ngIf="briefcaseForm.get('state')?.errors?.['required']" class="text-danger">
+        State is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="document">Select Document:</label>
+      <select id="document" (change)="selectDocumento($event)" class="form-control">
+        <option value="" disabled selected>Select a document</option>
+        <option *ngFor="let document of documentos" [value]="document.id">{{ document.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="files">Files</label>
+      <input type="file" id="files" formControlName="files" (change)="onFileChange($event)" multiple>
+      <div *ngIf="briefcaseForm.get('files')?.errors?.['required']" class="text-danger">
+        Files are required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!briefcaseForm.valid">Create</button>
+  </form>
+</div>

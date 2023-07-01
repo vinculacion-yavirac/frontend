@@ -71,8 +71,8 @@ export class PortafolioHttpService {
   }
 
   // POST / Crear portafolio
-  addPortafolios(portafolio: PortafoliosModels): Observable<PortafoliosModels> {
-    return this.http.post<PortafoliosModels>(`${this.url}/create`, portafolio, this.httpOptions);
+  addPortafolios(data: PortafoliosModels): Observable<any> {
+    return this.http.post<any>(`${this.url}/create`, data, this.httpOptions);
   }
 
   // GET / Obtener comentarios
@@ -83,6 +83,5 @@ export class PortafolioHttpService {
   updateBriefcase(id: number, portafolio: PortafoliosModels): Observable<PortafoliosModels> {
     return this.http.put<PortafoliosModels>(`${this.url}/update/${id}`, portafolio, this.httpOptions);
   }
-
 
 }

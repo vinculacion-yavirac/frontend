@@ -1,122 +1,178 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-
-import { MatDialog } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { DocumentoHttpService } from '../../../service/portafolio/documento/documento-http.service';
-import { DocumentoModels } from '../../../models/portafolio/documentos/documento.models';
-import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
-import { Role } from '../../../models/auth/role/rol';
-import {PortafoliosModels} from "../../../models/portafolio/portafolio.models";
-import {FilesModels} from "../../../models/portafolio/files/file.models";
-import {FileHttpService} from "../../../service/portafolio/files/file-http.service";
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
+import { FilesModels } from 'src/app/models/portafolio/files/file.models';
+import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
+import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
+import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 
 @Component({
   selector: 'app-portafolio-form',
   templateUrl: './portafolio-form.component.html',
   styleUrls: ['./portafolio-form.component.css']
 })
-export class PortafolioFormComponent  {
+export class PortafolioFormComponent implements OnInit {
 
-  briefcaseData: any = {};
-  documentData: any = {};
-  fileData: any = {};
-  documents: DocumentoModels[] = [];
-
-  constructor(private http: HttpClient) {}
-
-  addDocument() {
-    const newDocument: DocumentoModels = {
-      name: this.documentData.name,
-      files: [this.fileData],
-    };
-    this.documents.push(newDocument);
-
-    // Limpiar los datos
-    this.documentData = {};
-    this.fileData = {};
+  selectedDocumento?: DocumentoModels;
+  briefcaseForm: FormGroup;
+  currentPortafolio: PortafoliosModels;
+  loading = true;
+  selectedFiles: CustomFile[] = [];
+  documentos: DocumentoModels[] = [];
+  project: ProyectoParticipanteModels;
+  
+  constructor(
+    private formBuilder: FormBuilder,
+    private portafolioHttpService: PortafolioHttpService,
+    private documentosHtppService: DocumentoHttpService,
+  ) {
+    this.initForm();
   }
 
-  onFileChange(event: any, documentIndex: number) {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
+  initForm() {
+    this.briefcaseForm = this.formBuilder.group({
+      observations: [
+        '',
+        {
+          validators: [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(100),
+          ],
+        },
+      ],
+      state: [
+        '',
+        {
+          validators: [
+            Validators.required,
+          ],
+        },
+      ],
+      files: [
+        [],
+        {
+          validators: [Validators.required],
+        },
+      ],
+    });
 
-      // Verificar si existe `this.documents[documentIndex]`
-      if (!this.documents[documentIndex]) {
-        this.documents[documentIndex] = {
-          files: [{
-            name: '',
-            content: '',
-            file: file
-          }]
-        };
-      } else {
-        // Verificar si existe `this.documents[documentIndex].files`
-        if (!this.documents[documentIndex].files) {
-          this.documents[documentIndex].files = [{
-            name: '',
-            content: '',
-            file: file
-          }];
-        } else {
-          // Verificar si existe `this.documents[documentIndex].files[0]`
-          if (this.documents[documentIndex].files[0]) {
-            this.documents[documentIndex].files[0].file = file;
-          } else {
-            this.documents[documentIndex].files[0] = {
-              name: '',
-              content: '',
-              file: file
-            };
-          }
-        }
+    this.briefcaseForm.valueChanges.subscribe((values) => {
+      this.currentPortafolio = values;
+      console.log('this.currentPortafolio:', this.currentPortafolio);
+    });
+  }
+
+  ngOnInit(): void {
+    this.getDocumentos();
+  }
+
+  onSubmit(): void {
+    if (this.briefcaseForm.valid) {
+      console.log('success valid');
+      this.createBriefcase();
+    } else {
+      console.log('error');
+    }
+  }
+
+
+  getDocumentos(): void {
+    this.loading = true;
+    this.documentosHtppService.getDocuments().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.documentos = res.data.documents;
+        console.log(this.documentos);
       }
+      this.loading = false;
+    });
+  }
+
+  // selectDocumento(selectedValue?: any): void {
+  //   const selectedDocument = this.documentos.find((document) => document.id === parseInt(selectedValue));
+  //   this.selectedDocumento = selectedDocument;
+  // }
+  
+  selectDocumento(event: any): void {
+    const selectedValue = event.target.value;
+    const selectedDocument = this.documentos.find((document) => document.id === parseInt(selectedValue));
+    this.selectedDocumento = selectedDocument;
+  }
+
+  getSelectedDocumentId(): number | undefined {
+    return this.selectedDocumento?.id;
+  }
+
+  onFileChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const files: CustomFile[] = [];
+  
+      // Leer el contenido de los archivos seleccionados
+      for (let i = 0; i < inputElement.files.length; i++) {
+        const file = inputElement.files[i];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const content = e.target.result; // Contenido del archivo en base64
+          const customFile: CustomFile = {
+            file: file,
+            content: content,
+            name: file.name as string,
+            type: file.type,
+            size: file.size,
+          };
+          files.push(customFile); // Agregar el objeto CustomFile al arreglo
+        };
+        reader.readAsDataURL(file);
+      }
+  
+      this.selectedFiles = files; // Asignar el arreglo de CustomFile[] directamente
+  
+      console.log(this.selectedFiles);
     }
   }
 
   createBriefcase() {
-    const formData = new FormData();
+    if (this.briefcaseForm.valid && this.selectedFiles.length > 0) {
+      const briefcaseData: PortafoliosModels = {
+        observations: this.currentPortafolio.observations,
+        state: this.currentPortafolio.state,
+        files: [],
+        id: 0,
+        project_participant_id: this.project,
+        created_at: new Date(),
+      };
+  
+      this.selectedFiles.forEach((file: CustomFile) => {
+        const fileData: FilesModels = {
+          id: 0, // Asigna un valor válido para 'id'
+          name: file.name,
+          type: file.type,
+          content: file.content,
+          size: file.size,
+          observation: '',
+          state: false,
+          briefcase_id: 0, // Asigna un valor válido para 'briefcase_id'
+          document_id: this.getSelectedDocumentId() || 0, // Utiliza el id del documento seleccionado
+        };
+        briefcaseData.files.push(fileData);
+      });
 
-    // Agregar datos del portafolio
-    formData.append('briefcases', JSON.stringify(this.briefcaseData));
-
-    // Agregar documentos y archivos
-    this.documents.forEach((document, index) => {
-      // Agregar datos del documento
-      formData.append(`documents[${index}]`, JSON.stringify(document));
-
-      // Verificar si se seleccionó un archivo
-      if (document.files[0].file) {
-        const file = document.files[0].file;
-        const blob = new Blob([file], { type: file.type });
-        formData.append(`files[${index}]`, blob, file.name);
-      }
-    });
-
-    this.http.post('http://127.0.0.1:8000/api/briefcase/create', formData).subscribe(
-        response => {
-          // Manejar la respuesta del servidor
-          console.log(response);
-
-          // Realizar las acciones necesarias después de crear el portafolio
-
-          // Limpiar los datos
-          this.briefcaseData = {};
-          this.documents = [];
+      console.log('this.getSelectedDocumentId:',this.getSelectedDocumentId());
+      this.portafolioHttpService.addPortafolios(briefcaseData).subscribe(
+        (response) => {
+          console.log('Portafolio creado exitosamente', response);
+          // Realiza las acciones necesarias después de crear el portafolio
         },
-        error => {
-          // Manejar el error en caso de que ocurra
-          console.error(error);
+        (error) => {
+          console.error('Error al crear el portafolio', error);
+          console.log('response:',briefcaseData)
+          // Maneja el error de acuerdo a tus necesidades
         }
-    );
+      );
+    }
   }
-
-
-
-  //files
+  
 }
