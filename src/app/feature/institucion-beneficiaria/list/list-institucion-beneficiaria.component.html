@@ -86,9 +86,10 @@
                 </div>
               </td>
               <td class="py-[3.8px] px-6 capitalize">
-                <span [routerLink]="['/system/solicitud/form/', institucionBeneficiaria.id]"
-                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  *permissions="['ACTUALIZAR_SOLICITUD']"></span>
+                <span
+                      class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
+                      *permissions="['ACTUALIZAR_SOLICITUD']"
+                      (click)="openModal(institucionBeneficiaria.id)"></span>
               </td>
 
               <th class="py-[3.8px] px-6 capitalize" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
