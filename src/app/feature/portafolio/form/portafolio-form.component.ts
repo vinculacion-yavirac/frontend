@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
@@ -6,22 +6,27 @@ import { FilesModels } from 'src/app/models/portafolio/files/file.models';
 import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
 import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 
 @Component({
   selector: 'app-portafolio-form',
   templateUrl: './portafolio-form.component.html',
   styleUrls: ['./portafolio-form.component.css']
 })
-export class PortafolioFormComponent {
+export class PortafolioFormComponent implements OnInit {
+
+  selectedDocumento?: DocumentoModels;
   briefcaseForm: FormGroup;
   currentPortafolio: PortafoliosModels;
+  loading = true;
   selectedFiles: CustomFile[] = [];
-  documentos: DocumentoModels;
+  documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
   
   constructor(
     private formBuilder: FormBuilder,
-    private portafolioHttpService: PortafolioHttpService
+    private portafolioHttpService: PortafolioHttpService,
+    private documentosHtppService: DocumentoHttpService,
   ) {
     this.initForm();
   }
@@ -33,7 +38,7 @@ export class PortafolioFormComponent {
         {
           validators: [
             Validators.required,
-            Validators.minLength(25),
+            Validators.minLength(5),
             Validators.maxLength(100),
           ],
         },
@@ -60,6 +65,10 @@ export class PortafolioFormComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.getDocumentos();
+  }
+
   onSubmit(): void {
     if (this.briefcaseForm.valid) {
       console.log('success valid');
@@ -67,6 +76,33 @@ export class PortafolioFormComponent {
     } else {
       console.log('error');
     }
+  }
+
+
+  getDocumentos(): void {
+    this.loading = true;
+    this.documentosHtppService.getDocuments().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.documentos = res.data.documents;
+        console.log(this.documentos);
+      }
+      this.loading = false;
+    });
+  }
+
+  // selectDocumento(selectedValue?: any): void {
+  //   const selectedDocument = this.documentos.find((document) => document.id === parseInt(selectedValue));
+  //   this.selectedDocumento = selectedDocument;
+  // }
+  
+  selectDocumento(event: any): void {
+    const selectedValue = event.target.value;
+    const selectedDocument = this.documentos.find((document) => document.id === parseInt(selectedValue));
+    this.selectedDocumento = selectedDocument;
+  }
+
+  getSelectedDocumentId(): number | undefined {
+    return this.selectedDocumento?.id;
   }
 
   onFileChange(event: Event) {
@@ -85,7 +121,7 @@ export class PortafolioFormComponent {
             content: content,
             name: file.name as string,
             type: file.type,
-            size: file.size
+            size: file.size,
           };
           files.push(customFile); // Agregar el objeto CustomFile al arreglo
         };
@@ -118,13 +154,13 @@ export class PortafolioFormComponent {
           size: file.size,
           observation: '',
           state: false,
-          briefcase_id: 1, // Asigna un valor válido para 'briefcase_id'
-          document_id: 1, // Asigna un valor válido para 'document_id'
+          briefcase_id: 0, // Asigna un valor válido para 'briefcase_id'
+          document_id: this.getSelectedDocumentId() || 0, // Utiliza el id del documento seleccionado
         };
         briefcaseData.files.push(fileData);
-        
       });
-  
+
+      console.log('this.getSelectedDocumentId:',this.getSelectedDocumentId());
       this.portafolioHttpService.addPortafolios(briefcaseData).subscribe(
         (response) => {
           console.log('Portafolio creado exitosamente', response);
@@ -132,9 +168,11 @@ export class PortafolioFormComponent {
         },
         (error) => {
           console.error('Error al crear el portafolio', error);
+          console.log('response:',briefcaseData)
           // Maneja el error de acuerdo a tus necesidades
         }
       );
     }
   }
+  
 }
