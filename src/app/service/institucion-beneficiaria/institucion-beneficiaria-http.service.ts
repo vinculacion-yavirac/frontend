@@ -23,6 +23,7 @@ export class InstitucionBeneficiariaHttpService {
     return this.http.get<InstitucionBeneficiariaModels[]>(this.url);
   };
 
+
   public filterInstitucionesBeneficiariaByStatus(state: string): Observable<InstitucionBeneficiariaModels[]> {
     return this.http.get<InstitucionBeneficiariaModels[]>(`${this.url}/filter/state/${state}`);
   };

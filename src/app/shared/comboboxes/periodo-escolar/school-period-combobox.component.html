@@ -1,0 +1,9 @@
+<select #selectschoolPeriod (change)="onSelect(selectschoolPeriod.value)" class="browser-default" name="" id="">
+    <option value=0 selected disabled>Seleccione</option>
+    <option *ngFor="let schoolPeriod of schoolPeriods"
+    [value]="schoolPeriod.id"
+    [selected]="schoolPeriod.id === schoolPeriodId"
+    >
+        {{schoolPeriod.name}}
+    </option>
+</select>

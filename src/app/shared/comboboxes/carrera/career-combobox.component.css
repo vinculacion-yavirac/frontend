@@ -425,10 +425,3 @@ input.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty{border-bottom: 2px solid #01
   background-color: #3965B8!important;
 }
 
-.disabled-link {
-  all: revert;
-  pointer-events: none!important;
-  background-color: white!important;
-  text-decoration: none!important;
-  cursor: not-allowed!important;
-}

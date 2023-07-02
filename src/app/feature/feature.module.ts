@@ -124,6 +124,12 @@ import {
 } from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
 import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
+import { CareerComboboxComponent } from '../shared/comboboxes/carrera/career-combobox.component';
+import { ResponsibleComboboxComponent } from '../shared/comboboxes/responsible/responsible-combobox.component';
+import { InstituteComboboxComponent } from '../shared/comboboxes/instituto/institute-combobox.component';
+import { InstitucionBeneficiariaComboboxComponent } from '../shared/comboboxes/institucion-beneficiaria/institucion-beneficiaria-combobox.component';
+import { SchoolPeriodComboboxComponent } from '../shared/comboboxes/periodo-escolar/school-period.component';
+
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 
 
@@ -225,6 +231,11 @@ import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
     ProyectoComboboxComponent,
     ProyectoInfoComponent,
     ProyectosComboboxComponent,
+    CareerComboboxComponent,
+    ResponsibleComboboxComponent,
+    InstituteComboboxComponent,
+    InstitucionBeneficiariaComboboxComponent,
+    SchoolPeriodComboboxComponent
   ],
   imports: [
     CommonModule,

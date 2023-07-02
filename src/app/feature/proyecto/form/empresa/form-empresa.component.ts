@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Empresa } from 'src/app/models/proyecto/empresa.models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProyectoModels } from './../../../../models/proyecto/proyecto.models';
+import { User } from 'src/app/models/auth/users/usuario';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 interface Parroquia {
-  id: number;
-  parroquia: string;
+
+  nombre: string;
 }
 interface Canton {
-  id: number;
-  canton: string;
+
+  nombre: string;
   parroquias: Parroquia[];
 }
 
 interface Provincia {
-  id: number;
-  provincia: string;
+
+  nombre: string;
   cantones: Canton[];
 }
 
@@ -24,10 +26,13 @@ interface Provincia {
   templateUrl: './form-empresa.component.html',
   styleUrls: ['./form-empresa.component.css']
 })
+
 export class FormEmpresaComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private proyectoService: ProyectoService,
     private fb: FormBuilder
   ) { }
 
@@ -39,192 +44,210 @@ export class FormEmpresaComponent implements OnInit {
 
   provinciasMapping: Provincia[] = [
     {
-      id: 1,
-      provincia: 'AZUAY',
+      nombre: 'Pichincha',
       cantones: [
         {
-          id: 101,
-          canton: 'CUENCA',
+          nombre: 'Quito',
           parroquias: [
-            {
-              id: 10101,
-              parroquia: 'BELLAVISTA',
-            },
-            {
-              id: 10102,
-              parroquia: 'CAÑARIBAMBA',
-            },
-          ],
+            { nombre: 'Calderón' },
+            { nombre: 'Nono' },
+            { nombre: 'Calacalí' }
+          ]
         },
-      ],
+        {
+          nombre: 'Cayambe',
+          parroquias: [
+            { nombre: 'Guayllabamba' },
+            { nombre: 'Cangahua' }
+          ]
+        }
+      ]
     },
     {
-      id: 9,
-      provincia: 'GUAYAS',
+      nombre: 'Guayas',
       cantones: [
         {
-          id: 901,
-          canton: 'GUAYAQUIL',
+          nombre: 'Guayaquil',
           parroquias: [
-            {
-              id: 90101,
-              parroquia: 'AYACUCHO',
-            },
-            {
-              id: 90102,
-              parroquia: 'BOLÍVAR (SAGRARIO)',
-            },
-          ],
+            { nombre: 'García Moreno' },
+            { nombre: 'Chongón' }
+          ]
         },
-      ],
+        {
+          nombre: 'Durán',
+          parroquias: [
+            { nombre: 'Divino Niño' },
+            { nombre: 'Eloy Alfaro' },
+            { nombre: 'El Recreo' }
+          ]
+        }
+      ]
     },
     {
-      id: 17,
-      provincia: 'PICHINCHA',
+      nombre: 'Manabí',
       cantones: [
         {
-          id: 1701,
-          canton: 'QUITO',
+          nombre: 'Portoviejo',
           parroquias: [
-            {
-              id: 17010,
-              parroquia: 'BELISARIO QUEVEDO',
-            },
-            {
-              id: 170102,
-              parroquia: 'CARCELÉN',
-            },
-          ],
+            { nombre: 'San Pablo' },
+            { nombre: 'Francisco Pacheco' }
+          ]
         },
-      ],
-    },
+        {
+          nombre: 'Rocafuerte',
+          parroquias: [
+            { nombre: 'Rocafuerte' },
+            { nombre: 'Pichota' },
+            { nombre: 'Chone' }
+          ]
+        }
+      ]
+    }
   ];
 
-  getCantones(provId: number) {
-    return this.provinciasMapping
-      .filter((prov) => prov.id == provId)
-      .map((prov) => prov.cantones)
-      .flat();
-  }
+              getCantones(provId: string) {
+                return this.provinciasMapping
+                  .filter((prov) => prov.nombre == provId)
+                  .map((prov) => prov.cantones)
+                  .flat();
+              }
 
-  getParroquias(cantonId: number) {
-    return this.provinciasMapping
-      .map((prov) => prov.cantones.filter((canton) => cantonId == canton.id))
-      .flat()
-      .map((prov) => prov.parroquias)
-      .flat();
-  }
+              getParroquias(cantonId: string) {
+                return this.provinciasMapping
+                  .map((prov) => prov.cantones.filter((canton) => cantonId == canton.nombre))
+                  .flat()
+                  .map((prov) => prov.parroquias)
+                  .flat();
+              }
 
-  currentEntity: Empresa = {
-    empresaId: 0,
-    nombreE: '',
-    entidadId: 1,
-    personaAc: '',
-    numRuc: '',
-    actividadEc: '',
-    correoE: '',
-    telfCo: '',
-    parroquiaMa: 1,
-    provinciaMa: 1,
-    cantonMa: 1,
-    direccionMa: '',
-    parroquiaSu: 1,
-    provinciaSu: 1,
-    cantonSu: 1,
-    direccionSu: '',
-    numEE: '',
-    totalEE: '',
-    lugarU: '',
-    beneficiariosDi: '',
-    beneficiariosIndi: '',
-  };
+              currentEntity= {} as ProyectoModels;
 
-  empresaForm = this.fb.group({
-    nombreE: [this.currentEntity.nombreE, [Validators.required]],
-    personaAc: [this.currentEntity.personaAc, [Validators.required]],
-    naturaleza: this.fb.group({
-      naturalezaType: ['publica', [Validators.required]],
-    }),
-    numRuc: [this.currentEntity.numRuc, [Validators.required]],
-    actividadEc: [this.currentEntity.actividadEc, [Validators.required]],
-    correoE: [this.currentEntity.correoE, [Validators.required]],
-    telfCo: [this.currentEntity.telfCo, [Validators.required]],
-    parroquiaMa: [this.currentEntity.parroquiaMa, [Validators.required]],
-    provinciaMa: [this.currentEntity.provinciaMa, [Validators.required]],
-    cantonMa: [this.currentEntity.cantonMa, [Validators.required]],
-    direccionMa: [this.currentEntity.direccionMa, [Validators.required]],
-    parroquiaSu: [this.currentEntity.parroquiaSu, [Validators.required]],
-    provinciaSu: [this.currentEntity.provinciaSu, [Validators.required]],
-    cantonSu: [this.currentEntity.cantonSu, [Validators.required]],
-    direccionSu: [this.currentEntity.direccionSu, [Validators.required]],
-    numEE: [this.currentEntity.numEE, [Validators.required]],
-    totalEE: [this.currentEntity.totalEE, [Validators.required]],
-    lugarU: [this.currentEntity.lugarU, [Validators.required]],
-    beneficiariosDi: [this.currentEntity.beneficiariosDi, [Validators.required]],
-    beneficiariosIndi: [this.currentEntity.beneficiariosIndi, [Validators.required]],
-  });
+              /*empresaForm = this.fb.group({
+
+                naturalezaRadio: [this.currentEntity.beneficiary_institution_id.management_nature, [Validators.required]],
+                numRuc: [this.currentEntity.beneficiary_institution_id.ruc, [Validators.required]],
+                actividadEc: [this.currentEntity.beneficiary_institution_id.economic_activity, [Validators.required]],
+                correoE: [this.currentEntity.beneficiary_institution_id.email, [Validators.required]],
+                telfCo: [this.currentEntity.beneficiary_institution_id.phone, [Validators.required]],
+                lugarU: [this.currentEntity.beneficiary_institution_id.place_location, [Validators.required]],
+                parroquiaMa: [this.currentEntity.field, [Validators.required]],
+                provinciaMa: [this.currentEntity.schedule, [Validators.required]],
+                cantonMa: [this.currentEntity.description, [Validators.required]]
+                //parroquiaSu: [this.currentEntity.parroquiaSu, [Validators.required]],
+                //provinciaSu: [this.currentEntity.provinciaSu, [Validators.required]],
+                //cantonSu: [this.currentEntity.cantonSu, [Validators.required]],
+
+              });*/
 
   ngOnInit(): void {
-
+    this.activatedRoute.paramMap.subscribe(
+      (params) => {
+        if (params.get("id")){
+          this.findById(parseInt(params.get("id")!));
+        }
+      }
+    )
+    //this.cantonesMa = this.currentEntity.schedule;
+    //this.parroquiasMa[] = this.currentEntity.description;
   }
+
+
 
   onSubmit() {
-    console.warn(this.empresaForm.value);
-  }
-
-  onChangeCantonMatriz(cantonId: any) {
-    if (cantonId) {
-      this.parroquiasMa = this.getParroquias(cantonId.value);
+    if (!this.currentEntity.id) {
+      this.createProyecto();
     } else {
-      this.parroquiasMa = [];
+      this.updateProyecto();
     }
-    this.parroquiaMa?.setValue(0);
   }
 
-  onChangeProvinciaMatriz(provId: any) {
-    if (provId) {
-      this.cantonesMa = this.getCantones(provId.value);
-      this.parroquiasMa = [];
-    } else {
-      this.cantonesMa = [];
-      this.parroquiasMa = [];
-    }
-    this.cantonMa?.setValue(0);
-    this.parroquiaMa?.setValue(0);
+
+            selectedCanton: string;
+
+
+            onChangeProvinciaMatriz(provId: any) {
+              this.currentEntity.beneficiary_institution_id.parish_main_id.province = provId.value;
+              if (provId) {
+                this.cantonesMa = this.getCantones(provId.value);
+                this.parroquiasMa = [];
+              } else {
+                this.cantonesMa = [];
+                this.parroquiasMa = [];
+              }
+              //this.cantonMa?.setValue('');
+              //this.parroquiaMa?.setValue('');
+            }
+
+            onChangeCantonMatriz(cantonId: any) {
+              this.currentEntity.beneficiary_institution_id.parish_main_id.canton = cantonId.value;
+              if (cantonId) {
+                this.parroquiasMa = this.getParroquias(cantonId.value);
+              } else {
+                this.parroquiasMa = [];
+              }
+              //this.parroquiaMa?.setValue('');
+            }
+
+            onChangeParroquiaMatriz(parroId: any){
+              this.currentEntity.beneficiary_institution_id.parish_main_id.parish = parroId.value;
+            }
+
+            onChangeProvinciaSucursal(provId: any) {
+              this.currentEntity.beneficiary_institution_id.parish_branch_id.province = provId.value;
+              if (provId) {
+                this.cantonesSu = this.getCantones(provId.value);
+                this.parroquiasSu = [];
+              } else {
+                this.cantonesSu = [];
+                this.parroquiasSu = [];
+              }
+              //this.cantonSu?.setValue('');
+              //this.parroquiaSu?.setValue('');
+            }
+
+            onChangeCantonSucursal(cantonId: any) {
+              this.currentEntity.beneficiary_institution_id.parish_branch_id.canton = cantonId.value;
+              if (cantonId) {
+                this.parroquiasSu = this.getParroquias(cantonId.value);
+              } else {
+                this.parroquiasSu = [];
+              }
+              //this.parroquiaSu?.setValue('');
+            }
+
+            onChangeParroquiaSucursal(parroId: any){
+              this.currentEntity.beneficiary_institution_id.parish_branch_id.parish = parroId.value;
+            }
+
+
+  createProyecto() {
+    this.proyectoService.addProyecto(this.currentEntity).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.router.navigate(['system/proyecto/list']);
+      }
+    });
   }
 
-  onChangeCantonSucursal(cantonId: any) {
-    if (cantonId) {
-      this.parroquiasSu = this.getParroquias(cantonId.value);
-    } else {
-      this.parroquiasSu = [];
-    }
-    this.parroquiaSu?.setValue(0);
+  updateProyecto() {
+    this.proyectoService.updateProyecto(this.currentEntity).subscribe((res: any) => {
+    });
   }
 
-  onChangeProvinciaSucursal(provId: any) {
-    if (provId) {
-      this.cantonesSu = this.getCantones(provId.value);
-      this.parroquiasSu = [];
-    } else {
-      this.cantonesSu = [];
-      this.parroquiasSu = [];
-    }
-    this.cantonSu?.setValue(0);
-    this.parroquiaSu?.setValue(0);
+  findById(id: number):void {
+    this.proyectoService.getProjectById(id).subscribe(
+      (response:any) => {
+        this.currentEntity = response.data.projects;
+        this.cantonesMa = this.getCantones(this.currentEntity.beneficiary_institution_id.parish_main_id.province);
+        this.parroquiasMa = this.getParroquias(this.currentEntity.beneficiary_institution_id.parish_main_id.canton);
+        this.cantonesSu = this.getCantones(this.currentEntity.beneficiary_institution_id.parish_branch_id.province);
+        this.parroquiasSu = this.getParroquias(this.currentEntity.beneficiary_institution_id.parish_branch_id.canton);
+      }
+    )
   }
 
-  get nombreE() {
-    return this.empresaForm.get('nombreE');
-  }
-  get personaAc() {
-    return this.empresaForm.get('personaAc');
-  }
-  get naturaleza() {
-    return this.empresaForm.get('naturaleza');
-  }
-  get naturalezaType() {
-    return this.naturaleza?.get('naturalezaType');
+
+ /* get naturalezaRadio() {
+    return this.empresaForm.get('naturalezaRadio');
   }
   get numRuc() {
     return this.empresaForm.get('numRuc');
@@ -238,46 +261,17 @@ export class FormEmpresaComponent implements OnInit {
   get telfCo() {
     return this.empresaForm.get('telfCo');
   }
-  get parroquiaMa() {
-    return this.empresaForm.get('parroquiaMa');
+  get lugarU() {
+    return this.empresaForm.get('lugarU');
   }
   get provinciaMa() {
     return this.empresaForm.get('provinciaMa');
   }
-  get provincia() {
-    return this.provinciaMa?.get('provincia');
-  }
   get cantonMa() {
     return this.empresaForm.get('cantonMa');
   }
-  get direccionMa() {
-    return this.empresaForm.get('direccionMa');
-  }
-  get parroquiaSu() {
-    return this.empresaForm.get('parroquiaSu');
-  }
-  get provinciaSu() {
-    return this.empresaForm.get('provinciaSu');
-  }
-  get cantonSu() {
-    return this.empresaForm.get('cantonSu');
-  }
-  get direccionSu() {
-    return this.empresaForm.get('direccionSu');
-  }
-  get numEE() {
-    return this.empresaForm.get('numEE');
-  }
-  get totalEE() {
-    return this.empresaForm.get('totalEE');
-  }
-  get lugarU() {
-    return this.empresaForm.get('lugarU');
-  }
-  get beneficiariosDi() {
-    return this.empresaForm.get('beneficiariosDi');
-  }
-  get beneficiariosIndi() {
-    return this.empresaForm.get('beneficiariosIndi');
-  }
+  get parroquiaMa() {
+    return this.empresaForm.get('parroquiaMa');
+  }*/
+
 }

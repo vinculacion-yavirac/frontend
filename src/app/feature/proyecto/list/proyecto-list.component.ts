@@ -52,7 +52,7 @@ export class ProyectoListComponent implements OnInit {
     this.proyectoService.searchProjectByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
         this.handleSearchResponse(res);
-        console.log(this.proyectos);
+        //console.log(this.proyectos);
         if (term === '') {
           this.getProject();
         }

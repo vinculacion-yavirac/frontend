@@ -49,10 +49,18 @@ export class ProyectoService {
     return this.http.put<ProyectoModels>(`${this.url}/restore/${id}`, this.httpOptions);
   };
 
-  public addProyecto(ProyectoModels: ProyectoModels): Observable<ProyectoModels> {
+  public addProyecto(proyectoModels: ProyectoModels): Observable<ProyectoModels> {
     return this.http.post<ProyectoModels>(
       `${this.url}/create`,
-      ProyectoModels,
+      proyectoModels,
+      this.httpOptions
+    );
+  }
+
+  public updateProyecto(proyectoModels: ProyectoModels): Observable<ProyectoModels> {
+    return this.http.put<ProyectoModels>(
+      `${this.url}/update/${proyectoModels.id}`,
+      proyectoModels,
       this.httpOptions
     );
   }
