@@ -49,12 +49,33 @@ export class FileHttpService {
   // }
   
 
+  // uploadFiles(files: CustomFile[], idBriefcase: number): void {
+  //   const formData = new FormData();
+    
+  //   files.forEach((file: CustomFile) => {
+  //     const combinedValue = `${file.file.name};${file.document_id}`;
+  //     formData.append('files[]', file.file, combinedValue);
+  //   });
+  
+  //   this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
+  //     (response: any) => {
+  //       console.log('Archivos enviados correctamente');
+  //     },
+  //     (error: any) => {
+  //       console.log('Error al enviar los archivos:', error);
+  //     }
+  //   );
+  // }
+
+
   uploadFiles(files: CustomFile[], idBriefcase: number): void {
     const formData = new FormData();
     
     files.forEach((file: CustomFile) => {
-      const combinedValue = `${file.file.name};${file.document_id}`;
-      formData.append('files[]', file.file, combinedValue);
+      formData.append('files[]', file.file);
+      formData.append('names[]', file.file.name);
+      formData.append('types[]', file.file.type);
+      formData.append('document_ids[]', file.document_id.toString());
     });
   
     this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
@@ -66,6 +87,12 @@ export class FileHttpService {
       }
     );
   }
+  
+  
+
+  
+
+
 
 
 
