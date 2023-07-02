@@ -2,53 +2,17 @@
   <app-portafolio-breadcrumbs breadcrumbs></app-portafolio-breadcrumbs>
 </module-header>
 
-<div class="container">
-  <h1 class="text-2xl font-bold">Configuración</h1>
 
   <form [formGroup]="documentForm" (ngSubmit)="submitForm()">
-    <div formArrayName="documents">
-      <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i" class="document-item"
-        [class.opened]="document.get('opened')?.value">
-        <h3 class="text-lg font-bold mb-2">Documento {{ i + 1 }}</h3>
-        <div class="mb-4">
-          <label class="text-sm font-medium">Nombre:</label>
-          <input type="text" formControlName="name" required
-            class="border border-gray-300 rounded-md px-3 py-2 w-full" />
-        </div>
-        <div class="mb-4">
-          <label class="text-sm font-medium">Plantilla:</label>
-          <input type="text" formControlName="template" required
-            class="border border-gray-300 rounded-md px-3 py-2 w-full" />
-        </div>
-        <div class="mb-4">
-          <label class="text-sm font-medium">Estado:</label>
-          <input type="checkbox" formControlName="state" [checked]="true" required
-            class="form-checkbox h-4 w-4 text-primary" />
-        </div>
-        <div class="mb-4">
-          <label class="text-sm font-medium">Orden:</label>
-          <input type="number" formControlName="order" required
-            class="border border-gray-300 rounded-md px-3 py-2 w-full" />
-        </div>
-        <div class="mb-4">
-          <label class="text-sm font-medium">Rol responsable:</label>
-          <select formControlName="responsible_id" (change)="selectRole($event)"
-            class="border border-gray-300 rounded-md px-3 py-2 w-full">
-            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-          </select>
-        </div>
-        <button type="button" (click)="removeDocument(i)" class="px-4 py-2 bg-red-500 text-white rounded-md">Eliminar
-          documento</button>
-      </div>
-    </div>
+
 
     <button type="button" (click)="addDocument()" class="px-4 py-2 bg-blue-500 text-white rounded-md mt-4">Agregar
       documento</button>
     <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mt-4">Crear documentos</button>
-  </form>
+  
 
   <div *ngIf="loading" class="mt-4">Cargando roles...</div>
-</div>
+
 
 <div class="px-4 py-1 text-xs">
   <h3 class="font-medium"><span class="font-bold">{{ documentos.length }}</span> Documentos</h3>
@@ -78,14 +42,80 @@
             Estado
           </th>
           <th scope="col" class="py-3 px-6">
+            Estado
+          </th>
+          <th scope="col" class="py-3 px-6">
             Responsable
           </th>
           <th scope="col" class="py-3 px-6">
             Acciones
           </th>
         </tr>
+        
       </thead>
       <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+        <tr>
+
+          <div formArrayName="documents">
+
+
+            <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i" class="document-item"
+              [class.opened]="document.get('opened')?.value">
+  
+              <td class="py-[3.8px] px-6 capitalize">
+                <h3 class="text-lg font-bold mb-2">{{ i + 1 }}</h3>
+              </td>
+  
+              <td class="py-[3.8px] px-6 capitalize">
+                <div class="mb-4 horizontal-fields">
+                  <!-- <label class="text-sm font-medium">Nombre:</label> -->
+                  <input type="text" formControlName="name" required
+                    class="border border-gray-300 rounded-md px-3 py-2" />
+                </div>
+              </td>
+              <td class="py-[3.8px] px-6 capitalize">
+                <div class="mb-4 horizontal-fields">
+                  <!-- <label class="text-sm font-medium">Plantilla:</label> -->
+                  <input type="text" formControlName="template" required
+                    class="border border-gray-300 rounded-md px-3 py-2" />
+                </div>
+              </td>
+              
+              <td class="py-[3.8px] px-6 capitalize">
+                <div class="mb-4 horizontal-fields">
+                  <!-- <label class="text-sm font-medium">Estado:</label> -->
+                  <input type="checkbox" formControlName="state" [checked]="true" required
+                    class="form-checkbox h-4 w-4 text-primary" />
+                </div>
+              </td>
+  
+              <td class="py-[3.8px] px-6 capitalize">
+                <div class="mb-4 horizontal-fields">
+                  <!-- <label class="text-sm font-medium">Orden:</label> -->
+                  <input type="number" formControlName="order" required
+                    class="border border-gray-300 rounded-md px-3 py-2" />
+                </div>
+              </td>
+  
+  
+              <td class="py-[3.8px] px-6 capitalize">
+                <!-- <label class="text-sm font-medium">Rol responsable:</label> -->
+                <select formControlName="responsible_id" (change)="selectRole($event)"
+                  class="border border-gray-300 rounded-md px-3 py-2">
+                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+                </select>
+              </td>
+  
+              <td class="py-[3.8px] px-6 capitalize">
+                <button type="button"  (click)="removeDocument(i)" class="px-1 py-2 btn-btn-medium bg-red-500 text-white rounded-md">Remover</button>
+              </td>
+              
+            </div>
+          </div>
+        </tr>
+
+
+
         <tr class="bg-white hover:bg-[#4052b510] transition-all"
           *ngFor="let documento of documentos | paginate: config; let index = index">
           <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
@@ -95,6 +125,9 @@
             <span *ngIf="reverse">{{ documentos.length - (config.itemsPerPage * (config.currentPage - 1) + index)
               }}</span>
           </th>
+          <td class="py-[3.8px] px-6 capitalize">
+            <span>{{ documento.name }}</span>
+          </td>
           <td class="py-[3.8px] px-6 capitalize">
             <span>{{ documento.name }}</span>
           </td>
@@ -135,3 +168,5 @@
   <!-- Paginación de tabla -->
   <pagination [config]="config"></pagination>
 </div>
+
+</form>
