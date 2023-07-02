@@ -3,6 +3,7 @@ import {DocumentoHttpService} from "../../../service/portafolio/documento/docume
 import {FormGroup, FormBuilder, Validators, FormArray} from '@angular/forms';
 import {Role} from "../../../models/auth/role/rol";
 import {RolHttpService} from "../../../service/auth/role/rol-http.service";
+import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 
 @Component({
   selector: 'app-configuracion',
@@ -15,6 +16,12 @@ export class ConfiguracionComponent implements OnInit {
   roles: Role[] = [];
   selectedRole: Role | undefined;
   loading: boolean = true;
+  reverse = false;
+  documentos: DocumentoModels[] = [];
+  config = {
+    itemsPerPage: 10,
+    currentPage: 1,
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,6 +30,7 @@ export class ConfiguracionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getDocumentos();
     this.documentForm = this.formBuilder.group({
       documents: this.formBuilder.array([])
     });
@@ -80,5 +88,32 @@ export class ConfiguracionComponent implements OnInit {
         console.error('Error al crear los documentos:', error);
       }
     );
+  }
+
+  reversOrder(): void {
+    this.documentos.reverse();
+    this.reverse = !this.reverse;
+  }
+
+  handleSearchResponse(res: any): void {
+    if (res.status === 'success') {
+      this.documentos = res.data.documents;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
+
+  getDocumentos(): void {
+    this.loading = true;
+    this.documentoHttpService.getDocuments().subscribe((res: any) => {
+      this.handleSearchResponse(res);
+      this.loading = false;
+    });
+  }
+
+  sortPortafolio(): void {
+    this.documentos.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
   }
 }
