@@ -19,9 +19,35 @@ export class ProyectoService {
   private url = environment.API_URL + '/project';
 
   // GET /Proyecto
-  public getProyecto(): Observable<ProyectoModels[]> {
+  getProject(): Observable<ProyectoModels[]> {
     return this.http.get<ProyectoModels[]>(this.url);
   }
+
+  getProjectById(id: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/${id}`);
+  }
+
+  getArchivedProject(): Observable<ProyectoModels[]>{
+    return this.http.get<ProyectoModels[]>(`${this.url}/archived/list`);
+  };
+
+  searchProjectByTerm(term:string): Observable<ProyectoModels[]>{
+    return this.http.get<ProyectoModels[]>(
+      `${this.url}/search/term/${encodeURIComponent(term)}`
+    );
+  };
+
+  searchArchivedProjectByTerm(term:string): Observable<ProyectoModels[]>{
+    return this.http.get<ProyectoModels[]>(`${this.url}/search/archived/term/${encodeURIComponent(term)}`);
+  };
+
+  archiveProject(id:number): Observable<ProyectoModels>{
+    return this.http.put<ProyectoModels>(`${this.url}/archive/${id}`, this.httpOptions);
+  };
+
+  restoreProject(id:number): Observable<ProyectoModels>{
+    return this.http.put<ProyectoModels>(`${this.url}/restore/${id}`, this.httpOptions);
+  };
 
   public addProyecto(proyectoModels: ProyectoModels): Observable<ProyectoModels> {
     return this.http.post<ProyectoModels>(
@@ -39,12 +65,6 @@ export class ProyectoService {
     );
   }
 
-  public searchProyectoByTerm(term: string): Observable<ProyectoModels[]> {
-    return this.http.get<ProyectoModels[]>(
-      `${this.url}/search/term/${encodeURIComponent(term)}`
-    );
-  }
-
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
   }
@@ -53,7 +73,4 @@ export class ProyectoService {
     return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
   }
 
-  public getProjectById(id: number): Observable<ProyectoModels[]> {
-    return this.http.get<ProyectoModels[]>(`${this.url}/${id}`);
-  }
 }

@@ -5,6 +5,7 @@ import { InstitucionBeneficiariaDetalleModels } from 'src/app/models/institucion
 import { InstitucionBeneficiariaModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria.models';
 import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-institucion-beneficiaria',
@@ -27,26 +28,94 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
 
   loading: boolean = true;
 
+  filterActiva: boolean;
+  filterInactiva: boolean;
+
   constructor(
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
+    private route: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog,
-  ) { }
-
-  ngOnInit(): void {
-    this.getInstitucionBeneficiaria();
+  ) {
+    this.route.data.subscribe((data: any) => {
+      this.filterActiva = data.filterActiva;
+      this.filterInactiva = data.filterInactiva;
+    });
   }
 
+  ngOnInit(): void {
+    if (this.filterActiva === true) {
+      this.filterInstitucionBeneficiariaByState(this.filterActiva.toString());
+    } else if (this.filterInactiva === false) {
+      this.filterInstitucionBeneficiariaByState(this.filterInactiva.toString());
+    } else {
+      this.getInstitucionesBeneficiarias();
+    }
+  }
 
-  public getInstitucionBeneficiaria():void{
+  public searchInstitucionBeneficiariaByTerm(term: string): void {
     this.loading = true;
-    this.institucionBeneficiariaHttpService.getInstitucionesBeneficiarias().subscribe((res:any) =>{
-      if(res.status == 'success'){
+
+    if (!term) {
+      this.handleEmptyTerm();
+    } else if (this.filterInactiva === false) {
+      this.searchInactivaByTerm(term);
+    } else if (this.filterActiva === true) {
+      this.searchActivaByTerm(term);
+    } else {
+      this.searchInstitucionesBeneficiariasByTerm(term);
+    }
+  }
+
+  private handleEmptyTerm(): void {
+    if (this.filterInactiva === false) {
+      this.filterInstitucionBeneficiariaByState(this.filterInactiva.toString());
+    } else if (this.filterActiva === true) {
+      this.filterInstitucionBeneficiariaByState(this.filterActiva.toString());
+    } else {
+      this.getInstitucionesBeneficiarias();
+    }
+  }
+
+  public  filterInstitucionBeneficiariaByState(state: string): void {
+    this.loading = true;
+    this.institucionBeneficiariaHttpService.filterInstitucionesBeneficiariaByStatus(state).subscribe((res: any) => {
+      if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortInstitucionesBeneficiarias();
       }
       this.loading = false;
-    })
-  };
+    });
+  }
+
+  public getInstitucionesBeneficiarias(): void {
+    this.loading = true;
+    this.institucionBeneficiariaHttpService.getInstitucionesBeneficiarias().subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.handleSearchResponse(res);
+        this.sortInstitucionesBeneficiarias();
+      }
+      this.loading = false;
+    });
+  }
+
+  private searchInstitucionesBeneficiariasByTerm(term: string): void {
+    this.institucionBeneficiariaHttpService.searchInstitucionesBeneficiariaByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchInactivaByTerm(term: string): void {
+    this.institucionBeneficiariaHttpService.searchInactivaByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
+
+  private searchActivaByTerm(term: string): void {
+    this.institucionBeneficiariaHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
+      this.handleSearchResponse(res);
+    });
+  }
 
   public reversOrder(): void {
     this.institucionesBeneficiarias.reverse();

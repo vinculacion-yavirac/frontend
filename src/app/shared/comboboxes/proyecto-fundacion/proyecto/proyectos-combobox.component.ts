@@ -1,10 +1,6 @@
 import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {MyErrorStateMatcher} from "../../../matcher/error-state-matcher";
-import {ProyectoParticipanteModels} from "../../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
-import {
-  ProyectoParticipanteHttpService
-} from "../../../../service/proyecto/participante/proyecto-participante-http.service";
 import {Subscription} from "rxjs";
 import {ProyectoService} from "../../../../service/proyecto/proyecto.service";
 import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
@@ -23,6 +19,8 @@ import {ProyectoModels} from "../../../../models/proyecto/proyecto.models";
 })
 export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  selectedProject: any;
+
 // validators
   proyectosFormControl = new FormControl('', [Validators.required]);
 
@@ -31,7 +29,11 @@ export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlVal
 
   proyectos: ProyectoModels[] = [];
 
-  constructor(private proyectoService: ProyectoService) {}
+  constructor(
+    private proyectoService: ProyectoService,
+
+  ) {}
+
 
   private sub?: Subscription;
   //propiedad privada que contiene una referencia a la suscripción que se crea cuando roleFormControl cambia el valor.
@@ -63,7 +65,7 @@ export class ProyectosComboboxComponent implements OnInit, OnDestroy, ControlVal
   }
 
   getProyectos(): void {
-    this.proyectoService.getProyecto().subscribe((res: any) => {
+    this.proyectoService.getProject().subscribe((res: any) => {
       if (res.status === 'success') {
         this.proyectos = res.data.projects;
       }

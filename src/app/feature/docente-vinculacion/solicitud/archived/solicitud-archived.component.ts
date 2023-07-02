@@ -3,6 +3,9 @@ import { DatePipe } from '@angular/common';
 import { FilesService } from '../../../../../app/feature/upload/upload.service';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
+import {PortafoliosModels} from "../../../../models/portafolio/portafolio.models";
+import {finalize} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -25,17 +28,18 @@ export class SolicitudArchivedComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private solicitudHttpService: SolicitudHttpService,
-    private filesService: FilesService,
+      private solicitudHttpService: SolicitudHttpService,
+      private filesService: FilesService,
+      private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.getArchivedSolicituds();
   }
 
-  public getArchivedSolicituds(): void {
+  getArchivedSolicituds(): void {
     this.loading = true;
-    this.solicitudHttpService.getArchivedSolicitud().subscribe((res: any) => {
+    this.solicitudHttpService.getArchivedSolicitude().subscribe((res: any) => {
       if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
@@ -44,14 +48,11 @@ export class SolicitudArchivedComponent implements OnInit {
     });
   }
 
-  public searchArchivedSolicitudByTerm(term: string): void {
+  searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
-    this.solicitudHttpService.searchArchivedSolicitud(term).subscribe((res: any) => {
+    this.solicitudHttpService.searchArchivedSolicitudeByTerm(term).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.solicitudes = res.data.solicitudes;
-        if (term === '') {
-          this.getArchivedSolicituds();
-        }
+        this.handleSearchResponse(res);
         this.reverse = false;
       }
       this.loading = false;
@@ -63,13 +64,13 @@ export class SolicitudArchivedComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  public sortSolicitudes(): void {
+  sortSolicitudes(): void {
     this.solicitudes.sort((a, b) => {
       return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 
-  private handleSearchResponse(res: any): void {
+  handleSearchResponse(res: any): void {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
@@ -77,25 +78,32 @@ export class SolicitudArchivedComponent implements OnInit {
     this.loading = false;
   }
 
-  public restaureSolicitud(solicitud:SolicitudModels): void{
-    this.solicitudHttpService.restaureSolicitud(solicitud.id).subscribe((res:any) =>{
-      if(res.solicitudes.status == 'success'){
-        this.getArchivedSolicituds()
-      }
-    })
+  restaureSolicitud(solicitud: SolicitudModels): void {
+    this.solicitudHttpService.restoreSolicitud(solicitud.id)
+        .pipe(
+            finalize(() => {
+              this.router.navigate(['/system/solicitud/list']);
+            })
+        )
+        .subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        });
   }
 
+  //   downloadFile(id: number, name: string) {
+  //     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
+  //         const url = window.URL.createObjectURL(blob);
+  //         const a = document.createElement('a');
+  //         a.href = url;
+  //         a.download = name;
+  //         document.body.appendChild(a);
+  //         a.click();
+  //         document.body.removeChild(a);
+  //         window.URL.revokeObjectURL(url);
+  //     });
+  // }
 
-//   downloadFile(id: number, name: string) {
-//     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-//         const url = window.URL.createObjectURL(blob);
-//         const a = document.createElement('a');
-//         a.href = url;
-//         a.download = name;
-//         document.body.appendChild(a);
-//         a.click();
-//         document.body.removeChild(a);
-//         window.URL.revokeObjectURL(url);
-//     });
-// }
 }
+

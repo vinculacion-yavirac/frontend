@@ -12,10 +12,10 @@ export class AvanceCumplimientoService {
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  private url = environment.API_URL + '/avanze';
+  private url = environment.API_URL + '/avance';
 
 
-  public addAvanze(data: any): Observable<any> {
+  public addAvance(data: any): Observable<any> {
     console.log(data);
 
     return this.http.post<any>(
@@ -23,22 +23,22 @@ export class AvanceCumplimientoService {
       this.httpOptions
     );
   }
-  public getAvanze(): Observable<any> {
+  public getAvance(): Observable<any> {
 
     return this.http.get<any>(
       `${this.url}/`,
       this.httpOptions
     );
   }
-  public getAvanzeById(id:any): Observable<any> {
+  public getAvanceById(id:any): Observable<any> {
 
     return this.http.get<any>(
       `${this.url}/${id}`,
       this.httpOptions
     );
   }
-  
-  public updateAvanze(id: any, data: any): Observable<any> {
+
+  public updateAvance(id: any, data: any): Observable<any> {
 
     return this.http.put(
       `${this.url}/update/${id}`, data, this.httpOptions
@@ -46,7 +46,7 @@ export class AvanceCumplimientoService {
   }
 
 
-  public deleteAvanzeById(id: any): Observable<any> {
+  public deleteAvanceById(id: any): Observable<any> {
 
     return this.http.delete<any>(
       `${this.url}/delete/${id}`, this.httpOptions

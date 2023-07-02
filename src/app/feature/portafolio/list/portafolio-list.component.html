@@ -154,10 +154,14 @@
                 </div>
                 <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                   <span [routerLink]="['/system/portafolio/form/', portafolio.id]"
-                    class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                    *permissions="['ACTUALIZAR_PORTAFOLIO']"></span>
-                  <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                    *permissions="['ARCHIVAR_PORTAFOLIO']"></span>
+                        *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
+                        class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
+                  ></span>
+                  <span
+                          (click)="openDialogArchiveBriefcase(portafolio)"
+                          class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                          *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"
+                  ></span>
                 </th>
               </tr>
             </tbody>

@@ -113,7 +113,7 @@ import {
 import {PortafolioArchivedComponent} from "./portafolio/archived/portafolio-archived.component";
 import {PortafolioBreadcrumbsComponent} from "./portafolio/header/breadcrumbs/portafolio-breadcrumbs.component";
 import {PortafolioTabsComponent} from "./portafolio/header/tabs/portafolio-tabs.component";
-import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";import {
+import {
   ListInstitucionBeneficiariaComponent
 } from "./institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 import {
@@ -130,6 +130,7 @@ import { InstituteComboboxComponent } from '../shared/comboboxes/instituto/insti
 import { InstitucionBeneficiariaComboboxComponent } from '../shared/comboboxes/institucion-beneficiaria/institucion-beneficiaria-combobox.component';
 import { SchoolPeriodComboboxComponent } from '../shared/comboboxes/periodo-escolar/school-period.component';
 
+import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 
 
 @NgModule({
