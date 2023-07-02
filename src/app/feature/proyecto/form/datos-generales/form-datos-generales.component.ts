@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
-import { customDateValidation } from 'src/app/shared/validators/custom-date-validation.directive';
-import { DatosGenerales } from './../../../../models/proyecto/datos-generales.models';
+import { Router, ActivatedRoute } from '@angular/router';
 
-interface Carrera {
-  id: number;
-  carrera: string;
-}
+import { ProyectoModels } from './../../../../models/proyecto/proyecto.models';
+import { User } from 'src/app/models/auth/users/usuario';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
+
 
 @Component({
   selector: 'app-form-datos-generales',
@@ -17,128 +14,57 @@ interface Carrera {
 export class FormDatosGeneralesComponent implements OnInit {
 
   constructor(
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private proyectoService: ProyectoService
   ) {}
 
   ngOnInit(): void {
+
+    this.activatedRoute.paramMap.subscribe(
+      (params) => {
+        if (params.get("id")){
+          this.findById(parseInt(params.get("id")!));
+        }
+      }
+    )
+
   }
 
-  carreraId: Carrera[] = [];
+    currentEntity= {} as ProyectoModels;
 
-  carrerasMapping: Carrera[] = [
-    {
-      id:1,
-      carrera: 'Software',
-    },
-    {
-      id:2,
-      carrera: 'Turismo',
-    },
-    {
-      id:3,
-      carrera: 'Diseño',
-    },
-    {
-      id:4,
-      carrera: 'Bomberos',
-    }];
 
-    currentEntity: DatosGenerales = {
-      dgId: 0,
-      codigo: '',
-      nombrep: '',
-      nombrei: '',
-      ciclo: '',
-      cobertura: '',
-      carreraId: 1,
-      modalidadId: 1,
-      fecha: '',
-      plazo: '',
-      financiamiento: '',
-      vigencia: '',
-      fechaPresentacion: '',
-      fechaInicio: '',
-      fechaFinal: '',
-    };
-
-    datosGeneralesForm = this.fb.group({
-      codigoProyecto: [this.currentEntity.codigo, [Validators.required, Validators.pattern(/^[a-z0-9]+$/i)]],
-      nombreProyecto: [this.currentEntity.nombrep, [Validators.required, Validators.pattern('[ñáéíóúA-Za-z ]+')]],
-      nombreInstituto: [this.currentEntity.nombrei, [Validators.required]],
-      ciclo: [this.currentEntity.ciclo, [Validators.required]],
-      coberturaLocalizacion: [this.currentEntity.cobertura, [Validators.required, Validators.pattern('[ñáéíóúA-Za-z ]+')]],
-      carrera: [this.currentEntity.carreraId, [Validators.required]],
-      modalidad: this.fb.group({
-        modalidadRadio: ['1'],
-      }),
-      fecha: [this.currentEntity.fecha, [Validators.required, customDateValidation(3000)]],
-      plazoEjecucion: [this.currentEntity.plazo, [Validators.required, customDateValidation(3000)]],
-      financiamiento: [this.currentEntity.financiamiento, [Validators.required, customDateValidation(3000)]],
-      plazoVigenciaConvenio: [this.currentEntity.vigencia, [Validators.required, customDateValidation(3000)]],
-      fechaPresentacion: [this.currentEntity.fechaPresentacion, [Validators.required, customDateValidation(3000)]],
-      fechaInicio: [this.currentEntity.fechaInicio, [Validators.required, customDateValidation(3000)]],
-      fechaFinal: [this.currentEntity.fechaFinal, [Validators.required, customDateValidation(3000)]],
-    });
-
-    onSubmit() {
-      console.warn(this.datosGeneralesForm.value);
+    onSubmit(): void {
+      if (!this.currentEntity.id) {
+        this.createProyecto();
+      } else {
+        this.updateProyecto();
+      }
     }
 
-    get codigoProyecto() {
-      return this.datosGeneralesForm.get('codigoProyecto');
-    }
-    get nombreProyecto() {
-      return this.datosGeneralesForm.get('nombreProyecto');
-    }
-
-    get nombreInstituto() {
-      return this.datosGeneralesForm.get('nombreInstituto');
+    createProyecto() {
+      this.proyectoService.addProyecto(this.currentEntity).subscribe((res: any) => {
+        if (res.status == 'success') {
+          this.router.navigate(['system/proyecto/list']);
+        }
+      });
     }
 
-    get ciclo() {
-      return this.datosGeneralesForm.get('ciclo');
+    updateProyecto() {
+      this.proyectoService.updateProyecto(this.currentEntity).subscribe((res: any) => {
+      });
     }
 
-    get coberturaLocalizacion() {
-      return this.datosGeneralesForm.get('coberturaLocalizacion');
+    findById(id: number):void {
+      this.proyectoService.getProjectById(id).subscribe(
+        (response:any) => {
+          this.currentEntity = response.data.projects;
+        }
+      )
     }
 
-    get carrera() {
-      return this.datosGeneralesForm.get('carrera');
+    isIdDefined(): boolean {
+      return !!this.currentEntity.id;
     }
-
-    get modalidad() {
-      return this.datosGeneralesForm.get('modalidad');
-    }
-
-    get fecha() {
-      return this.datosGeneralesForm.get('fecha');
-    }
-
-    get plazoEjecucion() {
-      return this.datosGeneralesForm.get('plazoEjecucion');
-    }
-
-    get financiamiento() {
-      return this.datosGeneralesForm.get('financiamiento');
-    }
-
-    get plazoVigenciaConvenio() {
-      return this.datosGeneralesForm.get('plazoVigenciaConvenio');
-    }
-
-    get fechaPresentacion() {
-      return this.datosGeneralesForm.get('fechaPresentacion');
-    }
-
-    get fechaInicio() {
-      return this.datosGeneralesForm.get('fechaInicio');
-    }
-
-    get fechaFinal() {
-      return this.datosGeneralesForm.get('fechaFinal');
-    }
-
 
 }

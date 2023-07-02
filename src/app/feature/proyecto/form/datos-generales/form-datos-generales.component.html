@@ -22,116 +22,79 @@
   </button>
 
   <br><br>
-  <div class="pestanas">
-    <a href="/system/proyecto/form-datos-generales" class="Datos Generales">Datos Generales</a>
-    <a href="/system/proyecto/form-empresa" class="Empresa">Empresa</a>
-    <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a>
-    <a href="/system/proyecto/form-actividades" class="Actividades">Actividades</a>
-    <a href="/system/proyecto/form-plan-de-trabajo" class="Plan de Trabajo">Plan de Trabajo</a>
-    <a href="/system/proyecto/form-firmas" class="Firma">Firmas</a>
-    <a href="/system/proyecto/form-bibliografia" class="Bibliografía">Bibliografía</a>
-    <a href="/system/proyecto/form-anexos" class="Anexos">Anexos</a>
-    <a href="/system/proyecto/form-observaciones" class="Observaciones">Observaciones</a>
-    <a href="/system/proyecto/form-documentos" class="Adjuntar Documentos">Adjuntar Documentos</a>
-    <a href="/system/proyecto/form-certificados" class="Solicitud de Certificados">Solicitud de Certificados</a>
+  <div class="pestanas" [ngClass]="{ 'disabled-link': !isIdDefined() }">
+    <a [routerLink]="['/system/proyecto/form-datos-generales',currentEntity.id]" class="Datos Generales">Datos Generales</a>
+    <a [routerLink]="['/system/proyecto/form-empresa',currentEntity.id]" class="Empresa">Empresa</a>
+    <a [routerLink]="['/system/proyecto/form-integrantes',currentEntity.id]" class="Integrantes">Integrantes</a>
+    <a [routerLink]="['/system/proyecto/form-actividades',currentEntity.id]" class="Actividades">Actividades</a>
+    <a [routerLink]="['/system/proyecto/form-plan-de-trabajo',currentEntity.id]" class="Plan de Trabajo">Plan de Trabajo</a>
+    <a [routerLink]="['/system/proyecto/form-firmas',currentEntity.id]" class="Firma">Firmas</a>
+    <a [routerLink]="['/system/proyecto/form-bibliografia',currentEntity.id]" class="Bibliografía">Bibliografía</a>
+    <a [routerLink]="['/system/proyecto/form-anexos',currentEntity.id]" class="Anexos">Anexos</a>
+    <a [routerLink]="['/system/proyecto/form-observaciones',currentEntity.id]" class="Observaciones">Observaciones</a>
+    <!--<a [routerLink]="['/system/proyecto/form-documentos',currentEntity.id]" class="Adjuntar Documentos">Adjuntar Documentos</a>
+    <a [routerLink]="['/system/proyecto/form-certificados',currentEntity.id]" class="Solicitud de Certificados">Solicitud de Certificados</a>-->
   </div>
 
-  <form name="registro" [formGroup]="datosGeneralesForm" (ngSubmit)="onSubmit()">
+  <form name="registro" (ngSubmit)="onSubmit()">
     <div class="col">
       <div class="row">
       <section class="input-field col s12 m6">
         <label for="">Codigo de Proyecto:</label><br><br>
-        <input type="text" formControlName="codigoProyecto" name="codigo" [(ngModel)]="currentEntity.codigo">
-        <div *ngIf="codigoProyecto?.invalid && (codigoProyecto?.dirty || codigoProyecto?.touched)"
-          class="alert alert-danger ">
-          <div *ngIf="codigoProyecto?.errors?.['required']">Ingrese el código de proyecto.</div>
-          <div *ngIf="codigoProyecto?.errors?.['pattern']">Ingrese un valor alfanumérico, ejemplo: QZ09.</div>
-        </div>
+        <input type="text" name="code" [(ngModel)]="currentEntity.code">
+
       </section>
       <section class="input-field col s12 m6">
         <label for="">Nombre del Proyecto:</label><br><br>
-        <input type="text" formControlName="nombreProyecto" name="nombrep" [(ngModel)]="currentEntity.nombrep">
-        <div *ngIf="nombreProyecto?.invalid && (nombreProyecto?.dirty || nombreProyecto?.touched)"
-          class="alert alert-danger ">
-          <div *ngIf="nombreProyecto?.errors">
-            Nombre de proyecto inválido.
-          </div>
-        </div>
+        <input type="text" name="name" [(ngModel)]="currentEntity.name">
+
       </section>
     </div>
       <div class="row">
         <section class="input-field col s12 m9">
           <label for="">Nombre del Instituto: </label><br><br>
-          <input type="email" formControlName="nombreInstituto" name="nombrei" [(ngModel)]="currentEntity.nombrei">
-          <div *ngIf="nombreInstituto?.invalid && (nombreInstituto?.dirty || nombreInstituto?.touched)"
-            class="alert alert-danger ">
-            <div *ngIf="nombreInstituto?.errors">
-              Campo requerido
-            </div>
-          </div>
+          <combobox-institute (instituteIdEmitter)="currentEntity.institute_id=$event" [instituteId]="currentEntity.institute_id"></combobox-institute>
         </section>
-        <section class="input-field col s12 m3">
+       <section class="input-field col s12 m3">
           <label for="">Ciclo:</label><br><br>
-          <input type="text" formControlName="ciclo" name="ciclo" [(ngModel)]="currentEntity.ciclo">
-          <div *ngIf="ciclo?.invalid && (ciclo?.dirty || ciclo?.touched)" class="alert alert-danger ">
-            <div *ngIf="ciclo?.errors">
-              Ciclo es un campo requerido
-            </div>
-          </div>
+          <combobox-school-period (schoolPeriodIdEmitter)="currentEntity.school_period_id=$event" [schoolPeriodId]="currentEntity.school_period_id"></combobox-school-period>
         </section>
       </div>
       <div class="row">
         <section class="input-field col s12">
           <label for="">Cobertura y Localización:</label><br><br>
-          <input type="text" class="materialize-textarea" formControlName="coberturaLocalizacion" name="cobertura" [(ngModel)]="currentEntity.cobertura">
-          <div
-            *ngIf="coberturaLocalizacion?.invalid && (coberturaLocalizacion?.dirty || coberturaLocalizacion?.touched)"
-            class="alert alert-danger ">
-            <div *ngIf="coberturaLocalizacion?.errors">
-              Cobertura y Localización inválido.
-            </div>
-          </div>
+          <input type="text" class="materialize-textarea" name="coverage" [(ngModel)]="currentEntity.coverage">
         </section>
       </div>
     </div>
     <div class="col">
       <div class="row">
-      <section class="input-field col s12 m3">
+     <section class="input-field col s12 m3">
         <label for="">Carrera:</label><br><br>
-        <select  class="browser-default" formControlName="carreraId" name="carrera">
-        <option value="" disabled="" selected="">Seleccione una Carrera</option>
-        <option *ngFor="let carrera of carrerasMapping" [value]="carrera.id">{{carrera.carrera}}</option>
-        </select>
-        <div *ngIf="carrera?.invalid && (carrera?.dirty || carrera?.touched)" class="alert alert-danger ">
-          <div *ngIf="carrera?.errors">
-            Campo requerido.
-          </div>
-        </div>
+       <!--<input type="text" name="career" [(ngModel)]="currentEntity.career">-->
+        <combobox-career (careerIdEmitter)="currentEntity.career_id=$event" [careerId]="currentEntity.career_id"></combobox-career>
       </section>
       <section class="input-field col s12 m3">
         <label for="Modalidad">Modalidad:</label><br><br>
-        <form formGroupName="modalidad">
-          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="presencial"
-            value="1">
+          <input class="with-gap" type="radio" name="modalidadRadio" id="presencial" value="presencial" [(ngModel)]="currentEntity.modality">
           <label for="presencial">Presencial</label> &nbsp;&nbsp;
-          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="dual" value="2">
+          <input class="with-gap" type="radio" name="modalidadRadio" id="dual" value="dual"  [(ngModel)]="currentEntity.modality">
           <label for="dual">Dual</label>
-        </form>
       </section>
     </div>
       <div class="row">
-        <section class="input-field col s12 m9">
+       <section class="input-field col s12 m9">
           <label for="">Financiamiento:</label><br><br>
-          <input type="text" formControlName="financiamiento" name="financiamiento" [(ngModel)]="currentEntity.financiamiento">
+          <input type="text" name="financing" [(ngModel)]="currentEntity.financing">
         </section>
 
         <section class="input-field col s12 m3">
           <label for="">Plazo de Ejecución:</label><br><br>
-          <input type="text" formControlName="plazoEjecucion" name="plazo" [(ngModel)]="currentEntity.plazo">
+          <input type="text" name="term_execution" [(ngModel)]="currentEntity.term_execution">
         </section>
       </div>
-      <div class="row">
-        <section class="input-field col s12 m9">
+      <!--<div class="row">
+      <section class="input-field col s12 m9">
           <label for="">Fecha:</label><br><br>
           <input type="date" formControlName="fecha" name="fecha" [(ngModel)]="currentEntity.fecha">
           <div *ngIf="fecha?.invalid && (fecha?.dirty || fecha?.touched)" class="alert alert-danger ">
@@ -157,9 +120,9 @@
             </div>
           </div>
         </section>
-      </div>
+      </div>-->
       <div class="row">
-        <section class="input-field col s12">
+        <!--<section class="input-field col s12">
           <label for="">Fecha de Presentación:</label><br><br>
           <input type="date" class="materialize-textarea" formControlName="fechaPresentacion" name="fechaPresentacion" [(ngModel)]="currentEntity.fechaPresentacion">
           <div *ngIf="fechaPresentacion?.invalid && (fechaPresentacion?.dirty || fechaPresentacion?.touched)"
@@ -171,36 +134,22 @@
               Ingrese un año menor a 3000.
             </div>
           </div>
-        </section>
+        </section>-->
       </div>
       <div class="row">
         <section class="input-field col s12">
           <label for="">Fecha de Inicio:</label><br><br>
-          <input type="date" class="materialize-textarea" formControlName="fechaInicio" name="fechaInicio" [(ngModel)]="currentEntity.fechaInicio">
-          <div *ngIf="fechaInicio?.invalid && (fechaInicio?.dirty || fechaInicio?.touched)" class="alert alert-danger ">
-            <div *ngIf="fechaInicio?.errors?.['required']">
-              Ingrese una fecha.
-            </div>
-            <div *ngIf="fechaInicio?.errors?.['customDateValidation']">
-              Ingrese un año menor a 3000.
-            </div>
-          </div>
+          <input type="datetime-local" class="materialize-textarea" name="start_date" [(ngModel)]="currentEntity.start_date">
+
         </section>
 
         <section class="input-field col s12">
           <label for="">Fecha Final:</label><br><br>
-          <input type="date" class="materialize-textarea" formControlName="fechaFinal" name="fechaFinal" [(ngModel)]="currentEntity.fechaFinal">
-          <div *ngIf="fechaFinal?.invalid && (fechaFinal?.dirty || fechaFinal?.touched)" class="alert alert-danger ">
-            <div *ngIf="fechaFinal?.errors?.['required']">
-              Ingrese una fecha.
-            </div>
-            <div *ngIf="fechaFinal?.errors?.['customDateValidation']">
-              Ingrese un año menor a 3000.
-            </div>
-          </div>
+          <input type="datetime-local" class="materialize-textarea" name="end_date" [(ngModel)]="currentEntity.end_date">
+
         </section>
       </div>
-      <button class="btn waves-effect waves-light right" type="submit" [disabled]="!datosGeneralesForm.valid">
+      <button class="btn waves-effect waves-light right" type="submit">
         Confirmar
           <!--<img class="small pull-right" src="../../../../assets/images/visto.png" alt="">-->
       </button>

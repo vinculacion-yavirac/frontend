@@ -23,10 +23,18 @@ export class ProyectoService {
     return this.http.get<ProyectoModels[]>(this.url);
   }
 
-  public addProyecto(ProyectoModels: ProyectoModels): Observable<ProyectoModels> {
+  public addProyecto(proyectoModels: ProyectoModels): Observable<ProyectoModels> {
     return this.http.post<ProyectoModels>(
       `${this.url}/create`,
-      ProyectoModels,
+      proyectoModels,
+      this.httpOptions
+    );
+  }
+
+  public updateProyecto(proyectoModels: ProyectoModels): Observable<ProyectoModels> {
+    return this.http.put<ProyectoModels>(
+      `${this.url}/update/${proyectoModels.id}`,
+      proyectoModels,
       this.httpOptions
     );
   }
@@ -45,7 +53,7 @@ export class ProyectoService {
     return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
   }
 
-  public getProjectById(foundationId: number): Observable<ProyectoModels[]> {
-    return this.http.get<ProyectoModels[]>(`${this.url}/${foundationId}`);
+  public getProjectById(id: number): Observable<ProyectoModels[]> {
+    return this.http.get<ProyectoModels[]>(`${this.url}/${id}`);
   }
 }

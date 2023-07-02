@@ -1,0 +1,9 @@
+<select #selectresponsible (change)="onSelect(selectresponsible.value)" class="browser-default" name="" id="">
+    <option value=0 selected disabled>Seleccione</option>
+    <option *ngFor="let responsible of responsibles"
+    [value]="responsible.id"
+    [selected]="responsible.id === responsibleId"
+    >
+    {{responsible.user_id.person.names + ' ' + responsible.user_id.person.last_names}}
+    </option>
+</select>

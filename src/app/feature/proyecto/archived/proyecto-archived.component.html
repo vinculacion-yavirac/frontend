@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="flex">
-      <button *permissions="['CREAR_USUARIOS']"
+      <button *permissions="['CREAR_PROYECTO']"
               class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
               routerLink="/system/proyecto/form-datos-generales/">
         <span class="fas fa-plus text-sm leading-none"></span>
@@ -91,12 +91,12 @@
               <span>{{proyecto.name}}</span>
 
             </td>
-            <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_USUARIOS','ARCHIVAR_USUARIOS']">
+            <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO']">
                 <span [routerLink]="['/system/proyectos/', proyecto.id]"
                       class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                      *permissions="['ACTUALIZAR_USUARIOS']"></span>
+                      *permissions="['ACTUALIZAR_PROYECTO']"></span>
               <span class="fa-solid fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                    *permissions="['ARCHIVAR_USUARIOS']"></span>
+                    *permissions="['ARCHIVAR_PROYECTO']"></span>
             </th>
           </tr>
           </tbody>

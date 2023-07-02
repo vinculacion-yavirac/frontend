@@ -22,112 +22,112 @@
 </button>
 <br><br>
 <div class="pestanas">
-  <a href="/system/proyecto/form-datos-generales" class="Datos Generales">Datos Generales</a>
-  <a href="/system/proyecto/form-empresa" class="Empresa">Empresa</a>
-  <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a>
-  <a href="/system/proyecto/form-actividades" class="Actividades">Actividades</a>
-  <a href="/system/proyecto/form-plan-de-trabajo" class="Plan de Trabajo">Plan de Trabajo</a>
-  <a href="/system/proyecto/form-firmas" class="Firma">Firmas</a>
-  <a href="/system/proyecto/form-bibliografia" class="Bibliografía">Bibliografía</a>
-  <a href="/system/proyecto/form-anexos" class="Anexos">Anexos</a>
-  <a href="/system/proyecto/form-observaciones" class="Observaciones">Observaciones</a>
-  <a href="/system/proyecto/form-documentos" class="Adjuntar Documentos">Adjuntar Documentos</a>
-  <a href="/system/proyecto/form-certificados" class="Solicitud de Certificados">Solicitud de Certificados</a>
+  <a [routerLink]="['/system/proyecto/form-datos-generales',currentEntity.id]" class="Datos Generales">Datos Generales</a>
+  <a [routerLink]="['/system/proyecto/form-empresa',currentEntity.id]" class="Empresa">Empresa</a>
+  <a [routerLink]="['/system/proyecto/form-integrantes',currentEntity.id]" class="Integrantes">Integrantes</a>
+  <a [routerLink]="['/system/proyecto/form-actividades',currentEntity.id]" class="Actividades">Actividades</a>
+  <a [routerLink]="['/system/proyecto/form-plan-de-trabajo',currentEntity.id]" class="Plan de Trabajo">Plan de Trabajo</a>
+  <a [routerLink]="['/system/proyecto/form-firmas',currentEntity.id]" class="Firma">Firmas</a>
+  <a [routerLink]="['/system/proyecto/form-bibliografia',currentEntity.id]" class="Bibliografía">Bibliografía</a>
+  <a [routerLink]="['/system/proyecto/form-anexos',currentEntity.id]" class="Anexos">Anexos</a>
+  <a [routerLink]="['/system/proyecto/form-observaciones',currentEntity.id]" class="Observaciones">Observaciones</a>
+  <!--<a [routerLink]="['/system/proyecto/form-documentos',currentEntity.id]" class="Adjuntar Documentos">Adjuntar Documentos</a>
+  <a [routerLink]="['/system/proyecto/form-certificados',currentEntity.id]" class="Solicitud de Certificados">Solicitud de Certificados</a>-->
 </div>
 
-<form name="registro" novalidate>
+<form name="registro" (ngSubmit)="onSubmit()">
   <div class="row">
       <section class="input-field col s12 m6">
           <label for="nombre"><b>Frecuencia de las Actividades:</b></label><br><br>
-          <input type="checkbox" ng-model="" name="" id="diaria" required>
+          <input type="checkbox" [checked]="currentEntity.linking_activity.diaria" name="actividadCheck" (change)="currentEntity.linking_activity.diaria = !currentEntity.linking_activity.diaria" id="diaria" >
           <label for="diaria">Diaria</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="semanal" required>
+          <input type="checkbox"  [checked]="currentEntity.linking_activity.semanal" name="actividadCheck" (change)="currentEntity.linking_activity.semanal = !currentEntity.linking_activity.semanal" id="semanal" >
           <label for="semanal">Semanal</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="quincenal" required>
+          <input type="checkbox"  [checked]="currentEntity.linking_activity.quincenal" name="actividadCheck" (change)="currentEntity.linking_activity.quincenal = !currentEntity.linking_activity.quincenal" id="quincenal" >
           <label for="quincenal">Quincenal</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="mensual" required>
+          <input type="checkbox"  [checked]="currentEntity.linking_activity.mensual" name="actividadCheck" (change)="currentEntity.linking_activity.mensual = !currentEntity.linking_activity.mensual" id="mensual" >
           <label for="mensual">Mensual</label><br><br>
       </section>
       <section class="input-field col s12 m6">
         <label for="nombre"><b>Actividades de Vinculación:</b></label><br><br>
-        <input type="checkbox" ng-model="" name="" id="correos" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.correos" name="actividadCheck" (change)="currentEntity.linking_activity.correos = !currentEntity.linking_activity.correos" id="correos" >
         <label for="correos">Convenio Institucionales</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pvpij" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.pvpij" name="actividadCheck" (change)="currentEntity.linking_activity.pvpij = !currentEntity.linking_activity.pvpij" id="pvpij" >
         <label for="pvpij">Proyecto de Vinculación Prototipo IST JME</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pcc" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.pcc" name="actividadCheck" (change)="currentEntity.linking_activity.pcc = !currentEntity.linking_activity.pcc" id="pcc" >
         <label for="pcc">Programa de Capacitación a la Comunidad</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pvc" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.pvc" name="actividadCheck" (change)="currentEntity.linking_activity.pvc = !currentEntity.linking_activity.pvc" id="pvc" >
         <label for="pvc">Prácticas Vinculación con la Comunidad</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="investigacion" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.investigacion" name="actividadCheck" (change)="currentEntity.linking_activity.investigacion = !currentEntity.linking_activity.investigacion" id="investigacion" >
         <label for="investigacion">Investigación</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="acuerdo" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.acuerdo" name="actividadCheck" (change)="currentEntity.linking_activity.acuerdo = !currentEntity.linking_activity.acuerdo" id="acuerdo" >
         <label for="acuerdo">Acuerdo</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="otros" required>
+        <input type="checkbox"  [checked]="currentEntity.linking_activity.otros" name="actividadCheck" (change)="currentEntity.linking_activity.otros = !currentEntity.linking_activity.otros" id="otros" >
         <label for="otros">Otros</label><br><br>
     </section>
   </div>
   <div class="row">
     <section class="input-field col s12 m6">
       <label for="nombre"><b>Sectores de Intervención:</b></label><br><br>
-      <input type="checkbox" ng-model="" name="" id="educacion" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.educacion" name="actividadCheck" (change)="currentEntity.linking_activity.educacion = !currentEntity.linking_activity.educacion" id="educacion" >
       <label for="educacion">Educación</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="salud" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.salud" name="actividadCheck" (change)="currentEntity.linking_activity.salud = !currentEntity.linking_activity.salud" id="salud" >
       <label for="salud">Salud</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="sa" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.sa" name="actividadCheck" (change)="currentEntity.linking_activity.sa = !currentEntity.linking_activity.sa" id="sa" >
       <label for="sa">Sanamiento Ambiental</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="ap" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.ap" name="actividadCheck" (change)="currentEntity.linking_activity.ap = !currentEntity.linking_activity.ap" id="ap" >
       <label for="ap">Apoyo Productivo</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="agyp" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.agyp" name="actividadCheck" (change)="currentEntity.linking_activity.agyp = !currentEntity.linking_activity.agyp" id="agyp" >
       <label for="agyp">Agricultura, Ganadería y Pesca</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="vivienda" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.vivienda" name="actividadCheck" (change)="currentEntity.linking_activity.vivienda = !currentEntity.linking_activity.vivienda" id="vivienda" >
       <label for="vivienda">Vivienda</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="pma" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.pma" name="actividadCheck" (change)="currentEntity.linking_activity.pma = !currentEntity.linking_activity.pma" id="pma" >
       <label for="pma">Protección del medio ambiente y desastres naturales</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="rne" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.rne" name="actividadCheck" (change)="currentEntity.linking_activity.rne = !currentEntity.linking_activity.rne" id="rne" >
       <label for="rne">Recursos Naturales y Energía</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="tcv" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.tcv" name="actividadCheck" (change)="currentEntity.linking_activity.tcv = !currentEntity.linking_activity.tcv" id="tcv" >
       <label for="tcv">Transporte, Comunicación y Viabilidad</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="desarrolloU" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.desarrolloU" name="actividadCheck" (change)="currentEntity.linking_activity.desarrolloU = !currentEntity.linking_activity.desarrolloU" id="desarrolloU" >
       <label for="desarrolloU">Desarrollo Urbano</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="turismo" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.turismo" name="actividadCheck" (change)="currentEntity.linking_activity.turismo = !currentEntity.linking_activity.turismo" id="turismo" >
       <label for="turismo">Turismo</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="cultura" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.cultura" name="actividadCheck" (change)="currentEntity.linking_activity.cultura = !currentEntity.linking_activity.cultura" id="cultura" >
       <label for="cultura">Cultura</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="dic" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.dic" name="actividadCheck" (change)="currentEntity.linking_activity.dic = !currentEntity.linking_activity.dic" id="dic" >
       <label for="dic">Desarrollo de Investigación Científica</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="deportes" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.deportes" name="actividadCheck" (change)="currentEntity.linking_activity.deportes = !currentEntity.linking_activity.deportes" id="deportes" >
       <label for="deportes">Deportes</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="jys" required>
+      <input type="checkbox"  [checked]="currentEntity.linking_activity.jys" name="actividadCheck" (change)="currentEntity.linking_activity.jys = !currentEntity.linking_activity.jys" id="jys" >
       <label for="jys">Justicia y Seguridad</label><br><br>
   </section>
   <section class="input-field col s12 m6">
     <label for="nombre"><b>Ejes Estratégicos de Vinculación con la Colectividad</b></label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ambiente" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.ambiente" name="actividadCheck" (change)="currentEntity.linking_activity.ambiente = !currentEntity.linking_activity.ambiente" id="ambiente" >
     <label for="ambiente">Ambiente</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="dsyc" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.dsyc" name="actividadCheck" (change)="currentEntity.linking_activity.dsyc = !currentEntity.linking_activity.dsyc" id="dsyc" >
     <label for="dsyc">Desarrollo Social y Comunitario</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ia" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.ia" name="actividadCheck" (change)="currentEntity.linking_activity.ia = !currentEntity.linking_activity.ia" id="ia" >
     <label for="ia">Investigativo Académico</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ig" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.ig" name="actividadCheck" (change)="currentEntity.linking_activity.ig = !currentEntity.linking_activity.ig" id="ig" >
     <label for="ig">Interculturalidad/Género</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="desarrolloL" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.desarrolloL" name="actividadCheck" (change)="currentEntity.linking_activity.desarrolloL = !currentEntity.linking_activity.desarrolloL" id="desarrolloL" >
     <label for="desarrolloL">Desarrollo Local</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="epys" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.epys" name="actividadCheck" (change)="currentEntity.linking_activity.epys = !currentEntity.linking_activity.epys" id="epys" >
     <label for="epys">Economía Popular y Solidaria</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="dtyt" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.dtyt" name="actividadCheck" (change)="currentEntity.linking_activity.dtyt = !currentEntity.linking_activity.dtyt" id="dtyt" >
     <label for="dtyt">Desarrollo Técnico y Técnológico</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="inovacion" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.inovacion" name="actividadCheck" (change)="currentEntity.linking_activity.inovacion = !currentEntity.linking_activity.inovacion" id="inovacion" >
     <label for="inovacion">Inovación</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="rsu" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.rsu" name="actividadCheck" (change)="currentEntity.linking_activity.rsu = !currentEntity.linking_activity.rsu" id="rsu" >
     <label for="rsu">Responsabilidad Social Universitaria</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="matrizP" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.matrizP" name="actividadCheck" (change)="currentEntity.linking_activity.matrizP = !currentEntity.linking_activity.matrizP" id="matrizP" >
     <label for="matrizP">Matriz Productiva</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="otros2" required>
+    <input type="checkbox"  [checked]="currentEntity.linking_activity.otros2" name="actividadCheck" (change)="currentEntity.linking_activity.otros2 = !currentEntity.linking_activity.otros2" id="otros2" >
     <label for="otros2">Otros</label><br><br>
 </section>
   </div>
 
-  <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light right" type="submit" >Confirmar
+  <button class="btn waves-effect waves-light right" type="submit" >Confirmar
 
       <!--<img class="small pull-right" src="../../../../assets/images/visto.png" alt="">-->
 

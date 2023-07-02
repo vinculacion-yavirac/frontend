@@ -1,0 +1,9 @@
+<select #selectinstitucionBeneficiariaHttp (change)="onSelect(selectinstitucionBeneficiariaHttp.value)" class="browser-default" name="" id="">
+  <option value=0 selected disabled>Seleccione</option>
+  <option *ngFor="let institucionBeneficiariaHttp of institucionBeneficiariaHttps"
+  [value]="institucionBeneficiariaHttp.id"
+  [selected]="institucionBeneficiariaHttp.id === institucionBeneficiariaHttpId"
+  >
+      {{institucionBeneficiariaHttp.name}}
+  </option>
+</select>

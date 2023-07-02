@@ -82,7 +82,7 @@
                 <span>{{proyecto.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{proyecto.code }}</span>
+                <span>{{proyecto.created_by.person.names}}</span>
               </td>
               <td class="py-[3.8px] px-6">
                 <span>{{pipe.transform(proyecto.created_at , 'dd/MM/yyyy')}}</span>
@@ -92,7 +92,7 @@
 
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['LEER_PROYECTO','ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO']">
-                <span [routerLink]="['/system/proyectos/', proyecto.id]"
+                <span [routerLink]="['/system/proyecto/form-datos-generales/', proyecto.id]"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
                   *permissions="['ACTUALIZAR_PROYECTO']"></span>
                 <span class="fa-solid fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"

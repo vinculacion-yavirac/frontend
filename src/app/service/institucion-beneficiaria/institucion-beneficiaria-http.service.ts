@@ -21,4 +21,6 @@ export class InstitucionBeneficiariaHttpService {
   public getInstitucionesBeneficiarias(): Observable<InstitucionBeneficiariaModels[]>{
     return this.http.get<InstitucionBeneficiariaModels[]>(this.url);
   };
+
+
 }
