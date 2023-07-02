@@ -172,23 +172,6 @@
       </div>
     </div>
 
-    <div>
-      <label for="document">Documento:</label>
-      <select id="document" (change)="selectDocumento($event)">
-        <option value="" disabled selected>Seleccionar documento</option>
-        <option *ngFor="let documento of documentos" [value]="documento.id">{{ documento.name }}</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="files">Archivos:</label>
-      <input type="file" multiple formControlName="files" (change)="onFileSelected($event)">
-      <!-- <input type="file" multiple (change)="onFileSelected($event)" class="mb-4 opacity-0 absolute" #fileInput
-              formControlName="files"> -->
-      <div *ngIf="briefcaseForm.get('files')?.invalid && briefcaseForm.get('files')?.touched">
-        <div *ngIf="briefcaseForm.get('files')?.errors?.['required']">Los archivos son requeridos.</div>
-      </div>
-    </div>
 
     <button type="submit" [disabled]="!briefcaseForm.valid">Crear Portafolio</button>
   </form>
@@ -203,7 +186,14 @@
   <ul>
     <li *ngFor="let documento of documentos">
       {{ documento.name }}
-      <button type="file" (click)="uploadFiles(documento.id, 1)">Subir Archivo</button>
+
+      <div>
+        <label for="files">Archivos:</label>
+        <input type="file" multiple (change)="onFileSelected($event, documento)">
+        <div *ngIf="briefcaseForm.get('files')?.invalid && briefcaseForm.get('files')?.touched">
+          <div *ngIf="briefcaseForm.get('files')?.errors?.['required']">Los archivos son requeridos.</div>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

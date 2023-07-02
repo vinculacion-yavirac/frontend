@@ -23,9 +23,11 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   selectedFiles: File[] = [];
   documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
-  files: File [] = [];
-  paramsSubscription: Subscription;
+  // files: File [] = [];
+  files: CustomFile[] = [];
 
+  paramsSubscription: Subscription;
+  idPortafolio:number;
   constructor(
     private formBuilder: FormBuilder,
     private portafolioHttpService: PortafolioHttpService,
@@ -82,7 +84,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     if (this.briefcaseForm.valid) {
       console.log('success valid');
       this.createBriefcase(); 
-      this.uploadFiles(1,1);
+      // this.uploadFiles(1,1);
     } else {
       console.log('error');
     }
@@ -99,27 +101,16 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectDocumento(event: any): void {
-    const selectedValue = event.target.value;
-    const selectedDocument = this.documentos.find((document) => document.id === parseInt(selectedValue));
-    this.selectedDocumento = selectedDocument;
-  }
-
-  getSelectedDocumentId(): number | undefined {
-    return this.selectedDocumento?.id;
-  }
 
   createBriefcase(): void {
     if (this.briefcaseForm.valid) {
       this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((response: any) => {
 
         if(response.status === 'success'){
-          const idPortafolio = response.data.briefcase.id;
-        const idDocumento = this.getSelectedDocumentId() || 1;
-
-        console.log('createBriefcase:',this.currentPortafolio)
-        // Pasar los archivos al servicio para subirlos
-        this.uploadFiles(idPortafolio, idDocumento); 
+        console.log('createBriefcase:',this.currentPortafolio);
+        const id = response.data.briefcase.id;
+        console.log('idsssssss',1)
+        this.uploadFiles(id);
         }
       });
     } else {
@@ -127,8 +118,10 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  uploadFiles(idPortafolio: number, idDocumento: number): void {
-    this.fileHttpService.uploadFiles(this.files, idPortafolio, idDocumento);
+  uploadFiles(idPortafolio:number): void {
+    if (this.selectedDocumento) {
+      this.fileHttpService.uploadFiles(this.files,idPortafolio);
+    }
   }
 
   // onFileSelected(event: any): void {
@@ -138,13 +131,21 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   // }
 
 
-  onFileSelected(event: any): void {
+  onFileSelected(event: any, documento: DocumentoModels): void {
+    this.selectedDocumento = documento;
     const selectedFiles: FileList = event.target.files;
+  
+    // Limpiar el array this.files
+    //this.files = [];
   
     // Recorrer los archivos seleccionados y agregarlos al array this.files
     for (let i = 0; i < selectedFiles.length; i++) {
       const file: File = selectedFiles[i];
-      this.files.push(file);
+      const customFile: CustomFile = {
+        file: file,
+        document_id: documento.id
+      }
+      this.files.push(customFile);
     }
   
     console.log(this.files);

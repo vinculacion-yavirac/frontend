@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { FilesModels } from 'src/app/models/portafolio/files/file.models';
+import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +31,33 @@ export class FileHttpService {
 
 
 
-  uploadFiles(files: File[], idPortafolio: number, idDocumento: number): void {
+  // uploadFiles(files: CustomFile[], idBriefcase:number): void {
+  //   const formData = new FormData();
+  //   files.forEach((file: CustomFile) => {
+  //     formData.append('files[]', file.file, file.file.name);
+  //     formData.append('document_id', file.document_id.toString());
+  //   });
+  
+  //   this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
+  //     (response: any) => {
+  //       console.log('Archivos enviados correctamente');
+  //     },
+  //     (error: any) => {
+  //       console.log('Error al enviar los archivos:', error);
+  //     }
+  //   );
+  // }
+  
+
+  uploadFiles(files: CustomFile[], idBriefcase: number): void {
     const formData = new FormData();
-    files.forEach((file: File) => {
-      formData.append('files[]', file, file.name);
+    
+    files.forEach((file: CustomFile) => {
+      const combinedValue = `${file.file.name};${file.document_id}`;
+      formData.append('files[]', file.file, combinedValue);
     });
   
-    this.http.post(`${this.url}/upload/${idPortafolio}/${idDocumento}`, formData).subscribe(
+    this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
       (response: any) => {
         console.log('Archivos enviados correctamente');
       },
@@ -45,7 +66,6 @@ export class FileHttpService {
       }
     );
   }
-  
 
 
 
