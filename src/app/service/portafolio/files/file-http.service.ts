@@ -91,7 +91,10 @@ export class FileHttpService {
   
 
   
-
+  // downloadFile(fileId: number) {
+  //   const url = `${this.baseUrl}/download/${fileId}`;
+  //   return this.http.get(url, { responseType: 'blob' });
+  // }
 
 
 
