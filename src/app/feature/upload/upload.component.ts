@@ -39,9 +39,9 @@ export class UploadComponent implements OnInit {
       this.archivoSeleccionado,
       this.archivoSeleccionado.name
     );
-    this.fileHttpService.uploadFile(formData).subscribe((response) => {
-      console.log(response);
-    });
+    // this.fileHttpService.uploadFile(formData).subscribe((response) => {
+    //   console.log(response);
+    // });
   }
 
    downloadFile(id: number, name: string) {

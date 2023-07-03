@@ -1,3 +1,4 @@
+<!--
 <div class="container">
   <h2>Create Portafolio</h2>
   <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
@@ -46,3 +47,156 @@
     <button type="submit" class="btn btn-primary" [disabled]="!briefcaseForm.valid">Create</button>
   </form>
 </div>
+-->
+<!--
+<div class="container">
+  <h2>Create Portafolio</h2>
+  <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="observations">Observations</label>
+      <textarea id="observations" formControlName="observations" class="form-control"></textarea>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['required']" class="text-danger">
+        Observations is required.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['minlength']" class="text-danger">
+        Observations should be at least 25 characters long.
+      </div>
+      <div *ngIf="briefcaseForm.get('observations')?.errors?.['maxlength']" class="text-danger">
+        Observations cannot exceed 100 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="state">State</label>
+      <select id="state" formControlName="state" class="form-control">
+        <option value="" disabled selected>Select a state</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+      <div *ngIf="briefcaseForm.get('state')?.errors?.['required']" class="text-danger">
+        State is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="document">Select Document:</label>
+      <select id="document" (change)="selectDocumento($event)" class="form-control">
+        <option value="" disabled selected>Select a document</option>
+        <option *ngFor="let document of documentos" [value]="document.id">{{ document.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <ng-container *ngIf="selectedDocumento">
+        <label for="files">Files for {{ selectedDocumento.name }}:</label>
+        <input type="file" id="files" (change)="onFileChange($event)" multiple>
+        <div *ngIf="briefcaseForm.get('files')?.errors?.['required']" class="text-danger">
+          Files are required.
+        </div>
+      </ng-container>
+    </div>
+
+    <table class="table" *ngIf="selectedFiles.length > 0">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Document Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of selectedFiles">
+          <td>{{ file.name }}</td>
+         
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!briefcaseForm.valid">Create</button>
+  </form>
+</div>
+-->
+<!--
+<div class="container">
+  <h2>Create Portafolio</h2>
+  <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
+   
+
+    <table class="table" *ngIf="selectedFiles.length > 0">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Document Name</th>
+          <th>Actions</th> <
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of selectedFiles">
+          <td>{{ file.name }}</td>
+          <td>{{ selectedDocumento?.name }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="uploadDocument(file)">Upload</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!briefcaseForm.valid">Create</button>
+  </form>
+</div>
+-->
+
+
+<div>
+  <h2>Formulario de Portafolio</h2>
+
+  <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="observations">Observaciones:</label>
+      <textarea id="observations" formControlName="observations"></textarea>
+      <div *ngIf="briefcaseForm.get('observations')?.invalid && briefcaseForm.get('observations')?.touched">
+        <div *ngIf="briefcaseForm.get('observations')?.errors?.['required']">Las observaciones son requeridas.</div>
+        <div *ngIf="briefcaseForm.get('observations')?.errors?.['minlength']">Las observaciones deben tener al menos 5 caracteres.</div>
+        <div *ngIf="briefcaseForm.get('observations')?.errors?.['maxlength']">Las observaciones no pueden tener más de 100 caracteres.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="state">Estado:</label>
+      <select id="state" formControlName="state">
+        <option value="" disabled selected>Seleccionar estado</option>
+        <option value="true">Estado 1</option>
+        <option value="false">Estado 2</option>
+      </select>
+      <div *ngIf="briefcaseForm.get('state')?.invalid && briefcaseForm.get('state')?.touched">
+        <div *ngIf="briefcaseForm.get('state')?.errors?.['required']">El estado es requerido.</div>
+      </div>
+    </div>
+
+
+    <button type="submit" [disabled]="!briefcaseForm.valid">Crear Portafolio</button>
+  </form>
+</div>
+
+<div *ngIf="loading">
+  Cargando documentos...
+</div>
+
+<div *ngIf="documentos.length > 0">
+  <h2>Documentos</h2>
+  <ul>
+    <li *ngFor="let documento of documentos">
+      {{ documento.name }}
+
+      <div>
+        <label for="files">Archivos:</label>
+        <input type="file" multiple (change)="onFileSelected($event, documento)">
+        <div *ngIf="briefcaseForm.get('files')?.invalid && briefcaseForm.get('files')?.touched">
+          <div *ngIf="briefcaseForm.get('files')?.errors?.['required']">Los archivos son requeridos.</div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+<button (click)="downloadFile(16,'Factura.pdf')">Descargar archivo</button>
