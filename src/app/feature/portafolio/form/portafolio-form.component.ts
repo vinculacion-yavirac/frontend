@@ -28,6 +28,8 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   title = 'Portafolio';
   files: CustomFile[] = [];
 
+info:PortafoliosModels;
+
   paramsSubscription: Subscription;
   idPortafolio:number;
   constructor(
@@ -103,7 +105,8 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   getBriefcaseId(id:number){
     this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
       if(response.status === 'success'){
-
+        this.info = response.data.briefcases;
+        console.log('entraaaaaaa', this.info);
       }
     })
   }
@@ -192,16 +195,30 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   }
 
 
-  downloadFile(id: number, name: string) {
-    this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+  // downloadFile(idPortafolio: number,idDocument:number,idFile:number, name: string) {
+  //   this.fileHttpService.downloadFile(idPortafolio,idDocument,idFile).subscribe((blob: Blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = name;
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //       window.URL.revokeObjectURL(url);
+  //   });
+  // }
+
+
+  downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
+    this.fileHttpService.downloadFile(portafolioId, documentoId, fileId).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
   }
 }

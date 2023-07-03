@@ -44,16 +44,17 @@ export class UploadComponent implements OnInit {
     // });
   }
 
-   downloadFile(id: number, name: string) {
-    this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    });
-  }
+  //  downloadFile(id: number, name: string) {
+    
+  //   this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = name;
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //       window.URL.revokeObjectURL(url);
+  //   });
+  // }
 }

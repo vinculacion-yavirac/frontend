@@ -193,10 +193,11 @@
         <div *ngIf="briefcaseForm.get('files')?.invalid && briefcaseForm.get('files')?.touched">
           <div *ngIf="briefcaseForm.get('files')?.errors?.['required']">Los archivos son requeridos.</div>
         </div>
+        <div *ngFor="let inf of info.files">    
+          <!-- <label for="files">Desacargar</label> -->
+          <button (click)="downloadFile(info.id,documento.id,inf.id,inf.name)" class="btn btn-primary">Descargar archivo</button>
+        </div>
       </div>
     </li>
   </ul>
 </div>
-
-
-<button (click)="downloadFile(16,'Factura.pdf')" class="btn btn-primary">Descargar archivo</button>
