@@ -6,6 +6,9 @@ export interface Person {
     identification_type: string;
     identification: string;
     gender: string;
+    direction: string;
+    semester: string;
+    career: string;
     date_birth: Date;
     place_birth: string;
     disability: string;

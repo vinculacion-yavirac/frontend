@@ -17,6 +17,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 
+
 }
 
 h1 {
@@ -32,8 +33,8 @@ p {
 	font-size: 14px;
 	font-weight: 100;
 	line-height: 20px;
-	letter-spacing: 0.5px;
-	margin: 20px 0 30px;
+	letter-spacing: 0.9px;
+	margin: 20px 0 12px;
 }
 
 span {
@@ -87,7 +88,7 @@ form {
 input {
 	background-color: rgb(255, 255, 255);
 	border: none;
-	padding: 12px 15px;
+	padding: 12px 1px;
 	margin: 8px 0;
 	width: 100%;
 }
@@ -97,14 +98,13 @@ input {
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
 			0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
+	position: sticky;
 	overflow: hidden;
 	width: 50rem;
-  left: 17rem;
-  top: 50px;
+  
 	max-width: 150%;
 	min-height: 485px;
-  background-image: url("../../../assets/images/LogoYavirac.png") ;
+  background-image: url("../../../assets/images/LogoYavirac.png");
 }
 
 .form-container {
@@ -126,7 +126,7 @@ input {
 
 .sign-up-container {
 	left: 0;
-	width: 50%;
+	width: 80%;
 	opacity: 0;
 	z-index: 1;
 }
@@ -166,7 +166,7 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
+	background: #ff4141;
 	background: -webkit-linear-gradient(to right, #00a2ff, #022369);
 	background: linear-gradient(to right, #00a2ff, #022369);
 	background-repeat: no-repeat;

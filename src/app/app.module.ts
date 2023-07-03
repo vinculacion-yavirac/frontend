@@ -15,10 +15,14 @@ import { NotificationInterceptor } from './shared/notification/notification.inte
 import { CookieService } from 'ngx-cookie-service';
 import { ProyectoComboboxComponent } from './shared/comboboxes/proyecto/proyecto-combobox.component';
 import { ProyectosComboboxComponent } from './shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component';
+import { ExporterService } from './service/exportar/exporter.service';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, NotFoundComponent],
     providers: [
+        ExporterService,
         CookieService,
         {
             provide: HTTP_INTERCEPTORS,
@@ -42,6 +46,7 @@ import { ProyectosComboboxComponent } from './shared/comboboxes/proyecto-fundaci
         MaterialModule,
         FeatureModule,
         LayoutModule,
+        MatSelectModule,
     ],
     exports: [
 

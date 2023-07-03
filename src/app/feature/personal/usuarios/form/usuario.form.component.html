@@ -204,7 +204,116 @@
                   Este campo es <strong>requerido</strong>
                 </mat-error>
               </mat-form-field>
+
             </div>
+         <!-- input de Direccion-->
+            <mat-form-field
+            appearance="fill"
+            class="w-full row-start-2 col-span-2"
+          >
+            <mat-label>Direccion</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="direction"
+              [errorStateMatcher]="matcher"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <mat-error
+              *ngIf="
+                formGroup
+                  .get('person')
+                  ?.get('direction')
+                  ?.hasError('minlength') ||
+                formGroup.get('person')?.get('direction')?.hasError('pattern')
+              "
+            >
+              Ingrese una direccion <strong>valida</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                formGroup.get('person')?.get('direction')?.hasError('required')
+              "
+            >
+              Este campo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+           <!-- input de semestre -->
+           <mat-form-field
+           appearance="fill"
+           class="w-full row-start-2 col-span-2"
+         >
+           <mat-label>Semestre</mat-label>
+           <input
+             type="text"
+             matInput
+             formControlName="semester"
+             [errorStateMatcher]="matcher"
+             autocomplete="off"
+             spellcheck="false"
+           />
+           <mat-error
+             *ngIf="
+               formGroup
+                 .get('person')
+                 ?.get('semester')
+                 ?.hasError('minlength') ||
+               formGroup
+                 .get('person')
+                 ?.get('semester')
+                 ?.hasError('pattern')
+             "
+           >
+             Ingrese su semestre
+           </mat-error>
+           <mat-error
+             *ngIf="
+               formGroup
+                 .get('person')
+                 ?.get('semester')
+                 ?.hasError('required')
+             "
+           >
+             Este campo es <strong>requerido</strong>
+           </mat-error>
+         </mat-form-field>
+
+ <!-- input de carrera-->
+ <mat-form-field
+ appearance="fill"
+ class="w-full row-start-2 col-span-2"
+>
+ <mat-label>Carrera</mat-label>
+ <input
+   type="text"
+   matInput
+   formControlName="career"
+   [errorStateMatcher]="matcher"
+   autocomplete="off"
+   spellcheck="false"
+ />
+ <mat-error
+   *ngIf="
+     formGroup
+       .get('person')
+       ?.get('career')
+       ?.hasError('minlength') ||
+     formGroup.get('person')?.get('career')?.hasError('pattern')
+   "
+ >
+   Ingrese una direccion <strong>valida</strong>
+ </mat-error>
+ <mat-error
+   *ngIf="
+     formGroup.get('person')?.get('career')?.hasError('required')
+   "
+ >
+   Este campo es <strong>requerido</strong>
+ </mat-error>
+</mat-form-field>
 
             <!-- input de correo -->
             <mat-form-field appearance="fill" class="w-full col-span-4">

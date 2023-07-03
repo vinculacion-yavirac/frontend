@@ -8,12 +8,21 @@ import { ModalAlertComponent } from '../../../../../app/shared/material/modal-al
 import { User } from '../../../../../app/models/auth/users/usuario';
 import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuario-http.service';
 
+import { ExporterService } from 'src/app/service/exportar/exporter.service';
+import * as _ from 'lodash';
+import { MatTableDataSource } from '@angular/material/table';
+import { EstadosSolicitudComboboxComponent } from 'src/app/shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component';
+import { Person } from 'src/app/models/auth/persona/persona';
+
+
 
 @Component({
   selector: 'app-usuario-list',
   templateUrl: './usuario.list.component.html',
   styleUrls: ['./usuario.list.component.css'],
 })
+
+
 export class UsuariosListComponent implements OnInit {
   reverse = false;
 
@@ -26,14 +35,29 @@ export class UsuariosListComponent implements OnInit {
 
   loading: boolean = true;
 
+
   constructor(
     private usuarioHttpService:UsuarioHttpService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private excellService:ExporterService
   ) {}
 
   ngOnInit(): void {
     this.getUsuarios();
+
 }
+
+
+
+
+
+//EXPORTAR
+exportAsXLSX(): void {
+
+this.excellService.exportToExcel(this.usuarios, 'excel');
+
+}
+
 
   getUsuarios(): void {
     this.loading = true;
@@ -57,19 +81,11 @@ export class UsuariosListComponent implements OnInit {
   }
 
 
-  filterUsers = (rol:string) => {
-
-    const result = this.usuarios.filter((user) => user.role.name === rol)
-    this.usuarios = result;
-    return result;
-
-  }
-
   filterUsersByEstado = (estado:number) => {
 
     const result = this.usuarios.filter((user) => user.active === estado);
     this.usuarios = result;
-    return result;
+   return result;
 
   }
 
