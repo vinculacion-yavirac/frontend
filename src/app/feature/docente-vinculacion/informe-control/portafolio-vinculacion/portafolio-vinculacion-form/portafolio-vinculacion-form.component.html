@@ -116,11 +116,19 @@
       <app-portafolio-vinculacion-tutor-form></app-portafolio-vinculacion-tutor-form>
       <!--Portafolio Tutor-->
       <br>
-      <button
-        class="text-black font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button" style="    background-color: green;
-        color: white;" (click)="toggleModal()">Adjuntar
-      </button>
+      <div>
+        <br>
+        <!-- <H5>Portafolio Estudiante</H5> -->
+        <div class="form-check form-switch form-check-reverse">
+          <!-- <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse"> -->
+          <label class="form-check-label" for="flexSwitchCheckReverse">EVIDENCIA DEL PROYECTO FINAL:</label>
+          &nbsp; <button
+            class="text-black font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button" style="    background-color: green;
+            color: white;" (click)="toggleModal()">Adjuntar
+          </button>
+        </div>
+      </div>
 
       <div *ngIf="showModal"
         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
@@ -144,8 +152,7 @@
         </div> -->
             <!--body-->
             <div class="relative p-6 flex-auto">
-              <form class="row g-3 px-2"
-                style="    margin-left: 11px; display: grid;">
+              <form class="row g-3 px-2" style="    margin-left: 11px; display: grid;">
                 <br>
                 <H6 style=" font-size: 25px;">Avance cumplimiento de objetivos</H6>
                 <br>
@@ -164,7 +171,7 @@
               </form>
             </div>
             <!--footer-->
-            <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b" >
+            <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
 
               <button
                 class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -183,20 +190,23 @@
     </div>
 
     <br>
-    <div class="d-grid gap-2 col-4 mx-auto">
-      <button class="btn btn-primary" type="button">
-        <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
-        Enviar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
-        routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
-          'LEER_ROLES',
-          'CREAR_ROLES',
-          'ACTUALIZAR_ROLES',
-          'ELIMINAR_ROLES'
-        ]">
-        <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
-        Siguiente</button>
-
+    <div class="table-responsive">
+    
+      <div class="d-grid gap-2 col-4 mx-auto">
+        <button class="btn btn-primary" type="button">
+          <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
+          Enviar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
+          routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
+              'LEER_ROLES',
+              'CREAR_ROLES',
+              'ACTUALIZAR_ROLES',
+              'ELIMINAR_ROLES'
+            ]">
+          <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
+          Siguiente</button>
+    
+      </div>
     </div>
 
     <br>

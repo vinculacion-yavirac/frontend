@@ -43,8 +43,8 @@ import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas
 import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import {ProyectoInfoComponent} from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
-import {AsignarComponent} from "../feature/institucion-beneficiaria/asignar/asignar.component";
+import { ProyectoInfoComponent } from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
+import { AsignarComponent } from "../feature/institucion-beneficiaria/asignar/asignar.component";
 import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
@@ -57,7 +57,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {path:'avance', component:AvanceCumplimientoComponent},
+      { path: 'avance', component: AvanceCumplimientoComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       {
@@ -107,14 +107,14 @@ const routes: Routes = [
                   {
                     path: 'Aprobado',
                     component: PortafolioListComponent,
-                    data:{
+                    data: {
                       filterAprobado: true
                     }
                   },
                   {
                     path: 'Pendiente',
                     component: PortafolioListComponent,
-                    data:{
+                    data: {
                       filterPendiente: false
                     }
                   },
@@ -157,14 +157,14 @@ const routes: Routes = [
                   {
                     path: 'certificado',
                     component: SolicitudListComponent,
-                    data:{
+                    data: {
                       filterCertificado: 'Certificado'
                     }
                   },
                   {
                     path: 'vinculacion',
                     component: SolicitudListComponent,
-                    data:{
+                    data: {
                       filterVinculacion: 'Vinculación'
                     }
                   },
@@ -313,15 +313,15 @@ const routes: Routes = [
           },
           {
             path: 'asignar',
-            component:  AsignarComponent,
+            component: AsignarComponent,
           },
           {
             path: 'Asignar/:id',
-            component:  AsignarComponent,
+            component: AsignarComponent,
           },
           {
             path: 'form/:id',
-            component:  SolicitudFormComponent,
+            component: SolicitudFormComponent,
           },
           {
             path: 'list',
@@ -336,14 +336,14 @@ const routes: Routes = [
                   {
                     path: 'activa',
                     component: ListInstitucionBeneficiariaComponent,
-                    data:{
+                    data: {
                       filterActiva: true
                     }
                   },
                   {
                     path: 'inactiva',
                     component: ListInstitucionBeneficiariaComponent,
-                    data:{
+                    data: {
                       filterInactiva: false
                     }
                   },
@@ -444,6 +444,30 @@ const routes: Routes = [
                 children: [
                   {
                     path: '',
+                    component: PortafolioVinculacionFormComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: PortafolioVinculacionFormComponent,
+                  },
+                ],
+              },
+            ],
+          },
+
+          {
+            path: 'informe-control/avance-cumplimiento',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
                     component: AvanceCumplimientoComponent,
                   },
                   {
@@ -530,37 +554,37 @@ const routes: Routes = [
         ],
       },
 
-      {
-        path: 'estudiante',
-        children: [
-          { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
-          {
-            path: 'informe-final-estudiante',
-            children: [
-              {
-                path: '',
-                redirectTo: 'list',
-                pathMatch: 'full',
-              },
-              {
-                path: 'list',
-                children: [
-                  {
-                    path: '',
-                    component: InformeFinalEstudianteComponent,
-                  },
-                  {
-                    path: 'archived',
-                    component: InformeFinalEstudianteComponent,
-                  },
-                ],
-              },
-            ],
-          },
+      // {
+      //   path: 'estudiante',
+      //   children: [
+      //     { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
+      //     {
+      //       path: 'informe-final-estudiante',
+      //       children: [
+      //         {
+      //           path: '',
+      //           redirectTo: 'list',
+      //           pathMatch: 'full',
+      //         },
+      //         {
+      //           path: 'list',
+      //           children: [
+      //             {
+      //               path: '',
+      //               component: InformeFinalEstudianteComponent,
+      //             },
+      //             {
+      //               path: 'archived',
+      //               component: InformeFinalEstudianteComponent,
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     },
 
 
-        ],
-      },
+      //   ],
+      // },
 
     ],
   },
@@ -570,4 +594,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

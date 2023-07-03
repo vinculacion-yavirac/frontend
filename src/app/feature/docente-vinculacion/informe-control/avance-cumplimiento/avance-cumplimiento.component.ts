@@ -28,7 +28,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   public doc2: any;
   public first: any;
 
-  public proyectData: any=[];
+  public proyectData: any = [];
 
   @ViewChild("avanzeForm")
 
@@ -775,7 +775,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.line(40, 540, 555, 540);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(11);
-      this.doc.text(this.proyectData.description, 45, 555,{ maxWidth: 500, align: 'justify' });
+      this.doc.text(this.proyectData.description, 45, 555, { maxWidth: 500, align: 'justify' });
       this.doc.line(40, 750, 555, 750);
 
     }
@@ -799,6 +799,14 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.line(40, 570, 555, 570);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
+
+      /*liena vertical */
+      this.doc.line(150, 570, 150, 730);
+      this.doc.line(265, 570, 265, 730);
+      this.doc.line(395, 570, 395, 730);
+      // this.doc.line(440, 570, 440, 730);
+
+      /*--------------*/
       this.doc.text('Docentes', 80, 585);
       this.doc.text('Nombre y título profesional ', 195, 585, { maxWidth: 100, align: 'center' });
       this.doc.text('Horario de trabajo para el proyecto.', 320, 585, { maxWidth: 100, align: 'center' });
@@ -811,12 +819,65 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.text('0', 320, 615, { maxWidth: 100, align: 'center' });
       this.doc.text('0', 440, 615, { maxWidth: 100, align: 'center' });
       this.doc.line(40, 630, 555, 630);
+      this.doc.line(150, 660, 555, 660);
+      this.doc.line(150, 690, 555, 690);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.text('Docentes miembros del equipo de trabajo', 90, 690, { maxWidth: 100, align: 'center' });
 
-      this.doc.line(170, 660, 555, 660);
-
-      this.doc.line(170, 690, 555, 690);
       this.doc.line(40, 730, 555, 730);
     }
+    const pageContent5 = (data: any) => {
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+      this.doc.line(40, 150, 555, 150);
+      this.doc.line(40, 150, 40, 730);
+      this.doc.line(555, 150, 555, 730);
+      // this.doc.setFontSize(9);
+      // this.doc.setFont("Roboto", 'bold');
+      // this.doc.text('4.-DESCRIPCIÓN GENERAL  DE LA REALIZACION DEL PROYECTO POR PARTE DEL TUTOR ACADEMICO', 45, 165);
+      this.doc.line(150, 170, 555, 170);
+      /*participantes*/
+      /*liena vertical */
+      this.doc.line(150, 150, 150, 230);
+      /*lienas horizontales*/
+      this.doc.line(150, 190, 555, 190);
+      this.doc.line(150, 190, 555, 190);
+      this.doc.line(150, 210, 555, 210);
+      /*Estudiantes*/
+      this.doc.line(40, 230, 555, 230);
+      this.doc.line(40, 250, 555, 250);
+      /*titulo*/
+      this.doc.line(40, 270, 555, 270);
+      this.doc.line(40, 290, 270, 290);
+      /*liena vertical */
+      this.doc.line(150, 290, 150, 460);
+      this.doc.line(270, 270, 270, 460);
+      this.doc.line(420, 270, 420, 460);
+      /*Especialidad*/
+      this.doc.line(40, 320, 555, 320);
+      this.doc.line(40, 340, 555, 340);
+      this.doc.line(40, 360, 555, 360);
+      this.doc.line(40, 380, 555, 380);
+      this.doc.line(40, 400, 555, 400);
+      this.doc.line(40, 420, 555, 420);
+      this.doc.line(40, 440, 555, 440);
+      this.doc.line(40, 460, 555, 460);
+      /* 6.-ORGANIZACIÓN/ INSTITUCIÓN BENEFICIARIA*/
+      this.doc.line(40, 480, 555, 480);
+      this.doc.line(40, 515, 555, 515);
+      this.doc.line(40, 540, 555, 540);
+      this.doc.line(40, 580, 555, 580);
+      this.doc.line(40, 650, 555, 650);
+      this.doc.line(40, 685, 555, 685);
+
+
+
+      this.doc.line(40, 730, 555, 730);
+    }
+
 
     this.doc.autoTable({
       addPageContent: pageContent,
@@ -854,12 +915,19 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
     })
+
+    this.doc.autoTable({
+      addPageContent: pageContent5,
+      startY: 4100,
+
+
+    })
     var requiredPages = 4
     for (var i = 0; i < requiredPages; i++) {
       this.doc.addPage();
       //doc.text(20, 100, 'Some Text.');
     }
-    this.doc.save("table.pdf");
+    this.doc.save("Reportes.pdf");
 
 
 
