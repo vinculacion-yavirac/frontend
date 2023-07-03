@@ -9,6 +9,7 @@ import { DocumentoHttpService } from 'src/app/service/portafolio/documento/docum
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
 import { FilesModels } from 'src/app/models/portafolio/files/file.models';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-portafolio-form',
@@ -24,6 +25,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
   // files: File [] = [];
+  title = 'Portafolio';
   files: CustomFile[] = [];
 
   paramsSubscription: Subscription;
@@ -33,14 +35,34 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     private portafolioHttpService: PortafolioHttpService,
     private documentosHtppService: DocumentoHttpService,
     private fileHttpService: FileHttpService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.initForm();
   }
 
+  // ngOnInit(): void {
+  //   this.getDocumentos();
+  // }
+
   ngOnInit(): void {
+    // this.buildForm();
     this.getDocumentos();
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      if (params['id']) {
+        this.title = 'Portafoliossssss';
+        this. getBriefcaseId(params['id']);
+      } else {
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+      }
+    });
+
   }
+
+
 
   initForm(): void {
     this.briefcaseForm = this.formBuilder.group({
@@ -75,6 +97,19 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       console.log('this.currentPortafolio:', this.currentPortafolio);
     });
   }
+
+
+
+  getBriefcaseId(id:number){
+    this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
+      if(response.status === 'success'){
+
+      }
+    })
+  }
+
+
+
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
