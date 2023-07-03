@@ -9,6 +9,7 @@ import { DocumentoHttpService } from 'src/app/service/portafolio/documento/docum
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
 import { FilesModels } from 'src/app/models/portafolio/files/file.models';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-portafolio-form',
@@ -24,7 +25,10 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
   // files: File [] = [];
+  title = 'Portafolio';
   files: CustomFile[] = [];
+
+info:PortafoliosModels;
 
   paramsSubscription: Subscription;
   idPortafolio:number;
@@ -33,14 +37,34 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     private portafolioHttpService: PortafolioHttpService,
     private documentosHtppService: DocumentoHttpService,
     private fileHttpService: FileHttpService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.initForm();
   }
 
+  // ngOnInit(): void {
+  //   this.getDocumentos();
+  // }
+
   ngOnInit(): void {
+    // this.buildForm();
     this.getDocumentos();
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      if (params['id']) {
+        this.title = 'Portafoliossssss';
+        this. getBriefcaseId(params['id']);
+      } else {
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+      }
+    });
+
   }
+
+
 
   initForm(): void {
     this.briefcaseForm = this.formBuilder.group({
@@ -75,6 +99,20 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       console.log('this.currentPortafolio:', this.currentPortafolio);
     });
   }
+
+
+
+  getBriefcaseId(id:number){
+    this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
+      if(response.status === 'success'){
+        this.info = response.data.briefcases;
+        console.log('entraaaaaaa', this.info);
+      }
+    })
+  }
+
+
+
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
@@ -157,16 +195,30 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   }
 
 
-  downloadFile(id: number, name: string) {
-    this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+  // downloadFile(idPortafolio: number,idDocument:number,idFile:number, name: string) {
+  //   this.fileHttpService.downloadFile(idPortafolio,idDocument,idFile).subscribe((blob: Blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = name;
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //       window.URL.revokeObjectURL(url);
+  //   });
+  // }
+
+
+  downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
+    this.fileHttpService.downloadFile(portafolioId, documentoId, fileId).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
   }
 }

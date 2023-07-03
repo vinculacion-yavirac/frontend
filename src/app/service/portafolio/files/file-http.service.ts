@@ -99,7 +99,11 @@ export class FileHttpService {
 
 
 
-  downloadFile(id: number) {
-    return this.http.get(`${this.url}/download/${id}`, { responseType: 'blob' });
+  // downloadFile(id: number) {
+  //   return this.http.get(`${this.url}/download/${id}`, { responseType: 'blob' });
+  // }
+
+  downloadFile(idPortafolio: number,idDocumento:number,idFile:number ) {
+    return this.http.get(`${this.url}/download/${idPortafolio}/${idDocumento}/${idFile}`, { responseType: 'blob' });
   }
 }

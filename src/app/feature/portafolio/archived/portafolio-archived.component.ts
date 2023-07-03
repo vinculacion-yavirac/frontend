@@ -62,18 +62,18 @@ export class PortafolioArchivedComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string): void {
-    this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    });
-  }
+  // downloadFile(id: number, name: string): void {
+  //   this.fileHttpService.downloadFile(id).subscribe((blob: Blob) => {
+  //     const url = window.URL.createObjectURL(blob);
+  //     const a = document.createElement('a');
+  //     a.href = url;
+  //     a.download = name;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //     window.URL.revokeObjectURL(url);
+  //   });
+  // }
 
   handleSearchResponse(res: any): void {
     if (res.status === 'success') {

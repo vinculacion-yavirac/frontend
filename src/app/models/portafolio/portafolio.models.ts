@@ -10,8 +10,8 @@ export interface PortafoliosModels {
   observations: string;
   state: boolean;
   project_participant_id: ProyectoParticipanteModels;
-  document?: DocumentoModels[];
-  files: FilesModels[];
+  document: DocumentoModels;
+  files: FilesModels [] ;
   created_by?: User;
   archived?: boolean;
   archived_at?: Date;
