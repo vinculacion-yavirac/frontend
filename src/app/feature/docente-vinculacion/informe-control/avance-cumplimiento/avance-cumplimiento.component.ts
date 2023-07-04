@@ -815,15 +815,26 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Coordinador del proyecto', 50, 615);
-      this.doc.text('0', 195, 615, { maxWidth: 100, align: 'center' });
-      this.doc.text('0', 320, 615, { maxWidth: 100, align: 'center' });
-      this.doc.text('0', 440, 615, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 195, 615, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 615, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 440, 615, { maxWidth: 100, align: 'center' });
       this.doc.line(40, 630, 555, 630);
+      this.doc.text('$F{campo_dato}', 195, 650, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 650, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 440, 650, { maxWidth: 100, align: 'center' });
+
       this.doc.line(150, 660, 555, 660);
+      this.doc.text('$F{campo_dato}', 195, 680, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 680, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 440, 680, { maxWidth: 100, align: 'center' });
+
       this.doc.line(150, 690, 555, 690);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Docentes miembros del equipo de trabajo', 90, 690, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 195, 710, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 710, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 440, 710, { maxWidth: 100, align: 'center' });
 
       this.doc.line(40, 730, 555, 730);
     }
@@ -835,50 +846,236 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
       this.doc.line(40, 150, 555, 150);
       this.doc.line(40, 150, 40, 730);
       this.doc.line(555, 150, 555, 730);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.text('$F{campo_dato}', 195, 160, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 160, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 460, 160, { maxWidth: 100, align: 'center' });
+
       // this.doc.setFontSize(9);
       // this.doc.setFont("Roboto", 'bold');
       // this.doc.text('4.-DESCRIPCIÓN GENERAL  DE LA REALIZACION DEL PROYECTO POR PARTE DEL TUTOR ACADEMICO', 45, 165);
       this.doc.line(150, 170, 555, 170);
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.text('$F{campo_dato}', 195, 180, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 180, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 460, 180, { maxWidth: 100, align: 'center' });
+
       /*participantes*/
       /*liena vertical */
       this.doc.line(150, 150, 150, 230);
+      this.doc.line(270, 150, 270, 230);
+      this.doc.line(420, 150, 420, 230);
+
       /*lienas horizontales*/
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
       this.doc.line(150, 190, 555, 190);
-      this.doc.line(150, 190, 555, 190);
+
+      this.doc.text('$F{campo_dato}', 195, 200, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 200, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 460, 200, { maxWidth: 100, align: 'center' });
+
       this.doc.line(150, 210, 555, 210);
+      this.doc.text('$F{campo_dato}', 195, 220, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 320, 220, { maxWidth: 100, align: 'center' });
+      this.doc.text('$F{campo_dato}', 460, 220, { maxWidth: 100, align: 'center' });
+
       /*Estudiantes*/
       this.doc.line(40, 230, 555, 230);
+
       this.doc.line(40, 250, 555, 250);
+      this.doc.text('Estudiantes ', 45, 260,);
       /*titulo*/
       this.doc.line(40, 270, 555, 270);
+      this.doc.text('Datos Personales ', 110, 280,);
+
       this.doc.line(40, 290, 270, 290);
+      this.doc.text('$F{campo_dato}', 45, 300,);
+      this.doc.text('$F{campo_dato}', 195, 300,);
+
+      /*titulo otra tabla*/
+      this.doc.text('Especialidad', 320, 290,);
+      this.doc.text('Funciones asignadas/con horas de trabajo', 485, 290, { maxWidth: 100, align: 'center' });
+
+
       /*liena vertical */
       this.doc.line(150, 290, 150, 460);
       this.doc.line(270, 270, 270, 460);
       this.doc.line(420, 270, 420, 460);
       /*Especialidad*/
       this.doc.line(40, 320, 555, 320);
+      this.doc.text('$F{campo_dato}', 45, 330,);
+      this.doc.text('$F{campo_dato}', 195, 330,);
+      this.doc.text('$F{campo_dato}', 320, 330,);
+      this.doc.text('$F{campo_dato}', 460, 330,);
+
       this.doc.line(40, 340, 555, 340);
+      this.doc.text('$F{campo_dato}', 45, 350,);
+      this.doc.text('$F{campo_dato}', 195, 350,);
+      this.doc.text('$F{campo_dato}', 320, 350,);
+      this.doc.text('$F{campo_dato}', 460, 350,);
+
       this.doc.line(40, 360, 555, 360);
+      this.doc.text('$F{campo_dato}', 45, 370,);
+      this.doc.text('$F{campo_dato}', 195, 370,);
+      this.doc.text('$F{campo_dato}', 320, 370,);
+      this.doc.text('$F{campo_dato}', 460, 370,);
+
       this.doc.line(40, 380, 555, 380);
+      this.doc.text('$F{campo_dato}', 45, 390,);
+      this.doc.text('$F{campo_dato}', 195, 390,);
+      this.doc.text('$F{campo_dato}', 320, 390,);
+      this.doc.text('$F{campo_dato}', 460, 390,);
+
       this.doc.line(40, 400, 555, 400);
+      this.doc.text('$F{campo_dato}', 45, 410,);
+      this.doc.text('$F{campo_dato}', 195, 410,);
+      this.doc.text('$F{campo_dato}', 320, 410,);
+      this.doc.text('$F{campo_dato}', 460, 410,);
+
       this.doc.line(40, 420, 555, 420);
+      this.doc.text('$F{campo_dato}', 45, 430,);
+      this.doc.text('$F{campo_dato}', 195, 430,);
+      this.doc.text('$F{campo_dato}', 320, 430,);
+      this.doc.text('$F{campo_dato}', 460, 430,);
+
       this.doc.line(40, 440, 555, 440);
+      this.doc.text('$F{campo_dato}', 45, 450,);
+      this.doc.text('$F{campo_dato}', 195, 450,);
+      this.doc.text('$F{campo_dato}', 320, 450,);
+      this.doc.text('$F{campo_dato}', 460, 450,);
+
+      /*liena vertical */
+      this.doc.line(220, 480, 220, 730);
+      this.doc.line(320, 480, 320, 540);
+      this.doc.line(380, 540, 380, 730);
+      this.doc.line(420, 480, 420, 540);
+
       this.doc.line(40, 460, 555, 460);
       /* 6.-ORGANIZACIÓN/ INSTITUCIÓN BENEFICIARIA*/
+      this.doc.text('6.-ORGANIZACIÓN/ INSTITUCIÓN BENEFICIARIA', 45, 475,);
       this.doc.line(40, 480, 555, 480);
-      this.doc.line(40, 515, 555, 515);
-      this.doc.line(40, 540, 555, 540);
-      this.doc.line(40, 580, 555, 580);
-      this.doc.line(40, 650, 555, 650);
-      this.doc.line(40, 685, 555, 685);
+      this.doc.text('Nombre completo organización/institución beneficiaria', 120, 490, { maxWidth: 175, align: 'center' });
+      this.doc.text('Provincia', 275, 490, { maxWidth: 175, align: 'center' });
+      this.doc.text('Cantón', 375, 490, { maxWidth: 175, align: 'center' });
+      this.doc.text('Parroquia', 475, 490, { maxWidth: 175, align: 'center' });
 
+      this.doc.line(40, 515, 555, 515);
+      this.doc.text('$F{campo_dato}', 120, 525, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 275, 525, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 375, 525, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 475, 525, { maxWidth: 175, align: 'center' });
+
+      this.doc.line(40, 540, 555, 540);
+      this.doc.text('Lugar de ubicación', 110, 560, { maxWidth: 175, align: 'center' });
+      this.doc.text('Beneficiarios Directos', 300, 560, { maxWidth: 175, align: 'center' });
+      this.doc.text('Beneficiarios Indirectos', 460, 560, { maxWidth: 175, align: 'center' });
+
+      this.doc.line(40, 580, 555, 580);
+      this.doc.text('$F{campo_dato}', 80, 610, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 260, 610, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 410, 610, { maxWidth: 175, align: 'center' });
+
+
+      this.doc.line(40, 650, 555, 650);
+      this.doc.setFontSize(9);
+      this.doc.text('NOMBRES Y APELLIDOS DE COORDINADOR(ES) DE INSTITUCIÓN BENEFICIARIA: ', 110, 660, { maxWidth: 150, align: 'center' });
+      this.doc.text('CARGO O FUNCIÓN EN LA INSTITUCIÓN BENEFICIARIA', 300, 660, { maxWidth: 150, align: 'center' });
+      this.doc.text('FUNCIÓN QUE CUMPLE EN EL PROYECTO DE VINCULACIÓN CON LA COMUNIDAD.', 460, 660, { maxWidth: 150, align: 'center' });
+      this.doc.line(40, 685, 555, 685);
+      this.doc.text('$F{campo_dato}', 80, 710, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 260, 710, { maxWidth: 175, align: 'center' });
+      this.doc.text('$F{campo_dato}', 410, 710, { maxWidth: 175, align: 'center' });
 
 
       this.doc.line(40, 730, 555, 730);
     }
+    const pageContent6 = (data: any) => {
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
 
 
+      this.doc.line(40, 150, 555, 150);
+      this.doc.line(40, 150, 40, 730);
+      this.doc.line(555, 150, 555, 730);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('7.DESCRIPCIÓN GENERAL  DE LA REALIZACION DEL PROYECTO POR PARTE DEL TUTOR ENTIDAD BENEFICIARIA', 45, 165);
+      this.doc.line(40, 170, 555, 170);
+
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.text('$F{descripcion_general}', 45, 180, { maxWidth: 550, align: 'justify' });
+
+
+
+
+      /*liena vertical */
+      this.doc.line(225, 320, 225, 730);
+      this.doc.line(395, 320, 395, 730);
+      /*Especialidad*/
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.line(40, 320, 555, 320);
+      this.doc.text('COMPONENTES: (Objetivos Específicos)', 45, 330,);
+      this.doc.text('$F{campo_dato}', 230, 330,);
+      this.doc.text('$F{campo_dato}', 400, 330,);
+      this.doc.line(40, 460, 555, 460);
+      this.doc.text('ACTIVIDADES', 45, 475,);
+      this.doc.text('AVANCE Y CUMPLIMIENTO', 235, 475,);
+      this.doc.text('OBSERVACIONES ', 440, 475,);
+
+      this.doc.line(40, 485, 555, 485);
+      this.doc.text('$F{actividad}', 45, 500);
+      this.doc.text('$F{avance}', 230, 500);
+      this.doc.text('$F{observaciones}', 420, 500);
+
+      this.doc.line(40, 515, 555, 515);
+      this.doc.text('$F{actividad}', 45, 530);
+      this.doc.line(40, 540, 555, 540);
+      this.doc.text('$F{actividad}', 45, 555);
+      this.doc.line(40, 570, 555, 570);
+      this.doc.text('$F{actividad}', 45, 580);
+      this.doc.line(40, 600, 555, 600);
+      this.doc.text('$F{actividad}', 45, 620);
+      this.doc.line(40, 630, 555, 630);
+      this.doc.text('$F{actividad}', 45, 650);
+      this.doc.line(40, 660, 555, 660);
+      this.doc.text('$F{actividad}', 45, 680);
+      this.doc.line(40, 690, 555, 690);
+      this.doc.text('$F{actividad}', 45, 715);
+      this.doc.line(40, 730, 555, 730);
+    }
+    const pageContent7 = (data: any) => {
+      // HEADER
+      this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+
+
+      this.doc.line(40, 150, 555, 150);
+      this.doc.line(40, 150, 40, 550);
+      this.doc.line(555, 150, 555, 550);
+      this.doc.setFontSize(9);
+      this.doc.setFont("Roboto", 'bold');
+      this.doc.text('Evidencia del producto final:', 45, 165);
+      this.doc.line(40, 170, 555, 170);
+
+      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
+      this.doc.setFontSize(9);
+      this.doc.text('$F{evidencia_producto}', 45, 180, { maxWidth: 550, align: 'justify' });
+
+      this.doc.line(40, 550, 555, 550);
+
+      this.doc.line(150, 680, 250, 680);
+      this.doc.text('FIRMA TUTOR DEL PROYECTO', 195, 695, { maxWidth: 100, align: 'center' });
+
+      this.doc.line(350, 680, 450, 680);
+      this.doc.text('FIRMA RESPONSABLE DE VINCULACION ', 400, 695, { maxWidth: 100, align: 'center' });
+
+
+
+    }
     this.doc.autoTable({
       addPageContent: pageContent,
 
@@ -922,11 +1119,16 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
     })
-    var requiredPages = 4
-    for (var i = 0; i < requiredPages; i++) {
-      this.doc.addPage();
-      //doc.text(20, 100, 'Some Text.');
-    }
+    this.doc.autoTable({
+      addPageContent: pageContent6,
+      startY: 5100,
+
+    })
+    this.doc.autoTable({
+      addPageContent: pageContent7,
+      startY: 6100,
+
+    })
     this.doc.save("Reportes.pdf");
 
 
