@@ -24,7 +24,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   selectedFiles: File[] = [];
   documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
-  // files: File [] = [];
   title = 'Portafolio';
   files: CustomFile[] = [];
 
@@ -49,7 +48,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit(): void {
-    // this.buildForm();
     this.getDocumentos();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
@@ -86,17 +84,10 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
           ],
         },
       ],
-      // files: [
-      //   [],
-      //   {
-      //     validators: [Validators.required],
-      //   },
-      // ],
     });
 
     this.briefcaseForm.valueChanges.subscribe((values) => {
       this.currentPortafolio = values;
-      console.log('this.currentPortafolio:', this.currentPortafolio);
     });
   }
 
@@ -106,7 +97,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
       if(response.status === 'success'){
         this.info = response.data.briefcases;
-        console.log('entraaaaaaa', this.info);
       }
     })
   }
@@ -120,11 +110,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.briefcaseForm.valid) {
-      console.log('success valid');
       this.createBriefcase();
-      // this.uploadFiles(1,1);
-    } else {
-      console.log('error');
     }
   }
 
@@ -133,7 +119,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.documentosHtppService.getDocuments().subscribe((res: any) => {
       if (res.status === 'success') {
         this.documentos = res.data.documents;
-        console.log(this.documentos);
       }
       this.loading = false;
     });
@@ -145,14 +130,10 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((response: any) => {
 
         if(response.status === 'success'){
-        console.log('createBriefcase:',this.currentPortafolio);
         const id = response.data.briefcase.id;
-        console.log('idsssssss',1)
         this.uploadFiles(id);
         }
       });
-    } else {
-      console.log('error');
     }
   }
 
@@ -162,21 +143,11 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  // onFileSelected(event: any): void {
-  //   this.files = Array.from(event.target.files);
-  //   console.log(this.files);
-  //   this.updateSelectedFilesList();
-  // }
-
 
   onFileSelected(event: any, documento: DocumentoModels): void {
     this.selectedDocumento = documento;
     const selectedFiles: FileList = event.target.files;
 
-    // Limpiar el array this.files
-    //this.files = [];
-
-    // Recorrer los archivos seleccionados y agregarlos al array this.files
     for (let i = 0; i < selectedFiles.length; i++) {
       const file: File = selectedFiles[i];
       const customFile: CustomFile = {
@@ -186,27 +157,13 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       this.files.push(customFile);
     }
 
-    console.log(this.files);
+
     this.updateSelectedFilesList();
   }
 
   updateSelectedFilesList(): void {
     this.cdr.detectChanges();
   }
-
-
-  // downloadFile(idPortafolio: number,idDocument:number,idFile:number, name: string) {
-  //   this.fileHttpService.downloadFile(idPortafolio,idDocument,idFile).subscribe((blob: Blob) => {
-  //       const url = window.URL.createObjectURL(blob);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = name;
-  //       document.body.appendChild(a);
-  //       a.click();
-  //       document.body.removeChild(a);
-  //       window.URL.revokeObjectURL(url);
-  //   });
-  // }
 
 
   downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
