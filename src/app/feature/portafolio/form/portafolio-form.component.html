@@ -14,7 +14,7 @@
     <div class="flex w-full p-3.5 text-dark">
       <div class="grid h-20 flex-grow rounded-box text-dark">
         <h5 class="text-sm -50 p-1.5">
-          Cedula de Identidad:
+          Cédula de Identidad:
         </h5>
         <h5 class="text-sm -50 p-1.5">
           Nombres:
@@ -34,12 +34,12 @@
       </div>
     </div>
     <h2 class="text-xl p-3">
-      Datos de la Fundacion
+      Datos de la Fundación
     </h2>
     <div class="flex w-full p-3.5">
       <div class="grid h-20 flex-grow  rounded-box">
         <h5 class="text-sm p-1.5">
-          Nombre de la Fundacion:
+          Nombre de la Fundación:
         </h5>
         <h5 class="text-sm  p-1.5">
           Encargado:
@@ -53,7 +53,7 @@
           Dirección:
         </h5>
         <h5 class="text-sm  p-1.5">
-          Telefono:
+          Teléfono:
         </h5>
       </div>
     </div>
@@ -106,7 +106,7 @@
                           </div>
                         </div>
                       </div>
-                      <div *ngFor="let inf of info.files">
+                      <div *ngFor="let inf of info?.files">
                         <div *ngIf="inf.document_id === documento.id">
                           <button (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
                             class="btn btn-primary">Descargar archivo</button>

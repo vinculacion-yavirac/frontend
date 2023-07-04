@@ -8,7 +8,6 @@ import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParti
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
-import { FilesModels } from 'src/app/models/portafolio/files/file.models';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -24,11 +23,10 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   selectedFiles: File[] = [];
   documentos: DocumentoModels[] = [];
   project: ProyectoParticipanteModels;
-  // files: File [] = [];
   title = 'Portafolio';
   files: CustomFile[] = [];
 
-info:PortafoliosModels;
+  info:PortafoliosModels;
 
   paramsSubscription: Subscription;
   idPortafolio:number;
@@ -38,23 +36,17 @@ info:PortafoliosModels;
     private documentosHtppService: DocumentoHttpService,
     private fileHttpService: FileHttpService,
     private cdr: ChangeDetectorRef,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
     this.initForm();
   }
 
-  // ngOnInit(): void {
-  //   this.getDocumentos();
-  // }
-
   ngOnInit(): void {
-    // this.buildForm();
     this.getDocumentos();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
         this.title = 'Portafoliossssss';
-        this. getBriefcaseId(params['id']);
+        this.getBriefcaseId(params['id']);
       } else {
         setTimeout(() => {
           this.loading = false;
@@ -86,17 +78,10 @@ info:PortafoliosModels;
           ],
         },
       ],
-      // files: [
-      //   [],
-      //   {
-      //     validators: [Validators.required],
-      //   },
-      // ],
     });
 
     this.briefcaseForm.valueChanges.subscribe((values) => {
       this.currentPortafolio = values;
-      console.log('this.currentPortafolio:', this.currentPortafolio);
     });
   }
 
@@ -106,7 +91,6 @@ info:PortafoliosModels;
     this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
       if(response.status === 'success'){
         this.info = response.data.briefcases;
-        console.log('entraaaaaaa', this.info);
       }
     })
   }
@@ -120,11 +104,7 @@ info:PortafoliosModels;
 
   onSubmit(): void {
     if (this.briefcaseForm.valid) {
-      console.log('success valid');
-      this.createBriefcase(); 
-      // this.uploadFiles(1,1);
-    } else {
-      console.log('error');
+      this.createBriefcase();
     }
   }
 
@@ -133,7 +113,6 @@ info:PortafoliosModels;
     this.documentosHtppService.getDocuments().subscribe((res: any) => {
       if (res.status === 'success') {
         this.documentos = res.data.documents;
-        console.log(this.documentos);
       }
       this.loading = false;
     });
@@ -145,14 +124,10 @@ info:PortafoliosModels;
       this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((response: any) => {
 
         if(response.status === 'success'){
-        console.log('createBriefcase:',this.currentPortafolio);
         const id = response.data.briefcase.id;
-        console.log('idsssssss',1)
         this.uploadFiles(id);
         }
       });
-    } else {
-      console.log('error');
     }
   }
 
@@ -162,21 +137,11 @@ info:PortafoliosModels;
     }
   }
 
-  // onFileSelected(event: any): void {
-  //   this.files = Array.from(event.target.files);
-  //   console.log(this.files);
-  //   this.updateSelectedFilesList();
-  // }
-
 
   onFileSelected(event: any, documento: DocumentoModels): void {
     this.selectedDocumento = documento;
     const selectedFiles: FileList = event.target.files;
-  
-    // Limpiar el array this.files
-    //this.files = [];
-  
-    // Recorrer los archivos seleccionados y agregarlos al array this.files
+
     for (let i = 0; i < selectedFiles.length; i++) {
       const file: File = selectedFiles[i];
       const customFile: CustomFile = {
@@ -185,28 +150,14 @@ info:PortafoliosModels;
       }
       this.files.push(customFile);
     }
-  
-    console.log(this.files);
+
+
     this.updateSelectedFilesList();
   }
 
   updateSelectedFilesList(): void {
     this.cdr.detectChanges();
   }
-
-
-  // downloadFile(idPortafolio: number,idDocument:number,idFile:number, name: string) {
-  //   this.fileHttpService.downloadFile(idPortafolio,idDocument,idFile).subscribe((blob: Blob) => {
-  //       const url = window.URL.createObjectURL(blob);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = name;
-  //       document.body.appendChild(a);
-  //       a.click();
-  //       document.body.removeChild(a);
-  //       window.URL.revokeObjectURL(url);
-  //   });
-  // }
 
 
   downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
