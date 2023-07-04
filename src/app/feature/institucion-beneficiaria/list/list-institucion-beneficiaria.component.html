@@ -86,16 +86,22 @@
                 </div>
               </td>
               <td class="py-[3.8px] px-6 capitalize">
-                <span [routerLink]="['/system/solicitud/form/', institucionBeneficiaria.id]"
-                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  *permissions="['ACTUALIZAR_SOLICITUD']"></span>
+                <span
+                      class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
+                      *permissions="['ACTUALIZAR_SOLICITUD']"
+                      (click)="openModal(institucionBeneficiaria.id)"></span>
               </td>
 
               <th class="py-[3.8px] px-6 capitalize" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
-                <span *permissions="['ARCHIVAR_SOLICITUD']" class="btn btn-primary btn btn-sm btn btn-outline btn-primary" [routerLink]="['/system/institucion-beneficiaria/asignar/', institucionBeneficiaria.id ]" >
-                  Asignar
+                <span *permissions="['ARCHIVAR_SOLICITUD']">
+                  <span class="btn btn-primary btn btn-sm btn btn-outline btn-primary"
+                    [routerLink]="['/system/institucion-beneficiaria/asignar/', institucionBeneficiaria.id ]"
+                    *ngIf="institucionBeneficiaria.state"> <!-- Movida la directiva *ngIf al elemento envolvente -->
+                    Asignar
+                  </span>
                 </span>
               </th>
+
             </tr>
           </tbody>
         </table>

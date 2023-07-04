@@ -48,6 +48,7 @@ import {AsignarComponent} from "../feature/institucion-beneficiaria/asignar/asig
 import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
+import {ConfiguracionComponent} from "../feature/portafolio/configuracion/configuracion.component";
 
 
 const routes: Routes = [
@@ -85,6 +86,10 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list',
             pathMatch: 'full',
+          },
+          {
+            path: 'configuracion',
+            component: ConfiguracionComponent ,
           },
           {
             path: 'form',

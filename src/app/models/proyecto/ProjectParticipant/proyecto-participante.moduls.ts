@@ -11,7 +11,7 @@ export interface ProyectoParticipanteModels {
   catalogue_id:CatalogoModels;
   //'schedule_id',
   //'state_id',
-  project:ProyectoModels;
+  project_id:ProyectoModels;
   participant_id:User;
 
 }
