@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 import { MatTableDataSource } from '@angular/material/table';
 import { EstadosSolicitudComboboxComponent } from 'src/app/shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component';
 import { Person } from 'src/app/models/auth/persona/persona';
+import { file } from 'googleapis/build/src/apis/file';
 
 
 
@@ -49,14 +50,18 @@ export class UsuariosListComponent implements OnInit {
 
 
 
-
-
 //EXPORTAR
 exportAsXLSX(): void {
+const users = this.usuarios.map((usuario) =>{return {id: usuario.id , correo: usuario.email, nombres:usuario.person.names}})
+this.excellService.exportToExcel(users,'excel');
+//const prueba = xlsx.read(file) // Me va a regresar un array
+//[{id:id}] [[id,id]] Asi me va  a regresar un array
 
-this.excellService.exportToExcel(this.usuarios, 'excel');
+
 
 }
+
+
 
 
   getUsuarios(): void {
