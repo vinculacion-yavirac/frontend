@@ -895,7 +895,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + '"nombre instituti' + ', legalmente representado por el ' + 'Nombre representado' + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.proyectData.beneficiary_institution_id.name + ', legalmente representado por el ' + this.proyectData.beneficiary_institution_id.name + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -1013,9 +1013,10 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('17.  Con los antecedentes expuestos, el Instituto Tecnológico Superior xxxxxx y el xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx, acuerdan suscribir el presente convenio referente' +
         'a la implementación de un programa de vinculación con la colectividad que versará' +
-        'sobre el proyecto que tiene como objetivo:”xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx”, por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.', 115, 290, { maxWidth: 400, align: 'justify' });
+        this.doc2.text('17.  Con los antecedentes expuestos, el Instituto Tecnológico Superior xxxxxx y el' +this.proyectData.beneficiary_institution_id.name+' acuerdan suscribir el presente convenio referente' +
+        'a la implementación de un programa de vinculación con la colectividad que versará' +
+        'sobre el proyecto que tiene como objetivo:”', +this.proyectData.beneficiary_institution_id.name+', por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.', 115, 290, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto", 'bold');
@@ -1404,7 +1405,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 200, 555, 200);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 195);
+      this.doc.text(this.proyectData.code, 160, 195);
 
       this.doc.setFontSize(10);
       this.doc.setFont("Roboto", 'bold');
@@ -1420,7 +1421,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 240, 555, 240);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 235, { maxWidth: 100, align: 'justify' });
+      this.doc.text(this.miDatePipe.transform(this.proyectData.start_date, 'dd/MM/yyyy'), 160, 235, { maxWidth: 100, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');
@@ -1433,7 +1434,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.text('Nombre de la Entidad Receptora:', 40, 270, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 270);
+      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 270);
       this.doc.line(40, 290, 555, 290);
 
       this.doc.setFontSize(9);
@@ -1441,7 +1442,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.text('Nombre de la Entidad Receptora:', 40, 300, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 300);
+      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 300);
       this.doc.line(40, 320, 555, 320);
 
       this.doc.setFontSize(9);
@@ -1449,7 +1450,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.text('Nombre de la persona  autorizada legalmente  para la suscripción del Convenio:', 40, 330, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 330);
+      this.doc.text(this.proyectData.name, 160, 330);
       this.doc.line(40, 365, 555, 365);
 
 
@@ -1458,7 +1459,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.text('Actividad económica que consta en el RUC:', 40, 385, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 385);
+      this.doc.text(this.proyectData.code, 160, 385);
       this.doc.line(40, 410, 555, 410);
 
 
@@ -1470,7 +1471,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.text('Plazo de vigencia del convenio:', 40, 430, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 430);
+      this.doc.text(this.miDatePipe.transform(this.proyectData.end_date, 'dd/MM/yyyy'), 160, 430);
       this.doc.line(40, 455, 555, 455);
 
       this.doc.line(280, 455, 280, 630);
