@@ -43,10 +43,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  // ngOnInit(): void {
-  //   this.getDocumentos();
-  // }
-
   ngOnInit(): void {
     this.getDocumentos();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
