@@ -8,7 +8,6 @@ import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParti
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
-import { FilesModels } from 'src/app/models/portafolio/files/file.models';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -37,7 +36,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     private documentosHtppService: DocumentoHttpService,
     private fileHttpService: FileHttpService,
     private cdr: ChangeDetectorRef,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
     this.initForm();
