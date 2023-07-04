@@ -70,11 +70,10 @@ export class AvanceCumplimiento2Component implements OnInit {
 /*obtener todas las actividades*/
   public getAllActividades() {
     this.httpProvider.getActividades().subscribe((data: any) => {
-
-
-
-      if (data.data.avances != null && data.data.avances != null) {
-        var resultData = data.data.avances;
+      console.log(data);
+      
+      if (data.data.avanzes != null && data.data.avanzes != null) {
+        var resultData = data.data.avanzes;
         if (resultData) {
           console.log(resultData);
 
@@ -108,7 +107,7 @@ export class AvanceCumplimiento2Component implements OnInit {
   public getById(id: number) {
     this.httpProvider.getActividadesById(id).subscribe((data) => {
       console.log(data);
-      this.post = data.data.avance[0];
+      this.post = data.data.avanze[0];
 
 
     });
