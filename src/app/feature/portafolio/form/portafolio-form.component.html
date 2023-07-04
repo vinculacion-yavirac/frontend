@@ -106,7 +106,7 @@
                           </div>
                         </div>
                       </div>
-                      <div *ngFor="let inf of info.files">
+                      <div *ngFor="let inf of info?.files">
                         <div *ngIf="inf.document_id === documento.id">
                           <button (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
                             class="btn btn-primary">Descargar archivo</button>

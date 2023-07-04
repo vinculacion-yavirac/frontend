@@ -28,7 +28,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   title = 'Portafolio';
   files: CustomFile[] = [];
 
-info:PortafoliosModels;
+  info:PortafoliosModels;
 
   paramsSubscription: Subscription;
   idPortafolio:number;
@@ -54,7 +54,7 @@ info:PortafoliosModels;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
         this.title = 'Portafoliossssss';
-        this. getBriefcaseId(params['id']);
+        this.getBriefcaseId(params['id']);
       } else {
         setTimeout(() => {
           this.loading = false;
@@ -121,7 +121,7 @@ info:PortafoliosModels;
   onSubmit(): void {
     if (this.briefcaseForm.valid) {
       console.log('success valid');
-      this.createBriefcase(); 
+      this.createBriefcase();
       // this.uploadFiles(1,1);
     } else {
       console.log('error');
@@ -172,10 +172,10 @@ info:PortafoliosModels;
   onFileSelected(event: any, documento: DocumentoModels): void {
     this.selectedDocumento = documento;
     const selectedFiles: FileList = event.target.files;
-  
+
     // Limpiar el array this.files
     //this.files = [];
-  
+
     // Recorrer los archivos seleccionados y agregarlos al array this.files
     for (let i = 0; i < selectedFiles.length; i++) {
       const file: File = selectedFiles[i];
@@ -185,7 +185,7 @@ info:PortafoliosModels;
       }
       this.files.push(customFile);
     }
-  
+
     console.log(this.files);
     this.updateSelectedFilesList();
   }
