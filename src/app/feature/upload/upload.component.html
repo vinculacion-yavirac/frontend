@@ -1,0 +1,11 @@
+<input type="file" (change)="onArchivoSeleccionado($event)">
+
+
+<tr *ngFor="let file of files">
+  <td class="py-[3.8px] px-6 capitalize">
+    <span>{{file.name}}</span>
+  </td>
+  <td class="py-[3.8px] px-6 capitalize">
+    <span class="fa-solid fa-download" (click)="downloadFile(file.id, file.name)"></span>
+  </td>
+</tr>

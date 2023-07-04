@@ -125,8 +125,7 @@ import {
 import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
-import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
-import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
+
 
 @NgModule({
   declarations: [
@@ -226,8 +225,6 @@ import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-soli
     ProyectoComboboxComponent,
     ProyectoInfoComponent,
     ProyectosComboboxComponent,
-    ConfiguracionComponent,
-    ModalSolicitudesComponent,
   ],
   imports: [
     CommonModule,

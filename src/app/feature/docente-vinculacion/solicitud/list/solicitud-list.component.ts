@@ -157,7 +157,7 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  private searchPendienteByTerm(term: string): void { 
+  private searchPendienteByTerm(term: string): void {
     this.solicitudHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });

@@ -1,66 +1,81 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
-import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
-import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
-import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
-import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
-import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
+import { FileIconsModels } from '../../../../app/models/portafolio/files/fileIcons.models';
+import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
+import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
+import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { AuthHttpService } from '../../../../app/service/auth/auth-http.service';
+import { User } from 'src/app/models/auth/users/usuario';
 
 @Component({
   selector: 'app-portafolio-form',
   templateUrl: './portafolio-form.component.html',
   styleUrls: ['./portafolio-form.component.css']
 })
-export class PortafolioFormComponent implements OnInit, OnDestroy {
-  selectedDocumento?: DocumentoModels;
-  briefcaseForm: FormGroup;
+export class PortafolioFormComponent implements OnInit {
+
+  fileIcons: FileIconsModels = {
+    pdf: 'far fa-file-pdf',
+    doc: 'far fa-file-word',
+    docx: 'far fa-file-word',
+    xls: 'far fa-file-excel',
+    xlsx: 'far fa-file-excel',
+    ppt: 'far fa-file-powerpoint',
+    pptx: 'far fa-file-powerpoint',
+    jpg: 'far fa-file-image',
+    jpeg: 'far fa-file-image',
+    png: 'far fa-file-image',
+    gif: 'far fa-file-image',
+    txt: 'far fa-file-alt',
+    default: 'far fa-file',
+  };
+
+  // Variables de clase que son inyectadas
   currentPortafolio = {} as PortafoliosModels;
-  loading = true;
-  selectedFiles: File[] = [];
-  documentos: DocumentoModels[] = [];
-  project: ProyectoParticipanteModels;
-  title = 'Portafolio';
-  files: CustomFile[] = [];
 
-  info:PortafoliosModels;
-
+  title = 'Nuevo Portafolio';
   paramsSubscription: Subscription;
-  idPortafolio:number;
+
+  loading: boolean = true;
+
+  // Variables de clase que son inyectadas por referencia
+  matcher = new MyErrorStateMatcher();
+
+  // Variables de clase que son inyectadas por referencia
+  formGroup: FormGroup;
+
+  files: File[] = [];
+
+  currentUser = {} as User;
+  currentDate = new Date();
+
+  comments: Comment[] = [];
+
   constructor(
-    private formBuilder: FormBuilder,
-    private portafolioHttpService: PortafolioHttpService,
-    private documentosHtppService: DocumentoHttpService,
-    private fileHttpService: FileHttpService,
-    private cdr: ChangeDetectorRef,
+    private portafolioHttpService:PortafolioHttpService,
+    private authHttpService: AuthHttpService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {
     this.initForm();
   }
 
-  ngOnInit(): void {
-    this.getDocumentos();
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      if (params['id']) {
-        this.title = 'Portafoliossssss';
-        this.getBriefcaseId(params['id']);
-      } else {
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
-      }
-    });
-
-  }
-
-
-
-  initForm(): void {
-    this.briefcaseForm = this.formBuilder.group({
-      observations: [
+  /**
+   * Inicializa el formulario de oficios con los validadores y los valores por defecto.
+   * Suscribe al formulario para detectar los cambios en los valores de los campos.
+   */
+  initForm() {
+    this.formGroup = this.formBuilder.group({
+      subject: [
         '',
         {
           validators: [
@@ -70,88 +85,106 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
           ],
         },
       ],
-      state: [
+      description: [
         '',
         {
           validators: [
             Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(300),
           ],
+        },
+      ],
+      files: [
+        [],
+        {
+          validators: [
+            // Validators.required,
+            // Validators.minLength(1),
+            // Validators.maxLength(7)
+          ],
+        },
+      ],
+      comment: [
+        '',
+        {
+          validators: [Validators.minLength(3), Validators.maxLength(200)],
         },
       ],
     });
 
-    this.briefcaseForm.valueChanges.subscribe((values) => {
+    this.formGroup.valueChanges.subscribe((values) => {
       this.currentPortafolio = values;
+      console.log(this.currentPortafolio);
     });
   }
 
-
-
-  getBriefcaseId(id:number){
-    this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
-      if(response.status === 'success'){
-        this.info = response.data.briefcases;
+  ngOnInit(): void {
+    this.getCurrentUser();
+    this.paramsSubscription = this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        if (params['id']) {
+          this.title = 'Editar Portafolio';
+          // this.getOficio(params['id']);
+        } else {
+          setTimeout(() => {
+            this.loading = false;
+          }, 1000);
+        }
       }
-    })
+    );
   }
 
-
-
+  onSubmit(): void {
+    if (this.formGroup.valid) {
+      console.log('success');
+      this.createPortafolio();
+    }
+  }
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
   }
 
-  onSubmit(): void {
-    if (this.briefcaseForm.valid) {
-      this.createBriefcase();
-    }
-  }
-
-  getDocumentos(): void {
-    this.loading = true;
-    this.documentosHtppService.getDocuments().subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.documentos = res.data.documents;
+  getCurrentUser() {
+    this.authHttpService.getUser().subscribe((user: User) => {
+      if (user) {
+        this.currentUser = user;
       }
-      this.loading = false;
     });
   }
 
-
-  createBriefcase(): void {
-    if (this.briefcaseForm.valid) {
-      this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((response: any) => {
-
-        if(response.status === 'success'){
-        const id = response.data.briefcase.id;
-        this.uploadFiles(id);
+  getComments() {
+    this.portafolioHttpService
+      .getComments(this.currentPortafolio.id)
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.comments = res.data.comments;
         }
       });
-    }
   }
 
-  uploadFiles(idPortafolio:number): void {
-    if (this.selectedDocumento) {
-      this.fileHttpService.uploadFiles(this.files,idPortafolio);
-    }
-  }
-
-
-  onFileSelected(event: any, documento: DocumentoModels): void {
-    this.selectedDocumento = documento;
-    const selectedFiles: FileList = event.target.files;
-
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const file: File = selectedFiles[i];
-      const customFile: CustomFile = {
-        file: file,
-        document_id: documento.id
+  //método para crear un oficio nuevo
+  createPortafolio() {
+    this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.uploadFiles(res.data.briefcases.id, this.files);
+        this.router.navigate(['/system/portafolio']);
       }
-      this.files.push(customFile);
-    }
+    });
+  }
 
+  /**
+   * Metodos para el drang and drop del input de archivos.
+   */
 
+  getFileIcon(file: File): string {
+    const extension = file.name.split('.').pop()?.toLowerCase() || '';
+    return this.fileIcons[extension] || this.fileIcons['default'];
+  }
+
+  onFileSelected(event: any): void {
+    this.files = Array.from(event.target.files);
     this.updateSelectedFilesList();
   }
 
@@ -159,17 +192,26 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-
-  downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
-    this.fileHttpService.downloadFile(portafolioId, documentoId, fileId).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+  /*   uploadFiles(id:number): void {
+    const formData = new FormData();
+    this.files.forEach((file: File) => {
+      formData.append('archivo', file, file.name);
     });
+    this.http
+      .post(
+        `http://127.0.0.1:8000/api/files/upload/${id}`,
+        formData
+      )
+      .subscribe();
+  } */
+
+  uploadFiles(id: number, files: File[]): void {
+    const formData = new FormData();
+    files.forEach((file: File) => {
+      formData.append('archivos[]', file, file.name);
+    });
+    this.http
+      .post(`http://127.0.0.1:8000/api/files/upload/${id}`, formData)
+      .subscribe();
   }
 }
