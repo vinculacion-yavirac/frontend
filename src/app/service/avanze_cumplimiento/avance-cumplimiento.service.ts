@@ -13,7 +13,7 @@ export class AvanceCumplimientoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   private url = environment.API_URL + '/avanze';
-  private url2 = environment.API_URL + '/project/3';
+  private url2 = environment.API_URL + '/project/2';
 
 
   public addAvanze(data: any): Observable<any> {
