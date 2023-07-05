@@ -22,8 +22,7 @@
       <h3 class="font-medium"><span class="font-bold">{{solicitudes.length}}</span>Solicitudes</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
-      <div
-        class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+      <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
         <table class="my_table w-full text-sm text-left text-neutral">
           <thead class="text-xs text-white uppercase bg-primary">
           <tr>
@@ -63,8 +62,7 @@
               <!-- Indice en orden ascendente -->
               <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
               <!-- indice en orden descentente -->
-              <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index)
-                }}</span>
+              <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
             </th>
             <td class="py-[3.8px] px-6 capitalize">
               <span>{{solicitud.created_by.person | NamesSurnamesComplete}}</span>
@@ -82,11 +80,11 @@
               <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
             </td>
             <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
-                <span
-                  (click)="restaureSolicitud(solicitud)"
-                  class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
-                  *permissions="['RESTAURAR_SOLICITUD']">
-                </span>
+              <span
+                (click)="restaureSolicitud(solicitud)"
+                class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
+                *permissions="['RESTAURAR_SOLICITUD']">
+              </span>
               <span
                 class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                 *permissions="['ARCHIVAR_SOLICITUD']"
@@ -104,8 +102,6 @@
       </div>
       <!-- Paginación de tabla -->
       <pagination [config]="config"></pagination>
-
     </div>
-
   </div>
 </div>
