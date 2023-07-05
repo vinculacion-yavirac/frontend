@@ -1,19 +1,18 @@
-import { Location } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { DocumentoHttpService } from "../../../service/portafolio/documento/documento-http.service";
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Role } from "../../../models/auth/role/rol";
-import { RolHttpService } from "../../../service/auth/role/rol-http.service";
-import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
-import { ModalConfiguracionComponent } from '../modal-configuracion/modal-configuracion.component';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Role } from 'src/app/models/auth/role/rol';
+import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
+import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 
 @Component({
-  selector: 'app-configuracion',
-  templateUrl: './configuracion.component.html',
-  styleUrls: ['./configuracion.component.css']
+  selector: 'app-modal-configuracion',
+  templateUrl: './modal-configuracion.component.html',
+  styleUrls: ['./modal-configuracion.component.css']
 })
-export class ConfiguracionComponent implements OnInit, AfterViewInit {
+export class ModalConfiguracionComponent implements OnInit {
+
 
   documentForm: FormGroup;
   roles: Role[] = [];
@@ -30,11 +29,9 @@ export class ConfiguracionComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private location: Location,
     private formBuilder: FormBuilder,
     private documentoHttpService: DocumentoHttpService,
     private rolHttpService: RolHttpService,
-    private dialogo: MatDialog
   ) {}
 
   ngOnInit() {
@@ -45,24 +42,6 @@ export class ConfiguracionComponent implements OnInit, AfterViewInit {
 
     this.getRoles();
   }
-
-  //--------------
-  openModal(): void {
-    const dialogRef = this.dialogo.open(ModalConfiguracionComponent, {
-      height: '500px',
-      width: '1300px',
-      data: { /* datos que deseas pasar al componente de contenido del modal */ }
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        // Realizar acciones después de cerrar el modal
-      }
-    });
-  }
-
-
-  //---------------
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();

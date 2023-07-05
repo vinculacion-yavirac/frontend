@@ -127,6 +127,7 @@ import {PortafolioListComponent} from "./portafolio/list/portafolio-list.compone
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
+import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/modal-configuracion.component';
 
 @NgModule({
   declarations: [
@@ -228,6 +229,7 @@ import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-soli
     ProyectosComboboxComponent,
     ConfiguracionComponent,
     ModalSolicitudesComponent,
+    ModalConfiguracionComponent,
   ],
   imports: [
     CommonModule,
