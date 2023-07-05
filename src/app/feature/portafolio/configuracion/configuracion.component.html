@@ -3,171 +3,174 @@
 </module-header>
 
 
-  <form [formGroup]="documentForm" (ngSubmit)="submitForm()" *permissions="['LEER_DOCUMENTO',
-  'CREAR_DOCUMENTO']" >
+<form [formGroup]="documentForm" (ngSubmit)="submitForm()">
+  <div class="flex justify-between my-4">
+      <div class="w-1/2">
+      </div>
+      <div class="flex">
+        <button *ngIf="!documentFormOpened" type="button" (click)="openModal()"
+          class="btn btn-sm gap-2 rounded-md bg-green-500 text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105">
+          <span class="fas fa-plus text-sm leading-none"></span>
+          Agregar Documento
+        </button>
+      </div>
 
 
-    <button type="button" (click)="addDocument()" class="px-4 py-2 bg-blue-500 text-white rounded-md mt-4">Agregar
-      documento</button>
-    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mt-4">Crear documentos</button>
-  
+      <br>
+  </div>
 
   <div *ngIf="loading" class="mt-4">Cargando roles...</div>
 
 
-<div class="px-4 py-1 text-xs">
-  <h3 class="font-medium"><span class="font-bold">{{ documentos.length }}</span> Documentos</h3>
-</div>
-<div class="overflow-hidden relative rounded-md">
-  <div
-    class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-    <table class="my_table w-full text-sm text-left text-neutral">
-      <thead class="text-xs text-white uppercase bg-primary">
-        <tr>
-          <th scope="col" class="py-3 px-6">#</th>
-          <th scope="col" class="py-3 px-6">
-            <div class="flex items-center">
-              Nombre
-              <a class="cursor-pointer ml-1" *ngIf="reverse && documentos.length > 1" (click)="reversOrder()">
-                <span class="fa-solid fa-caret-up"></span>
-              </a>
-              <a class="cursor-pointer ml-1" *ngIf="!reverse && documentos.length > 1" (click)="reversOrder()">
-                <span class="fa-solid fa-caret-down"></span>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="py-3 px-6">
-            Template
-          </th>
-          <th scope="col" class="py-3 px-6">
-            Estado
-          </th>
-          <th scope="col" class="py-3 px-6">
-            Estado
-          </th>
-          <th scope="col" class="py-3 px-6">
-            Responsable
-          </th>
-          <th scope="col" class="py-3 px-6">
-            Acciones
-          </th>
-        </tr>
-        
-      </thead>
-      <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-        <tr>
-
-          <div formArrayName="documents">
-
-
-            <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i" class="document-item"
-              [class.opened]="document.get('opened')?.value">
-  
-              <td class="py-[3.8px] px-6 capitalize">
-                <h3 class="text-lg font-bold mb-2">{{ i + 1 }}</h3>
-              </td>
-  
-              <td class="py-[3.8px] px-6 capitalize">
-                <div class="mb-4 horizontal-fields">
-                  <!-- <label class="text-sm font-medium">Nombre:</label> -->
-                  <input type="text" formControlName="name" required
-                    class="border border-gray-300 rounded-md px-3 py-2" />
-                </div>
-              </td>
-              <td class="py-[3.8px] px-6 capitalize">
-                <div class="mb-4 horizontal-fields">
-                  <!-- <label class="text-sm font-medium">Plantilla:</label> -->
-                  <input type="text" formControlName="template" required
-                    class="border border-gray-300 rounded-md px-3 py-2" />
-                </div>
-              </td>
-              
-              <td class="py-[3.8px] px-6 capitalize">
-                <div class="mb-4 horizontal-fields">
-                  <!-- <label class="text-sm font-medium">Estado:</label> -->
-                  <input type="checkbox" formControlName="state" [checked]="true" required
-                    class="form-checkbox h-4 w-4 text-primary" />
-                </div>
-              </td>
-  
-              <td class="py-[3.8px] px-6 capitalize">
-                <div class="mb-4 horizontal-fields">
-                  <!-- <label class="text-sm font-medium">Orden:</label> -->
-                  <input type="number" formControlName="order" required
-                    class="border border-gray-300 rounded-md px-3 py-2" />
-                </div>
-              </td>
-  
-  
-              <td class="py-[3.8px] px-6 capitalize">
-                <!-- <label class="text-sm font-medium">Rol responsable:</label> -->
-                <select formControlName="responsible_id" (change)="selectRole($event)"
-                  class="border border-gray-300 rounded-md px-3 py-2">
-                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-                </select>
-              </td>
-  
-              <td class="py-[3.8px] px-6 capitalize">
-                <button type="button"  (click)="removeDocument(i)" class="px-1 py-2 btn-btn-medium bg-red-500 text-white rounded-md">Remover</button>
-              </td>
-              
-            </div>
-          </div>
-        </tr>
-
-
-
-        <tr class="bg-white hover:bg-[#4052b510] transition-all"
-          *ngFor="let documento of documentos | paginate: config; let index = index">
-          <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-            <!-- Indice en orden ascendente -->
-            <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
-            <!-- indice en orden descentente -->
-            <span *ngIf="reverse">{{ documentos.length - (config.itemsPerPage * (config.currentPage - 1) + index)
-              }}</span>
-          </th>
-          <td class="py-[3.8px] px-6 capitalize">
-            <span>{{ documento.name }}</span>
-          </td>
-          <td class="py-[3.8px] px-6 capitalize">
-            <span>{{ documento.name }}</span>
-          </td>
-          <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
-            <a href="{{ documento.template }}" target="_blank">
-              <div class="avatar">
-                <div class="w-8 rounded">
-                  <img src="../../../assets/images/descarga2.png" alt="" />
-                </div>
-              </div>
-            </a>
-          </td>
-          <td class="py-[3.8px] px-6">
-            <div *ngIf="documento.state" class="flex items-center">
-              <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Aprobado
-            </div>
-            <div *ngIf="!documento.state" class="flex items-center">
-              <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
-            </div>
-          </td>
-          <td class="py-[3.8px] px-6">
-            <span>{{ documento.responsible_id?.name }}</span>
-          </td>
-          <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
-            <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-              *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
-          </th>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="loading || documentos.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
-      <div *ngIf="loading" class="h-full w-full bg-[#535a6610] backdrop-blur-sm">
-        <loader></loader>
-      </div>
-      <no-content *ngIf="documentos.length == 0 && !loading"></no-content>
-    </div>
+  <div class="px-4 py-1 text-xs">
+      <h3 class="font-medium"><span class="font-bold">{{ documentos.length }}</span> Documentos</h3>
   </div>
-  <!-- Paginación de tabla -->
-  <pagination [config]="config"></pagination>
-</div>
+  <div class="overflow-hidden relative rounded-md">
+      <div
+          class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-left text-neutral">
+              <thead class="text-xs text-white uppercase bg-primary">
+                  <!-- Encabezado de la tabla -->
+                  <tr>
+                      <th scope="col" class="py-3 px-6">#</th>
+                      <th scope="col" class="py-3 px-6">
+                          <div class="flex items-center">
+                              Nombre
+                              <a class="cursor-pointer ml-1" *ngIf="reverse && documentos.length > 1"
+                                  (click)="reversOrder()">
+                                  <span class="fa-solid fa-caret-up"></span>
+                              </a>
+                              <a class="cursor-pointer ml-1" *ngIf="!reverse && documentos.length > 1"
+                                  (click)="reversOrder()">
+                                  <span class="fa-solid fa-caret-down"></span>
+                              </a>
+                          </div>
+                      </th>
+                      <th scope="col" class="py-3 px-6">Template</th>
+                      <th scope="col" class="py-3 px-6">Descarga</th>
+                      <th scope="col" class="py-3 px-6">Estado</th>
+                      <th scope="col" class="py-3 px-6">Responsable</th>
+                      <th scope="col" class="py-3 px-6">Acciones</th>
+                  </tr>
+              </thead>
+              <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+                  <!-- Filas de documentos existentes -->
+                  <ng-container *ngFor="let documento of documentos | paginate: config; let index = index">
+                      <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                          <th scope="row"
+                              class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
+                              <!-- Índice en orden ascendente -->
+                              <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1
+                                  }}</span>
+                              <!-- Índice en orden descendente -->
+                              <span *ngIf="reverse">{{ documentos.length - (config.itemsPerPage * (config.currentPage
+                                  - 1) + index) }}</span>
+                          </th>
+                          <td class="py-[3.8px] px-6 capitalize">
+                              <span>{{ documento.name }}</span>
+                          </td>
+                          <td class="py-[3.8px] px-6 capitalize">
+                              <span>{{ documento.name }}</span>
+                          </td>
+                          <td
+                              class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
+                              <a href="{{ documento.template }}" target="_blank">
+                                  <div class="avatar">
+                                      <div class="w-8 rounded">
+                                          <img src="../../../assets/images/descarga2.png" alt="" />
+                                      </div>
+                                  </div>
+                              </a>
+                          </td>
+                          <td class="py-[3.8px] px-6">
+                              <div *ngIf="documento.state" class="flex items-center">
+                                  <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Aprobado
+                              </div>
+                              <div *ngIf="!documento.state" class="flex items-center">
+                                  <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
+                              </div>
+                          </td>
+                          <td class="py-[3.8px] px-6">
+                              <span>{{ documento.responsible_id?.name }}</span>
+                          </td>
+                          <th class="py-[3.8px] px-6 text-right"
+                              *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
+                              <span
+                                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                                  *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
+                          </th>
+                      </tr>
+                  </ng-container>
+
+                  <!-- Fila de creación de documentos -->
+                  <tr>
+                      <td colspan="7" class="py-[3.8px] px-6">
+                          <div formArrayName="documents">
+                              <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i"
+                                  class="document-item" [class.opened]="document.get('opened')?.value">
+
+                                  <div class="mb-4 horizontal-fields">
+                                      <label class="text-sm font-medium">Nombre:</label>
+                                      <input type="text" formControlName="name" required
+                                          class="border border-gray-300 rounded-md px-3 py-2" />
+                                  </div>
+
+                                  <div class="mb-4 horizontal-fields">
+                                      <label class="text-sm font-medium">Plantilla:</label>
+                                      <input type="text" formControlName="template" required
+                                          class="border border-gray-300 rounded-md px-3 py-2" />
+                                  </div>
+
+                                  <div class="mb-4 horizontal-fields">
+                                      <label class="text-sm font-medium">Estado:</label>
+                                      <input type="checkbox" formControlName="state" [checked]="true" required
+                                          class="form-checkbox h-4 w-4 text-primary" />
+                                  </div>
+
+                                  <div class="mb-4 horizontal-fields">
+                                      <label class="text-sm font-medium">Orden:</label>
+                                      <input type="number" formControlName="order" required
+                                          class="border border-gray-300 rounded-md px-3 py-2" />
+                                  </div>
+
+                                  <div class="mb-4 horizontal-fields">
+                                      <label class="text-sm font-medium">Rol responsable:</label>
+                                      <select formControlName="responsible_id" (change)="selectRole($event)"
+                                          class="border border-gray-300 rounded-md px-3 py-2">
+                                          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}
+                                          </option>
+                                      </select>
+                                  </div>
+
+                                  <div class="flex">
+                                      <button type="submit"
+                                          class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow	shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105">
+                                          <span class="fas fa-plus text-sm leading-none"></span>
+                                          Crear Documento
+                                      </button>
+                                      <br>
+                                      <button type="button" (click)="removeDocument(i)"
+                                          class="btn btn-sm gap-2 rounded-md bg-error-content text-xs border-0 shadow px-8 ml-4 hover:bg-orange-600 hover:scale-105">
+                                          <span class="fas fa-plus text-sm leading-none"></span>
+                                          Remover
+                                      </button>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <div *ngIf="loading || documentos.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
+              <div *ngIf="loading" class="h-full w-full bg-[#535a6610] backdrop-blur-sm">
+                  <loader></loader>
+              </div>
+              <no-content *ngIf="documentos.length == 0 && !loading"></no-content>
+          </div>
+      </div>
+      <pagination [config]="config"></pagination>
+  </div>
 
 </form>
