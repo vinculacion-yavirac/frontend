@@ -181,7 +181,7 @@ export class PortafolioListComponent implements OnInit {
 
   sortPortafolio(): void {
     this.portafolios.sort((a, b) => {
-      return a.project_participant_id.participant_id.person.names.toLowerCase().localeCompare(b.project_participant_id.participant_id.person.names.toLowerCase());
+      return a.created_by.person.names.toLowerCase().localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 
