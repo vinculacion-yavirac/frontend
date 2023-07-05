@@ -3,7 +3,8 @@
 </module-header>
 
 
-  <form [formGroup]="documentForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="documentForm" (ngSubmit)="submitForm()" *permissions="['LEER_DOCUMENTO',
+  'CREAR_DOCUMENTO']" >
 
 
     <button type="button" (click)="addDocument()" class="px-4 py-2 bg-blue-500 text-white rounded-md mt-4">Agregar
