@@ -117,6 +117,7 @@ import { PreguntaComboboxComponent } from './estudiante/encuenta/pregunta/combob
 
 
 
+
 @NgModule({
   declarations: [
     OficialDocumentsStatesComboboxComponent,
@@ -209,6 +210,7 @@ import { PreguntaComboboxComponent } from './estudiante/encuenta/pregunta/combob
     EncabezadoDosFormComponent,
     EncuestaComboboxComponent,
     PreguntaComboboxComponent,
+   
 
     ],
   imports: [

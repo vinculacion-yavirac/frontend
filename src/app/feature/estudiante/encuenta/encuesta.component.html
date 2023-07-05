@@ -1,6 +1,6 @@
 <br>
-<div class="container mx-auto m-1">
-  <div class="div" *ngFor="let enc of encuestas">
+<div class="container mx-auto m-1" id="pdf">
+  <div class="div"  *ngFor="let enc of encuestas">
     <div class="mx-auto bg-slate-200 mt-1   mb-1 p-1 pl-3 rounded-lg" *ngIf="enc && enc.id == 1" >
       <p >{{enc.tipo}}</p>
       <p >Nombre de la Institucion: "{{enc.nombre_institucion}}"</p>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <table class="border-collapse border border-slate-500 ..." *ngFor="let enc of encuestas">
+  <table class="border-collapse border border-slate-500 ..." id="table" *ngFor="let enc of encuestas">
 
     <tbody *ngIf="enc && enc.id == 1">
       <tr>
@@ -34,6 +34,7 @@
         <td class="border border-slate-700 ... p-1 pl-2">{{enc.fecha}}</td>
       </tr>
     </tbody>
+
   </table>
 
 
@@ -65,7 +66,7 @@
         <th class="border border-slate-950 ...">N°</th>
         <th class="border border-slate-950 ..."></th>
         <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let respuesta of respuestas">
-          <P *ngIf="respuesta.encuestas_id == 1 && respuesta.preguntas_id==1 "> {{respuesta.descripcion}}</P>
+          <p *ngIf="respuesta.encuestas_id==1 && respuesta.preguntas_id ==1 " > {{respuesta.descripcion}}</p>
         </th>
 
         <th class="border border-slate-600 ...">NDS/NAC</th>
@@ -81,12 +82,13 @@
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
-        <td class="border border-slate-700 ..."> </td>
+
       </tr>
 
 
     </tbody>
   </table>
+
 
 
   <button class="btn btn-outline btn-info" routerLink="/system/estudiante/encuesta/agregar-pregunta">Crear
@@ -131,6 +133,9 @@
 
   </div>
 
+
+
+<button class="btn btn-outline btn-info"  (click)="generatePDF()">imprimir</button>
 
 
 
