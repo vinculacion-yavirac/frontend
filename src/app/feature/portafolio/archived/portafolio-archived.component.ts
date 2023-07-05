@@ -85,9 +85,9 @@ export class PortafolioArchivedComponent implements OnInit {
 
   sortSolicitudes(): void {
     this.portafolios.sort((a, b) => {
-      return a.project_participant_id.participant_id.person.identification
+      return a.created_by.person.names
           .toLowerCase()
-          .localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
+          .localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 

@@ -34,6 +34,7 @@
           'ELIMINAR_PORTAFOLIO',
           'EXPORTAR_PORTAFOLIO',
           'IMPORTAR_PORTAFOLIO',
+          
         ]">
         <div class="opacity-50" *permissions="[
         'LEER_USUARIOS',
@@ -100,14 +101,14 @@
         'IMPORTAR_FUNDACION',
 
 
-        'LEER_PRTOYECTO',
-        'CREAR_PRTOYECTO',
-        'ACTUALIZAR_PRTOYECTO',
-        'ARCHIVAR_PRTOYECTO',
-        'RESTAURAR_PRTOYECTO',
-        'ELIMINAR_PRTOYECTO',
-        'EXPORTAR_PRTOYECTO',
-        'IMPORTAR_PRTOYECTO',
+            'LEER_PROYECTO',
+            'CREAR_PROYECTO',
+            'ACTUALIZAR_PROYECTO',
+            'ARCHIVAR_PROYECTO',
+            'RESTAURAR_PROYECTO',
+            'ELIMINAR_PROYECTO',
+            'EXPORTAR_PROYECTO',
+            'IMPORTAR_PROYECTO',
         'LEER_USUARIOS', 'LEER_ROLES'
     ]">
           <div class="mt-3 mb-1.5">
@@ -212,25 +213,6 @@
             </li>
           </div>
         </div>
-        <li [routerLinkActive]="['active']" routerLink="/system/portafolio/configuracion" *permissions="[
-            'LEER_PORTAFOLIO',
-            'CREAR_PORTAFOLIO',
-            'ACTUALIZAR_PORTAFOLIO',
-            'ARCHIVAR_PORTAFOLIO',
-            'RESTAURAR_PORTAFOLIO',
-            'ELIMINAR_PORTAFOLIO',
-            'EXPORTAR_PORTAFOLIO',
-            'IMPORTAR_PORTAFOLIO',
-        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
-          <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
-            <span class="fa-solid fa-address-book text-base leading-none"></span>
-          </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap">Configuración Portafolio</span>
-            </a>
-          </div>
-        </li>
         <li [routerLinkActive]="['active']" routerLink="/system/portafolio" *permissions="[
             'LEER_PORTAFOLIO',
             'CREAR_PORTAFOLIO',
@@ -272,14 +254,14 @@
           </div>
         </li>
         <li [routerLinkActive]="['active']" routerLink="/system/proyecto" *permissions="[
-        'LEER_PRTOYECTO',
-        'CREAR_PRTOYECTO',
-        'ACTUALIZAR_PRTOYECTO',
-        'ARCHIVAR_PRTOYECTO',
-        'RESTAURAR_PRTOYECTO',
-        'ELIMINAR_PRTOYECTO',
-        'EXPORTAR_PRTOYECTO',
-        'IMPORTAR_PRTOYECTO',
+            'LEER_PROYECTO',
+            'CREAR_PROYECTO',
+            'ACTUALIZAR_PROYECTO',
+            'ARCHIVAR_PROYECTO',
+            'RESTAURAR_PROYECTO',
+            'ELIMINAR_PROYECTO',
+            'EXPORTAR_PROYECTO',
+            'IMPORTAR_PROYECTO',
         ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
           <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
             <span class="fa-solid fa-solid fa-id-card-clip text-base leading-none"></span>
