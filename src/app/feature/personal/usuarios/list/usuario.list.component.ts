@@ -35,6 +35,14 @@ export class UsuariosListComponent implements OnInit {
     this.getUsuarios();
 }
 
+//EXPORTAR
+exportAsXLSX(): void {
+  const users = this.usuarios.map((usuario) =>{return {id: usuario.id , correo: usuario.email, nombres:usuario.person.names}})
+  this.excellService.exportToExcel(users,'excel');
+  //const prueba = xlsx.read(file) // Me va a regresar un array
+  //[{id:id}] [[id,id]] Asi me va  a regresar un array
+  }
+
   getUsuarios(): void {
     this.loading = true;
     this.usuarioHttpService.getUsuarios().subscribe((res: any) => {
