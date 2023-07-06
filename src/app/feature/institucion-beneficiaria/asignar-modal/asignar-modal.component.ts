@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription, Observable, of } from 'rxjs';
-import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
-import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { Observable, of } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { User } from 'src/app/models/auth/users/usuario';
 import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
-import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
+import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
 import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 @Component({
@@ -16,15 +16,6 @@ import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 })
 export class AsignarModalComponent implements OnInit {
 
- //--Solicitud- proyect-----
-currentSolicitude: SolicitudModels = {} as SolicitudModels;
-currentProyectoParticipante: ProyectoParticipanteModels = {} as ProyectoParticipanteModels;
-proyectoParticipante: ProyectoParticipanteModels[] = [];
-paramsSubscription: Subscription;
-formGroup: FormGroup;
-title = 'Asignar Estudiante';
-
-//--------------------------
   reverse = false;
   pipe = new DatePipe('en-US');
 
@@ -33,72 +24,88 @@ title = 'Asignar Estudiante';
     currentPage: 1,
   };
 
-  solicitudes: SolicitudModels [] = [];
   proyectos: ProyectoModels[] = [];
+  proyectosFundacion: ProyectoModels[] = [];
 
   loading: boolean = true;
+  usuarios: User[] = [];
+  selectedUsuario: number | null = null;
+  usuariosSeleccionados: User[] = [];
+  usuarioAsignado = false;
 
   @Input() fundacionSeleccionadaId: number | null = null;
 
-  //--------
   nombreProyecto: string | null = null;
   nombreFundacion: string | null = null;
   datosCargados$: Observable<boolean> = of(false);
-  existeSolicitudPendiente$: Observable<boolean> = of(false);
-  //--------
 
   fundacionSeleccionada: any = {};
+  selectedProyecto: ProyectoModels | null = null;
 
   constructor(
+    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private solicitudHttpService: SolicitudHttpService,
+    private usuarioHttpService:UsuarioHttpService,
     private proyectoService: ProyectoService,
   ) {
-    this.fundacionSeleccionadaId = data.fundacionSeleccionadaId; // Verifica que esté asignado correctamente
+    this.fundacionSeleccionadaId = data.fundacionSeleccionadaId;
   }
 
   ngOnInit(): void {
     this.getProject();
-
+    this.getUsuarios();
   }
 
-
-
-  //------
-  public existeProyectoFundacion(): boolean {
-    return this.proyectos && this.proyectos.some(proyecto =>
-      proyecto.beneficiary_institution_id.id === this.fundacionSeleccionadaId
-    );
-  }
-
-//--------
-
-getSolicitud(): void {
-  this.loading = true;
-  this.solicitudHttpService.getSolicitudes().subscribe((res:any) => {
-    if (res.status === 'success') {
-      this.solicitudes = res.data.solicitudes;
-      this.handleSearchResponse(res);
-
-    }
-    this.loading = false;
-  });
-}
-
-
-
-  getSolicitudByStatus(status: string): void {
+  getUsuarios(): void {
     this.loading = true;
-    this.solicitudHttpService.filterSolicitudeByStatus(status).subscribe((res: any) => {
-      if (res.status == 'success') {
-        this.handleSearchResponse(res);
-
-      }
+    this.usuarioHttpService.getUsuarios().pipe(
+      filter((res: any) => res.status === 'success'),
+      filter((res: any) => Array.isArray(res.data.users))
+    ).subscribe((res: any) => {
+      const estudiantes = res.data.users.filter((usuario: User) => usuario.role.name === 'Estudiante');
+      this.usuarios = estudiantes.sort((a: User, b: User) => {
+        return a.person.names.toLowerCase().localeCompare(b.person.names.toLowerCase());
+      });
       this.loading = false;
     });
   }
 
+  filterUsers = (rol: string) => {
+    const result = this.usuarios.filter((user) => user.role.name === rol);
+    this.usuarios = result;
+    return result;
+  }
 
+  agregarUsuario(): void {
+    if (this.selectedUsuario !== null && this.selectedProyecto) {
+      const usuarioSeleccionado = this.usuarios.find(usuario => usuario.id.toString() === this.selectedUsuario!.toString());
+
+      if (usuarioSeleccionado) {
+        const requestBody = {
+          project_id: this.selectedProyecto.id,
+          participant_id: usuarioSeleccionado.id
+        };
+
+        this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
+          (response: any) => {
+            if (response.status === 'success') {
+              console.log('Estuante asignado exitosamente:', response.data.projectParticipant);
+              this.usuariosSeleccionados.push(usuarioSeleccionado);
+            } else if (response.status === 'error') {
+              alert(response.message);
+            }
+          },
+          (error: any) => {
+            console.log('No se pudo crear el ProjectParticipant:', error);
+          }
+        );
+      }
+    }
+  }
+
+  existeProyectoFundacion(): boolean {
+    return this.proyectosFundacion.length > 0;
+  }
 
   reversOrder(): void {
 
@@ -106,36 +113,26 @@ getSolicitud(): void {
     this.reverse = !this.reverse;
   };
 
-
-
   private handleSearchResponse(res: any): void {
     if (res.status === 'success') {
-
       this.proyectos = res.data.projects;
       this.reverse = false;
       this.sortProjects();
 
       if (Array.isArray(this.proyectos)) {
-        let foundMatchingProject = false;
-        let matchingProjects = []; // Arreglo para almacenar los proyectos coincidentes
+        this.proyectosFundacion = this.proyectos.filter(proyecto =>
+          proyecto.beneficiary_institution_id?.id === this.fundacionSeleccionadaId
+        );
 
-        for (const proyecto of this.proyectos) {
-          const beneficiarioInstitucionId = proyecto.beneficiary_institution_id?.id;
-
-          if (this.fundacionSeleccionadaId === beneficiarioInstitucionId) {
-            this.nombreProyecto = proyecto.name;
-            this.nombreFundacion = proyecto.beneficiary_institution_id.name;
-            foundMatchingProject = true;
-            matchingProjects.push(proyecto); // Agregar el proyecto coincidente al arreglo
-          }
-        }
-
-        if (!foundMatchingProject) {
-          console.log('No se encontraron proyectos relacionados con la fundación seleccionada.');
-        } else {
-          this.datosCargados$ = of(true); // Se encontraron proyectos relacionados, los datos están cargados
+        if (this.proyectosFundacion.length > 0) {
+          this.datosCargados$ = of(true);
           console.log(this.datosCargados$);
-          console.log(matchingProjects); // Imprimir los proyectos coincidentes en la consola
+          console.log(this.proyectosFundacion);
+
+          this.selectedProyecto = this.proyectosFundacion[0]; // Asignar el primer proyecto por defecto
+          this.nombreFundacion = this.selectedProyecto.beneficiary_institution_id?.name;
+        } else {
+          console.log('No se encontraron proyectos relacionados con la fundación seleccionada.');
         }
       }
     }
@@ -143,16 +140,11 @@ getSolicitud(): void {
     this.loading = false;
   }
 
-
-
-
-//-------proyecto--------
-
 getProject(): void {
   this.loading = true;
   this.proyectoService.getProject().subscribe((res: any) => {
     if (res.status == 'success') {
-      this.proyectos = res.data.proyectos; // Asegúrate de obtener correctamente los proyectos aquí
+      this.proyectos = res.data.proyectos; 
       this.handleSearchResponse(res);
     }
     this.loading = false;

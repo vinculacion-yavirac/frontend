@@ -1,12 +1,31 @@
-<div class="flex flex-col w-full lg:flex-row">
-  <div class="grid flex-grow h-32 card bg-base-100 place-items-center">
-    <h3>Datos de la fundación:</h3>
-    <ng-container *ngIf="existeProyectoFundacion() && (datosCargados$ | async)">
-      <p>Nombre del Proyecto: {{ nombreFundacion }}</p>
-      <p>Nombre de la Fundación del Proyecto:{{ nombreProyecto }} </p>
-    </ng-container>
-    <p *ngIf="existeProyectoFundacion() && !(datosCargados$ | async)">Cargando datos...</p>
-  </div>
-
-
+<div class="flex flex-col w-full">
+  <h2 class="text-center text-4xl text-blue-500 font-thin">Asignación de Estudiantes</h2>
+  <br>
+  <h3 class="text-center">
+    <span class="text-2xl font-normal text-black">{{ nombreFundacion }}</span>
+  </h3>
+  <br>
+  <ng-container *ngIf="existeProyectoFundacion() && (datosCargados$ | async)">
+    <div class="flex justify-center gap-4">
+      <div class="w-48">
+        <label for="proyectosCombobox">Proyectos:</label>
+        <select id="proyectosCombobox" [(ngModel)]="selectedProyecto" class="select select-info w-full">
+          <option *ngFor="let proyecto of proyectosFundacion" [ngValue]="proyecto">{{ proyecto.name }}</option>
+        </select>
+      </div>
+      <div class="w-48">
+        <label for="usuariosCombobox">Estudiante:</label>
+        <select id="usuariosCombobox" name="usuariosCombobox" [(ngModel)]="selectedUsuario"
+          class="select select-info w-full">
+          <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="flex justify-center">
+      <button
+        class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
+        type="submit" (click)="agregarUsuario()" [disabled]="!selectedProyecto || !selectedUsuario">Agregar</button>
+    </div>
+  </ng-container>
 </div>
