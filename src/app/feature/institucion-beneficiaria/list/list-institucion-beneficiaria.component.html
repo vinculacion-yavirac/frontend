@@ -92,11 +92,11 @@
                       (click)="openModal(institucionBeneficiaria.id)"></span>
               </td>
 
-              <th class="py-[3.8px] px-6 capitalize" *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD']">
-                <span *permissions="['ARCHIVAR_SOLICITUD']">
+              <th class="py-[3.8px] px-6 capitalize">
+                <span>
                   <span class="btn btn-primary btn btn-sm btn btn-outline btn-primary"
-                    [routerLink]="['/system/institucion-beneficiaria/asignar/', institucionBeneficiaria.id ]"
-                    *ngIf="institucionBeneficiaria.state"> <!-- Movida la directiva *ngIf al elemento envolvente -->
+                    *ngIf="institucionBeneficiaria.state"
+                    (click)="openAsignarModal(institucionBeneficiaria.id)">
                     Asignar
                   </span>
                 </span>

@@ -7,6 +7,7 @@ import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalSolicitudesComponent } from '../modal-solicitudes/modal-solicitudes.component';
+import { AsignarModalComponent } from '../asignar-modal/asignar-modal.component';
 
 @Component({
   selector: 'app-list-institucion-beneficiaria',
@@ -77,6 +78,27 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     });
   }
 
+  openAsignarModal(institucionBeneficiariaId: number): void {
+    console.log(institucionBeneficiariaId);
+    this.fundacionSeleccionadaId = institucionBeneficiariaId;
+    const fundacion = this.getFundacionById(institucionBeneficiariaId);
+    const dialogRef = this.dialog.open(AsignarModalComponent, {
+      height: '500px',
+      width: '800px',
+      data: {
+        fundacion: fundacion,
+        solicitudes: this.solicitudes,
+        fundacionSeleccionadaId: this.fundacionSeleccionadaId
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      // Realiza las acciones necesarias después de que el segundo modal se cierre
+      if (result) {
+        // Código a ejecutar si se hizo clic en el botón o se cerró el modal
+      }
+    });
+  }
+
   isBeneficiaryInstitutionMatch(solicitud: any): boolean {
     // Verificar si fundacionSeleccionadaId y solicitud.project_id.beneficiary_institution_id son números válidos
     if (typeof this.fundacionSeleccionadaId === 'number' && typeof solicitud.project_id.beneficiary_institution_id === 'number') {
@@ -85,6 +107,17 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     }
     // Si no se cumple la condición anterior, no hay coincidencia
     return false;
+  }
+
+  private getFundacionById(fundacionId: number): any {
+    return this.institucionesBeneficiarias.find(institucion => institucion.id === fundacionId);
+  }
+
+  getNombreFundacion(fundacionId: number): string {
+    const fundacion = this.institucionesBeneficiarias.find(
+      institucion => institucion.id === fundacionId
+    );
+    return fundacion ? fundacion.name : '';
   }
   //---------
 

@@ -128,6 +128,7 @@ import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
 import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/modal-configuracion.component';
+import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/asignar-modal.component';
 
 @NgModule({
   declarations: [
@@ -230,6 +231,7 @@ import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/mo
     ConfiguracionComponent,
     ModalSolicitudesComponent,
     ModalConfiguracionComponent,
+    AsignarModalComponent,
   ],
   imports: [
     CommonModule,
