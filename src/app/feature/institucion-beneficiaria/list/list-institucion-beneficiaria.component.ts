@@ -74,8 +74,8 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     this.fundacionSeleccionadaId = institucionBeneficiariaId;
     const fundacion = this.getFundacionById(institucionBeneficiariaId);
     const dialogRef = this.dialog.open(AsignarModalComponent, {
-      height: '350px',
-      width: '600px',
+      height: '675px',
+      width: '1000px',
       data: {
         fundacion: fundacion,
         solicitudes: this.solicitudes,
