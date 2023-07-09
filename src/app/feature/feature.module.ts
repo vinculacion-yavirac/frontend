@@ -129,6 +129,7 @@ import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-soli
 import { ModalConfiguracionComponent } from './portafolio/configuracion/modal-configuracion/modal-configuracion.component';
 import { ConfiguracionComponent } from './portafolio/configuracion/list/configuracion.component';
 import { ConfiguracionArchivedComponent } from './portafolio/configuracion/configuracion-archived/configuracion-archived.component';
+import { ConfiguracionTabsComponent } from './portafolio/configuracion/header/configuracion-tabs/configuracion-tabs.component';
 
 @NgModule({
   declarations: [
@@ -232,6 +233,7 @@ import { ConfiguracionArchivedComponent } from './portafolio/configuracion/confi
     ModalSolicitudesComponent,
     ModalConfiguracionComponent,
     ConfiguracionArchivedComponent,
+    ConfiguracionTabsComponent,
   ],
   imports: [
     CommonModule,

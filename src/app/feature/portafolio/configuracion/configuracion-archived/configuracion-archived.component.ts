@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { Role } from 'src/app/models/auth/role/rol';
 import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
+import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-configuracion-archived',
@@ -28,6 +30,7 @@ export class ConfiguracionArchivedComponent implements OnInit {
   constructor(
     private documentoHttpService: DocumentoHttpService,
       private router: Router,
+      private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +78,14 @@ export class ConfiguracionArchivedComponent implements OnInit {
     this.loading = false;
   }
 
+  getRoleFromDocumento(documento: DocumentoModels): Role | undefined {
+    return typeof documento.responsible_id === 'number' ? this.getRoleById(documento.responsible_id) : documento.responsible_id;
+  }
+  getRoleById(responsible_id: number): Role | undefined {
+    throw new Error('Method not implemented.');
+  }
+
+
   restaureDocumento(documento: DocumentoModels): void {
     this.documentoHttpService.restoreDocument(documento.id)
         .pipe(
@@ -89,10 +100,25 @@ export class ConfiguracionArchivedComponent implements OnInit {
         });
   }
 
-  getRoleFromDocumento(documento: DocumentoModels): Role | undefined {
-    return typeof documento.responsible_id === 'number' ? this.getRoleById(documento.responsible_id) : documento.responsible_id;
+
+  openDialogRestaurarDocumento(documento: DocumentoModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de restaurar este documento?',
+        message:
+          'El documento sera restaura y podrá ser utilizado por los usuarios.',
+        dato:['Nombre:', documento.name],
+        button: 'Restaurar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.restaureDocumento(documento);
+      }
+    });
   }
-  getRoleById(responsible_id: number): Role | undefined {
-    throw new Error('Method not implemented.');
-  }
+
 }

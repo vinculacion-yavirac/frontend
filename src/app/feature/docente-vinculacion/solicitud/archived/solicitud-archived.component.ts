@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FilesService } from '../../../../../app/feature/upload/upload.service';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
+import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class SolicitudArchivedComponent implements OnInit {
 
   constructor(
       private solicitudHttpService: SolicitudHttpService,
-      private filesService: FilesService,
       private router: Router,
+      private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -89,6 +90,28 @@ export class SolicitudArchivedComponent implements OnInit {
             this.handleSearchResponse(res);
           }
         });
+  }
+
+
+
+  openDialogRestaurarSocilicitud(solicitud: SolicitudModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de restaurar esta Solicitud ?',
+        message:
+          'La Solicitud sera restaura y podrá ser utilizado por los usuarios.',
+        dato:['Solicitud realizada:',  solicitud.created_by.person.names],
+        button: 'Restaurar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.restaureSolicitud(solicitud);
+      }
+    });
   }
 }
 

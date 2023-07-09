@@ -1,5 +1,6 @@
 <module-header title="Documentos Archivados">
     <app-portafolio-breadcrumbs breadcrumbs></app-portafolio-breadcrumbs>
+    <app-configuracion-tabs tabs route="portafolio"></app-configuracion-tabs>
 </module-header>
 
     <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
@@ -85,7 +86,7 @@
                                 <th class="py-[3.8px] px-6 text-right"
                                     *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                                     <span
-                                    (click)="restaureDocumento(documento)"
+                                    (click)="openDialogRestaurarDocumento(documento)"
                                     class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
                                     *permissions="['RESTAURAR_SOLICITUD']">
                                   </span>

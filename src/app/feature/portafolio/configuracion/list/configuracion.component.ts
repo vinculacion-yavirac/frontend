@@ -30,7 +30,6 @@ export class ConfiguracionComponent implements OnInit{
   constructor(
     private documentoHttpService: DocumentoHttpService,
     private dialog: MatDialog,
-    private route: ActivatedRoute,
     private router: Router,
   ) {}
 
@@ -130,11 +129,10 @@ export class ConfiguracionComponent implements OnInit{
       height: '350px',
       width: '700px',
       data: {
-        title: '¿Está seguro de archivar esta solicitud?',
+        title: '¿Está seguro de archivar este Documento ?',
         message:
-          'La solicitud será archivado y no podrá ser utilizado por los usuarios.',
+          'El documento será archivado y no podrá ser utilizado por los usuarios.',
         dato:['Nombre:', documento.name],
-        // dato: solicitud.type_of_request,
         button: 'Archivar',
       },
     });
