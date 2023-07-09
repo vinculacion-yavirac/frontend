@@ -37,4 +37,10 @@ export class DocumentoHttpService {
   getSolicitudeById(id: number): Observable<DocumentoModels> {
     return this.http.get<DocumentoModels>(`${this.url}/${id}`);
   }
+
+    // GET / buscador de Documentos
+    searchDocumentsByTerm(term: string): Observable<DocumentoModels[]> {
+      const encodedTerm = encodeURIComponent(term.toLowerCase());
+      return this.http.get<DocumentoModels[]>(`${this.url}/search/term/${encodedTerm}`);
+    }
 }

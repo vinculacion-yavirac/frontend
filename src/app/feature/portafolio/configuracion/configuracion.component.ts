@@ -97,6 +97,14 @@ export class ConfiguracionComponent implements OnInit{
   getRoleById(responsible_id: number): Role | undefined {
     throw new Error('Method not implemented.');
   }
+
+  searchDocumentoByTerm(term: string): void {
+    this.documentoHttpService
+      .searchDocumentsByTerm(term)
+      .subscribe((res: any) => {
+        this.handleSearchResponse(res);
+      });
+  }
   
   
 }
