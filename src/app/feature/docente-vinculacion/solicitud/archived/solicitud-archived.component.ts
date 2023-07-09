@@ -3,7 +3,6 @@ import { DatePipe } from '@angular/common';
 import { FilesService } from '../../../../../app/feature/upload/upload.service';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
-import {PortafoliosModels} from "../../../../models/portafolio/portafolio.models";
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
 
@@ -91,19 +90,5 @@ export class SolicitudArchivedComponent implements OnInit {
           }
         });
   }
-
-  //   downloadFile(id: number, name: string) {
-  //     this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-  //         const url = window.URL.createObjectURL(blob);
-  //         const a = document.createElement('a');
-  //         a.href = url;
-  //         a.download = name;
-  //         document.body.appendChild(a);
-  //         a.click();
-  //         document.body.removeChild(a);
-  //         window.URL.revokeObjectURL(url);
-  //     });
-  // }
-
 }
 

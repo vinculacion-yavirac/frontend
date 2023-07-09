@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {PortafoliosModels} from "../../../models/portafolio/portafolio.models";
 import {DocumentoModels} from "../../../models/portafolio/documentos/documento.models";
 
 @Injectable({
@@ -22,6 +21,10 @@ export class DocumentoHttpService {
     return this.http.get<DocumentoModels[]>(this.url);
   }
 
+  getArchivedDocument(): Observable<DocumentoModels[]> {
+    return this.http.get<DocumentoModels[]>(`${this.url}/archived/list`);
+  }
+
   addDocuments(documento: DocumentoModels): Observable<DocumentoModels> {
     return this.http.post<DocumentoModels>(`${this.url}/create`, documento, this.httpOptions);
   }
@@ -34,13 +37,26 @@ export class DocumentoHttpService {
     );
   }
 
-  getSolicitudeById(id: number): Observable<DocumentoModels> {
+  getDocumentById(id: number): Observable<DocumentoModels> {
     return this.http.get<DocumentoModels>(`${this.url}/${id}`);
   }
 
-    // GET / buscador de Documentos
-    searchDocumentsByTerm(term: string): Observable<DocumentoModels[]> {
-      const encodedTerm = encodeURIComponent(term.toLowerCase());
-      return this.http.get<DocumentoModels[]>(`${this.url}/search/term/${encodedTerm}`);
-    }
+  // GET / buscador de Documentos
+  searchDocumentsByTerm(term: string): Observable<DocumentoModels[]> {
+    const encodedTerm = encodeURIComponent(term.toLowerCase());
+    return this.http.get<DocumentoModels[]>(`${this.url}/search/term/${encodedTerm}`);
+  }
+
+  searchArchivedDocumentByTerm(term: string): Observable<DocumentoModels[]> {
+    const encodedTerm = encodeURIComponent(term);
+    return this.http.get<DocumentoModels[]>(`${this.url}/search/archived/term/${encodedTerm}`);
+  }
+
+  archiveDocument(id: number): Observable<DocumentoModels> {
+    return this.http.put<DocumentoModels>(`${this.url}/archive/${id}`, null, this.httpOptions);
+  }
+  
+  restoreDocument(id: number): Observable<DocumentoModels> {
+    return this.http.put<DocumentoModels>(`${this.url}/restore/${id}`, null, this.httpOptions);
+  }
 }

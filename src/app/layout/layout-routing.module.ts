@@ -49,6 +49,7 @@ import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 import { ConfiguracionComponent } from '../feature/portafolio/configuracion/list/configuracion.component';
+import { ConfiguracionArchivedComponent } from '../feature/portafolio/configuracion/configuracion-archived/configuracion-archived.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
@@ -89,6 +90,10 @@ const routes: Routes = [
           {
             path: 'configuracion',
             component: ConfiguracionComponent ,
+          },
+          {
+            path: 'configuracion/archived',
+            component: ConfiguracionArchivedComponent ,
           },
           {
             path: 'form',

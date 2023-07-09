@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { finalize } from 'rxjs/operators';
 import {Router} from "@angular/router";
 
 @Component({
