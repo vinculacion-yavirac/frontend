@@ -36,7 +36,6 @@ export class ModalConfiguracionComponent implements OnInit {
     private documentoHttpService: DocumentoHttpService,
     private rolHttpService: RolHttpService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: { documento: DocumentoModels },
     private dialogRef: MatDialogRef<ModalConfiguracionComponent>
   ) {this.documento = { ...data.documento };}
@@ -106,6 +105,8 @@ export class ModalConfiguracionComponent implements OnInit {
 
   updateDocuments(): void {
     if (this.documentForm.invalid) {
+     // this.getDocumentos();
+      this.router.navigate(['/system/portafolio/configuracion']);
       return;
     }
   
@@ -117,6 +118,7 @@ export class ModalConfiguracionComponent implements OnInit {
     this.documentoHttpService.updateDocuments(this.documento).subscribe(
       response => {
         this.dialogRef.close(this.documento);
+        window.location.reload();
       },
       error => {
         console.error('Error al actualizar el documento:', error);
