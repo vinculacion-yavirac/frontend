@@ -4,7 +4,7 @@
       <h2 class="custom-title">{{title}}</h2>
     </div>
     <div class="ml-auto">
-      <button type="button" (click)="addDocument()"
+      <button type="button" *ngIf="!isUpdateMode" (click)="addDocument()"
         class="btn btn-sm gap-2 rounded-md bg-success text-xs border-0 shadow px-8 ml-4 hover:bg-success-content hover:scale-105">
         <span class="fas fa-plus text-sm leading-none"></span>
         Agregar documentos
