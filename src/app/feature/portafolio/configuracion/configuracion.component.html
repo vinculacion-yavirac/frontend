@@ -47,7 +47,6 @@
                                 </div>
                             </th>
                             <th scope="col" class="py-3 px-6">Template</th>
-                            <th scope="col" class="py-3 px-6">Descarga</th>
                             <th scope="col" class="py-3 px-6">Estado</th>
                             <th scope="col" class="py-3 px-6">Responsable</th>
                             <th scope="col" class="py-3 px-6">Acciones</th>
@@ -70,9 +69,6 @@
                                 <td class="py-[3.8px] px-6 capitalize">
                                     <span>{{ documento.name }}</span>
                                 </td>
-                                <td class="py-[3.8px] px-6 capitalize">
-                                    <span>{{ documento.name }}</span>
-                                </td>
                                 <td
                                     class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
                                     <a href="{{ documento.template }}" target="_blank">
@@ -92,8 +88,7 @@
                                     </div>
                                 </td>
                                 <td class="py-[3.8px] px-6">
-                                    <span>{{ documento.responsible_id }}</span>
-                                </td>
+                                    <span>{{ getRoleFromDocumento(documento)?.name }}</span>                                </td>
                                 <th class="py-[3.8px] px-6 text-right"
                                     *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                                     <span (click)="openModalToUpdate(documento)"

@@ -18,6 +18,7 @@ export class ConfiguracionComponent implements OnInit{
   reverse = false;
   documentos: DocumentoModels[] = [];
   documentFormOpened = false;
+  roles:Role[] =[];
   config = {
     itemsPerPage: 10,
     currentPage: 1,
@@ -88,6 +89,13 @@ export class ConfiguracionComponent implements OnInit{
         // Aquí puedes actualizar la lista de documentos si es necesario
       }
     });
+  }
+
+  getRoleFromDocumento(documento: DocumentoModels): Role | undefined {
+    return typeof documento.responsible_id === 'number' ? this.getRoleById(documento.responsible_id) : documento.responsible_id;
+  }
+  getRoleById(responsible_id: number): Role | undefined {
+    throw new Error('Method not implemented.');
   }
   
   
