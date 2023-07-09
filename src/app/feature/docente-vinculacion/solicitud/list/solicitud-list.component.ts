@@ -25,7 +25,11 @@ export class SolicitudListComponent implements OnInit {
 
   solicitudes: SolicitudModels [] = [];
 
+//  showOptionsMenu = false;
+  vinculacion = 'Vinculación';
+  certificado = 'Certificado';
   loading: boolean = true;
+  showOptionsMenu: { [key: number]: boolean } = {};
 
   filterVinculacion: string;
   filterCertificado: string;
@@ -67,6 +71,7 @@ export class SolicitudListComponent implements OnInit {
     this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
+        //console.log(this.handleSearchResponse(res));
         this.sortSolicitudes();
       }
       this.loading = false;
@@ -210,4 +215,9 @@ export class SolicitudListComponent implements OnInit {
       }
     });
   }
+
+  openOptionsMenu(solicitudId: number) {
+    this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
+  }
+  
 }
