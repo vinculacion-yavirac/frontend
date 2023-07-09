@@ -49,6 +49,7 @@ import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 import {ConfiguracionComponent} from "../feature/portafolio/configuracion/configuracion.component";
+import { ModalConfiguracionComponent } from '../feature/portafolio/modal-configuracion/modal-configuracion.component';
 
 
 const routes: Routes = [
@@ -90,6 +91,10 @@ const routes: Routes = [
           {
             path: 'configuracion',
             component: ConfiguracionComponent ,
+          },
+          {
+            path: 'configuracion/:id',
+            component: ModalConfiguracionComponent ,
           },
           {
             path: 'form',

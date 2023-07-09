@@ -25,4 +25,16 @@ export class DocumentoHttpService {
   addDocuments(documento: DocumentoModels): Observable<DocumentoModels> {
     return this.http.post<DocumentoModels>(`${this.url}/create`, documento, this.httpOptions);
   }
+
+  public updateDocuments(documento: DocumentoModels): Observable<DocumentoModels> {
+    return this.http.put<DocumentoModels>(
+      `${this.url}/update/${documento.id}`,
+      documento,
+      this.httpOptions
+    );
+  }
+
+  getSolicitudeById(id: number): Observable<DocumentoModels> {
+    return this.http.get<DocumentoModels>(`${this.url}/${id}`);
+  }
 }

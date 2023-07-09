@@ -1,7 +1,7 @@
 <form [formGroup]="documentForm" (ngSubmit)="submitForm()">
   <div class="flex items-center">
     <div>
-      <h2 class="custom-title">Agregue los Nuevos Documentos</h2>
+      <h2 class="custom-title">{{title}}</h2>
     </div>
     <div class="ml-auto">
       <button type="button" (click)="addDocument()"
@@ -12,7 +12,7 @@
       <button *ngIf="documents.controls.length > 0 && documentForm.valid" type="submit"
         class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105">
         <span class="fas fa-plus text-sm leading-none"></span>
-        Crear Documentos
+        {{ isUpdateMode ? 'Actualizar Documentos' : 'Crear Documentos' }}
       </button>
     </div>
   </div>
@@ -21,8 +21,7 @@
   <div class="px-4 py-1 text-xs">
     <h3 class="font-medium"><span class="font-bold">{{ documents.length }}</span> Documentos por crear</h3>
   </div>
-  <div
-    class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+  <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
     <table class="my_table w-full text-sm text-left text-neutral content-center">
       <thead class="text-xs text-white uppercase bg-primary">
         <tr>
@@ -35,32 +34,33 @@
         </tr>
       </thead>
       <tbody formArrayName="documents" class="divide-y-[0.5px] divide-[#535A6640] text-center">
-        <tr *ngFor="let document of documents.controls; let i = index" [formGroupName]="i">
-          <td>
-            <input type="text" class="input input-bordered input-info w-full max-w-xs" formControlName="name" required>
-          </td>
-          <td>
-            <input type="text" class="input input-bordered input-info w-full max-w-xs" formControlName="template"
-              required>
-          </td>
-          <td>
-            <input type="checkbox" class="toggle toggle-primary content-center" formControlName="state" [checked]="true"
-              required>
-          </td>
-          <td>
-            <input type="number" class="input input-bordered input-info w-full max-w-xs" formControlName="order"
-              required>
-          </td>
-          <td>
-            <select class="select select-info w-full max-w-xs" formControlName="responsible_id"
-              (change)="selectRole($event)" required>
-              <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-            </select>
-          </td>
-
-          <th class="py-[3.8px] px-6 text-right" type="button" (click)="removeDocument(i)">
-            <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"></span>
-          </th>
+        <tr *ngFor="let document of documents.controls; let i = index">
+          <ng-container [formGroupName]="i">
+            <td>
+              <input type="text" class="input input-bordered input-info w-full max-w-xs" formControlName="name"
+                required>
+            </td>
+            <td>
+              <input type="text" class="input input-bordered input-info w-full max-w-xs" formControlName="template"
+                required>
+            </td>
+            <td>
+              <input type="checkbox" class="toggle toggle-primary content-center" formControlName="state" required>
+            </td>
+            <td>
+              <input type="number" class="input input-bordered input-info w-full max-w-xs" formControlName="order"
+                required>
+            </td>
+            <td>
+              <select class="select select-info w-full max-w-xs" formControlName="responsible_id" required>
+                <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+              </select>
+            </td>
+            <td class="py-[3.8px] px-6 text-right">
+              <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                (click)="removeDocument(i)"></span>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
     </table>

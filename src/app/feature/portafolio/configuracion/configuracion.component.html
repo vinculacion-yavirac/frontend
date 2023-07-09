@@ -1,7 +1,7 @@
 <module-header title="Configuración Portafolio">
     <app-portafolio-breadcrumbs breadcrumbs></app-portafolio-breadcrumbs>
 </module-header>
-<form [formGroup]="documentForm">
+
     <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
         <div class="flex justify-between my-4">
             <div class="w-1/2">
@@ -92,10 +92,12 @@
                                     </div>
                                 </td>
                                 <td class="py-[3.8px] px-6">
-                                    <span>{{ documento.responsible_id?.name }}</span>
+                                    <span>{{ documento.responsible_id }}</span>
                                 </td>
                                 <th class="py-[3.8px] px-6 text-right"
                                     *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
+                                    <span (click)="openModalToUpdate(documento)"
+                                            class="fa-regular fa-pen-to-square text-lg cursor-pointer transition-all hover:text-primary"></span>
                                     <span
                                         class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                                         *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
@@ -115,4 +117,3 @@
             <pagination [config]="config"></pagination>
         </div>
     </div>
-</form>

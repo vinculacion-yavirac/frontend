@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Role } from 'src/app/models/auth/role/rol';
 import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
@@ -21,26 +22,49 @@ export class ModalConfiguracionComponent implements OnInit {
   reverse = false;
   documentos: DocumentoModels[] = [];
   documentFormOpened = false;
+  title = 'Crear Documentos';
+  documento: DocumentoModels;
+  isUpdateMode: boolean = false;
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
-  dialog: any;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private documentoHttpService: DocumentoHttpService,
     private rolHttpService: RolHttpService,
-  ) {}
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: { documento: DocumentoModels },
+    private dialogRef: MatDialogRef<ModalConfiguracionComponent>
+  ) {this.documento = { ...data.documento };}
 
   ngOnInit() {
     this.getDocumentos();
+    this.getRoles();
     this.documentForm = this.formBuilder.group({
       documents: this.formBuilder.array([])
     });
 
-    this.getRoles();
+    if (this.data && this.data.documento) {
+      this.isUpdateMode = true;
+      const documento = this.data.documento;
+      this.title = 'Actualizar Documentos';
+      // Agrega los form controls al FormArray 'documents'
+      const documentGroup = this.formBuilder.group({
+        name: [documento.name, Validators.required],
+        template: [documento.template, Validators.required],
+        state: [documento.state, Validators.required],
+        order: [documento.order, Validators.required],
+        responsible_id: [typeof documento.responsible_id === 'number' ? documento.responsible_id : documento.responsible_id?.id]
+      });
+      this.documents.push(documentGroup);
+    } else {
+      // Agrega un form control inicial al FormArray 'documents'
+      this.addDocument();
+    }
   }
 
   ngAfterViewInit() {
@@ -80,18 +104,43 @@ export class ModalConfiguracionComponent implements OnInit {
   }
 
 
+  updateDocuments(): void {
+    if (this.documentForm.invalid) {
+      return;
+    }
+  
+    this.documento = {
+      ...this.documento,
+      ...this.documentForm.value.documents[0]
+    };
+  
+    this.documentoHttpService.updateDocuments(this.documento).subscribe(
+      response => {
+        this.dialogRef.close(this.documento);
+      },
+      error => {
+        console.error('Error al actualizar el documento:', error);
+      }
+    );
+  }
+
+
   removeDocument(index: number) {
     this.documents.removeAt(index);
     this.documentFormOpened = false;
   }
 
   submitForm() {
-    if (this.documentForm.invalid) {
-      return;
+    if (this.isUpdateMode) {
+      this.updateDocuments();
+    } else {
+      this.createDocuments();
     }
+  }
 
+
+  createDocuments(){
     const documents = this.documentForm.value.documents;
-
     this.documentoHttpService.addDocuments(documents).subscribe(
       response => {
         console.log('Documentos creados exitosamente.');
