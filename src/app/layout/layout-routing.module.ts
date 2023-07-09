@@ -48,9 +48,7 @@ import {AsignarComponent} from "../feature/institucion-beneficiaria/asignar/asig
 import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
-import {ConfiguracionComponent} from "../feature/portafolio/configuracion/configuracion.component";
-import { ModalConfiguracionComponent } from '../feature/portafolio/modal-configuracion/modal-configuracion.component';
-
+import { ConfiguracionComponent } from '../feature/portafolio/configuracion/list/configuracion.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
@@ -91,10 +89,6 @@ const routes: Routes = [
           {
             path: 'configuracion',
             component: ConfiguracionComponent ,
-          },
-          {
-            path: 'configuracion/:id',
-            component: ModalConfiguracionComponent ,
           },
           {
             path: 'form',

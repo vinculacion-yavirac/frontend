@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentoHttpService } from "../../../service/portafolio/documento/documento-http.service";
 import { FormGroup } from '@angular/forms';
-import { Role } from "../../../models/auth/role/rol";
-import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
-import { ModalConfiguracionComponent } from '../modal-configuracion/modal-configuracion.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Role } from 'src/app/models/auth/role/rol';
+import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
+import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
+import { ModalConfiguracionComponent } from '../../modal-configuracion/modal-configuracion.component';
 
 @Component({
   selector: 'app-configuracion',
