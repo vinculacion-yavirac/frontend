@@ -126,7 +126,7 @@ import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.compo
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
-import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/modal-configuracion.component';
+import { ModalConfiguracionComponent } from './portafolio/configuracion/modal-configuracion/modal-configuracion.component';
 import { ConfiguracionComponent } from './portafolio/configuracion/list/configuracion.component';
 
 @NgModule({

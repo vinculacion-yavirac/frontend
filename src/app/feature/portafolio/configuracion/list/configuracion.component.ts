@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Role } from 'src/app/models/auth/role/rol';
 import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
-import { ModalConfiguracionComponent } from '../../modal-configuracion/modal-configuracion.component';
+import { ModalConfiguracionComponent } from '../modal-configuracion/modal-configuracion.component';
 
 @Component({
   selector: 'app-configuracion',
