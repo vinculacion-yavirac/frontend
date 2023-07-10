@@ -17,12 +17,6 @@ export class UsuarioHttpService {
   private url = environment.API_URL + '/users';
 
 
-  public getUsersByRole(roleId:number,term:string): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${this.url}/search/role/${roleId}/term/${term}`
-    );
-  }
-
   // GET /users
   public getUsuarios(): Observable<User[]> {
     return this.http.get<User[]>(`${this.url}`);
@@ -124,5 +118,12 @@ export class UsuarioHttpService {
     return this.http.get<boolean>(
       `${this.url}/validate/password/${password}/${id}`
     );
-  }
+}
+
+
+
+
+
+
+
 }

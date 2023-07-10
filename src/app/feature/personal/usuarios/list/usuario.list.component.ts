@@ -7,6 +7,8 @@ import { ModalAlertComponent } from '../../../../../app/shared/material/modal-al
 // importaciones de los servicios y modelos
 import { User } from '../../../../../app/models/auth/users/usuario';
 import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuario-http.service';
+import { ExporterService } from 'src/app/service/portafolio/exportar/exporter.service';
+import { ImportadorService } from 'src/app/service/portafolio/exportar/importar.service';
 
 
 @Component({
@@ -17,31 +19,60 @@ import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuari
 export class UsuariosListComponent implements OnInit {
   reverse = false;
 
+
+
+
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
 
   usuarios: User[] = [];
-
   loading: boolean = true;
 
   constructor(
     private usuarioHttpService:UsuarioHttpService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private excellService:ExporterService,
+    private importadorService: ImportadorService
   ) {}
 
   ngOnInit(): void {
     this.getUsuarios();
+
 }
+
+importarUsuarios(input: HTMLInputElement): void {
+  const file: File | null = input.files?.[0] || null;
+
+  if (file) {
+    this.importadorService.importarUsuarios(file)
+      .then(() => {
+        console.log('Usuarios importados y guardados en la base de datos exitosamente');
+        // Realiza acciones adicionales después de importar y guardar los usuarios, como actualizar la lista de usuarios, mostrar mensajes de éxito, etc.
+        this.getUsuarios(); // Actualiza la lista de usuarios después de importarlos y guardarlos
+      })
+      .catch((error) => {
+        console.error('Error al importar y guardar los usuarios:', error);
+        // Realiza acciones adicionales en caso de error, como mostrar mensajes de error, etc.
+      });
+  }
+}
+
 
 //EXPORTAR
 exportAsXLSX(): void {
-  //const users = this.usuarios.map((usuario) =>{return {id: usuario.id , correo: usuario.email, nombres:usuario.person.names}})
- // this.excellService.exportToExcel(users,'excel');
-  //const prueba = xlsx.read(file) // Me va a regresar un array
-  //[{id:id}] [[id,id]] Asi me va  a regresar un array
-  }
+ const users = this.usuarios.map((usuario) =>{return {
+  id: usuario.id ,
+  cedula: usuario.person.identification,
+  correo: usuario.email,
+  nombres:usuario.person.names,
+  apellidos: usuario.person.last_names,
+  creado: usuario.person.created_at
+
+}})
+ this.excellService.exportToExcel(users,'excel');
+}
 
   getUsuarios(): void {
     this.loading = true;
@@ -58,28 +89,13 @@ exportAsXLSX(): void {
           }
           return 0;
         });
+
       }
     this.loading = false;
 
     });
   }
 
-
-  filterUsers = (rol:string) => {
-
-    const result = this.usuarios.filter((user) => user.role.name === rol)
-    this.usuarios = result;
-    return result;
-
-  }
-
-  filterUsersByEstado = (estado:number) => {
-
-    const result = this.usuarios.filter((user) => user.active === estado);
-    this.usuarios = result;
-    return result;
-
-  }
 
 
   searchUsuariosByTerm(term: string): void {
