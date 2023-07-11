@@ -125,9 +125,11 @@ import {
 import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
-import { ConfiguracionComponent } from './portafolio/configuracion/configuracion.component';
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
-import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/modal-configuracion.component';
+import { ModalConfiguracionComponent } from './portafolio/configuracion/modal-configuracion/modal-configuracion.component';
+import { ConfiguracionComponent } from './portafolio/configuracion/list/configuracion.component';
+import { ConfiguracionArchivedComponent } from './portafolio/configuracion/configuracion-archived/configuracion-archived.component';
+import { ConfiguracionTabsComponent } from './portafolio/configuracion/header/configuracion-tabs/configuracion-tabs.component';
 import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/asignar-modal.component';
 import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coincidencia-modal/coincidencia-modal.component';
 
@@ -232,8 +234,6 @@ import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coin
     ConfiguracionComponent,
     ModalSolicitudesComponent,
     ModalConfiguracionComponent,
-    AsignarModalComponent,
-    CoincidenciaModalComponent,
   ],
   imports: [
     CommonModule,

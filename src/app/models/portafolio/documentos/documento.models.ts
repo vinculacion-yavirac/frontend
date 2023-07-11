@@ -7,7 +7,7 @@ export interface DocumentoModels {
   template: string;
   state: boolean;
   order: number;
-  files: FilesModels;
-  responsible_id?: Role;
+  //files: FilesModels;
+  responsible_id?: Role | number;
 }
 

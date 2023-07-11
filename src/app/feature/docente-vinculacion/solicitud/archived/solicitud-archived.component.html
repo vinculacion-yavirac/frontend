@@ -81,7 +81,7 @@
             </td>
             <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
               <span
-                (click)="restaureSolicitud(solicitud)"
+                (click)="openDialogRestaurarSocilicitud(solicitud)"
                 class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
                 *permissions="['RESTAURAR_SOLICITUD']">
               </span>
