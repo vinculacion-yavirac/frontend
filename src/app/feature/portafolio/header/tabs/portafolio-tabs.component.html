@@ -1,4 +1,4 @@
-<div class="tabs flex w-full justify-between items-end flex-row-reverse">
+<div class="tabs flex flex-col md:flex-row-reverse md:justify-between md:items-end">
   <a
     [routerLinkActive]="['tab-active']"
     routerLink="/system/{{ route }}/list/archived"
@@ -20,11 +20,11 @@
       [routerLink]="'/system/' + route + '/list/'"
       class="tab tab-lifted"
       *permissions="[
-    'LEER_PORTAFOLIO',
-    'CREAR_PORTAFOLIO',
-    'ACTUALIZAR_PORTAFOLIO',
-    'ELIMINAR_PORTAFOLIO'
-  ]"
+        'LEER_PORTAFOLIO',
+        'CREAR_PORTAFOLIO',
+        'ACTUALIZAR_PORTAFOLIO',
+        'ELIMINAR_PORTAFOLIO'
+      ]"
     >
       Todo
     </a>

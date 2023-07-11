@@ -1,0 +1,33 @@
+<div class="tabs flex flex-col md:flex-row-reverse md:justify-between md:items-end">
+    <a
+      [routerLinkActive]="['tab-active']"
+      routerLink="/system/{{ route }}/configuracion/archived"
+      class="tab tab-lifted !-mr-0 archived"
+      *permissions="[
+        'RESTAURAR_' + route.toUpperCase(),
+        'ELIMINAR_' + route.toUpperCase()
+      ]"
+    >
+      <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>
+      Archivados
+    </a>
+    <div></div>
+  
+    <div class="flex items-end">
+      <a
+        [routerLinkActive]="['tab-active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLink]="'/system/' + route + '/configuracion/'"
+        class="tab tab-lifted"
+        *permissions="[
+          'LEER_PORTAFOLIO',
+          'CREAR_PORTAFOLIO',
+          'ACTUALIZAR_PORTAFOLIO',
+          'ELIMINAR_PORTAFOLIO'
+        ]"
+      >
+        Todo
+      </a>
+    </div>
+  </div>
+  

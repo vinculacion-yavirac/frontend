@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { finalize } from 'rxjs/operators';
 import {Router} from "@angular/router";
 
 @Component({
@@ -85,9 +84,9 @@ export class PortafolioArchivedComponent implements OnInit {
 
   sortSolicitudes(): void {
     this.portafolios.sort((a, b) => {
-      return a.project_participant_id.participant_id.person.identification
+      return a.created_by.person.names
           .toLowerCase()
-          .localeCompare(b.project_participant_id.participant_id.person.identification.toLowerCase());
+          .localeCompare(b.created_by.person.names.toLowerCase());
     });
   }
 

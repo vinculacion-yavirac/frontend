@@ -129,6 +129,9 @@ Background Colors
 .bg-secondary{
   background-color: #3965B8 !important;
 }
+.bg-lead{
+  background-color: #5d5d5f !important;
+}
 .table {
   background-color: #3965B8 !important;
 }

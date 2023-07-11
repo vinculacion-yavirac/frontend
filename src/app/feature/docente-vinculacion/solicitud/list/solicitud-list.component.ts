@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from "@angular/router";
 import {switchMap, tap} from "rxjs/operators";
+import { HttpClient } from '@angular/common/http';
+import { CoincidenciaModalComponent } from '../coincidencia-modal/coincidencia-modal.component';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -25,18 +26,26 @@ export class SolicitudListComponent implements OnInit {
 
   solicitudes: SolicitudModels [] = [];
 
+//  showOptionsMenu = false;
+  vinculacion = 'Vinculación';
+  certificado = 'Certificado';
   loading: boolean = true;
+  showOptionsMenu: { [key: number]: boolean } = {};
 
   filterVinculacion: string;
   filterCertificado: string;
   filterPendiente: string;
   filterAprobado: string;
 
+  createdById: number;
+
   constructor(
     private solicitudHttpService: SolicitudHttpService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -67,6 +76,7 @@ export class SolicitudListComponent implements OnInit {
     this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
+        //console.log(this.handleSearchResponse(res));
         this.sortSolicitudes();
       }
       this.loading = false;
@@ -157,7 +167,7 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  private searchPendienteByTerm(term: string): void { 
+  private searchPendienteByTerm(term: string): void {
     this.solicitudHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
     });
@@ -189,7 +199,6 @@ export class SolicitudListComponent implements OnInit {
     ).subscribe();
   }
 
-
   openDialogArchiveSolicitud(solicitud: SolicitudModels): void {
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
@@ -199,7 +208,6 @@ export class SolicitudListComponent implements OnInit {
         message:
           'La solicitud será archivado y no podrá ser utilizado por los usuarios.',
         dato:['Nombre:', solicitud.created_by.person.names, 'Tipo de solicitud:', solicitud.created_by.person.names],
-        // dato: solicitud.type_of_request,
         button: 'Archivar',
       },
     });
@@ -210,4 +218,37 @@ export class SolicitudListComponent implements OnInit {
       }
     });
   }
+
+  async checkParticipantMatch(createdById: number, solicitudId: number): Promise<void> {
+    try {
+      const projectParticipantUrl = `http://127.0.0.1:8000/api/project-participant/${createdById}`;
+      await this.http.get(projectParticipantUrl).toPromise();
+      this.openCoincidenciaModal(createdById, solicitudId);
+    } catch (error) {
+    }
+  }
+
+
+  openCoincidenciaModal(createdById: number, solicitudId: number): void {
+    const estadoSolicitud = this.solicitudes.find(solicitud => solicitud.id === solicitudId)?.solicitudes_status_id.catalog_value;
+    const tipoSolicitud = this.solicitudes.find(solicitud => solicitud.id === solicitudId)?.type_request_id.catalog_value;
+
+    if (estadoSolicitud === 'Pendiente' && tipoSolicitud === 'Vinculación') {
+      console.log('Abriendo el modal...');
+
+      const dialogRef = this.dialog.open(CoincidenciaModalComponent, {
+        height: '350px',
+        width: '600px',
+        data: { createdById: createdById, solicitudId: solicitudId }
+      });
+      dialogRef.afterClosed().subscribe(result => {});
+    }
+  }
+
+
+
+  openOptionsMenu(solicitudId: number) {
+    this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
+  }
+  
 }

@@ -1,0 +1,30 @@
+<div class="modal-content">
+  <h2>Coindicencia encontrada</h2>
+  <ng-container *ngFor="let participant of projectParticipants">
+    <ng-container *ngIf="participant.participant_id.id === createdById">
+      <div class="parrafo">
+        <p>
+          El Estudiante
+          <strong>{{ participant.participant_id.person.names }} </strong>
+          <strong>{{ participant.participant_id.person.last_names }}</strong>
+          con número de cédula:
+          <strong>{{ participant.participant_id.person.identification }}</strong>
+        </p>
+        <p>
+          Esta Preasignado al proyecto
+          <strong>{{ participant.project_id.name }}</strong>
+          de la fundación
+          <strong>{{ participant.project_id.beneficiary_institution_id.name }}</strong>
+        </p>
+        <p>
+          ¿Deseas asignarlo al proyecto
+          <strong>{{ participant.project_id.name }}</strong>?
+        </p>
+      </div>
+      <div class="botones">
+        <button class="button no-button" (click)="noButtonClick()" >No</button>
+        <button class="button si-button" (click)="siButtonClick(participant.project_id.id)">Sí</button>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

@@ -12,10 +12,10 @@ export interface PortafoliosModels {
   project_participant_id: ProyectoParticipanteModels;
   document: DocumentoModels;
   files: FilesModels [] ;
-  created_by?: User;
-  archived?: boolean;
-  archived_at?: Date;
-  archived_by?: User;
+  created_by: User;
+  archived: boolean;
+  archived_at: Date;
+  archived_by: User;
   created_at: Date;
   updated_at?: Date;
 }
