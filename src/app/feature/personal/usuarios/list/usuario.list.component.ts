@@ -42,22 +42,6 @@ export class UsuariosListComponent implements OnInit {
 
 }
 
-importarUsuarios(input: HTMLInputElement): void {
-  const file: File | null = input.files?.[0] || null;
-
-  if (file) {
-    this.importadorService.importarUsuarios(file)
-      .then(() => {
-        console.log('Usuarios importados y guardados en la base de datos exitosamente');
-        // Realiza acciones adicionales después de importar y guardar los usuarios, como actualizar la lista de usuarios, mostrar mensajes de éxito, etc.
-        this.getUsuarios(); // Actualiza la lista de usuarios después de importarlos y guardarlos
-      })
-      .catch((error) => {
-        console.error('Error al importar y guardar los usuarios:', error);
-        // Realiza acciones adicionales en caso de error, como mostrar mensajes de error, etc.
-      });
-  }
-}
 
 
 //EXPORTAR
