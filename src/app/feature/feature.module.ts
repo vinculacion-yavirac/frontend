@@ -234,6 +234,10 @@ import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coin
     ConfiguracionComponent,
     ModalSolicitudesComponent,
     ModalConfiguracionComponent,
+    ConfiguracionArchivedComponent,
+    ConfiguracionTabsComponent,
+    AsignarModalComponent,
+    CoincidenciaModalComponent,
   ],
   imports: [
     CommonModule,
