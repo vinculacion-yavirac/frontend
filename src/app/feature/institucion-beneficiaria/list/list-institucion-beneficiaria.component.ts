@@ -7,6 +7,7 @@ import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalSolicitudesComponent } from '../modal-solicitudes/modal-solicitudes.component';
+import { AsignarModalComponent } from '../asignar-modal/asignar-modal.component';
 
 @Component({
   selector: 'app-list-institucion-beneficiaria',
@@ -17,23 +18,17 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
 
   reverse = false;
   pipe = new DatePipe('en-US');
-
   model: boolean;
-
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
 
   institucionesBeneficiarias: InstitucionBeneficiariaModels[] = [];
-
   loading: boolean = true;
-
   filterActiva: boolean;
   filterInactiva: boolean;
-
   solicitudes: any[] = [];
-
   fundacionSeleccionadaId: number | null = null;
 
   constructor(
@@ -58,35 +53,58 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     }
   }
 
-  //---------
   public openModal(institucionBeneficiariaId: number): void {
     const dialogRef = this.dialog.open(ModalSolicitudesComponent, {
       height: '500px',
       width: '800px',
       data: {
-        fundacionSeleccionadaId: institucionBeneficiariaId, // Pasar el ID de la institución beneficiaria al modal
+        fundacionSeleccionadaId: institucionBeneficiariaId,
         solicitudes: this.solicitudes
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // Realiza las acciones necesarias después de que el modal se cierre
       if (result) {
-        // Código a ejecutar si se hizo clic en el botón o se cerró el modal
+      }
+    });
+  }
+
+  openAsignarModal(institucionBeneficiariaId: number): void {
+    console.log(institucionBeneficiariaId);
+    this.fundacionSeleccionadaId = institucionBeneficiariaId;
+    const fundacion = this.getFundacionById(institucionBeneficiariaId);
+    const dialogRef = this.dialog.open(AsignarModalComponent, {
+      height: '675px',
+      width: '1000px',
+      data: {
+        fundacion: fundacion,
+        solicitudes: this.solicitudes,
+        fundacionSeleccionadaId: this.fundacionSeleccionadaId
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
       }
     });
   }
 
   isBeneficiaryInstitutionMatch(solicitud: any): boolean {
-    // Verificar si fundacionSeleccionadaId y solicitud.project_id.beneficiary_institution_id son números válidos
     if (typeof this.fundacionSeleccionadaId === 'number' && typeof solicitud.project_id.beneficiary_institution_id === 'number') {
-      // Realizar la comparación
       return this.fundacionSeleccionadaId === solicitud.project_id.beneficiary_institution_id;
     }
-    // Si no se cumple la condición anterior, no hay coincidencia
     return false;
   }
-  //---------
+
+  private getFundacionById(fundacionId: number): any {
+    return this.institucionesBeneficiarias.find(institucion => institucion.id === fundacionId);
+  }
+
+  getNombreFundacion(fundacionId: number): string {
+    const fundacion = this.institucionesBeneficiarias.find(
+      institucion => institucion.id === fundacionId
+    );
+    return fundacion ? fundacion.name : '';
+  }
 
   public searchInstitucionBeneficiariaByTerm(term: string): void {
     this.loading = true;
@@ -180,14 +198,12 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
         message:
           'La solicitud será archivada y no podrá ser utilizada por los usuarios.',
         dato: ['Nombre:', fundacionDetalle.foundations.name, 'Tipo de solicitud:', fundacionDetalle.foundations],
-        // dato: fundacionDetalle.foundations.name
         button: 'Archivar',
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // this.archiveSolicitud(fundacionDetalle);
       }
     });
   }
