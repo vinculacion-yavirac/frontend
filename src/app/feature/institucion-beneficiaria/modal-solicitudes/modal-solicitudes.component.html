@@ -31,9 +31,7 @@
         <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngIf="solicitud.type_request_id.catalog_value === 'Vinculación'
         && isBeneficiaryInstitutionMatch(solicitud)">
           <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
-            <!-- Indice en orden ascendente -->
             <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
-            <!-- indice en orden descentente -->
             <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
           </th>
           <td class="py-[3.8px] px-6 capitalize">

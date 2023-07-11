@@ -28,7 +28,7 @@ export interface ProyectoModels {
     attached_project: any[];
     convention_id: number | null;
     school_period_id: number | null;
-    beneficiary_institution_id: InstitucionBeneficiariaModels;
+    beneficiary_institution_id: InstitucionBeneficiariaModels | null;
     career_id: CareersModel;
     sub_line_investigation_id: number | null;
     authorized_by:ResponsibleModels;

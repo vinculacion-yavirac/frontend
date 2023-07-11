@@ -1,10 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
-
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 
 
@@ -15,21 +13,16 @@ import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solici
 })
 export class ModalSolicitudesComponent implements OnInit {
 
-
   fundacionSeleccionadaId: number | null = null;
-
   reverse = false;
   pipe = new DatePipe('en-US');
-
   config = {
     itemsPerPage: 10,
     currentPage: 1,
   };
 
   solicitudes: SolicitudModels[] = [];
-
   loading: boolean = true;
-
   filterVinculacion: string;
   filterCertificado: string;
   filterPendiente: string;
@@ -37,9 +30,7 @@ export class ModalSolicitudesComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ModalSolicitudesComponent>,
     private solicitudHttpService: SolicitudHttpService,
-    private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
   ) {
@@ -52,10 +43,7 @@ export class ModalSolicitudesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //--------
     this.fundacionSeleccionadaId = this.data.fundacionSeleccionadaId;
-    //--------
-
     if (this.filterPendiente) {
       this.getSolicitudByStatus(this.filterPendiente);
     } else if (this.filterAprobado) {
@@ -69,7 +57,6 @@ export class ModalSolicitudesComponent implements OnInit {
     }
   }
 
-  //----------
   isBeneficiaryInstitutionMatch(solicitud: any): boolean {
     if (solicitud && solicitud.project_id && solicitud.project_id.beneficiary_institution_id) {
       console.log(this.fundacionSeleccionadaId)
@@ -77,7 +64,6 @@ export class ModalSolicitudesComponent implements OnInit {
     }
     return false;
   }
-  //----------
 
   getSolicitud(): void {
     this.loading = true;
@@ -191,7 +177,6 @@ export class ModalSolicitudesComponent implements OnInit {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
-      console.log(this.solicitudes); // Agrega este console.log
     }
     this.loading = false;
   }
