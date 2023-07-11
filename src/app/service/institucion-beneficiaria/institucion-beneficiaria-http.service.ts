@@ -40,4 +40,8 @@ export class InstitucionBeneficiariaHttpService {
   public searchAprobadoByTerm(term:string): Observable<InstitucionBeneficiariaModels[]>{
     return this.http.get<InstitucionBeneficiariaModels[]>(`${this.url}/search/state/activo/${encodeURIComponent(term)}`);
   };
+
+  public getAllProjectParticipants(): Observable<InstitucionBeneficiariaModels[]>{
+    return this.http.get<InstitucionBeneficiariaModels[]>(this.url);
+  };
 }

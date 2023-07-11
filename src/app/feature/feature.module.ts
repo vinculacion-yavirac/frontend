@@ -129,6 +129,7 @@ import { ConfiguracionComponent } from './portafolio/configuracion/configuracion
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
 import { ModalConfiguracionComponent } from './portafolio/modal-configuracion/modal-configuracion.component';
 import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/asignar-modal.component';
+import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coincidencia-modal/coincidencia-modal.component';
 
 @NgModule({
   declarations: [
@@ -232,6 +233,7 @@ import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/
     ModalSolicitudesComponent,
     ModalConfiguracionComponent,
     AsignarModalComponent,
+    CoincidenciaModalComponent,
   ],
   imports: [
     CommonModule,

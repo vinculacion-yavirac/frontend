@@ -20,7 +20,7 @@
           <div class="w-48">
             <label for="usuariosCombobox">Estudiante:</label>
             <select id="usuariosCombobox" name="usuariosCombobox" [(ngModel)]="selectedUsuario" class="select select-info w-full">
-              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }}</option>
+              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }} {{ usuario.person.last_names }}</option>
             </select>
           </div>
         </div>
@@ -42,7 +42,7 @@
           <div class="w-48">
             <label for="usuariosCombobox">Estudiante:</label>
             <select id="usuariosCombobox" name="usuariosCombobox" [(ngModel)]="updatedUsuario" class="select select-info w-full">
-              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }}</option>
+              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }} {{ usuario.person.last_names }}</option>
             </select>
           </div>
         </div>
@@ -66,9 +66,9 @@
               </tr>
             </thead>
             <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-              <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let participant of projectParticipantsSubject | async">
-                <ng-container *ngIf="participant.project_id.beneficiary_institution_id === fundacionSeleccionadaId">
-                  <td class="text-center">{{ participant.participant_id.person.names }}</td>
+              <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let participant of projectParticipants">
+                <ng-container *ngIf="participant.project_id.beneficiary_institution_id?.id === fundacionSeleccionadaId">
+                  <td class="text-center">{{ participant.participant_id.person.names }} {{ participant.participant_id.person.last_names }}</td>
                   <td class="text-center">{{ participant.project_id.name }}</td>
                   <td class="text-center">
                     <span class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary" (click)="updateParticipant(participant)"></span>

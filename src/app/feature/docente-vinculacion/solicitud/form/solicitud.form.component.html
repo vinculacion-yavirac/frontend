@@ -13,7 +13,6 @@
     <div class="a4-container bg-white text-black border border-gray-400 p-30 relative">
       <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="!loading">
         <div class="hoja" >
-          <!-- Fecha -->
           <div class="h-40">
             <p class="text-right font-bold">{{ obtenerFechaActual() }}</p>
           </div>
@@ -42,7 +41,6 @@
                 <no-content *ngIf="!loading"></no-content>
               </div>
             </div>
-            <!-- Formulario combobox-->
             <div id="whoMadeRequestId"  *ngIf="selectedProject">
               <div class="h-20">
                 <h4 class="text-center font-bold uppercase">Información de la Fundación</h4>
@@ -57,51 +55,39 @@
                 <p>Beneficiario Indirecto: {{ selectedProject.indirect_beneficiaries }}</p>
                 <p>Fecha de Inicio: {{ formatearFecha(selectedProject.start_date) }}</p>
                 <p>Fecha de Culminación: {{ formatearFecha(selectedProject.end_date) }}</p>
-
               </div>
-              <!-- Agrega aquí más campos de información que desees mostrar -->
             </div>
-
           </div>
         </div>
         <div *ngIf="selectedProject" class="grid place-items-center">
           <button class="btn btn-info w-25" type="submit" (click)="onSubmit">Asignar</button>
         </div>
       </form>
-      <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
-        <div class="h-[calc(100%)] absolute">
-          <loader></loader>
-          <no-content *ngIf="!loading"></no-content>
-        </div>
-      </div>
-      <!--<div *ngIf="loading">Cargando...</div>-->
-
       <!-- cuadro de asignación -->
       <div class="absolute right-12 -top-40" *ngIf="!loading">
         <div class="relative">
           <div class="absolute w-60 top-60 left-12 bg-white rounded-md shadow-lg p-2 flex flex-col space-y-0">
             <div class="border-b pb-2 mb-2 font-light flex items-center justify-between">
-              <h1>Asignar Fundación</h1>
+              <h1>Asignar Fundación y Proyecto</h1>
             </div>
-
-            <span class="text-xs opacity-50">Fundación: {{ selectedProject }}</span>
 
             <div class="w-full !my-2">
               <div class="relative">
-                <mat-form-field appearance="fill" class="w-full">
-                  <mat-label>Proyectos</mat-label>
-                  <mat-select [formControl]="proyectosFormControl" [errorStateMatcher]="matcher" (selectionChange)="onProjectSelectionChange($event.value)">
-                    <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{ proyecto.beneficiary_institution_id.name + proyecto.name }}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es <strong>requerido</strong></mat-error>
-                  <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
-                </mat-form-field>
+                <div class="select w-full max-w-xs">
+                  <select class="select select-bordered w-full max-w-xs" [formControl]="proyectosFormControl" [attr.errorStateMatcher]="matcher" (change)="onAssignProject($event)">
+                    <option *ngFor="let proyecto of proyectos" [value]="proyecto.id" [selected]="projectId != null && +projectId === proyecto.id">
+                      {{ proyecto.beneficiary_institution_id?.name + " " + proyecto.name }}
+                    </option>
+                  </select>
+                </div>
+                <mat-error *ngIf="proyectosFormControl.hasError('required')">Este campo es <strong>requerido</strong></mat-error>
+                <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
               </div>
             </div>
+
           </div>
         </div>
       </div>
-      <!-- cuadro de asignación -->
     </div>
   </div>
 </section>

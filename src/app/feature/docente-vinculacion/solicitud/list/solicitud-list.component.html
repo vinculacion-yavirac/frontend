@@ -22,7 +22,8 @@
       <h3 class="font-medium"><span class="font-bold">{{solicitudes.length}}</span>Solicitudes</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
-      <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+      <div
+        class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
         <table class="my_table w-full text-sm text-left text-neutral">
           <thead class="text-xs text-white uppercase bg-primary">
             <tr>
@@ -56,12 +57,14 @@
             </tr>
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-            <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let solicitud of solicitudes | paginate: config; let index = index">
+            <tr class="bg-white hover:bg-[#4052b510] transition-all"
+              *ngFor="let solicitud of solicitudes | paginate: config; let index = index">
               <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
                 <!-- Indice en orden ascendente -->
                 <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
                 <!-- indice en orden descentente -->
-                <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
+                <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index)
+                  }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{solicitud.created_by.person | NamesSurnamesComplete}}</span>
@@ -80,14 +83,13 @@
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                      *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
+                  *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  ></span>
-                 <span
-                    (click)="openDialogArchiveSolicitud(solicitud)"
-                    class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                    *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"
-                  ></span>
+                  (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"></span>
+
+                <span (click)="openDialogArchiveSolicitud(solicitud)"
+                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                  *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
               </th>
             </tr>
           </tbody>
@@ -99,7 +101,6 @@
           <no-content *ngIf="solicitudes.length == 0 && !loading"></no-content>
         </div>
       </div>
-      <!-- Paginación de tabla -->
       <pagination [config]="config"></pagination>
     </div>
   </div>

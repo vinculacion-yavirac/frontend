@@ -6,8 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/auth/users/usuario';
+import { InstitucionBeneficiariaModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria.models';
+import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
 import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
 import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
+import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
+import { ProyectoParticipanteHttpService } from 'src/app/service/proyecto/participante/proyecto-participante-http.service';
 import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 @Component({
@@ -33,7 +37,7 @@ export class AsignarModalComponent implements OnInit {
   selectedUsuario: number | null = null;
   usuariosSeleccionados: User[] = [];
   usuarioAsignado = false;
-  projectParticipants: any[] = [];
+  projectParticipants: ProyectoParticipanteModels[] = [];
   projectParticipantsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   showUpdateForm: boolean = false;
   participantToUpdate: any = null;
@@ -56,6 +60,8 @@ export class AsignarModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private usuarioHttpService:UsuarioHttpService,
     private proyectoService: ProyectoService,
+    private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
+    private proyectoParticipanteHttpService: ProyectoParticipanteHttpService,
   ) {
     this.fundacionSeleccionadaId = data.fundacionSeleccionadaId;
   }
@@ -124,6 +130,21 @@ export class AsignarModalComponent implements OnInit {
   }
 
   obtenerProjectParticipants(): void {
+    this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe(
+      (response: any) => {
+        this.projectParticipants = response.data.projectParticipants;
+        console.log("this.projectParticipants", this.projectParticipants )
+        this.projectParticipantsSubject.next(this.projectParticipants);
+        console.log("hols",this.projectParticipantsSubject.next(this.projectParticipants))
+      },
+      (error: any) => {
+        console.log('Error al obtener las Asignación:', error);
+      }
+    );
+  }
+
+/*
+  obtenerProjectParticipants(): void {
     this.http.get('http://127.0.0.1:8000/api/project-participant').subscribe(
       (response: any) => {
         this.projectParticipants = response.data.projectParticipants;
@@ -134,7 +155,7 @@ export class AsignarModalComponent implements OnInit {
       }
     );
   }
-
+*/
   loadParticipantData(participant: any): void {
     this.participantToUpdate = participant;
     this.updatedUsuario = participant.participant_id.id;
@@ -248,7 +269,7 @@ export class AsignarModalComponent implements OnInit {
           console.log(this.proyectosFundacion);
 
           this.selectedProyecto = this.proyectosFundacion[0]; // Asignar el primer proyecto por defecto
-          this.nombreFundacion = this.selectedProyecto.beneficiary_institution_id?.name;
+          this.nombreFundacion = this.selectedProyecto.beneficiary_institution_id?.name || null;
         } else {
           console.log('No se encontraron proyectos relacionados con la fundación seleccionada.');
         }
