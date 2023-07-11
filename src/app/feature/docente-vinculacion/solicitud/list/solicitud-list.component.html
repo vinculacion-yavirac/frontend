@@ -81,16 +81,28 @@
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
               </td>
-              <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
-                <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                  *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
-                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                  (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"></span>
+              <th class="py-[3.8px] px-6 text-right">
+                <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
+                  <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
+                        class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
+                  ></span>
+                </ng-template>
+
+                <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
+                    <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
+                          (click)="openOptionsMenu(solicitud.id)"></span>
+                
+                    <div *ngIf="showOptionsMenu[solicitud.id]" class="absolute right-0 mt-2 py-2 w-48 bg-white border border-[#535A6640] rounded-md shadow-lg">
+                      <a [routerLink]="['/system/portafolio']" class="block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Portafolio</a>
+                      <a [routerLink]="['/system/proyecto']" class="block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
+                    </div>
+                </ng-template>
 
                 <span (click)="openDialogArchiveSolicitud(solicitud)"
-                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
-              </th>
+                      class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                      *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"
+                ></span>
+              </th>              
             </tr>
           </tbody>
         </table>
