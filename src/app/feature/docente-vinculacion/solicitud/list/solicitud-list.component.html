@@ -97,7 +97,6 @@
                       <a [routerLink]="['/system/proyecto']" class="block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
                     </div>
                 </ng-template>
-
                 <span (click)="openDialogArchiveSolicitud(solicitud)"
                       class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                       *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"

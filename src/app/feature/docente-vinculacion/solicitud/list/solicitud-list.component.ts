@@ -250,5 +250,6 @@ export class SolicitudListComponent implements OnInit {
   openOptionsMenu(solicitudId: number) {
     this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
   }
+
   
 }
