@@ -2,47 +2,26 @@
 <div id="sidebar" class="shadow-xl h-screen overflow-hidden bg-white">
   <div class="h-16 flex border-b border-x-stone-700 items-center bg-primary">
     <a href="#">
-      <img
-        class="ml-[2rem] w-1"
-        src="../../../assets/images/LogoYavirac.png"
-        alt="yavirac"
-        class="ml-[4rem] min-w-[3rem]"
-        [ngClass]="{ hidden: !sidebar }"
-        style="height: 3rem"
-      />
-      <img
-        src="../../../assets/images/LogoYavirac.png"
-        alt="yavirac"
-        class="ml-[11px] w-12"
-        [ngClass]="{ hidden: sidebar }"
-      />
+      <img class="ml-[2rem] w-1" src="../../../assets/images/LogoYavirac.png" alt="yavirac"
+        class="ml-[4rem] min-w-[3rem]" [ngClass]="{ hidden: !sidebar }" style="height: 3rem" />
+      <img src="../../../assets/images/LogoYavirac.png" alt="yavirac" class="ml-[11px] w-12"
+        [ngClass]="{ hidden: sidebar }" />
     </a>
   </div>
-  <div
-    class="p-4 flex justify-between flex-col text-neutral"
-    style="height: calc(100vh - 4rem)"
-  >
+  <div class="p-4 flex justify-between flex-col text-neutral" style="height: calc(100vh - 4rem)">
     <ul>
-      <li
-        [routerLinkActive]="['active']"
-        routerLink="/system/dashboard"
-        class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-      >
-        <div
-          class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-        >
+      <li [routerLinkActive]="['active']" routerLink="/system/dashboard"
+        class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
           <span class="fas fa-home text-sm leading-none"></span>
         </div>
         <div class="h-9 rounded-md flex items-center">
           <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-            <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-              >Home</span
-            >
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Home</span>
           </a>
         </div>
       </li>
-      <div
-        *permissions="[
+      <div *permissions="[
           'LEER_USUARIOS',
           'CREAR_USUARIOS',
           'ACTUALIZAR_USUARIOS',
@@ -54,35 +33,27 @@
           'RESTAURAR_PORTAFOLIO',
           'ELIMINAR_PORTAFOLIO',
           'EXPORTAR_PORTAFOLIO',
-          'IMPORTAR_PORTAFOLIO'
-        ]"
-      >
-        <div
-          class="opacity-50"
-          *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-          ]"
-        >
+          'IMPORTAR_PORTAFOLIO',
+          
+        ]">
+        <div class="opacity-50" *permissions="[
+        'LEER_USUARIOS',
+        'CREAR_USUARIOS',
+        'ACTUALIZAR_USUARIOS',
+        'ELIMINAR_USUARIOS',
+        'LEER_ROLES',
+        'CREAR_ROLES',
+        'ACTUALIZAR_ROLES',
+        'ELIMINAR_ROLES'
+      ]">
           <div class="mt-5 mb-1.5">
-            <h2
-              class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
-              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }"
-            >
+            <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
+              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }">
               Administración
             </h2>
           </div>
         </div>
-        <li
-          [routerLinkActive]="['active']"
-          routerLink="/system/personal"
-          *permissions="[
+        <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[
             'LEER_USUARIOS',
             'CREAR_USUARIOS',
             'ACTUALIZAR_USUARIOS',
@@ -91,28 +62,34 @@
             'CREAR_ROLES',
             'ACTUALIZAR_ROLES',
             'ELIMINAR_ROLES'
-          ]"
-          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-        >
-          <div
-            class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-          >
-            <span class="fas fa-user-tie text-base leading-none"></span>
+          ]">
+          <div class="mt-5 mb-1.5">
+            <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
+              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }">
+              Administración
+            </h2>
           </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a
-              class="flex items-center text-sm"
-              [ngClass]="{ hidden: !sidebar }"
-            >
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-                >Gestion de Usuarios</span
-              >
-            </a>
-          </div>
-        </li>
-        <div
-          class="opacity-50"
-          *permissions="[
+      </div>
+      <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[
+            'LEER_USUARIOS',
+            'CREAR_USUARIOS',
+            'ACTUALIZAR_USUARIOS',
+            'ELIMINAR_USUARIOS',
+            'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
+          ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+          <span class="fas fa-user-tie text-base leading-none"></span>
+        </div>
+        <div class="h-9 rounded-md flex items-center">
+          <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Gestion de Usuarios</span>
+          </a>
+        </div>
+      </li>
+      <div class="opacity-50" *permissions="[
             'LEER_PORTAFOLIO',
             'CREAR_PORTAFOLIO',
             'ACTUALIZAR_PORTAFOLIO',
@@ -139,32 +116,24 @@
             'ELIMINAR_FUNDACION',
             'EXPORTAR_FUNDACION',
             'IMPORTAR_FUNDACION',
-
-            'LEER_PRTOYECTO',
-            'CREAR_PRTOYECTO',
-            'ACTUALIZAR_PRTOYECTO',
-            'ARCHIVAR_PRTOYECTO',
-            'RESTAURAR_PRTOYECTO',
-            'ELIMINAR_PRTOYECTO',
-            'EXPORTAR_PRTOYECTO',
-            'IMPORTAR_PRTOYECTO',
-            'LEER_USUARIOS',
-            'LEER_ROLES'
-          ]"
-        >
-          <div class="mt-3 mb-1.5">
-            <h2
-              class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
-              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }"
-            >
-              Documentación
-            </h2>
-          </div>
+            'LEER_PROYECTO',
+            'CREAR_PROYECTO',
+            'ACTUALIZAR_PROYECTO',
+            'ARCHIVAR_PROYECTO',
+            'RESTAURAR_PROYECTO',
+            'ELIMINAR_PROYECTO',
+            'EXPORTAR_PROYECTO',
+            'IMPORTAR_PROYECTO',
+        'LEER_USUARIOS', 'LEER_ROLES'
+    ]">
+        <div class="mt-3 mb-1.5">
+          <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
+            [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }">
+            Documentación
+          </h2>
         </div>
-        <div
-          class="flex flex-wrap"
-          style="margin-left: -1.5rem; width: 150px"
-          *permissions="[
+      </div>
+      <div class="flex flex-wrap" style="margin-left: -1.5rem; width: 150px" *permissions="[
             'LEER_USUARIOS',
             'CREAR_USUARIOS',
             'ACTUALIZAR_USUARIOS',
@@ -173,113 +142,102 @@
             'CREAR_ROLES',
             'ACTUALIZAR_ROLES',
             'ELIMINAR_ROLES'
-          ]"
-        >
-          <div class="w-full sm:w-6/12 md:w-4/12 px-4" style="width: 150rem">
-            <div class="relative inline-flex align-middle w-full">
-              <button
-                class="text-white py-2 rounded focus:outline-none ease-linear transition-all duration-150"
-                type="button"
-                (click)="toggleDropdown($event)"
-                #btnDropdownRef
-                style="background-color: #19418b; width: 160px"
-              >
-                <span
-                  class="fas fa-user-tie text-base leading-none"
-                  style="margin-left: -3.5rem"
-                ></span>
-                Reporte
-              </button>
+          ]">
+        <div class="w-full sm:w-6/12 md:w-4/12 px-4" style="width: 150rem">
+          <div class="relative inline-flex align-middle w-full">
+            <button class="text-white py-2 rounded focus:outline-none ease-linear transition-all duration-150"
+              type="button" (click)="toggleDropdown($event)" #btnDropdownRef
+              style="background-color: #19418b; width: 160px">
+              <span class="fas fa-user-tie text-base leading-none" style="margin-left: -3.5rem"></span>
+              Reporte
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="z-50" style="min-width: 12rem" #popoverDropdownRef>
+        <div class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+          style="min-width: 12rem" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'">
+          <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/informe-inicial" *permissions="[
+            'LEER_USUARIOS',
+            'CREAR_USUARIOS',
+            'ACTUALIZAR_USUARIOS',
+            'ELIMINAR_USUARIOS',
+            'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
+        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+            <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+              <span class="fas fa-user-tie text-base leading-none"></span>
             </div>
-          </div>
+            <div class="h-9 rounded-md flex items-center">
+              <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+                <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Incial</span>
+              </a>
+            </div>
+          </li>
+          <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/informe-control" *permissions="[
+            'LEER_USUARIOS',
+            'CREAR_USUARIOS',
+            'ACTUALIZAR_USUARIOS',
+            'ELIMINAR_USUARIOS',
+            'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
+        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+            <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+              <span class="fas fa-user-tie text-base leading-none"></span>
+            </div>
+            <div class="h-9 rounded-md flex items-center">
+              <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+                <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe control</span>
+              </a>
+            </div>
+          </li>
+          <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/formulario-final-tutor"
+            *permissions="[
+            'LEER_USUARIOS',
+            'CREAR_USUARIOS',
+            'ACTUALIZAR_USUARIOS',
+            'ELIMINAR_USUARIOS',
+            'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
+        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+            <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+              <span class="fas fa-user-tie text-base leading-none"></span>
+            </div>
+            <div class="h-9 rounded-md flex items-center">
+              <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+                <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Final</span>
+              </a>
+            </div>
+          </li>
+          <div class="h-0 my-2 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+          <li [routerLinkActive]="['active']" routerLink="/system/estudiante/informe-final-estudiante" *permissions="[
+            'LEER_USUARIOS',
+            'CREAR_USUARIOS',
+            'ACTUALIZAR_USUARIOS',
+            'ELIMINAR_USUARIOS',
+            'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
+        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+            <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+              <span class="fas fa-user-tie text-base leading-none"></span>
+            </div>
+            <div class="h-9 rounded-md flex items-center">
+              <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+                <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Final Estudiante</span>
+              </a>
+            </div>
+          </li>
         </div>
-        <div class="z-50" style="min-width: 12rem" #popoverDropdownRef>
-          <div class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-            style="min-width: 12rem" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'">
-            <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/informe-inicial" *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
-              <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
-                <span class="fas fa-user-tie text-base leading-none"></span>
-              </div>
-              <div class="h-9 rounded-md flex items-center">
-                <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-                  <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Incial</span>
-                </a>
-              </div>
-            </li>
-            <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/informe-control" *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
-              <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
-                <span class="fas fa-user-tie text-base leading-none"></span>
-              </div>
-              <div class="h-9 rounded-md flex items-center">
-                <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-                  <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe control</span>
-                </a>
-              </div>
-            </li>
-            <li [routerLinkActive]="['active']" routerLink="/system/docente-vinculacion/formulario-final-tutor"
-              *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
-              <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
-                <span class="fas fa-user-tie text-base leading-none"></span>
-              </div>
-              <div class="h-9 rounded-md flex items-center">
-                <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-                  <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Final</span>
-                </a>
-              </div>
-            </li>
-            <div class="h-0 my-2 border border-solid border-t-0 border-slate-800 opacity-25"></div>
-            <li [routerLinkActive]="['active']" routerLink="/system/estudiante/informe-final-estudiante" *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
-              <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
-                <span class="fas fa-user-tie text-base leading-none"></span>
-              </div>
-              <div class="h-9 rounded-md flex items-center">
-                <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
-                  <span class="text-ellipsis overflow-hidden whitespace-nowrap">Informe Final Estudiante</span>
-                </a>
-              </div>
-            </li>
-          </div>
-        </div>
-        <li
-          [routerLinkActive]="['active']"
-          routerLink="/system/portafolio"
-          *permissions="[
+      </div>
+      <li [routerLinkActive]="['active']" routerLink="/system/portafolio" *permissions="[
             'LEER_PORTAFOLIO',
             'CREAR_PORTAFOLIO',
             'ACTUALIZAR_PORTAFOLIO',
@@ -288,31 +246,17 @@
             'ELIMINAR_PORTAFOLIO',
             'EXPORTAR_PORTAFOLIO',
             'IMPORTAR_PORTAFOLIO'
-          ]"
-          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-        >
-          <div
-            class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-          >
-            <span
-              class="fa-solid fa-address-book text-base leading-none"
-            ></span>
-          </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a
-              class="flex items-center text-sm"
-              [ngClass]="{ hidden: !sidebar }"
-            >
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-                >Portafolio</span
-              >
-            </a>
-          </div>
-        </li>
-        <li
-          [routerLinkActive]="['active']"
-          routerLink="/system/solicitud"
-          *permissions="[
+          ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+          <span class="fa-solid fa-address-book text-base leading-none"></span>
+        </div>
+        <div class="h-9 rounded-md flex items-center">
+          <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Portafolio</span>
+          </a>
+        </div>
+      </li>
+      <li [routerLinkActive]="['active']" routerLink="/system/solicitud" *permissions="[
             'LEER_SOLICITUD',
             'CREAR_SOLICITUD',
             'ACTUALIZAR_SOLICITUD',
@@ -323,64 +267,36 @@
             'IMPORTAR_SOLICITUD',
             'LEER_USUARIOS',
             'LEER_ROLES'
-          ]"
-          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-        >
-          <div
-            class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-          >
-            <span
-              class="fa-solid fa-solid fa-user-group text-base leading-none"
-            ></span>
-          </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a
-              class="flex items-center text-sm"
-              [ngClass]="{ hidden: !sidebar }"
-            >
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-                >Solicitudes</span
-              >
-            </a>
-          </div>
-        </li>
-        <li
-          [routerLinkActive]="['active']"
-          routerLink="/system/proyecto"
-          *permissions="[
-            'LEER_PRTOYECTO',
-            'CREAR_PRTOYECTO',
-            'ACTUALIZAR_PRTOYECTO',
-            'ARCHIVAR_PRTOYECTO',
-            'RESTAURAR_PRTOYECTO',
-            'ELIMINAR_PRTOYECTO',
-            'EXPORTAR_PRTOYECTO',
-            'IMPORTAR_PRTOYECTO'
-          ]"
-          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-        >
-          <div
-            class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-          >
-            <span
-              class="fa-solid fa-solid fa-id-card-clip text-base leading-none"
-            ></span>
-          </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a
-              class="flex items-center text-sm"
-              [ngClass]="{ hidden: !sidebar }"
-            >
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-                >Proyecto</span
-              >
-            </a>
-          </div>
-        </li>
-        <li
-          [routerLinkActive]="['active']"
-          routerLink="/system/institucion-beneficiaria"
-          *permissions="[
+          ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+          <span class="fa-solid fa-solid fa-user-group text-base leading-none"></span>
+        </div>
+        <div class="h-9 rounded-md flex items-center">
+          <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Solicitudes</span>
+          </a>
+        </div>
+      </li>
+      <li [routerLinkActive]="['active']" routerLink="/system/proyecto" *permissions="[
+            'LEER_PROYECTO',
+            'CREAR_PROYECTO',
+            'ACTUALIZAR_PROYECTO',
+            'ARCHIVAR_PROYECTO',
+            'RESTAURAR_PROYECTO',
+            'ELIMINAR_PROYECTO',
+            'EXPORTAR_PROYECTO',
+            'IMPORTAR_PROYECTO',
+        ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+          <span class="fa-solid fa-solid fa-id-card-clip text-base leading-none"></span>
+        </div>
+        <div class="h-9 rounded-md flex items-center">
+          <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Proyecto</span>
+          </a>
+        </div>
+      </li>
+      <li [routerLinkActive]="['active']" routerLink="/system/institucion-beneficiaria" *permissions="[
             'LEER_FUNDACION',
             'CREAR_FUNDACION',
             'ACTUALIZAR_FUNDACION',
@@ -389,34 +305,23 @@
             'ELIMINAR_FUNDACION',
             'EXPORTAR_FUNDACION',
             'IMPORTAR_FUNDACION'
-          ]"
-          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer"
-        >
-          <div
-            class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md"
-          >
-            <span
-              class="fa-solid fa-solid fa-city text-base leading-none"
-            ></span>
-          </div>
-          <div class="h-9 rounded-md flex items-center">
-            <a
-              class="flex items-center text-sm"
-              [ngClass]="{ hidden: !sidebar }"
-            >
-              <span class="text-ellipsis overflow-hidden whitespace-nowrap"
-                >Institución Beneficiaria</span
-              >
-            </a>
-          </div>
-        </li>
-      </div>
-    </ul>
-    <ul>
-      <li class="text-xs opacity-50">
-        <span *ngIf="sidebar" class="uppercase mr-1">YAVIRAC</span>
-        <span>v2.0</span>
+          ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
+          <span class="fa-solid fa-solid fa-city text-base leading-none"></span>
+        </div>
+        <div class="h-9 rounded-md flex items-center">
+          <a class="flex items-center text-sm" [ngClass]="{ hidden: !sidebar }">
+            <span class="text-ellipsis overflow-hidden whitespace-nowrap">Institución Beneficiaria</span>
+          </a>
+        </div>
       </li>
-    </ul>
   </div>
+  </ul>
+  <ul>
+    <li class="text-xs opacity-50">
+      <span *ngIf="sidebar" class="uppercase mr-1">YAVIRAC</span>
+      <span>v2.0</span>
+    </li>
+  </ul>
+</div>
 </div>

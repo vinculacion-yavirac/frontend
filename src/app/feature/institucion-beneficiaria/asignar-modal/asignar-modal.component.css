@@ -1,0 +1,21 @@
+.my-4 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #3b82f6;
+  font-weight: 300;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.table-compact {
+  font-size: 0.8rem;
+}
+
+.table-compact th,
+.table-compact td {
+  padding: 0.5rem;
+}
+
+.custom-small {
+  font-size: 25px;
+}

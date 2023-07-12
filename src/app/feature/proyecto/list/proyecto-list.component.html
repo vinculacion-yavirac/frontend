@@ -17,7 +17,7 @@
     </div>
     <div class="flex">
       <button *permissions="['CREAR_USUARIOS']"
-        class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
+        class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
         routerLink="/system/proyecto/form-datos-generales/">
         <span class="fas fa-plus text-sm leading-none"></span>
         Nuevo
@@ -45,7 +45,7 @@
                   <a class="cursor-pointer ml-1" *ngIf="reverse && proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-up"></span>
                   </a>
-                  <a class="cursor-pointer ml-1" *ngIf="!reverse &&  proyectos.length > 1" (click)="reversOrder()">
+                  <a class="cursor-pointer ml-1" *ngIf="!reverse && proyectos.length > 1" (click)="reversOrder()">
                     <span class="fa-solid fa-caret-down"></span>
                   </a>
                 </div>
@@ -69,14 +69,12 @@
             </tr>
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-            <tr class="bg-white hover:bg-[#4052b510] transition-all"
-              *ngFor="let proyecto of proyectos | paginate: config; let index = index">
+            <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let proyecto of proyectos | paginate: config; let index = index">
               <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
                 <!-- Indice en orden ascendente -->
                 <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
                 <!-- indice en orden descentente -->
-                <span *ngIf="reverse">{{ proyectos.length - (config.itemsPerPage * (config.currentPage - 1) + index)
-                  }}</span>
+                <span *ngIf="reverse">{{ proyectos.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{proyecto.code}}</span>
@@ -85,7 +83,7 @@
                 <span>{{proyecto.name}}</span>
               </td>
               <td class="py-[3.8px] px-6">
-                <span>{{proyecto.beneficiary_institution_id.name }}</span>
+                <span>{{proyecto.beneficiary_institution_id?.name }}</span>
               </td>
               <td class="py-[3.8px] px-6">
                 <span>{{proyecto.authorized_by.user_id.person.names}}</span>
@@ -98,8 +96,8 @@
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', proyecto.id]"
-                      *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO','LEER_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']"
-                      class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
+                  *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO','LEER_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']"
+                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
                 ></span>
                 <span
                   (click)="openDialogArchiveProject(proyecto)"
@@ -119,8 +117,6 @@
       </div>
       <!-- Paginación de tabla -->
       <pagination [config]="config"></pagination>
-
     </div>
-
   </div>
 </div>

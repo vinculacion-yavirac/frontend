@@ -1,0 +1,86 @@
+<div class="flex flex-col w-full">
+  <h2 class="text-center text-4xl text-blue-500 font-thin">Asignación de Estudiantes</h2>
+  <br>
+  <h3 class="text-center">
+    <span class="text-2xl font-normal text-black">{{ nombreFundacion }}</span>
+  </h3>
+  <br>
+  <div class="flex">
+    <!-- Formulario de crear -->
+    <div class="w-1/2">
+      <ng-container *ngIf="!showUpdateForm">
+        <h2 class="custom-small text-blue-500 font-thin my-4">Formulario Agregar</h2>
+        <div class="flex justify-center gap-4">
+          <div class="w-48">
+            <label for="proyectosCombobox">Proyectos:</label>
+            <select id="proyectosCombobox" [(ngModel)]="selectedProyecto" class="select select-info w-full">
+              <option *ngFor="let proyecto of proyectosFundacion" [ngValue]="proyecto">{{ proyecto.name }}</option>
+            </select>
+          </div>
+          <div class="w-48">
+            <label for="usuariosCombobox">Estudiante:</label>
+            <select id="usuariosCombobox" name="usuariosCombobox" [(ngModel)]="selectedUsuario" class="select select-info w-full">
+              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }} {{ usuario.person.last_names }}</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="flex justify-center">
+          <button class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105" type="submit" (click)="agregarUsuario()" [disabled]="!selectedProyecto || !selectedUsuario">Agregar</button>
+        </div>
+      </ng-container>
+      <!-- Formulario de actulizar -->
+      <ng-container *ngIf="showUpdateForm && participantToUpdate">
+        <h2 class="custom-small text-blue-500 font-thin my-4">Formulario Actulizar</h2>
+        <div class="flex justify-center gap-4">
+          <div class="w-48">
+            <label for="proyectosCombobox">Proyectos:</label>
+            <select id="proyectosCombobox" [(ngModel)]="updatedProyecto" class="select select-info w-full">
+              <option *ngFor="let proyecto of proyectosFundacion" [ngValue]="proyecto">{{ proyecto.name }}</option>
+            </select>
+          </div>
+          <div class="w-48">
+            <label for="usuariosCombobox">Estudiante:</label>
+            <select id="usuariosCombobox" name="usuariosCombobox" [(ngModel)]="updatedUsuario" class="select select-info w-full">
+              <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.person.names }} {{ usuario.person.last_names }}</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="flex justify-center">
+          <button class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105" type="submit" (click)="updateParticipantData()">Actualizar</button>
+        </div>
+      </ng-container>
+    </div>
+    <!-- Lista de asignación -->
+    <div class="w-1/2">
+      <div class="overflow-hidden relative rounded-md">
+        <h2 class="custom-small text-blue-500 font-thin my-4">Lista de Asignación</h2>
+        <div class="min-h-[400px] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+          <table class="my_table w-full text-sm text-neutral table-compact" style="font-size: 0.8rem;">
+            <thead class="text-xs text-white uppercase bg-primary">
+              <tr>
+                <th class="text-center">Estudiante</th>
+                <th class="text-center">Nombre del Proyecto</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+              <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let participant of projectParticipants">
+                <ng-container *ngIf="participant.project_id.beneficiary_institution_id?.id === fundacionSeleccionadaId">
+                  <td class="text-center">{{ participant.participant_id.person.names }} {{ participant.participant_id.person.last_names }}</td>
+                  <td class="text-center">{{ participant.project_id.name }}</td>
+                  <td class="text-center">
+                    <span class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary" (click)="updateParticipant(participant)"></span>
+                    <span class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600" (click)="eliminarParticipant(participant)"></span>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

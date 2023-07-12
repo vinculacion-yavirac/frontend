@@ -129,6 +129,24 @@ Background Colors
 .bg-secondary{
   background-color: #3965B8 !important;
 }
+.bg-lead{
+  background-color: #5d5d5f !important;
+}
 .table {
   background-color: #3965B8 !important;
+}
+.bg-ligth-white {
+  background-color: #f3f5fc !important; }
+
+.place-items-right {
+  justify-items: end;
+  text-align: right;
+}
+
+.p-4 {
+  padding: 1.0rem!important;
+}
+
+.h-16 {
+  height: 4.3rem!important;
 }

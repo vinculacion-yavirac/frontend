@@ -1,9 +1,6 @@
 import {SolicitudHttpService} from "../../../../service/docente-vinculacion/solicitud/solicitud-http.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FormBuilder, FormsModule, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {
-  ProyectoParticipanteHttpService
-} from "../../../../service/proyecto/participante/proyecto-participante-http.service";
+import {FormBuilder, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {SolicitudModels} from "../../../../models/docente-vinculacion/solicitud/solicitud";
 import {ProyectoParticipanteModels} from "../../../../models/proyecto/ProjectParticipant/proyecto-participante.moduls";
 import {Subscription} from "rxjs";
@@ -12,7 +9,6 @@ import { MyErrorStateMatcher } from "src/app/shared/matcher/error-state-matcher"
 import { ProyectoModels } from "src/app/models/proyecto/proyecto.models";
 import { ProyectoService } from "src/app/service/proyecto/proyecto.service";
 import { format } from "date-fns";
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-solicitud-form',
@@ -37,20 +33,35 @@ export class SolicitudFormComponent implements OnInit {
   loading = true;
   selectedProject: any;
   selectedProjectIds: string | null;
+  projectId: number;
+  currentProject: ProyectoModels | null = null;
+  selectedProjectId: number | null = null;
 
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private proyectoParticipanteHttpService: ProyectoParticipanteHttpService,
     private proyectoService: ProyectoService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
-    this.getProyectoParticipante();
     this.getProyectos();
+
+    this.route.queryParams.subscribe(params => {
+      this.projectId = Number(params['projectId']);
+
+      if (this.projectId) {
+        const selectedProject = this.proyectos.find(proyecto => proyecto.id === this.projectId);
+        if (selectedProject) {
+          this.selectedProject = selectedProject;
+          this.formGroup.get('project_id')?.setValue(selectedProject.id);
+        }
+      }
+    });
+
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
         this.title = 'Asignar Estudiante';
@@ -61,19 +72,7 @@ export class SolicitudFormComponent implements OnInit {
         }, 1000);
       }
     });
-
   }
-
-  onProjectSelectionChange(projectId: any) {
-    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === projectId);
-    if (this.proyectosFormControl.value !== null) {
-      this.selectedProjectIds = this.proyectosFormControl.value;
-    }else{
-      this.selectedProject = this.getSolicitudById(projectId)
-    }
-  }
-
-
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
@@ -109,54 +108,16 @@ export class SolicitudFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-      console.log("entra aqui" + this.formGroup.value);
-      this.loading = true;
-      const id = this.currentSolicitude.id || 0;
-      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
-
-      console.log('ID:', id);
-      console.log('Solicitud:', this.currentSolicitude);
-
-      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
-        (response: any) => {
-          if (response.status === 'success') {
-            console.log('Relación actualizada correctamente');
-            this.router.navigate(['system/solicitud/list']);
-          }
-          this.loading = false;
-        },
-        (error: any) => {
-          console.log('Error al actualizar la relación:', error.message);
-        }
-      );
+      const id = this.currentSolicitude.id;
+      console.log(this.currentSolicitude.id +
+        'success entraaaaaaaaaaaaaaaaaaaaaa');
+      this.assingSolicitud(id);
     } else if(!this.formGroup.valid){
-      console.log("entra aqui" + this.formGroup.value);
-      const id = this.currentSolicitude.id || 0;
-      this.currentSolicitude.project_id = this.selectedProject.id; // Asignar el valor del campo project_id
-
-      console.log('ID:', id);
-      console.log('Solicitud:', this.currentSolicitude);
-
-      this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
-        (response: any) => {
-          if (response.status === 'success') {
-            console.log('Relación actualizada correctamente');
-            this.router.navigate(['system/solicitud/list']);
-          }
-        },
-        (error: any) => {
-          console.log('Error al actualizar la relación:', error.message);
-        }
-      );
-    }else{
-      console.log("Error en la trans")
+      const id = this.currentSolicitude.id;
+      console.log(this.currentSolicitude.id +
+        'success entraaaaaaaaaaaaaaaaaaaaaa');
+      this.assingSolicitud(id);
     }
-  }
-
-  getProyectoParticipante(): void {
-    this.proyectoParticipanteHttpService.getProyectoParticipante().subscribe((rest:any) => {
-      this.proyectoParticipante = rest.data.projectParticipants;
-    });
   }
 
   getSolicitudById(id: number): void {
@@ -182,20 +143,31 @@ export class SolicitudFormComponent implements OnInit {
     });
   }
 
+  assingSolicitud(id:number ){
+    this.currentSolicitude.project_id = this.selectedProject.id;
+    this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
+      (response: any) => {
+        if (response.status === 'success') {
+          console.log('Relación actualizada correctamente');
+          this.router.navigate(['system/solicitud/list']);
+        }
+      },
+      (error: any) => {
+        console.log('Error al actualizar la relación:', error.message);
+      }
+    );
+  }
+
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
     this.sub?.unsubscribe();
   }
 
-  //combobox
-
-  // validators
   proyectosFormControl = new FormControl(
 
     '', [Validators.required]);
 
-  //Validación de errores en el formulario
   matcher = new MyErrorStateMatcher();
 
   proyectos: ProyectoModels[] = [];
@@ -209,23 +181,18 @@ export class SolicitudFormComponent implements OnInit {
   }
 
   private sub?: Subscription;
-  //propiedad privada que contiene una referencia a la suscripción que se crea cuando roleFormControl cambia el valor.
   onTouchedCb?: () => void;
   writeValue(obj: any): void {
     obj && this.proyectosFormControl.setValue(obj.id);
   }
-  //registra una función que será llamada cuando el valor de los roleFormControl cambia
   registerOnChange(fn: any): void {
     this.sub = this.proyectosFormControl.valueChanges.subscribe(fn);
   }
 
-
-  //registra una función que será llamada cuando se toque el control. La función se almacena en la onTouchedCbpropiedad para su uso posterior
   registerOnTouched(fn: any): void {
     this.onTouchedCb = fn;
   }
 
-  // este método se usa para habilitar o deshabilitar el control según el isDisabledState booleano pasado.
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.proyectosFormControl.disable() : this.proyectosFormControl.enable();
   }
@@ -238,7 +205,6 @@ export class SolicitudFormComponent implements OnInit {
     });
   }
 
-  //fecha
   obtenerFechaActual() {
     const fecha = new Date();
     const fechaFormateada = format(fecha, "'Quito,' d 'de' MMMM 'del' yyyy");
@@ -249,5 +215,20 @@ export class SolicitudFormComponent implements OnInit {
   formatearFecha(fecha: string): string {
     const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
     return fechaFormateada;
-  }
+  }
+
+  onAssignProject(event: any): void {
+    const projectId = event.target.value;
+    console.log('Valor del proyecto seleccionado:', projectId);
+
+    this.selectedProject = this.proyectos.find(proyecto => proyecto.id === parseInt(projectId));
+    if (this.proyectosFormControl.value !== null) {
+      this.selectedProjectIds = projectId.toString();
+    } else {
+      this.selectedProjectIds = null;
+    }
+
+    this.formGroup.get('project_id')?.setValue(projectId);
+  }
+
 }

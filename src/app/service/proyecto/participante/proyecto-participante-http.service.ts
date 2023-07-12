@@ -16,9 +16,9 @@ export class ProyectoParticipanteHttpService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private url = environment.API_URL + '/participant';
+  private url = environment.API_URL + '/project-participant';
 
-  public getProyectoParticipante(): Observable<ProyectoParticipanteModels[]> {
+  public getProyectoParticipant(): Observable<ProyectoParticipanteModels[]> {
     return this.http.get<ProyectoParticipanteModels[]>(this.url);
   }
 }
