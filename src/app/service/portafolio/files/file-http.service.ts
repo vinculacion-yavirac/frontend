@@ -17,57 +17,6 @@ export class FileHttpService {
     return this.http.get(`${this.url}`);
   }
 
-
-  // uploadFiles(files: File[],idPortafolio: number,idDocumento:number): void {
-  //   const formData = new FormData();
-  //   files.forEach((file: File) => {
-  //     formData.append('files[]', file, file.name);
-  //  });
-  //   this.http.post(`${this.url}/download/${idPortafolio}/${idDocumento}`,files)
-  //   // this.http
-  //   //   .post(`${environment.API_URL}/files/upload/${idPortafolio}/${idDocumento}`, formData)
-  //   //   .subscribe();
-  // }
-
-
-
-  // uploadFiles(files: CustomFile[], idBriefcase:number): void {
-  //   const formData = new FormData();
-  //   files.forEach((file: CustomFile) => {
-  //     formData.append('files[]', file.file, file.file.name);
-  //     formData.append('document_id', file.document_id.toString());
-  //   });
-
-  //   this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
-  //     (response: any) => {
-  //       console.log('Archivos enviados correctamente');
-  //     },
-  //     (error: any) => {
-  //       console.log('Error al enviar los archivos:', error);
-  //     }
-  //   );
-  // }
-
-
-  // uploadFiles(files: CustomFile[], idBriefcase: number): void {
-  //   const formData = new FormData();
-
-  //   files.forEach((file: CustomFile) => {
-  //     const combinedValue = `${file.file.name};${file.document_id}`;
-  //     formData.append('files[]', file.file, combinedValue);
-  //   });
-
-  //   this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
-  //     (response: any) => {
-  //       console.log('Archivos enviados correctamente');
-  //     },
-  //     (error: any) => {
-  //       console.log('Error al enviar los archivos:', error);
-  //     }
-  //   );
-  // }
-
-
   uploadFiles(files: CustomFile[], idBriefcase: number): void {
     const formData = new FormData();
 
@@ -87,21 +36,6 @@ export class FileHttpService {
       }
     );
   }
-
-
-
-
-  // downloadFile(fileId: number) {
-  //   const url = `${this.baseUrl}/download/${fileId}`;
-  //   return this.http.get(url, { responseType: 'blob' });
-  // }
-
-
-
-
-  // downloadFile(id: number) {
-  //   return this.http.get(`${this.url}/download/${id}`, { responseType: 'blob' });
-  // }
 
   downloadFile(idPortafolio: number,idDocumento:number,idFile:number ) {
     return this.http.get(`${this.url}/download/${idPortafolio}/${idDocumento}/${idFile}`, { responseType: 'blob' });
