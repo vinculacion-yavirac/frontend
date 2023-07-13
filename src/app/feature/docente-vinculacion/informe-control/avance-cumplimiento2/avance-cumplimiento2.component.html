@@ -8,21 +8,26 @@
 
   <div>
     <br>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
-      <button style="     margin-left: 63rem; margin-bottom: 0.5rem; " data-modal-target="defaultModal"
-        data-modal-toggle="defaultModal"
-        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button">
-        Agregar
-      </button>
-    </div>
+ 
     <div class="card" spellcheck="    margin-top: 4rem;    margin-left: 7rem;
     ">
       <div class="card-body">
         <div class="container2 container-fuild">
           <br>
-
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button style=" margin-bottom: 0.5rem;  " (click)="pdf()"
+            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button">
+            Generar_Informe
+          </button>
+            <button style="margin-bottom: 1rem;" data-modal-target="defaultModal"
+              data-modal-toggle="defaultModal"
+              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button">
+              Agregar
+            </button>
+            <br>
+          </div>
           <div class="container container-fuild">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -83,9 +88,9 @@
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-          <a href="/system/docente-vinculacion/informe-control">
+          <a href="/system/docente-vinculacion/informe-control/avance-cumplimiento">
             <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
-              routerLink="/system/docente-vinculacion/informe-control" *permissions="[
+              routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
           'LEER_ROLES',
           'CREAR_ROLES',
           'ACTUALIZAR_ROLES',
