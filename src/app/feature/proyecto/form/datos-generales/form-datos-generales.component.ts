@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
-import { customDateValidation } from 'src/app/shared/validators/custom-date-validation.directive';
-import { DatosGenerales } from './../../../../models/proyecto/datos-generales.models';
-import { jsPDF } from "jspdf";
-import 'jspdf-autotable';
-import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { Component, OnInit } from '@angular/core' ;
+import { ActivatedRoute } from '@angular/router' ;
+import { FormBuilder, Validators } from '@angular/forms' ;
+import { customDateValidation } from 'src/app/shared/validators/custom-date-validation.directive' ;
+import { DatosGenerales } from './../../../../models/proyecto/datos-generales.models' ;
+import { jsPDF } from "jspdf" ;
+import 'jspdf-autotable' ;
+import { ImageConstants } from 'src/app/constanst/ImageConstants' ;
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { DatePipe } from '@angular/common';
 
@@ -21,13 +21,12 @@ interface Carrera {
 })
 export class FormDatosGeneralesComponent implements OnInit {
 
-  /*Variables para generar pdfs*/
-  public doc: any;
-  public doc2: any;
-  public avanceData: any;
-  id?: string;
+   /*Variables para generar pdfs*/
+   public doc: any;
+   public doc2: any;
+   public avanceData: any;
+   id?: string;
   public proyectData: any = [];
-
 
   constructor(
     private fb: FormBuilder,
@@ -38,10 +37,8 @@ export class FormDatosGeneralesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    /*Array para generear pdf con datos dinamicos*/
+    /*Array para generear  pdf con datos dinamicos*/
     this.getAllProyecto();
-
   }
 
   carreraId: Carrera[] = [];
@@ -188,9 +185,6 @@ export class FormDatosGeneralesComponent implements OnInit {
         }
       });
   }
-
-
-
 
 
 
@@ -1202,12 +1196,8 @@ export class FormDatosGeneralesComponent implements OnInit {
 
 
   }
-
-
-
-  /*pdf comvenio */
-
-  public pdf_convenio() {
+  /*pdf convenio */
+   public pdf_convenio() {
 
     var d = new Date();
     var s = new Date();
@@ -1715,11 +1705,9 @@ export class FormDatosGeneralesComponent implements OnInit {
 
 
 
-  }
-
-
-  /*pdf documento itv*/
-  public pdf_itv() {
+   }
+   /*pdf documento itv*/
+   public pdf_itv() {
 
     var d = new Date();
     var s = new Date();
@@ -2381,9 +2369,5 @@ export class FormDatosGeneralesComponent implements OnInit {
 
 
 
-  }
-
-
-
-
+   }
 }
