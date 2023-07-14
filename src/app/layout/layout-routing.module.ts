@@ -36,6 +36,7 @@ import { AgregarPreguntaComponent } from '../feature/estudiante/encuenta/pregunt
 import { EncabezadoFormComponent } from '../feature/estudiante/encuenta/encabezado/agregar-encabezado/encabezado-form.component';
 import { AgregarRespuestaComponent } from '../feature/estudiante/encuenta/respuesta/agregar-respuesta/agregar-respuesta.component';
 import { EncabezadoDosFormComponent } from '../feature/estudiante/encuenta/encabezado-dos/agregar-encabezado-dos/encabezado-dos-form.component';
+import { PdfEncuestaComponent } from '../feature/estudiante/encuenta/pdf/pdf-encuesta.component';
 
 
 const routes: Routes = [
@@ -404,6 +405,10 @@ const routes: Routes = [
           },
           {
             path: 'encuesta/agregar-respuesta',component: AgregarRespuestaComponent,
+
+          },
+          {
+            path: 'encuesta/previsualizacion',component: PdfEncuestaComponent,
 
           },
 

@@ -18,11 +18,11 @@ export class PreguntaHttpService {
 
   getAllP():Observable<PreguntaModel[]> {
 
-    return this.httpClient.get<PreguntaModel[]>(this.url+"/preguntas", this.httpOptions);
+    return this.httpClient.get<PreguntaModel[]>(this.url+"/pregunta", this.httpOptions);
   }
 
   createp(pregunta: PreguntaModel):Observable<PreguntaModel> {
 
-    return this.httpClient.post<PreguntaModel>(this.url+"/preguntas",pregunta, this.httpOptions);
+    return this.httpClient.post<PreguntaModel>(this.url+"/pregunta/create",pregunta, this.httpOptions);
   }
 }

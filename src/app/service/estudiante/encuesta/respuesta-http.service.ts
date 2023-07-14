@@ -18,11 +18,11 @@ export class RespuestaHttpService {
 
   getAll():Observable<RespuestaModel[]> {
 
-    return this.httpClient.get<RespuestaModel[]>(this.url+"/respuestas", this.httpOptions);
+    return this.httpClient.get<RespuestaModel[]>(this.url+"/respuesta", this.httpOptions);
   }
 
   create(respuesta: RespuestaModel):Observable<RespuestaModel> {
 
-    return this.httpClient.post<RespuestaModel>(this.url+"/respuestas",respuesta, this.httpOptions);
+    return this.httpClient.post<RespuestaModel>(this.url+"/respuesta/create",respuesta, this.httpOptions);
   }
 }

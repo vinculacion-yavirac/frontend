@@ -53,7 +53,7 @@
     <div class="card-body">
       <h2 class="card-title">Opciones!</h2>
       <div class="div" *ngFor="let respuesta of respuestas">
-        <div class="div" *ngIf="respuesta && respuesta.encuestas_id == 1">
+        <div class="div" *ngIf="respuesta && respuesta.encuestas_id === 1">
           <p >{{respuesta.id}}.{{respuesta.descripcion}}</p>
         </div>
       </div>
@@ -65,8 +65,10 @@
       <tr  >
         <th class="border border-slate-950 ...">N°</th>
         <th class="border border-slate-950 ..."></th>
-        <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let respuesta of respuestas">
-          <p *ngIf="respuesta.encuestas_id==1 && respuesta.preguntas_id ==1 " > {{respuesta.descripcion}}</p>
+        <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let res of respuestas">
+
+            <p *ngIf="res.encuestas_id === 1 && res.preguntas_id  ==1   ">{{res.descripcion}}</p>
+
         </th>
 
         <th class="border border-slate-600 ...">NDS/NAC</th>
@@ -74,7 +76,7 @@
     </thead>
     <tbody *ngFor="let pregunta of preguntas">
 
-      <tr *ngIf="pregunta && pregunta.encuestas_id == 1">
+      <tr *ngIf="pregunta.encuestas_id == 1">
         <td class="border border-slate-950 ...">{{pregunta.id}}</td>
         <td class="border border-slate-950 m-2 p-3 ">{{pregunta.descripcion}}..</td>
         <td class="border border-slate-700 ..."> </td>
@@ -112,6 +114,8 @@
   <p class="p-3">PREGUNTAS</p>
   <button class="btn btn-outline btn-info" routerLink="/system/estudiante/encuesta/agregar-pregunta">Crear
     preguntas</button>
+    <button class="btn btn-outline btn-info" routerLink="/system/estudiante/encuesta/agregar-respuesta">Crear
+      Respuesta</button>
 
 
 
@@ -122,9 +126,9 @@
     <div class="mx-auto bg-slate-200 mt-1   mb-1 p-1 pl-3 rounded-lg items-center justify-end" *ngIf="p.encuestas_id == 2">
       <p >{{p.id}}.{{p.descripcion}}</p>
 
-      <div class=" items-center justify-end" *ngFor="let r of respuestas">
+      <div class="  m-3 pl-20 " *ngFor="let r of respuestas">
 
-        <p *ngIf="r.encuestas_id==2 && r.preguntas_id == p.id">{{r.descripcion}}</p>
+        <p class=" pl-20  " *ngIf="r.encuestas_id==2 && r.preguntas_id == p.id">{{r.descripcion}}</p>
 
       </div>
     </div>
@@ -135,7 +139,7 @@
 
 
 
-<button class="btn btn-outline btn-info"  (click)="generatePDF()">imprimir</button>
+<button class="btn btn-outline btn-info"    routerLink="/system/estudiante/encuesta/previsualizacion">vizualizar pdf</button>
 
 
 

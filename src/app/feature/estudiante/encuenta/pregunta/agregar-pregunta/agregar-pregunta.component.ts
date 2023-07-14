@@ -26,7 +26,7 @@ export class AgregarPreguntaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createPregunta() :void{
+  createPregunta() {
     this.preguntaHttpService.createp(this.addpEntity).subscribe(()=>
     {
       this.addpEntity={

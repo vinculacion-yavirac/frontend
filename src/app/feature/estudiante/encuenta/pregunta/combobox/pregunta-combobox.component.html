@@ -1,9 +1,9 @@
-<p>pregunta-combobox works!</p>
 
-<select #selectPregunta (change)="onSelect(selectPregunta.value)"  class="select select-success w-full max-w-xs text-black" >
-  <option selected disabled>Seleccionar pregunta</option>
+
+<select #selectPregunta (change)="onSelect(selectPregunta.value)"  class="select select-primary w-full max-w-xs text-black" >
+  <option value=0 selected disabled >Seleccionar Pregunta</option>
   <option *ngFor="let pregunta of preguntas"
   [value]="pregunta.id"
-    [selected]="pregunta.id == pregunta.id">{{pregunta.id}}.{{pregunta.descripcion}}</option>
+    [selected]="pregunta.id === preguntaId">{{pregunta.id}}.{{pregunta.descripcion}}</option>
 
 </select>

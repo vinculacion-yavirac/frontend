@@ -20,28 +20,28 @@ export class EncuestaHttpService {
 
   getAll():Observable<EncuestaModel[]> {
 
-    return this.httpClient.get<EncuestaModel[]>(this.url+"/encuestas", this.httpOptions);
+    return this.httpClient.get<EncuestaModel[]>(this.url+"/encuesta", this.httpOptions);
   }
 
   create(encuesta: EncuestaModel):Observable<EncuestaModel> {
 
-    return this.httpClient.post<EncuestaModel>(this.url+"/encuestas",encuesta, this.httpOptions);
+    return this.httpClient.post<EncuestaModel>(this.url+"/encuesta/create",encuesta, this.httpOptions);
   }
 
   // ruta para preguntas
   getAllP():Observable<PreguntaModel[]> {
 
-    return this.httpClient.get<PreguntaModel[]>(this.url+"/preguntas", this.httpOptions);
+    return this.httpClient.get<PreguntaModel[]>(this.url+"/pregunta", this.httpOptions);
   }
 
-  createAn(pregunta: PreguntaModel):Observable<PreguntaModel> {
+  createP(pregunta: PreguntaModel):Observable<PreguntaModel> {
 
-    return this.httpClient.post<PreguntaModel>(this.url+"/preguntas",pregunta, this.httpOptions);
+    return this.httpClient.post<PreguntaModel>(this.url+"/pregunta/create",pregunta, this.httpOptions);
   }
 
   //ruta respuestas
   getAllR():Observable<RespuestaModel[]> {
 
-    return this.httpClient.get<RespuestaModel[]>(this.url+"/respuestas", this.httpOptions);
+    return this.httpClient.get<RespuestaModel[]>(this.url+"/respuesta", this.httpOptions);
   }
 }

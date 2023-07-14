@@ -6,11 +6,6 @@ import { RespuestaModel } from 'src/app/models/estudiante/encuesta/respuesta.mod
 import { EncuestaHttpService } from 'src/app/service/estudiante/encuesta/encuesta-http.service';
 
 import jsPDF from 'jspdf';
-//import jsPDF from 'jspdf'
-//import jspdf from 'jspdf';
-//import JSPDF from 'jspdf';
-//import { jsPDF } from 'jspdf';
-import * as  $ from "jquery";
 import html2canvas from 'html2canvas';
 
 

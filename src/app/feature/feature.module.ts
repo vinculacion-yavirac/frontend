@@ -110,6 +110,7 @@ import { AgregarRespuestaComponent } from './estudiante/encuenta/respuesta/agreg
 import { EncabezadoDosFormComponent } from './estudiante/encuenta/encabezado-dos/agregar-encabezado-dos/encabezado-dos-form.component';
 import { EncuestaComboboxComponent } from './estudiante/encuenta/encabezado/combobox/encuesta-combobox.component';
 import { PreguntaComboboxComponent } from './estudiante/encuenta/pregunta/combobox/pregunta-combobox.component';
+import { PdfEncuestaComponent } from './estudiante/encuenta/pdf/pdf-encuesta.component';
 
 
 
@@ -210,6 +211,7 @@ import { PreguntaComboboxComponent } from './estudiante/encuenta/pregunta/combob
     EncabezadoDosFormComponent,
     EncuestaComboboxComponent,
     PreguntaComboboxComponent,
+    PdfEncuestaComponent,
    
 
     ],

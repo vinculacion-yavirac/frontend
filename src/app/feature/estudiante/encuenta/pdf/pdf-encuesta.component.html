@@ -1,0 +1,149 @@
+<br>
+
+<div class="container mx-auto " id="pdf">
+  <div class="div pb-10">
+    <img src="../../../../../assets/images/encabezado.jpeg" class="w-650 h-15   " alt="">
+  </div>
+
+  <div class="pt-3 pb-3" *ngFor="let enc of encuestas">
+    <div class="  mt-1   mb-1 p-1 pl-3  " *ngIf="enc && enc.id == 1">
+      <p class="font-normal text-2xl">{{enc.tipo}}</p>
+      <p class="font-normal text-xl..."> Nombre de la Institucion: {{enc.nombre_institucion}} </p>
+      <p class="font-normal text-xl...">Nombre de la Actividad Realizada: {{enc.actividad_realizada}}</p>
+      <p class="font-normal text-xl...">Nombre Docente Tutor: {{enc.docente_tutor}}</p>
+      <p class="font-normal text-xl...">Nombre del tutor de la entidad beneficiaria: {{enc.tutor_entidad_financiera}} </p>
+    </div>
+  </div>
+
+
+  <table class=" border-black ... pt-3 pb-3" id="table" *ngFor="let enc of encuestas">
+
+    <tbody *ngIf="enc && enc.id == 1">
+      <tr>
+        <td class="border border-slate-950 ... p-1 pl-2">Proyecto:</td>
+        <td class="border border-slate-950 ... p-1 pl-2 pr-5">{{enc.proyecto}}</td>
+      </tr>
+      <tr>
+        <td class="border border-slate-950 ... p-1 pl-2">Codigo del Proyecto:</td>
+        <td class="border border-slate-950 ... p-1 pl-2"> {{enc.codigo_proyecto}}</td>
+      </tr>
+      <tr>
+        <td class="border border-slate-950 ... p-1 pl-2 font-bold">Genero: </td>
+        <td class="border border-slate-950 ... p-1 pl-2">{{enc.genero}}</td>
+      </tr>
+      <tr>
+        <td class="border border-slate-950 ... p-1 pl-2">Rango de Edad</td>
+        <td class="border border-slate-950 ... p-1 pl-2 pr-5"> {{enc.rango_edad}}</td>
+      </tr>
+      <tr>
+        <td class="border border-slate-950 ... p-1 pl-2">Fecha</td>
+        <td class="border border-slate-950 ... p-1 pl-2">{{enc.fecha}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class=" pt-4 pb-4" *ngFor="let enc of encuestas">
+    <div class="mx-auto  m-1 p-1 pl-3 " *ngIf="enc && enc.id == 1">
+      <P>Objetivo: {{enc.objetivo}}</P>
+      <P>Instrucivo: {{enc.instructivo}}</P>
+      <P>Informacion General: {{enc.informacion_general}}</P>
+    </div>
+  </div>
+
+  <div class="card w-25 h-15 bg-white text-black pt-4 pb-4">
+    <div class="card-body">
+      <h2 class="card-title">Opciones!</h2>
+      <div class="div" *ngFor="let respuesta of respuestas">
+        <div class="div" *ngIf="respuesta.id && respuesta.encuestas_id == 1">
+          <p>{{respuesta.id}}.{{respuesta.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="border-collapse border border-slate-950 ... pt-8 pb-8">
+    <thead>
+      <tr>
+        <th class="border border-slate-950 ...">N°</th>
+        <th class="border border-slate-950 ..."></th>
+        <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let respuesta of respuestas">
+          <p *ngIf="respuesta.id  && respuesta.preguntas_id==1 && respuesta.encuestas_id == 1">
+            {{respuesta.descripcion}}</p>
+        </th>
+
+        <th class="border border-slate-600 ...">NDS/NAC</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let pregunta of preguntas">
+
+      <tr *ngIf="pregunta && pregunta.encuestas_id == 1">
+        <td class="border border-slate-950 ...">{{pregunta.id}}</td>
+        <td class="border border-slate-950 m-2 p-3 ">{{pregunta.descripcion}}..</td>
+        <td class="border border-slate-700 ..."> </td>
+        <td class="border border-slate-700 ..."> </td>
+        <td class="border border-slate-700 ..."> </td>
+        <td class="border border-slate-700 ..."> </td>
+        <td class="border border-slate-700 ..."> </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- comienza configuracion segunda -->
+
+  <div class="pt-3 pb-3" *ngFor="let enc of encuestas">
+    <div class="bg-slate-20 mt-1 p-2 " *ngIf="enc && enc.id == 2">
+
+      <p>{{enc.tipo}}..</p>
+      <p>Programa: {{enc.actividad_realizada}}</p>
+      <p>Objetivos: {{enc.objetivo}}</p>
+      <p>Instrucciones: {{enc.instructivo}}</p>
+
+    </div>
+  </div>
+
+  <p class="font-bold">PREGUNTAS</p>
+
+  <div class=" pb-3 " *ngFor="let p of preguntas">
+    <div class=" bg-slate-20 mt-1   mb-1 p-1 pl-10 items-center justify-end"
+      *ngIf="p.encuestas_id == 2">
+      <p>{{p.descripcion}}</p>
+
+      <div class="  m-3 pl-20 " *ngFor="let r of respuestas">
+
+        <p class="  pl-20 " *ngIf="r.encuestas_id==2 && r.preguntas_id == p.id">{{r.descripcion}}</p>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- seccion firmas -->
+
+  <div class="mx-auto items-center" *ngFor="let enc of encuestas">
+    <div class="  mt-1   mb-1 p-1 pl-20 " *ngIf="enc && enc.id == 1">
+      <p class="font-normal ...  pl-20">Nombre: {{enc.tutor_entidad_financiera}} </p>
+    </div>
+
+  </div>
+
+  <div class="mx-auto  mt-1   mb-1 p-1 pl-20 ">
+    <p class="font-normal ...  pl-20">Firma: </p>
+  </div>
+
+
+  <div class="grid justify-items-center  mt-1   mb-1 py-60 ">
+    <div class="div">
+      <p class="font-italic ...  ">Gracias Por Su Colaboracion </p>
+    </div>
+  </div>
+  <!-- <br><br><br><br><br><br>
+  <br><br><br><br><br><br>
+  <br><br><br><br><br><br>
+  <br><br><br><br><br><br> -->
+  <div class="div py-100">
+    <img src="../../../../../assets/images/pie_pagina.jpeg" class="w-650 h-15   " alt="">
+  </div>
+</div>
+
+<button class="btn btn-outline btn-info" (click)="generatePDF()">Imprimir pdf</button>
