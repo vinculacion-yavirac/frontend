@@ -69,12 +69,14 @@
             </tr>
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-            <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let proyecto of proyectos | paginate: config; let index = index">
+            <tr class="bg-white hover:bg-[#4052b510] transition-all"
+              *ngFor="let proyecto of proyectos | paginate: config; let index = index">
               <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
                 <!-- Indice en orden ascendente -->
                 <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
                 <!-- indice en orden descentente -->
-                <span *ngIf="reverse">{{ proyectos.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
+                <span *ngIf="reverse">{{ proyectos.length - (config.itemsPerPage * (config.currentPage - 1) + index)
+                  }}</span>
               </th>
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{proyecto.code}}</span>
@@ -94,16 +96,20 @@
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{proyecto.state_two_id.catalog_value}}</span>
               </td>
-              <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
+              <th class="py-[3.8px] px-4 text-right"
+                *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', proyecto.id]"
                   *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO','LEER_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']"
-                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                ></span>
-                <span
-                  (click)="openDialogArchiveProject(proyecto)"
-                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"
-                ></span>
+                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"></span>&nbsp;
+                <span (click)="openDialogArchiveProject(proyecto)"
+                  class="fa-solid fa-box-archive text-lg  cursor-pointer transition-all hover:text-red-600"
+                  *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
+
+                <label for="my-modal-add">
+                  <span (click)="getIdProyect(proyecto)"
+                    class="fa fa-file-pdf-o text-lg cursor-pointer transition-all hover:text-primary"
+                    *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>
+                </label>
               </th>
             </tr>
           </tbody>
@@ -120,3 +126,25 @@
     </div>
   </div>
 </div>
+<!--Main modal ADD AVAZE--->
+<input type="checkbox" id="my-modal-add" class="modal-toggle" />
+<label for="my-modal-add" class="modal cursor-pointer">
+  <label class="modal-box relative" for="">
+    <section class="bg-white dark:bg-gray-900">
+
+        <button ng-disabled="registro.$invalid" class="btn button waves-effect waves-light " (click)="pdf()"
+          type="submit">Generar PDF
+          <!--<img class="pullsito" src="../../../../assets/images/pdf.png" alt="">-->
+        </button>&nbsp;&nbsp;&nbsp;
+
+        <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " (click)="pdf_convenio()"
+          type="submit">Generar Convenio
+          <!--<img class="pullsito" src="../../../../assets/images/convenio.png" alt="">-->
+        </button>&nbsp;&nbsp;&nbsp;
+
+        <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " (click)="pdf_itv()"
+          type="submit">Generar ITV
+        </button>
+    </section>
+  </label>
+</label>
