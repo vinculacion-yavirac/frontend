@@ -4,10 +4,14 @@
 </module-header>
 <div class="page-wrapper">
   <div class="container-general col-auto col-12 px-1 pt-2 table-striped" style="height: auto; ">
-    <br>
-    <div class="container-form container-fuild">
+    <select class="select w-full max-w-xs"  (change)="onChange($event)" >
+      <option [ngValue]="null" disabled selected>Seleccione proyecto</option>
+      <option [value]="proyecto.id" *ngFor="let proyecto of proyectos">{{proyecto.name}}</option>
+    </select>
+    <p></p>
+    <div class="container-form container-fuild" >
       <form class="row g-3 px-2" style="    margin-left: 11px;
-        display: grid;">
+        display: grid;" >
         <br>
         <H6 style=" font-size: 25px;">Informe Control</H6>
         <br>
@@ -16,7 +20,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Proyecto</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" value="{{proyectData.name}}" >
               </div>
             </div>
           </div>
@@ -24,7 +28,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Carrera</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -35,7 +39,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Nombre</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -72,7 +76,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Nombre de la Fundacion</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -80,7 +84,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Direccion</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -91,7 +95,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Encargado</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -99,7 +103,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Telefono</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" >
               </div>
             </div>
           </div>
@@ -177,7 +181,7 @@
 
     <br>
     <div class="table-responsive">
-    
+
       <div class="d-grid gap-2 col-4 mx-auto">
         <button class="btn btn-primary" type="button">
           <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
@@ -191,7 +195,7 @@
             ]">
           <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
           Siguiente</button>
-    
+
       </div>
     </div>
 

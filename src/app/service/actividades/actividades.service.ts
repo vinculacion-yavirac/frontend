@@ -14,6 +14,7 @@ export class ActividadesService {
   };
   private url = environment.API_URL + '/actividades';
   private url2 = environment.API_URL + '/project/2';
+  private url3 = environment.API_URL + '/activities';
 
   public addActividades(data: any): Observable<any> {
     console.log(data);
@@ -27,6 +28,13 @@ export class ActividadesService {
 
     return this.http.get<any>(
       `${this.url}/`,
+      this.httpOptions
+    );
+  }
+  public getAllActivities(): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/`,
       this.httpOptions
     );
   }

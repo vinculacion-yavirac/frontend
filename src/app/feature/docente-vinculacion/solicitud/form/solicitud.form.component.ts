@@ -8,7 +8,8 @@ import {Component, forwardRef, OnInit} from "@angular/core";
 import { MyErrorStateMatcher } from "src/app/shared/matcher/error-state-matcher";
 import { ProyectoModels } from "src/app/models/proyecto/proyecto.models";
 import { ProyectoService } from "src/app/service/proyecto/proyecto.service";
-import { format } from "date-fns";
+// import { format } from "date-fns";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-solicitud-form',
@@ -43,7 +44,9 @@ export class SolicitudFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private proyectoService: ProyectoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private miDatePipe: DatePipe
+
   ) {}
 
   ngOnInit(): void {
@@ -207,13 +210,14 @@ export class SolicitudFormComponent implements OnInit {
 
   obtenerFechaActual() {
     const fecha = new Date();
-    const fechaFormateada = format(fecha, "'Quito,' d 'de' MMMM 'del' yyyy");
+    const fechaFormateada = this.miDatePipe.transform(fecha, "'Quito,' d 'de' MMMM 'del' yyyy");
 
     return fechaFormateada;
   }
 
-  formatearFecha(fecha: string): string {
-    const fechaFormateada = format(new Date(fecha), 'dd MMMM yyyy');
+  formatearFecha(fecha: string) {
+    const fecha2 = new Date(fecha);
+    const fechaFormateada = this.miDatePipe.transform(fecha2 ,'dd MMMM yyyy');
     return fechaFormateada;
   }
 

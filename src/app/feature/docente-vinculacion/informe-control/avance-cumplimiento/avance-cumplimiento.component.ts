@@ -7,6 +7,7 @@ import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/a
 import { AvanzeCumplimientoModels } from 'src/app/models/avanze/avanze_cumplimiento/avanze_cumplimiento';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
 import { DatePipe } from '@angular/common';
+import { ActividadesService } from 'src/app/service/actividades/actividades.service';
 
 @Component({
   selector: 'app-avance-cumplimiento',
@@ -28,7 +29,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   public doc2: any;
   public first: any;
 
-  public proyectData: any = [];
+  public activitiesData: any = [];
 
   @ViewChild("avanzeForm")
 
@@ -48,7 +49,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private httpProvider: AvanceCumplimientoService,
+    private httpProvider: ActividadesService,
     private miDatePipe: DatePipe
     // private alertService: AlertService
   ) { }
@@ -99,25 +100,25 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
 
   public getAllActividades() {
-    this.httpProvider.getAvanze().subscribe((data: any) => {
+    this.httpProvider.getAllActivities().subscribe((data: any) => {
 
       console.log(data);
 
 
-      // if (data.data.avanzes != null && data.data.avanzes != null) {
-      //   var resultData = data.data.avanzes;
-      //   if (resultData) {
-      //     console.log(resultData);
+      if (data.data.activity != null && data.data.activity != null) {
+        var resultData = data.data.activity;
+        if (resultData) {
+          console.log(resultData);
 
-      //     this.avanzeList = resultData;
-      //   }
-      // }
+          this.activitiesData = resultData;
+        }
+      }
     },
       (error: any) => {
         if (error) {
           if (error.status == 404) {
             if (error.error && error.error.message) {
-              // this.avanzeList = [];
+              // this.activitiesData = [];
             }
           }
         }

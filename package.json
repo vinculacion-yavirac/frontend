@@ -40,6 +40,7 @@
     "mapbox-gl": "^2.13.0",
     "ng2-charts": "^2.4.2",
     "ngx-cookie-service": "^14.0.1",
+    "ngx-date-fns": "^10.0.1",
     "ngx-pagination": "^6.0.3",
     "path-to-regexp": "^6.2.1",
     "rxjs": "^6.6.7",

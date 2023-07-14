@@ -32,37 +32,37 @@
                   </tr>
                 </thead>
                 <tbody id="avanzeTable">
-                  <tr *ngFor="let avanze of avanzeList" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <tr *ngFor="let activities of activitiesData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {{avanze.id}}
+                      {{activities.goals_id.id}}
                     </th>
                     <td class="px-6 py-4">
-                      {{avanze.resumen}}
+                      {{activities.goals_id.target_name}}
                     </td>
                     <td class="px-6 py-4">
-                      {{avanze.indicadores}}
+                      {{activities.goals_id.verifiable_indicators}}
                     </td>
                     <td class="px-6 py-4">
-                      {{avanze.medios}}
+                      {{activities.goals_id.media_verification}}
                     </td>
 
 
                     <td class="px-6 py-4">
                       <textarea required class="form-control"
-                        placeholder="Leave a comment here">{{avanze.observacion}}</textarea>
+                        placeholder="Leave a comment here">{{activities.observacion}}</textarea>
                       <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
                     </td>
                     <td class="px-6 py-4">
                       <div
                         class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-                        <label for="my-modal" (click)="openUpdateModal(avanze.id)"
+                        <label for="my-modal" (click)="openUpdateModal(activities.id)"
                           class="text-white  fas fa-edit  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         </label>
 
 
-                        <label for="my-modal-2" (click)="openDeleteModal(avanze.id)"
+                        <label for="my-modal-2" (click)="openDeleteModal(activities.id)"
                           class="text-white  fa-trash  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></label>
                       </div>
                     </td>
