@@ -2,12 +2,12 @@
   <docente_vinculacion-breadcrumbs breadcrumbs></docente_vinculacion-breadcrumbs>
   <docente_vinculacion-tabs tabs route="informe-inical"></docente_vinculacion-tabs>
 </module-header>
-<form class="form2">
+<form class="form2" >
     <div class="h5">
       <h5>FORMULARIO DE INFORME FINAL</h5>
     </div>
     <div class="tabla2">
-      <table>
+      <table id="table">
         <thead>
           <tr>
             <th>Nombre del Proyecto</th>
@@ -37,7 +37,7 @@
     </div>
     <div class="formulario-tabla">
       <div class="container-tabla-oa">
-        <table>
+        <table id="table2">
           <thead>
             <tr>
               <th>No</th>
@@ -122,6 +122,6 @@
       </div>
     </div>
     <div class="button">
-      <button class="btn btn-primary">Generar PDF</button>
+      <button class="btn btn-primary" (click)="Generar_Solicitud()">Generar PDF</button>
     </div>
 </form>
