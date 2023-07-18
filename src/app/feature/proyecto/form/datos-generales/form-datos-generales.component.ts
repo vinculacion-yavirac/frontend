@@ -1877,7 +1877,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('joseostaiza57@gmail.com.edu.ec', 160, 600, { maxWidth: 150, align: 'justify' });
+      this.doc.text('majo@gmail.com.edu.ec', 160, 600, { maxWidth: 150, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");

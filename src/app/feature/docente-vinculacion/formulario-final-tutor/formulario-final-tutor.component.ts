@@ -49,7 +49,7 @@ export class FormularioFinalTutorComponent implements OnInit {
           
           this.proyectos = [resultData];
           console.log(this.proyectos);
-          this.getAllActividades(1);
+         // this.getAllActividades(1);
 
         }
       }
