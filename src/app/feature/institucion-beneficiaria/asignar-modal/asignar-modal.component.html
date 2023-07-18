@@ -32,7 +32,7 @@
             class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
             type="submit" (click)="agregarUsuario()" [disabled]="!selectedProyecto || !selectedUsuario">Agregar</button>
           <button
-            class="btn btn-sm gap-2 rounded-md bg-green-500 text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
+            class="btn btn-sm gap-2 rounded-md bg-green-500 text-xs border-0 shadow shadow-[#5dc562] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
             type="submit" (click)="mostrarFormularioTutor()">Agregar Tutor</button>
         </div>
       </ng-container>
@@ -74,21 +74,32 @@
           </div>
           <div class="w-48">
             <label for="tutoresCombobox">Tutor:</label>
-            <select id="tutoresCombobox" name="tutoresCombobox" [(ngModel)]="selectedTutor" class="select select-info w-full">
-              <option *ngFor="let tutor of tutores" [value]="tutor.id">{{ tutor.person.names }} {{ tutor.person.last_names }}</option>
+            <select id="tutoresCombobox" name="tutoresCombobox" [(ngModel)]="selectedTutor"
+              class="select select-info w-full">
+              <option *ngFor="let tutor of tutores" [value]="tutor.id">{{ tutor.person.names }} {{
+                tutor.person.last_names }}</option>
             </select>
           </div>
         </div>
         <br>
         <div class="flex justify-center">
           <button
-            class="btn btn-sm gap-2 rounded-md bg-green-500 text-xs border-0 shadow shadow-[#60bd74] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
+            class="btn btn-sm gap-2 rounded-md bg-info text-xs border-0 shadow shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
             type="submit" (click)="agregarTutor()" [disabled]="!selectedTutor || !selectedProyecto">
             Guardar Tutor
           </button>
-
+          <button
+            class="btn btn-sm gap-2 rounded-md bg-green-500 text-xs border-0 shadow shadow-[#5dc562] px-8 ml-4 hover:bg-primary-focus hover:scale-105"
+            type="submit" (click)="showAgregarTutorForm = false">Regresar</button>
         </div>
-
+        <br>
+        <div class="alert alert-warning flex items-center justify-center w-auto h-auto" *ngIf="errorAlertVisible">
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-4 w-4 mr-2 text-red-500" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span class="text-sm text-white">El Proyecto ya tiene asignado a un Docente Tutor</span>
+        </div>
 
       </ng-container>
     </div>

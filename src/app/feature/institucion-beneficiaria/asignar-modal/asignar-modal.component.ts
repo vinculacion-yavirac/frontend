@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/auth/users/usuario';
@@ -54,7 +55,10 @@ export class AsignarModalComponent implements OnInit {
 
   fundacionSeleccionada: any = {};
   selectedProyecto: ProyectoModels | null = null;
-  selectedTutor: number | null = null; // Agregado el valor seleccionado para el tutor
+  selectedTutor: number | null = null;
+
+  errorAlertVisible = false;
+
 
   constructor(
     private http: HttpClient,
@@ -62,8 +66,8 @@ export class AsignarModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private usuarioHttpService: UsuarioHttpService,
     private proyectoService: ProyectoService,
-    private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
     private proyectoParticipanteHttpService: ProyectoParticipanteHttpService,
+    private toastr: ToastrService,
   ) {
     this.fundacionSeleccionadaId = data.fundacionSeleccionadaId;
   }
@@ -108,7 +112,6 @@ export class AsignarModalComponent implements OnInit {
       this.tutores = tutores.sort((a: User, b: User) => {
         return a.person.names.toLowerCase().localeCompare(b.person.names.toLowerCase());
       });
-      console.log(this.tutores); // Verificar los datos de los tutores aquí
       this.loading = false;
     });
   }
@@ -152,46 +155,61 @@ export class AsignarModalComponent implements OnInit {
     }
   }
 
-
   agregarTutor(): void {
     if (this.selectedTutor !== null && this.selectedProyecto) {
       const tutorSeleccionado = this.tutores.find(tutor => tutor.id == this.selectedTutor);
       if (tutorSeleccionado) {
-        console.log('Tutor seleccionado:', tutorSeleccionado);
-        const requestBody = {
-          project_id: this.selectedProyecto.id,
-          participant_id: tutorSeleccionado.id
-        };
+        // Verificar si el proyecto ya tiene un tutor asignado
+        const tutorAsignado = this.projectParticipants.some(participant => {
+          return participant.project_id.id === this.selectedProyecto?.id &&
+            this.tutores.some(tutor => {
+              return tutor.id === participant.participant_id.id &&
+                tutor.role.name === 'Docente Tutor';
+            });
+        });
 
-        this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
-          (response: any) => {
-            if (response.status === 'success') {
-              console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
-              this.obtenerProjectParticipants();
-              this.showAgregarTutorForm = false;
-            } else if (response.status === 'error') {
-              alert(response.message);
+        if (tutorAsignado) {
+          // Mostrar mensaje de error utilizando ToastrService
+          this.errorAlertVisible = true;
+          setTimeout(() => {
+            this.errorAlertVisible = false;
+          }, 10000);
+        } else {
+          // Proceder a crear la asignación del tutor al proyecto
+          console.log('Tutor seleccionado:', tutorSeleccionado);
+          const requestBody = {
+            project_id: this.selectedProyecto.id,
+            participant_id: tutorSeleccionado.id
+          };
+
+          this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
+            (response: any) => {
+              if (response.status === 'success') {
+                console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
+                this.obtenerProjectParticipants();
+
+                this.showAgregarTutorForm = false;
+              } else if (response.status === 'error') {
+                alert(response.message);
+              }
+            },
+            (error: any) => {
+              console.log('No se pudo crear al tutor:', error);
             }
-          },
-          (error: any) => {
-            console.log('No se pudo crear al tutor:', error);
-          }
-        );
+          );
+        }
       }
     }
   }
 
 
-
-
-
   obtenerProjectParticipants(): void {
+
     this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe(
       (response: any) => {
         this.projectParticipants = response.data.projectParticipants;
         console.log("this.projectParticipants", this.projectParticipants)
         this.projectParticipantsSubject.next(this.projectParticipants);
-        console.log("hols", this.projectParticipantsSubject.next(this.projectParticipants))
       },
       (error: any) => {
         console.log('Error al obtener las Asignación:', error);

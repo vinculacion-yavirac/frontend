@@ -19,3 +19,26 @@
 .custom-small {
   font-size: 25px;
 }
+
+.toast-top-right {
+  top: 12px;
+  right: 12px;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  background-color: #f44336;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.alert svg {
+  fill: white;
+  margin-right: 8px;
+}
+
+.alert span {
+  font-size: 14px;
+}
