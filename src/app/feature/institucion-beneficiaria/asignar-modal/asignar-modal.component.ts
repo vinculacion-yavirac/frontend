@@ -40,10 +40,11 @@ export class AsignarModalComponent implements OnInit {
   projectParticipants: ProyectoParticipanteModels[] = [];
   projectParticipantsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   showUpdateForm: boolean = false;
+  showAgregarTutorForm: boolean = false; // Agregado el flag para mostrar/ocultar el formulario de agregar tutor
   participantToUpdate: any = null;
   updatedProyecto: ProyectoModels | null = null;
   updatedUsuario: number | null = null;
-
+  tutores: User[] = [];
 
   @Input() fundacionSeleccionadaId: number | null = null;
 
@@ -53,12 +54,13 @@ export class AsignarModalComponent implements OnInit {
 
   fundacionSeleccionada: any = {};
   selectedProyecto: ProyectoModels | null = null;
+  selectedTutor: number | null = null; // Agregado el valor seleccionado para el tutor
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private usuarioHttpService:UsuarioHttpService,
+    private usuarioHttpService: UsuarioHttpService,
     private proyectoService: ProyectoService,
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
     private proyectoParticipanteHttpService: ProyectoParticipanteHttpService,
@@ -69,7 +71,8 @@ export class AsignarModalComponent implements OnInit {
   ngOnInit(): void {
     this.getProject();
     this.getUsuarios();
-    this.obtenerProjectParticipants()
+    this.getTutores();
+    this.obtenerProjectParticipants();
     this.route.paramMap.subscribe(params => {
       const participantId = params.get('participantId');
       if (participantId) {
@@ -95,6 +98,21 @@ export class AsignarModalComponent implements OnInit {
     });
   }
 
+  getTutores(): void {
+    this.loading = true;
+    this.usuarioHttpService.getUsuarios().pipe(
+      filter((res: any) => res.status === 'success'),
+      filter((res: any) => Array.isArray(res.data.users))
+    ).subscribe((res: any) => {
+      const tutores = res.data.users.filter((usuario: User) => usuario.role.name === 'Docente Tutor');
+      this.tutores = tutores.sort((a: User, b: User) => {
+        return a.person.names.toLowerCase().localeCompare(b.person.names.toLowerCase());
+      });
+      console.log(this.tutores); // Verificar los datos de los tutores aquí
+      this.loading = false;
+    });
+  }
+
   filterUsers = (rol: string) => {
     const result = this.usuarios.filter((user) => user.role.name === rol);
     this.usuarios = result;
@@ -114,9 +132,14 @@ export class AsignarModalComponent implements OnInit {
         this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
           (response: any) => {
             if (response.status === 'success') {
-              console.log('Estuante asignado exitosamente:', response.data.projectParticipant);
-              this.usuariosSeleccionados.push(usuarioSeleccionado);
+              if (this.showAgregarTutorForm) {
+                console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
+              } else {
+                console.log('Estudiante asignado exitosamente:', response.data.projectParticipant);
+                this.usuariosSeleccionados.push(usuarioSeleccionado);
+              }
               this.obtenerProjectParticipants();
+              this.showAgregarTutorForm = false;
             } else if (response.status === 'error') {
               alert(response.message);
             }
@@ -129,13 +152,46 @@ export class AsignarModalComponent implements OnInit {
     }
   }
 
+
+  agregarTutor(): void {
+    if (this.selectedTutor !== null && this.selectedProyecto) {
+      const tutorSeleccionado = this.tutores.find(tutor => tutor.id == this.selectedTutor);
+      if (tutorSeleccionado) {
+        console.log('Tutor seleccionado:', tutorSeleccionado);
+        const requestBody = {
+          project_id: this.selectedProyecto.id,
+          participant_id: tutorSeleccionado.id
+        };
+
+        this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
+          (response: any) => {
+            if (response.status === 'success') {
+              console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
+              this.obtenerProjectParticipants();
+              this.showAgregarTutorForm = false;
+            } else if (response.status === 'error') {
+              alert(response.message);
+            }
+          },
+          (error: any) => {
+            console.log('No se pudo crear al tutor:', error);
+          }
+        );
+      }
+    }
+  }
+
+
+
+
+
   obtenerProjectParticipants(): void {
     this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe(
       (response: any) => {
         this.projectParticipants = response.data.projectParticipants;
-        console.log("this.projectParticipants", this.projectParticipants )
+        console.log("this.projectParticipants", this.projectParticipants)
         this.projectParticipantsSubject.next(this.projectParticipants);
-        console.log("hols",this.projectParticipantsSubject.next(this.projectParticipants))
+        console.log("hols", this.projectParticipantsSubject.next(this.projectParticipants))
       },
       (error: any) => {
         console.log('Error al obtener las Asignación:', error);
@@ -143,19 +199,11 @@ export class AsignarModalComponent implements OnInit {
     );
   }
 
-/*
-  obtenerProjectParticipants(): void {
-    this.http.get('http://127.0.0.1:8000/api/project-participant').subscribe(
-      (response: any) => {
-        this.projectParticipants = response.data.projectParticipants;
-        this.projectParticipantsSubject.next(this.projectParticipants);
-      },
-      (error: any) => {
-        console.log('Error al obtener las Asignación:', error);
-      }
-    );
+  mostrarFormularioTutor(): void {
+    this.showAgregarTutorForm = true;
   }
-*/
+
+
   loadParticipantData(participant: any): void {
     this.participantToUpdate = participant;
     this.updatedUsuario = participant.participant_id.id;
@@ -171,8 +219,6 @@ export class AsignarModalComponent implements OnInit {
       console.log("No se encontró el proyecto correspondiente");
     }
   }
-
-
 
   updateParticipant(participant: any): void {
     this.participantToUpdate = participant;
@@ -195,7 +241,7 @@ export class AsignarModalComponent implements OnInit {
       this.http.put(url, requestBody).subscribe(
         (response: any) => {
           if (response.status === 'success') {
-            console.log('Asignación actualizada Correctamente:', response.data.projectParticipant);
+            console.log('Asignación actualizada correctamente:', response.data.projectParticipant);
             this.obtenerProjectParticipants();
             this.showUpdateForm = false;
           } else if (response.status === 'error') {
@@ -203,20 +249,18 @@ export class AsignarModalComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log('No se pudo actualizar la Asignación', error);
+          console.log('No se pudo actualizar la Asignación:', error);
         }
       );
     }
   }
 
-
   resetUpdateForm(): void {
-    this.participantToUpdate = null; // Reiniciar el participante seleccionado para actualizar
-    this.updatedProyecto = null; // Reiniciar el proyecto seleccionado para actualizar
-    this.updatedUsuario = null; // Reiniciar el usuario seleccionado para actualizar
-    this.showUpdateForm = false; // Ocultar el formulario de actualización
+    this.participantToUpdate = null;
+    this.updatedProyecto = null;
+    this.updatedUsuario = null;
+    this.showUpdateForm = false;
   }
-
 
   getParticipantById(participantId: string): Observable<any> {
     const url = `http://127.0.0.1:8000/api/project-participant/by/${participantId}`;
@@ -247,7 +291,6 @@ export class AsignarModalComponent implements OnInit {
   }
 
   reversOrder(): void {
-
     this.proyectos.reverse();
     this.reverse = !this.reverse;
   };
@@ -268,7 +311,7 @@ export class AsignarModalComponent implements OnInit {
           console.log(this.datosCargados$);
           console.log(this.proyectosFundacion);
 
-          this.selectedProyecto = this.proyectosFundacion[0]; // Asignar el primer proyecto por defecto
+          this.selectedProyecto = this.proyectosFundacion[0];
           this.nombreFundacion = this.selectedProyecto.beneficiary_institution_id?.name || null;
         } else {
           console.log('No se encontraron proyectos relacionados con la fundación seleccionada.');
@@ -286,19 +329,17 @@ export class AsignarModalComponent implements OnInit {
     this.http.delete(url).subscribe(
       (response: any) => {
         if (response.status === 'success') {
-          console.log('Asignación restablecida con exitosamente');
-          // Actualiza la lista de project_participants después de la eliminación
+          console.log('Asignación restablecida exitosamente');
           this.obtenerProjectParticipants();
         } else if (response.status === 'error') {
           alert(response.message);
         }
       },
       (error: any) => {
-        console.log('No se pudo restablecer la asignación', error);
+        console.log('No se pudo restablecer la asignación:', error);
       }
     );
   }
-
 
   getProject(): void {
     this.loading = true;
@@ -311,13 +352,12 @@ export class AsignarModalComponent implements OnInit {
     });
   }
 
-
   sortProjects(): void {
     if (this.proyectos) {
       this.proyectos.sort((a, b) => {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-      });
-    }
+      });
+    }
   }
 
 }
