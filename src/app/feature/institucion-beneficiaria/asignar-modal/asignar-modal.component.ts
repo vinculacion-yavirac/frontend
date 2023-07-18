@@ -58,6 +58,9 @@ export class AsignarModalComponent implements OnInit {
   selectedTutor: number | null = null;
 
   errorAlertVisible = false;
+  showAsignacionError = false;
+  showUpdateError: boolean = false;
+
 
 
   constructor(
@@ -132,6 +135,24 @@ export class AsignarModalComponent implements OnInit {
           participant_id: usuarioSeleccionado.id
         };
 
+        // Verificar si el usuario tiene el rol de "Estudiante"
+        if (usuarioSeleccionado.role.name === 'Estudiante') {
+          // Verificar si el estudiante ya está asignado a otro proyecto
+          const estudianteAsignado = this.projectParticipants.some(participant => {
+            return participant.participant_id.id === usuarioSeleccionado.id;
+          });
+
+          if (estudianteAsignado) {
+            this.showAsignacionError = true;
+            setTimeout(() => {
+              this.showAsignacionError = false;
+            }, 3000);
+            return;
+          } else {
+            this.showAsignacionError = false;
+          }
+        }
+
         this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
           (response: any) => {
             if (response.status === 'success') {
@@ -144,7 +165,7 @@ export class AsignarModalComponent implements OnInit {
               this.obtenerProjectParticipants();
               this.showAgregarTutorForm = false;
             } else if (response.status === 'error') {
-              alert(response.message);
+              this.toastr.error(response.message, 'Error');
             }
           },
           (error: any) => {
@@ -173,7 +194,7 @@ export class AsignarModalComponent implements OnInit {
           this.errorAlertVisible = true;
           setTimeout(() => {
             this.errorAlertVisible = false;
-          }, 10000);
+          }, 3000);
         } else {
           // Proceder a crear la asignación del tutor al proyecto
           console.log('Tutor seleccionado:', tutorSeleccionado);
@@ -248,6 +269,17 @@ export class AsignarModalComponent implements OnInit {
 
   updateParticipantData(): void {
     if (this.updatedProyecto && this.updatedUsuario && this.participantToUpdate) {
+      const estudianteAsignado = this.projectParticipants.some(participant => {
+        return participant.participant_id.id === this.updatedUsuario && participant.id !== this.participantToUpdate.id;
+      });
+
+      if (estudianteAsignado) {
+        this.showUpdateError = true;
+        return;
+      } else {
+        this.showUpdateError = false;
+      }
+
       const requestBody = {
         project_id: this.updatedProyecto.id,
         participant_id: this.updatedUsuario
@@ -272,6 +304,8 @@ export class AsignarModalComponent implements OnInit {
       );
     }
   }
+
+
 
   resetUpdateForm(): void {
     this.participantToUpdate = null;
