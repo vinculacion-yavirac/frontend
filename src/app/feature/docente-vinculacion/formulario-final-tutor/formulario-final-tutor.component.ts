@@ -1,7 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
+import { ActividadesService } from 'src/app/service/actividades/actividades.service';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 @Component({
   selector: 'app-formulario-final-tutor',
   templateUrl: './formulario-final-tutor.component.html',
@@ -10,12 +17,78 @@ import { ImageConstants } from 'src/app/constanst/ImageConstants';
 export class FormularioFinalTutorComponent implements OnInit {
 
   public doc: any;
+  proyectos: ProyectoModels[] = [];
+  activities: any[] = [];
 
+  constructor(
+    private proyectoService: ProyectoService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private httpProvider: AvanceCumplimientoService,
+    private actividadesService: ActividadesService,
+
+    private miDatePipe: DatePipe
+  ) { }
 
   ngOnInit() {
-
+    this.getAllProyectoById(1)
   }
 
+  public getAllProyectoById(id:number): void {
+    this.httpProvider.getProyectoById(id).subscribe((data: any) => {
+
+      console.log(data);
+
+      this.proyectos = Object.values(data);
+      console.log(this.proyectos);
+      if (data.data.projects != null && data.data.projects != null) {
+        var resultData = data.data.projects;
+        if (resultData) {
+          
+          
+          this.proyectos = [resultData];
+          console.log(this.proyectos);
+          this.getAllActividades(1);
+
+        }
+      }
+    },
+      (error: any) => {
+        if (error) {
+          if (error.status == 404) {
+            if (error.error && error.error.message) {
+              this.proyectos = [];
+            }
+          }
+        }
+      });
+  }
+  public getAllActividades(id:number) {
+    this.actividadesService.getAllActivitiesById(id).subscribe((data: any) => {
+
+      console.log(data);
+
+
+      if (data.data.activity != null && data.data.activity != null) {
+        var resultData = data.data.activity;
+        if (resultData) {
+          console.log(resultData);
+
+          this.activities = [resultData];
+        }
+      }
+    },
+      (error: any) => {
+        if (error) {
+          if (error.status == 404) {
+            if (error.error && error.error.message) {
+              // this.activities = [];
+            }
+          }
+        }
+      });
+  }
   /* pdf proyecto*/
   public Generar_Solicitud() {
     this.doc = new jsPDF('p', 'pt');
@@ -44,9 +117,26 @@ export class FormularioFinalTutorComponent implements OnInit {
     this.doc.text('$F{rector}', 475, 725, { maxWidth: 100, align: 'center' });
     this.doc.autoTable({
       html: '#table', startY: 255,
+      margin: { top: 380, right: 60, bottom: 100 },
+      styles: {
+        cellPadding: 2,
+        fontSize: 7,
+        valign: 'middle',
+        overflow: 'linebreak',
+        tableWidth: 'auto',
+        lineWidth: 0,
+      }
     })
     this.doc.autoTable({
-      html: '#table2', startY: 355,
+      html: '#table2', startY: 300,          margin: { top: 380, right: 60, bottom: 100 },
+      styles: {
+        cellPadding: 2,
+        fontSize: 7,
+        valign: 'middle',
+        overflow: 'linebreak',
+        tableWidth: 'auto',
+        lineWidth: 0,
+      }
     })
     this.doc.save("Informae_final.pdf");
     // location.reload();

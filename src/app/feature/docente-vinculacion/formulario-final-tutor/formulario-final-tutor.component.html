@@ -2,126 +2,112 @@
   <docente_vinculacion-breadcrumbs breadcrumbs></docente_vinculacion-breadcrumbs>
   <docente_vinculacion-tabs tabs route="informe-inical"></docente_vinculacion-tabs>
 </module-header>
-<form class="form2" >
-    <div class="h5">
-      <h5>FORMULARIO DE INFORME FINAL</h5>
-    </div>
-    <div class="tabla2">
-      <table id="table">
+<form class="form2">
+  <div class="h5">
+    <h5>FORMULARIO DE INFORME FINAL</h5>
+  </div>
+  <div class="tabla2">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Nombre del Proyecto</th>
+          <th>Nombre de la entidad beneficiaria</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Direccion</th>
+          <th>Tutor de la entidad de vinculacion</th>
+          <th>Tutor del proyecto</th>
+          <th>Fecha de Inicio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proyect of proyectos">
+          <td>
+            {{proyect.name}}
+          </td>
+          <td>
+            {{proyect.beneficiary_institution_id.name || 'No registrado}}
+          </td>
+          <td>
+            {{proyect.authorized_by.user_id.email}}
+
+          </td>
+
+          <td>
+            {{proyect.authorized_by.user_id.person.mobile_phone}}
+
+          </td>
+          <td>
+            {{proyect.authorized_by.user_id.person.place_birth}}
+
+          </td>
+          <td>
+          </td>
+
+
+          <td>
+            {{proyect.authorized_by.user_id.person.names}}{{proyect.authorized_by.user_id.person.last_names}}
+          </td>
+          <td>
+            {{proyect.start_date}}
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="formulario-tabla">
+    <div class="container-tabla-oa">
+      <table id="table2">
         <thead>
           <tr>
-            <th>Nombre del Proyecto</th>
-            <th>Nombre de la entidad beneficiaria</th>
-            <th>Email</th>
-            <th>Telefono</th>
-            <th>Direccion</th>
-            <th>Tutor de la entidad de vinculacion</th>
-            <th>Tutor del proyecto</th>
-            <th>Fecha de Inicio</th>
+            <th>No</th>
+            <th>OBJETIVOS</th>
+            <th>ACTIVIDADES</th>
+            <th>AVANCE</th>
+            <th>RESULTADOS ALCANZADOS</th>
+            <th>ALCANCE</th>
+            <th>OBSERVACIONES</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Vinculacion con la Sociedad</td>
-            <td>Instituto Tecnologico Yavirac</td>
-            <td>yavirac.edu.ec</td>
-            <td>0999319213</td>
-            <td>Garcia Moreno</td>
-            <td>Yogledis Herrera</td>
-            <td>Yogledis Herrera</td>
-            <td>12-12-2022</td>
+          <tr *ngFor="let activity of activities">
+            <td>1</td>
+            <td>Crear un sistema funcional y proactivo</td>
+            <td>trabajar 8 horas diarias y enviar informe diario</td>
+            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
+            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
+            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
+            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
           </tr>
+         
         </tbody>
       </table>
-
     </div>
-    <div class="formulario-tabla">
-      <div class="container-tabla-oa">
-        <table id="table2">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>OBJETIVOS</th>
-              <th>ACTIVIDADES</th>
-              <th>AVANCE</th>
-              <th>RESULTADOS ALCANZADOS</th>
-              <th>ALCANCE</th>
-              <th>OBSERVACIONES</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
+    <div class="container2">
+      <form class="myForm">
+        <label for="pickup_time">Fecha de Finalizacion del Proyecto</label>
+        <input type="datetime-local" name="pickup_time" id="pickup_time" disabled>
 
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="container2">
-        <form class="myForm">
-          <label for="pickup_time">Fecha de Finalizacion del Proyecto</label>
-          <input type="datetime-local" name="pickup_time" id="pickup_time" disabled>
+        <label for="comments">Comentarios del tutor del proyecto</label>
+        <textarea name="comments" id="comments" maxlength="500" required></textarea>
 
-          <label for="comments">Comentarios del tutor del proyecto</label>
-          <textarea name="comments" id="comments" maxlength="500" required></textarea>
-  
-          <label for="email_address">Adjuntar Archivos </label>
-          <input type="file" name="email_address" id="email_address" disabled>
+        <label for="email_address">Adjuntar Archivos </label>
+        <input type="file" name="email_address" id="email_address" disabled>
 
-          <label for="email_address">Adjuntar Archivos </label>
-          <input type="file" name="email_address" id="email_address" disabled>
+        <label for="email_address">Adjuntar Archivos </label>
+        <input type="file" name="email_address" id="email_address" disabled>
 
-          <label for="email_address">Adjuntar Archivos </label>
-          <input type="file" name="email_address" id="email_address" disabled>
-  
-          <label for="comments">Observaciones</label>
-          <textarea name="comments" id="comments" maxlength="500" required></textarea>
-        </form>
-      </div>
+        <label for="email_address">Adjuntar Archivos </label>
+        <input type="file" name="email_address" id="email_address" disabled>
+
+        <label for="comments">Observaciones</label>
+        <textarea name="comments" id="comments" maxlength="500" required></textarea>
+      </form>
     </div>
-    <div class="button">
-      <button class="btn btn-primary" (click)="Generar_Solicitud()">Generar PDF</button>
-    </div>
+  </div>
+  <div class="button">
+    <button class="btn btn-primary" (click)="Generar_Solicitud()">Generar PDF</button>
+  </div>
 </form>

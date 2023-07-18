@@ -46,6 +46,13 @@ export class ActividadesService {
     );
   }
   
+  public getAllActivitiesById (id:any): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/${id}`,
+      this.httpOptions
+    );
+  }
   public updateActividades(id: any, data: any): Observable<any> {
 
     return this.http.put(
