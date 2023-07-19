@@ -132,6 +132,7 @@ import { ConfiguracionArchivedComponent } from './portafolio/configuracion/confi
 import { ConfiguracionTabsComponent } from './portafolio/configuracion/header/configuracion-tabs/configuracion-tabs.component';
 import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/asignar-modal.component';
 import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coincidencia-modal/coincidencia-modal.component';
+import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estudiante.component';
 
 @NgModule({
   declarations: [
@@ -238,6 +239,7 @@ import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coin
     ConfiguracionTabsComponent,
     AsignarModalComponent,
     CoincidenciaModalComponent,
+    ListEstudianteComponent,
   ],
   imports: [
     CommonModule,

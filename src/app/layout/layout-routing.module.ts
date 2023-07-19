@@ -50,6 +50,7 @@ import {
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
 import { ConfiguracionComponent } from '../feature/portafolio/configuracion/list/configuracion.component';
 import { ConfiguracionArchivedComponent } from '../feature/portafolio/configuracion/configuracion-archived/configuracion-archived.component';
+import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/list-estudiante.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
@@ -144,6 +145,18 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list',
             pathMatch: 'full',
+          },
+          {
+            path: 'estudiante',
+            component: ListEstudianteComponent,
+          },
+          {
+            path: 'form/estudiante',
+            component: ListEstudianteComponent,
+          },
+          {
+            path: 'form/estudiante:id',
+            component: ListEstudianteComponent,
           },
           {
             path: 'form',
