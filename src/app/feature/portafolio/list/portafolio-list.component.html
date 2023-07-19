@@ -99,13 +99,13 @@
                   <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
                 </div>
               </td>
-              <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
+              <th class="py-[3.8px] px-6 text-right text-center" *permissions="['ACTUALIZAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                 <span [routerLink]="['/system/portafolio/form/', portafolio.id]"
-                  *permissions="['ACTUALIZAR_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']"
+                  *permissions="['ACTUALIZAR_PORTAFOLIO']"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"></span>
                 <span (click)="openDialogArchiveBriefcase(portafolio)"
                   class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['LEER_SOLICITUD','ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES','LEER_ROLES']"></span>
+                  *permissions="['ARCHIVAR_PORTAFOLIO']"></span>
               </th>
             </tr>
           </tbody>
