@@ -109,13 +109,9 @@ export class SolicitudFormComponent implements OnInit {
   onSubmit(): void {
     if (this.formGroup.valid) {
       const id = this.currentSolicitude.id;
-      console.log(this.currentSolicitude.id +
-        'success entraaaaaaaaaaaaaaaaaaaaaa');
       this.assingSolicitud(id);
     } else if(!this.formGroup.valid){
       const id = this.currentSolicitude.id;
-      console.log(this.currentSolicitude.id +
-        'success entraaaaaaaaaaaaaaaaaaaaaa');
       this.assingSolicitud(id);
     }
   }
@@ -148,7 +144,6 @@ export class SolicitudFormComponent implements OnInit {
     this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
       (response: any) => {
         if (response.status === 'success') {
-          console.log('Relación actualizada correctamente');
           this.router.navigate(['system/solicitud/list']);
         }
       },

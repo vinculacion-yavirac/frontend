@@ -88,12 +88,12 @@
               <td class="py-[3.8px] px-6 capitalize">
                 <span
                       class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                      *permissions="['ACTUALIZAR_SOLICITUD']"
+                      *permissions="['LEER_SOLICITUD']"
                       (click)="openModal(institucionBeneficiaria.id)"></span>
               </td>
 
               <th class="py-[3.8px] px-6 capitalize">
-                <span>
+                <span  *permissions="['CREAR_FUNDACION']">
                   <span class="btn btn-primary btn btn-sm btn btn-outline btn-primary"
                     *ngIf="institucionBeneficiaria.state"
                     (click)="openAsignarModal(institucionBeneficiaria.id)">

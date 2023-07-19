@@ -17,6 +17,7 @@ import { ProyectoComboboxComponent } from './shared/comboboxes/proyecto/proyecto
 import { ProyectosComboboxComponent } from './shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component';
 import { ExporterService } from './service/portafolio/exportar/exporter.service';
 import { MatSelectModule } from '@angular/material/select';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, NotFoundComponent],
@@ -42,11 +43,15 @@ import { MatSelectModule } from '@angular/material/select';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        BrowserAnimationsModule,
         MaterialModule,
         FeatureModule,
         LayoutModule,
-        MatSelectModule
+        MatSelectModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+          positionClass: 'toast-top-right',
+          preventDuplicates: true,
+        })
     ],
     exports: [
 

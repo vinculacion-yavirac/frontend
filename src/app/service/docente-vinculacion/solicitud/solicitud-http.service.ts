@@ -88,4 +88,8 @@ export class SolicitudHttpService {
   assignSolicitude(id: number, solicitud: SolicitudModels): Observable<SolicitudModels> {
     return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud, this.httpOptions);
   }
+
+  createSolicitude(solicitud: SolicitudModels): Observable<SolicitudModels> {
+    return this.http.post<SolicitudModels>(this.url, solicitud, this.httpOptions);
+  }
 }
