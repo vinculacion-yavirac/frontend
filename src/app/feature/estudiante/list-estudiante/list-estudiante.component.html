@@ -2,7 +2,7 @@
     <solicitud-breadcrumbs breadcrumbs></solicitud-breadcrumbs>
     <solicitud-tabs tabs route="solicitud"></solicitud-tabs>
   </module-header>
-  
+
   <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
     <div class="flex justify-between my-4">
       <div class="w-1/2">
@@ -12,13 +12,13 @@
           <option>Certificado</option>
         </select>
         <br>
-        <button 
+        <button
         class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105 ">
         <span class="fas fa-plus text-sm leading-none"></span>
         Crear Solicitud </button>
       </div>
         <div class="w-1/2">
-        <button *permissions="['CREAR_PORTAFOLIO_ESTUDIANTE']" 
+        <button *permissions="['CREAR_PORTAFOLIO']"
         class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-[#3f51b5] px-8 ml-4 hover:bg-primary-focus hover:scale-105 "
         routerLink="/system/portafolio/form">
         <span class="fas fa-plus text-sm leading-none"></span>
@@ -28,7 +28,7 @@
     </div>
     <div class="w-full min-h-[calc(100vh-4rem-9rem+4px)] p-4 bg-white border-t-[1px] border-[#535a6650]">
 
-  
+
     <div>
       <div class="px-4 py-1 text-xs">
         <h3 class="font-medium"><span class="font-bold"></span>Solicitudes</h3>
@@ -38,7 +38,7 @@
           class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
           <table class="my_table w-full text-sm text-left text-neutral">
             <thead class="text-xs text-white uppercase bg-primary">
-              
+
               <tr>
                 <th scope="col" class="py-3 px-6">
                   Tipo de Solicitud
@@ -56,7 +56,7 @@
             </thead>
             <tbody class="divide-y-[0.5px] divide-[#535A6640]">
               <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                
+
                 <td class="py-[3.8px] px-6 capitalize">
                   <span>Vinculación </span>
                 </td>
@@ -69,10 +69,10 @@
                 <td class="py-[3.8px] px-6">
                   <span>Pendiente</span>
                 </td>
-                
+
               </tr>
               <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                
+
                 <td class="py-[3.8px] px-6 capitalize">
                   <span>Certificado </span>
                 </td>
@@ -88,7 +88,7 @@
               </tr>
             </tbody>
           </table>
-          <!-- Indice en orden ascendente 
+          <!-- Indice en orden ascendente
           <div *ngIf="loading || solicitudes.length == 0" class="h-[calc(100%)] w-full absolute z-10 top-0 left-0">
             <div *ngIf="loading" class="h-full w-full bg-[#535a6610] backdrop-blur-sm">
               <loader></loader>
