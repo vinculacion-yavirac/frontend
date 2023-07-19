@@ -234,8 +234,6 @@ export class SolicitudListComponent implements OnInit {
     const tipoSolicitud = this.solicitudes.find(solicitud => solicitud.id === solicitudId)?.type_request_id.catalog_value;
 
     if (estadoSolicitud === 'Pendiente' && tipoSolicitud === 'Vinculación') {
-      console.log('Abriendo el modal...');
-
       const dialogRef = this.dialog.open(CoincidenciaModalComponent, {
         height: '350px',
         width: '600px',
@@ -251,5 +249,5 @@ export class SolicitudListComponent implements OnInit {
     this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
   }
 
-  
+
 }
