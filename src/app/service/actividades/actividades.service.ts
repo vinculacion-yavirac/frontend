@@ -15,6 +15,7 @@ export class ActividadesService {
   private url = environment.API_URL + '/actividades';
   private url2 = environment.API_URL + '/project/2';
   private url3 = environment.API_URL + '/activities';
+  private url4 = environment.API_URL + '/goals';
 
   public addActividades(data: any): Observable<any> {
     console.log(data);
@@ -47,6 +48,14 @@ export class ActividadesService {
   }
   
   public getAllActivitiesById (id:any): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/${id}`,
+      this.httpOptions
+    );
+  }
+
+  public getAllGoalssById (id:any): Observable<any> {
 
     return this.http.get<any>(
       `${this.url3}/${id}`,

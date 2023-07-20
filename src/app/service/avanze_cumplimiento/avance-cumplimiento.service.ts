@@ -14,6 +14,7 @@ export class AvanceCumplimientoService {
   };
   private url = environment.API_URL + '/avanze';
   private url2 = environment.API_URL + '/project';
+  private url3 = environment.API_URL + '/goals';
 
 
   public addAvanze(data: any): Observable<any> {

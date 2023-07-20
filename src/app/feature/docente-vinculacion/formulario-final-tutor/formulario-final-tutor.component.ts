@@ -17,7 +17,7 @@ import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 export class FormularioFinalTutorComponent implements OnInit {
 
   public doc: any;
-  proyectos: ProyectoModels[] = [];
+  proyectos: any[] = [];
   activities: any[] = [];
 
   constructor(
@@ -65,7 +65,7 @@ export class FormularioFinalTutorComponent implements OnInit {
       });
   }
   public getAllActividades(id:number) {
-    this.actividadesService.getAllActivitiesById(id).subscribe((data: any) => {
+    this.actividadesService.getAllGoalssById(id).subscribe((data: any) => {
 
       console.log(data);
 
