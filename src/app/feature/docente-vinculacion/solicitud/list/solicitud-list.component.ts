@@ -76,7 +76,6 @@ export class SolicitudListComponent implements OnInit {
     this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
-        //console.log(this.handleSearchResponse(res));
         this.sortSolicitudes();
       }
       this.loading = false;
@@ -192,7 +191,6 @@ export class SolicitudListComponent implements OnInit {
       tap((res: any) => {
         if (res.status === 'success') {
           this.handleSearchResponse(res);
-          console.log('archive id');
         }
       }),
       switchMap(() => this.router.navigate(['/system/solicitud/list/archived']))

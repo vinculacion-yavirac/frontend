@@ -105,7 +105,6 @@ import {
   EstadosSolicitudComboboxComponent
 } from "../shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component";
 import {ProyectoComboboxComponent} from "../shared/comboboxes/proyecto/proyecto-combobox.component";
-import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-info/proyecto-info.component';
 import {
   ProyectosComboboxComponent
 } from "../shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component";
@@ -228,7 +227,6 @@ import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estud
     TipoSolicitudesComboboxComponent,
     EstadosSolicitudComboboxComponent,
     ProyectoComboboxComponent,
-    ProyectoInfoComponent,
     ProyectosComboboxComponent,
     ConfiguracionComponent,
     ModalSolicitudesComponent,

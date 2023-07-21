@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -29,7 +29,6 @@ import { PortafolioVinculacionFormComponent } from '../feature/docente-vinculaci
 import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
-import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 import { ProyectoArchivedComponent } from '../feature/proyecto/archived/proyecto-archived.component';
 import { FormDatosGeneralesComponent } from '../feature/proyecto/form/datos-generales/form-datos-generales.component';
 import { FormActividadesComponent } from '../feature/proyecto/form/actividades/form-actividades.component';
@@ -42,7 +41,6 @@ import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas
 import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ProyectoInfoComponent } from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
 import { AsignarComponent } from "../feature/institucion-beneficiaria/asignar/asignar.component";
 import {
   ListInstitucionBeneficiariaComponent
@@ -53,7 +51,6 @@ import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/l
 
 const routes: Routes = [
 
-  { path: 'info', component: ProyectoInfoComponent },
   {
     path: '',
     component: MainComponent,
