@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { FilesService } from '../../upload/upload.service';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ModalAlertComponent} from "../../../shared/material/modal-alert/modal-alert.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -28,7 +27,6 @@ export class PortafolioListComponent implements OnInit {
 
   constructor(
     private portafolioHttpService: PortafolioHttpService,
-    private filesService: FilesService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
@@ -155,19 +153,6 @@ export class PortafolioListComponent implements OnInit {
         this.router.navigate(['/system/portafolio/list']);
         console.log('entra dialog');
       }
-    });
-  }
-
-  downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
     });
   }
 

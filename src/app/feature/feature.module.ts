@@ -67,7 +67,6 @@ import { ParishesComboboxComponent } from '../shared/comboboxes/división-territ
 import { ProvincesComboboxComponent } from '../shared/comboboxes/división-territorial/provincias/provincias.combobox.component';
 import { GendersComboboxComponent } from '../shared/comboboxes/generos/generos.combobox.component';
 import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos-identificacion/tipos-identificacion.combobox.component';
-import { UploadComponent } from './upload/upload.component';
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
 
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
@@ -145,7 +144,6 @@ import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estud
     FullNameFirstMiddlePipe,
     NamesSurnamesCompletePipe,
 
-    UploadComponent,
     InformeInicialComponent,
     FormularioFinalTutorComponent,
     InformeFinalEstudianteComponent,

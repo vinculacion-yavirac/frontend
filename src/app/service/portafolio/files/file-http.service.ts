@@ -40,4 +40,6 @@ export class FileHttpService {
   downloadFile(idPortafolio: number,idDocumento:number,idFile:number ) {
     return this.http.get(`${this.url}/download/${idPortafolio}/${idDocumento}/${idFile}`, { responseType: 'blob' });
   }
+
+ 
 }

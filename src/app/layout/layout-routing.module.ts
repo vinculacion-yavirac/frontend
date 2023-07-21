@@ -15,7 +15,6 @@ import { ProfilePersonalDataComponent } from '../auth/profile/general/general.co
 import { ProfileMainComponent } from '../auth/profile/main/main.component';
 
 import { ProfileSecurityComponent } from '../auth/profile/seguridad/seguridad.component';
-import { UploadComponent } from '../feature/upload/upload.component';
 
 import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
@@ -53,7 +52,7 @@ import { ConfiguracionArchivedComponent } from '../feature/portafolio/configurac
 import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/list-estudiante.component';
 
 const routes: Routes = [
-  { path: 'upload', component: UploadComponent },
+
   { path: 'info', component: ProyectoInfoComponent },
   {
     path: '',
