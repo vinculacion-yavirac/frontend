@@ -51,6 +51,7 @@ import {
 import { ConfiguracionComponent } from '../feature/portafolio/configuracion/list/configuracion.component';
 import { ConfiguracionArchivedComponent } from '../feature/portafolio/configuracion/configuracion-archived/configuracion-archived.component';
 import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/list-estudiante.component';
+import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tutor/fundacion-tutor.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
@@ -324,6 +325,44 @@ const routes: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'institutcion-beneficiaria-tutor',
+        children:[
+          {
+            path:'',
+            redirectTo:'list',
+            pathMatch:'full'
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path:'',
+                component: FundacionTutorComponent,
+              },
+              {
+                path: 'filter',
+                children:[
+                  {
+                    path:'',
+                    component: FundacionTutorComponent,
+                    data:{
+                      filterActiva: true
+                    }
+                  },
+                  {
+                    path:'',
+                    component: FundacionTutorComponent,
+                    data:{
+                      filterActiva: false
+                    }
+                  },
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'institucion-beneficiaria',
