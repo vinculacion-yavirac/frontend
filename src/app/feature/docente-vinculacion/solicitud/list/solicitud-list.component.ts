@@ -4,10 +4,14 @@ import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/so
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 import { MatDialog } from '@angular/material/dialog';
-import {ActivatedRoute, Router} from "@angular/router";
-import {switchMap, tap} from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
+import { switchMap, tap } from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
 import { CoincidenciaModalComponent } from '../coincidencia-modal/coincidencia-modal.component';
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
+import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { ProyectoParticipanteHttpService } from 'src/app/service/proyecto/participante/proyecto-participante-http.service';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -24,9 +28,12 @@ export class SolicitudListComponent implements OnInit {
     currentPage: 1,
   };
 
-  solicitudes: SolicitudModels [] = [];
+  solicitudes: SolicitudModels[] = [];
+  portafolios: PortafoliosModels[] = [];
+  proyectoarticipante: ProyectoParticipanteModels[] =[];
+  solicitud: SolicitudModels | null = null;
 
-//  showOptionsMenu = false;
+  //  showOptionsMenu = false;
   vinculacion = 'Vinculación';
   certificado = 'Certificado';
   loading: boolean = true;
@@ -45,6 +52,8 @@ export class SolicitudListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
+    private portafolioHttpService: PortafolioHttpService,
+    private proyectoParticipanteHttpService:ProyectoParticipanteHttpService
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -59,21 +68,23 @@ export class SolicitudListComponent implements OnInit {
     else if (this.filterAprobado) {
       this.getSolicitudByStatus(this.filterAprobado);
     }
-    else if(this.filterVinculacion){
+    else if (this.filterVinculacion) {
       this.getSolicitudByType(this.filterVinculacion);
     }
-    else if(this.filterCertificado){
+    else if (this.filterCertificado) {
       this.getSolicitudByType(this.filterCertificado);
     }
     else {
       this.getSolicitud();
+      this.getPortafolio();
+      this.getProyectoParticipante();
     }
   }
 
-  getSolicitud():void{
+  getSolicitud(): void {
     this.loading = true;
-    this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
-      if(res.status == 'success'){
+    this.solicitudHttpService.getSolicitudes().subscribe((res: any) => {
+      if (res.status == 'success') {
         this.handleSearchResponse(res);
         this.sortSolicitudes();
       }
@@ -185,7 +196,9 @@ export class SolicitudListComponent implements OnInit {
     this.loading = false;
   }
 
-  archiveSolicitud(solicitud:SolicitudModels): void {
+
+
+  archiveSolicitud(solicitud: SolicitudModels): void {
     this.solicitudHttpService.archiveSolicitud(solicitud.id).pipe(
       tap((res: any) => {
         if (res.status === 'success') {
@@ -204,7 +217,7 @@ export class SolicitudListComponent implements OnInit {
         title: '¿Está seguro de archivar esta solicitud?',
         message:
           'La solicitud será archivado y no podrá ser utilizado por los usuarios.',
-        dato:['Nombre:', solicitud.created_by.person.names, 'Tipo de solicitud:', solicitud.created_by.person.names],
+        dato: ['Nombre:', solicitud.created_by.person.names, 'Tipo de solicitud:', solicitud.created_by.person.names],
         button: 'Archivar',
       },
     });
@@ -236,15 +249,73 @@ export class SolicitudListComponent implements OnInit {
         width: '600px',
         data: { createdById: createdById, solicitudId: solicitudId }
       });
-      dialogRef.afterClosed().subscribe(result => {});
+      dialogRef.afterClosed().subscribe(result => { });
     }
   }
-
-
 
   openOptionsMenu(solicitudId: number) {
     this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
   }
 
+  private handleSearchResponsePortafolio(res: any): void {
+    if (res.status === 'success') {
+      this.portafolios = res.data.briefcases;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
 
+  getPortafolio(): void {
+    this.loading = true;
+    this.portafolioHttpService.getBriefcase().subscribe((res: any) => {
+      this.handleSearchResponsePortafolio(res);
+      this.loading = false;
+    });
+  }
+
+  getIdPortafolioFromSolicitud(solicitud: SolicitudModels, portafolios: PortafoliosModels[]): number | null {
+    const creadorSolicitudId = solicitud.created_by.id;
+
+    for (const portafolio of portafolios) {
+      const creadorPortafolioId = portafolio.created_by.id;
+
+      if (creadorSolicitudId === creadorPortafolioId) {
+        return portafolio.id;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+  getIdProyectoFromSolicitud(solicitud: SolicitudModels, proyectos: ProyectoParticipanteModels[]): number | null {
+    const creadorSolicitudId = solicitud.created_by.id;
+
+    for (const proyecto of proyectos) {
+      const creadorPortafolioId = proyecto.participant_id.id;
+
+      console.log('creadorrrr',creadorPortafolioId);
+      if (creadorSolicitudId === creadorPortafolioId) {
+        return proyecto.project_id.id;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+
+  private handleSearchResponseProyectoParticipante(res: any): void {
+    if (res.status === 'success') {
+      this.proyectoarticipante = res.data.projectParticipants;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
+
+  getProyectoParticipante(): void {
+    this.loading = true;
+    this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe((res: any) => {
+      this.handleSearchResponseProyectoParticipante(res);
+      this.loading = false;
+    });
+  }
 }
