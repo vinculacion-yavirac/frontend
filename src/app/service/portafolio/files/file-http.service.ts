@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { FilesModels } from 'src/app/models/portafolio/files/file.models';
 import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
 
 @Injectable({
@@ -32,7 +31,7 @@ export class FileHttpService {
         console.log('Archivos enviados correctamente');
       },
       (error: any) => {
-        console.log('Error al enviar los archivos:', error);
+        console.error('Error al enviar los archivos:', error);
       }
     );
   }
