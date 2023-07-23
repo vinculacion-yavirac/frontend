@@ -82,27 +82,36 @@
                 <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
               </td>
               <th class="py-[3.8px] px-6 text-right">
+
                 <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
-                  <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                        class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
-                        (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"
-                  ></span>
+                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
+                    (click)="openOptionsMenu(solicitud.id)"></span>
+
+                  <div *ngIf="showOptionsMenu[solicitud.id]"
+                    class="absolute right-0 mt-2 py-2 w-22 bg-white border border-[#535A6640] rounded-md shadow-lg">
+                    <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
+                      class="fa-solid fa-eye text-sm cursor-pointer transition-all hover:text-primary"
+                      (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"></span>
+                      <span>Asignar</span>
+                  </div>
                 </ng-template>
 
                 <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
-                    <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
-                          (click)="openOptionsMenu(solicitud.id)"></span>
+                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
+                    (click)="openOptionsMenu(solicitud.id)"></span>
 
-                    <div *ngIf="showOptionsMenu[solicitud.id]" class="absolute right-0 mt-2 py-2 w-48 bg-white border border-[#535A6640] rounded-md shadow-lg">
-                      <a [routerLink]="['/system/portafolio']" class="block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Portafolio</a>
-                      <a [routerLink]="['/system/proyecto']" class="block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
-                    </div>
+                  <div *ngIf="showOptionsMenu[solicitud.id]"
+                    class="absolute right-0 mt-2 py-2 w-23 bg-white border border-[#535A6640] rounded-md shadow-lg">
+                    <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
+                      class="fa-eye block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Portafolio</a>
+                    <a [routerLink]="['/system/proyecto/form-datos-generales/', solicitud.id]"
+                      class="fa-box-archive block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
+                  </div>
                 </ng-template>
 
                 <span (click)="openDialogArchiveSolicitud(solicitud)"
-                      class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                      *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"
-                ></span>
+                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                  *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
               </th>
 
             </tr>
