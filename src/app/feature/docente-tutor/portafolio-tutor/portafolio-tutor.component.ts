@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
-import { FilesService } from '../../upload/upload.service';
 import { HttpClient } from '@angular/common/http';
 import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 
 @Component({
   selector: 'app-portafolio-tutor',
@@ -31,7 +31,7 @@ export class PortafolioTutorComponent implements OnInit {
 
   constructor(
     private portafolioHttpService: PortafolioHttpService,
-    private filesService: FilesService,
+    private fileHttpService: FileHttpService,
     private route: ActivatedRoute,
     private http: HttpClient,
   ) {
@@ -137,12 +137,12 @@ export class PortafolioTutorComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
+  downloadFile(portafolioId: number, documentoId: number, fileId: number, fileName: string) {
+    this.fileHttpService.downloadFile(portafolioId, documentoId, fileId).subscribe((blob: Blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = name;
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
