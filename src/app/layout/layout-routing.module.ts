@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -15,14 +15,15 @@ import { ProfilePersonalDataComponent } from '../auth/profile/general/general.co
 import { ProfileMainComponent } from '../auth/profile/main/main.component';
 
 import { ProfileSecurityComponent } from '../auth/profile/seguridad/seguridad.component';
-import { UploadComponent } from '../feature/upload/upload.component';
 
 import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
+
 import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
+
 import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { ProyectoListComponent } from '../feature/proyecto/list/proyecto-list.component';
 
@@ -30,7 +31,6 @@ import { PortafolioVinculacionFormComponent } from '../feature/docente-vinculaci
 import { InformeInicialComponent } from '../feature/docente-vinculacion/informe-inicial/informe-inicial/informe-inicial.component';
 import { AvanceCumplimiento2Component } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento2/avance-cumplimiento2.component';
 import { FormularioFinalTutorComponent } from '../feature/docente-vinculacion/formulario-final-tutor/formulario-final-tutor.component';
-import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 import { ProyectoArchivedComponent } from '../feature/proyecto/archived/proyecto-archived.component';
 import { FormDatosGeneralesComponent } from '../feature/proyecto/form/datos-generales/form-datos-generales.component';
 import { FormActividadesComponent } from '../feature/proyecto/form/actividades/form-actividades.component';
@@ -43,8 +43,6 @@ import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas
 import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { ProyectoInfoComponent } from "../feature/docente-vinculacion/solicitud/proyect-info/proyecto-info.component";
-import { AsignarComponent } from "../feature/institucion-beneficiaria/asignar/asignar.component";
 import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
@@ -55,8 +53,7 @@ import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tuto
 import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tutor/portafolio-tutor.component';
 
 const routes: Routes = [
-  { path: 'upload', component: UploadComponent },
-  { path: 'info', component: ProyectoInfoComponent },
+
   {
     path: '',
     component: MainComponent,
@@ -410,14 +407,6 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list',
             pathMatch: 'full',
-          },
-          {
-            path: 'asignar',
-            component: AsignarComponent,
-          },
-          {
-            path: 'Asignar/:id',
-            component: AsignarComponent,
           },
           {
             path: 'form/:id',

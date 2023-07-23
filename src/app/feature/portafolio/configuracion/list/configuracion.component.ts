@@ -6,7 +6,7 @@ import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 import { ModalConfiguracionComponent } from '../modal-configuracion/modal-configuracion.component';
 import { switchMap, tap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Router } from '@angular/router';
 import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
 
 @Component({
@@ -116,7 +116,6 @@ export class ConfiguracionComponent implements OnInit{
       tap((res: any) => {
         if (res.status === 'success') {
           this.handleSearchResponse(res);
-          console.log('archive id');
         }
       }),
       switchMap(() => this.router.navigate(['/system/portafolio/configuracion/archived']))

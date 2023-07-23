@@ -2,8 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
-import { FilesService } from '../../upload/upload.service';
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ModalAlertComponent} from "../../../shared/material/modal-alert/modal-alert.component";
 import {MatDialog} from "@angular/material/dialog";
 import { tap, switchMap } from 'rxjs/operators';
@@ -28,7 +27,6 @@ export class PortafolioListComponent implements OnInit {
 
   constructor(
     private portafolioHttpService: PortafolioHttpService,
-    private filesService: FilesService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
@@ -127,7 +125,6 @@ export class PortafolioListComponent implements OnInit {
         tap((res: any) => {
           if (res.status === 'success') {
             this.handleSearchResponse(res);
-            console.log('archive id');
           }
         }),
         switchMap(() => this.router.navigate(['/system/portafolio/list/archived']))
@@ -136,7 +133,6 @@ export class PortafolioListComponent implements OnInit {
   }
 
   openDialogArchiveBriefcase(briefcase: PortafoliosModels): void {
-    console.log('entraaaaaaaaaaaaaaaaaaaaa');
     const dialogRef = this.dialog.open(ModalAlertComponent, {
       height: '350px',
       width: '700px',
@@ -153,21 +149,7 @@ export class PortafolioListComponent implements OnInit {
       if (result) {
         this.archiveBriefcases(briefcase);
         this.router.navigate(['/system/portafolio/list']);
-        console.log('entra dialog');
       }
-    });
-  }
-
-  downloadFile(id: number, name: string) {
-    this.filesService.downloadFile(id).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
     });
   }
 

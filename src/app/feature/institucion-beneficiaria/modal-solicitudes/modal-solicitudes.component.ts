@@ -35,7 +35,6 @@ export class ModalSolicitudesComponent implements OnInit {
     private router: Router,
   ) {
     this.fundacionSeleccionadaId = data.fundacionSeleccionadaId;
-    console.log(this.fundacionSeleccionadaId)
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
     this.filterPendiente = this.route.snapshot.data['filterPendiente'];
@@ -59,7 +58,6 @@ export class ModalSolicitudesComponent implements OnInit {
 
   isBeneficiaryInstitutionMatch(solicitud: any): boolean {
     if (solicitud && solicitud.project_id && solicitud.project_id.beneficiary_institution_id) {
-      console.log(this.fundacionSeleccionadaId)
       return this.fundacionSeleccionadaId === solicitud.project_id.beneficiary_institution_id;
     }
     return false;

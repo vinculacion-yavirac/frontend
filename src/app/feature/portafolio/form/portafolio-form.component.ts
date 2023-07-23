@@ -8,7 +8,7 @@ import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParti
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-portafolio-form',

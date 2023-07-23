@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { Role } from 'src/app/models/auth/role/rol';
 import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
@@ -145,7 +145,6 @@ export class ModalConfiguracionComponent implements OnInit {
     const documents = this.documentForm.value.documents;
     this.documentoHttpService.addDocuments(documents).subscribe(
       response => {
-        console.log('Documentos creados exitosamente.');
         this.changeDetectorRef.detectChanges(); // Realizar una nueva detección de cambios
         window.location.reload(); // Recargar la página
       },

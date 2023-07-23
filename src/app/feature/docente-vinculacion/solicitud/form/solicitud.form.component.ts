@@ -126,12 +126,11 @@ export class SolicitudFormComponent implements OnInit {
           if (this.currentSolicitude.project_id) {
             this.currentSolicitude= response.data.solicitudes;
             this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
-            console.log(this.currentSolicitude.project_id.id)
           }
         }
       },
       error: (error: any) => {
-        console.log('Error al obtener la solicitud:', error.message);
+        console.error('Error al obtener la solicitud:', error.message);
       },
       complete: () => {
         this.loading = false;
@@ -148,7 +147,7 @@ export class SolicitudFormComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.log('Error al actualizar la relación:', error.message);
+        console.error('Error al actualizar la relación:', error.message);
       }
     );
   }
@@ -214,7 +213,6 @@ export class SolicitudFormComponent implements OnInit {
 
   onAssignProject(event: any): void {
     const projectId = event.target.value;
-    console.log('Valor del proyecto seleccionado:', projectId);
 
     this.selectedProject = this.proyectos.find(proyecto => proyecto.id === parseInt(projectId));
     if (this.proyectosFormControl.value !== null) {

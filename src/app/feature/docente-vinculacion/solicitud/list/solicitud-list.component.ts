@@ -45,7 +45,6 @@ export class SolicitudListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -76,7 +75,6 @@ export class SolicitudListComponent implements OnInit {
     this.solicitudHttpService.getSolicitudes().subscribe((res:any) =>{
       if(res.status == 'success'){
         this.handleSearchResponse(res);
-        //console.log(this.handleSearchResponse(res));
         this.sortSolicitudes();
       }
       this.loading = false;
@@ -192,7 +190,6 @@ export class SolicitudListComponent implements OnInit {
       tap((res: any) => {
         if (res.status === 'success') {
           this.handleSearchResponse(res);
-          console.log('archive id');
         }
       }),
       switchMap(() => this.router.navigate(['/system/solicitud/list/archived']))

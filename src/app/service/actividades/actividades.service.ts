@@ -16,8 +16,6 @@ export class ActividadesService {
   private url2 = environment.API_URL + '/project/2';
 
   public addActividades(data: any): Observable<any> {
-    console.log(data);
-
     return this.http.post<any>(
       `${this.url}/create`, data,
       this.httpOptions

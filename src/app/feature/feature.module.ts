@@ -67,7 +67,6 @@ import { ParishesComboboxComponent } from '../shared/comboboxes/división-territ
 import { ProvincesComboboxComponent } from '../shared/comboboxes/división-territorial/provincias/provincias.combobox.component';
 import { GendersComboboxComponent } from '../shared/comboboxes/generos/generos.combobox.component';
 import { IdentificationTypesComboboxComponent } from '../shared/comboboxes/tipos-identificacion/tipos-identificacion.combobox.component';
-import { UploadComponent } from './upload/upload.component';
 import { PortafolioFormComponent } from './portafolio/form/portafolio-form.component';
 
 import { OficialDocumentsStatesComboboxComponent } from '../shared/comboboxes/oficial-documents-state/oficial-documents-state.combobox.component';
@@ -106,7 +105,6 @@ import {
   EstadosSolicitudComboboxComponent
 } from "../shared/comboboxes/estados-solicitud/estados-solicitud-combobox.component";
 import {ProyectoComboboxComponent} from "../shared/comboboxes/proyecto/proyecto-combobox.component";
-import { ProyectoInfoComponent } from './docente-vinculacion/solicitud/proyect-info/proyecto-info.component';
 import {
   ProyectosComboboxComponent
 } from "../shared/comboboxes/proyecto-fundacion/proyecto/proyectos-combobox.component";
@@ -122,7 +120,6 @@ import {
 import {
   TabsInstitucionBeneficiariaComponent
 } from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
-import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
@@ -147,7 +144,6 @@ import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/porta
     FullNameFirstMiddlePipe,
     NamesSurnamesCompletePipe,
 
-    UploadComponent,
     InformeInicialComponent,
     FormularioFinalTutorComponent,
     InformeFinalEstudianteComponent,
@@ -224,7 +220,6 @@ import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/porta
     FormObservacionesComponent,
     FormPlanDeTrabajoComponent,
 
-    AsignarComponent,
     TabsInstitucionBeneficiariaComponent,
     BreadcrumbsInstitucionBeneficiariaComponent,
     ListInstitucionBeneficiariaComponent,
@@ -232,7 +227,6 @@ import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/porta
     TipoSolicitudesComboboxComponent,
     EstadosSolicitudComboboxComponent,
     ProyectoComboboxComponent,
-    ProyectoInfoComponent,
     ProyectosComboboxComponent,
     ConfiguracionComponent,
     ModalSolicitudesComponent,

@@ -123,7 +123,6 @@ export class UsuariosFormComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((val) => {
       this.currentUser = val;
-      console.log('thisss' + this.currentUser)
     });
     this.formGroup
       .get('person.identification_type')
@@ -204,7 +203,6 @@ export class UsuariosFormComponent implements OnInit {
     this.usuarioHttpService.getUsuario(id).subscribe((res: any) => {
       if (res.status === 'success') {
         this.currentUser = res.data.user;
-        console.log('curreentUser'+''+ this.currentUser);
         this.formGroup.patchValue(this.currentUser);
       }
       setTimeout(() => {
@@ -251,7 +249,6 @@ export class UsuariosFormComponent implements OnInit {
       .updatePassword(password, this.currentUser.id)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          console.log(res.status);
           this.sendEmailCredentials(this.currentUser);
         }
       });
@@ -291,7 +288,6 @@ export class UsuariosFormComponent implements OnInit {
 
   //método para habilitar o deshabilitar el campo de identificación
   enableIdentification() {
-    console.log('enableIdentification');
     if (!this.currentUser.person) {
       this.formGroup.get('person')?.get('identification')?.disable();
     } else {

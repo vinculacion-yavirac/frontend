@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { MyErrorStateMatcher } from '../../../app/shared/matcher/error-state-matcher';
 import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
 
