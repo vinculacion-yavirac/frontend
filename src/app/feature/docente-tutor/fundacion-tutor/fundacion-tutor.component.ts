@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InstitucionBeneficiariaDetalleModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria-detalle.models';
@@ -35,11 +35,13 @@ export class FundacionTutorComponent implements OnInit {
   solicitudes: any[] = [];
   fundacionSeleccionadaId: number | null = null;
 
+  participantIds: number[] = [];
+
+  @Output() participantIdsChange = new EventEmitter<number[]>();
 
   constructor(
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
     private route: ActivatedRoute,
-    private router: Router,
     private dialog: MatDialog,
     private http: HttpClient,
   ) {
@@ -73,7 +75,6 @@ export class FundacionTutorComponent implements OnInit {
     }
   }
 
-
   private getAllProjectParticipantsTutor(): void {
     const apiUrl = 'http://127.0.0.1:8000/api/project-participant/lista';
     this.http.get<any>(apiUrl).subscribe((res: any) => {
@@ -82,7 +83,6 @@ export class FundacionTutorComponent implements OnInit {
         const uniqueProjectParticipants: ProyectoParticipanteModels[] = [];
 
         res.data.projectParticipants.forEach((projectParticipant: ProyectoParticipanteModels) => {
-          // Verificamos si beneficiary_institution_id no es null
           if (projectParticipant.project_id.beneficiary_institution_id !== null) {
             const beneficiaryId = projectParticipant.project_id.beneficiary_institution_id.id;
             if (!uniqueBeneficiaryIds[beneficiaryId]) {
@@ -93,14 +93,11 @@ export class FundacionTutorComponent implements OnInit {
         });
 
         this.projectParticipants = uniqueProjectParticipants;
+
       }
       this.loading = false;
     });
   }
-
-
-
-
 
   public openModal(institucionBeneficiariaId: number | undefined): void {
     const dialogRef = this.dialog.open(ModalSolicitudesComponent, {

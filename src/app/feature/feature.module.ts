@@ -134,6 +134,7 @@ import { AsignarModalComponent } from './institucion-beneficiaria/asignar-modal/
 import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coincidencia-modal/coincidencia-modal.component';
 import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estudiante.component';
 import { FundacionTutorComponent } from './docente-tutor/fundacion-tutor/fundacion-tutor.component';
+import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/portafolio-tutor.component';
 
 @NgModule({
   declarations: [
@@ -242,6 +243,7 @@ import { FundacionTutorComponent } from './docente-tutor/fundacion-tutor/fundaci
     CoincidenciaModalComponent,
     ListEstudianteComponent,
     FundacionTutorComponent,
+    PortafolioTutorComponent,
   ],
   imports: [
     CommonModule,
