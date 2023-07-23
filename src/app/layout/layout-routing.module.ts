@@ -51,6 +51,8 @@ import {
 import { ConfiguracionComponent } from '../feature/portafolio/configuracion/list/configuracion.component';
 import { ConfiguracionArchivedComponent } from '../feature/portafolio/configuracion/configuracion-archived/configuracion-archived.component';
 import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/list-estudiante.component';
+import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tutor/fundacion-tutor.component';
+import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tutor/portafolio-tutor.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadComponent },
@@ -79,6 +81,44 @@ const routes: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'portafolio-tutor',
+        children: [
+          {
+            path:'',
+            redirectTo: 'list',
+            pathMatch: 'full'
+          },
+          {
+            path: 'list',
+            children:[
+              {
+                path: '',
+                component: PortafolioTutorComponent
+              },
+              {
+                path: 'filter',
+                children: [
+                  {
+                    path: 'Aprobado',
+                    component: PortafolioTutorComponent,
+                    data: {
+                      filterAprobado: true
+                    }
+                  },
+                  {
+                    path: 'Pendiente',
+                    component: PortafolioTutorComponent,
+                    data: {
+                      filterPendiente: false
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'portafolio',
@@ -324,6 +364,44 @@ const routes: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'institutcion-beneficiaria-tutor',
+        children:[
+          {
+            path:'',
+            redirectTo:'list',
+            pathMatch:'full'
+          },
+          {
+            path: 'list',
+            children: [
+              {
+                path:'',
+                component: FundacionTutorComponent,
+              },
+              {
+                path: 'filter',
+                children:[
+                  {
+                    path:'activa',
+                    component: FundacionTutorComponent,
+                    data:{
+                      filterActiva: true
+                    }
+                  },
+                  {
+                    path:'inactiva',
+                    component: FundacionTutorComponent,
+                    data:{
+                      filterInactiva: false
+                    }
+                  },
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'institucion-beneficiaria',

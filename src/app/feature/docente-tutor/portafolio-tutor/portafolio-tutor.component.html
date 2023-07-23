@@ -102,9 +102,6 @@
                 <span [routerLink]="['/system/portafolio/form/', portafolio.id]"
                   *permissions="['ACTUALIZAR_PORTAFOLIO']"
                   class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"></span>
-                <span (click)="openDialogArchiveBriefcase(portafolio)"
-                  class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['ARCHIVAR_PORTAFOLIO']"></span>
               </th>
             </tr>
           </tbody>
