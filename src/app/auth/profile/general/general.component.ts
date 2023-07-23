@@ -1,7 +1,5 @@
-// Importaciones de Angular
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// Modelos y clases relacionadas con la lógica de negocio de la aplicación
 import { checkIdentificationIsAvailable } from '../../../feature/personal/usuarios/form/validators/check-identification-available.async.validator';
 import { udvEcIdentification } from '../../../feature/personal/usuarios/form/validators/udv-ec-identification.async.validator';
 import { MyErrorStateMatcher } from '../../../../app/shared/matcher/error-state-matcher';
@@ -37,12 +35,10 @@ import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.serv
   ],
 })
 export class ProfilePersonalDataComponent implements OnInit {
-  // Variables de clase que son inyectadas
+  
+
   currentUser = {} as User;
-
   loading: boolean = true;
-
-  // Variables de clase que son inyectadas por referencia
   matcher = new MyErrorStateMatcher();
   public formGroup: FormGroup;
 

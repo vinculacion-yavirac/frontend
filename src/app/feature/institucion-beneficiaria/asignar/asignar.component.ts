@@ -165,10 +165,6 @@ export class AsignarComponent implements OnInit {
     
   }
 
-  /**
-   * Metodos para el drang and drop del input de archivos.
-   */
-
   getFileIcon(file: File): string {
     const extension = file.name.split('.').pop()?.toLowerCase() || '';
     return this.fileIcons[extension] || this.fileIcons['default'];
@@ -183,18 +179,6 @@ export class AsignarComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  /*   uploadFiles(id:number): void {
-    const formData = new FormData();
-    this.files.forEach((file: File) => {
-      formData.append('archivo', file, file.name);
-    });
-    this.http
-      .post(
-        `http://127.0.0.1:8000/api/files/upload/${id}`,
-        formData
-      )
-      .subscribe();
-  } */
 
   uploadFiles(id: number, files: File[]): void {
     const formData = new FormData();

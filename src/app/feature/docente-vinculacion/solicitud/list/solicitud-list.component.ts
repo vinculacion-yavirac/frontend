@@ -45,7 +45,6 @@ export class SolicitudListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];

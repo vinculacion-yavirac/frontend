@@ -19,9 +19,11 @@ import { ProfileSecurityComponent } from '../auth/profile/seguridad/seguridad.co
 import { PortafolioFormComponent } from '../feature/portafolio/form/portafolio-form.component';
 import { PortafolioListComponent } from '../feature/portafolio/list/portafolio-list.component';
 import { PortafolioArchivedComponent } from '../feature/portafolio/archived/portafolio-archived.component';
+
 import { SolicitudListComponent } from '../feature/docente-vinculacion/solicitud/list/solicitud-list.component';
 import { SolicitudFormComponent } from '../feature/docente-vinculacion/solicitud/form/solicitud.form.component';
 import { SolicitudArchivedComponent } from '../feature/docente-vinculacion/solicitud/archived/solicitud-archived.component';
+
 import { AvanceCumplimientoComponent } from '../feature/docente-vinculacion/informe-control/avance-cumplimiento/avance-cumplimiento.component';
 import { ProyectoListComponent } from '../feature/proyecto/list/proyecto-list.component';
 

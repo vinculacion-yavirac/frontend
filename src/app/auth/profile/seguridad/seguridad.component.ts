@@ -14,13 +14,10 @@ import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.serv
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSecurityComponent implements OnInit {
-  // Variables de clase que son inyectadas
+
   currentUser = {} as User;
   loading: boolean = true;
-
   hide = true;
-
-  // Variables de clase que son inyectadas por referencia
   matcher = new MyErrorStateMatcher();
   public formGroup: FormGroup;
 
