@@ -104,7 +104,7 @@
                     class="absolute right-0 mt-2 py-2 w-23 bg-white border border-[#535A6640] rounded-md shadow-lg">
                     <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
                       class="fa-eye block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Portafolio</a>
-                    <a [routerLink]="['/system/proyecto/form-datos-generales/', solicitud.id]"
+                    <a [routerLink]="['/system/proyecto/form-datos-generales/', getIdProyectoFromSolicitud(solicitud,proyectoarticipante)]"
                       class="fa-box-archive block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
                   </div>
                 </ng-template>

@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 import { CoincidenciaModalComponent } from '../coincidencia-modal/coincidencia-modal.component';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 import { PortafolioHttpService } from 'src/app/service/portafolio/portafolio-http.service';
+import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
+import { ProyectoParticipanteHttpService } from 'src/app/service/proyecto/participante/proyecto-participante-http.service';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -28,6 +30,7 @@ export class SolicitudListComponent implements OnInit {
 
   solicitudes: SolicitudModels[] = [];
   portafolios: PortafoliosModels[] = [];
+  proyectoarticipante: ProyectoParticipanteModels[] =[];
   solicitud: SolicitudModels | null = null;
 
   //  showOptionsMenu = false;
@@ -50,6 +53,7 @@ export class SolicitudListComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private portafolioHttpService: PortafolioHttpService,
+    private proyectoParticipanteHttpService:ProyectoParticipanteHttpService
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -73,6 +77,7 @@ export class SolicitudListComponent implements OnInit {
     else {
       this.getSolicitud();
       this.getPortafolio();
+      this.getProyectoParticipante();
     }
   }
 
@@ -279,5 +284,38 @@ export class SolicitudListComponent implements OnInit {
       }
     }
     return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+  getIdProyectoFromSolicitud(solicitud: SolicitudModels, proyectos: ProyectoParticipanteModels[]): number | null {
+    const creadorSolicitudId = solicitud.created_by.id;
+
+    for (const proyecto of proyectos) {
+      const creadorPortafolioId = proyecto.participant_id.id;
+
+      console.log('creadorrrr',creadorPortafolioId);
+      if (creadorSolicitudId === creadorPortafolioId) {
+        return proyecto.project_id.id;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+
+  private handleSearchResponseProyectoParticipante(res: any): void {
+    if (res.status === 'success') {
+      this.proyectoarticipante = res.data.projectParticipants;
+      this.reverse = false;
+    }
+    this.loading = false;
+  }
+
+  getProyectoParticipante(): void {
+    this.loading = true;
+    this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe((res: any) => {
+      this.handleSearchResponseProyectoParticipante(res);
+      this.loading = false;
+    });
   }
 }
