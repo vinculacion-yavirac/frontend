@@ -120,7 +120,6 @@ import {
 import {
   TabsInstitucionBeneficiariaComponent
 } from "./institucion-beneficiaria/header/tabs/tabs-institucion-beneficiaria.component";
-import {AsignarComponent} from "./institucion-beneficiaria/asignar/asignar.component";
 import {PortafolioListComponent} from "./portafolio/list/portafolio-list.component";
 import {ProyectoListComponent} from "./proyecto/list/proyecto-list.component";
 import { ModalSolicitudesComponent } from './institucion-beneficiaria/modal-solicitudes/modal-solicitudes.component';
@@ -219,7 +218,6 @@ import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estud
     FormObservacionesComponent,
     FormPlanDeTrabajoComponent,
 
-    AsignarComponent,
     TabsInstitucionBeneficiariaComponent,
     BreadcrumbsInstitucionBeneficiariaComponent,
     ListInstitucionBeneficiariaComponent,

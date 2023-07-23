@@ -43,7 +43,6 @@ import { FormFirmasComponent } from '../feature/proyecto/form/firmas/form-firmas
 import { FormIntegrantesComponent } from '../feature/proyecto/form/integrantes/form-integrantes.component';
 import { FormObservacionesComponent } from '../feature/proyecto/form/observaciones/form-observaciones/form-observaciones.component';
 import { FormPlanDeTrabajoComponent } from '../feature/proyecto/form/plan-de-trabajo/form-plan-de-trabajo/form-plan-de-trabajo.component';
-import { AsignarComponent } from "../feature/institucion-beneficiaria/asignar/asignar.component";
 import {
   ListInstitucionBeneficiariaComponent
 } from "../feature/institucion-beneficiaria/list/list-institucion-beneficiaria.component";
@@ -330,14 +329,6 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list',
             pathMatch: 'full',
-          },
-          {
-            path: 'asignar',
-            component: AsignarComponent,
-          },
-          {
-            path: 'Asignar/:id',
-            component: AsignarComponent,
           },
           {
             path: 'form/:id',
