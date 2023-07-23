@@ -34,7 +34,6 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
   constructor(
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
     private route: ActivatedRoute,
-    private router: Router,
     private dialog: MatDialog,
   ) {
     this.route.data.subscribe((data: any) => {
@@ -70,7 +69,6 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
   }
 
   openAsignarModal(institucionBeneficiariaId: number): void {
-    console.log(institucionBeneficiariaId);
     this.fundacionSeleccionadaId = institucionBeneficiariaId;
     const fundacion = this.getFundacionById(institucionBeneficiariaId);
     const dialogRef = this.dialog.open(AsignarModalComponent, {

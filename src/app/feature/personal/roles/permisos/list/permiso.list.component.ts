@@ -15,7 +15,6 @@ export class PermisosListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['rolId'].currentValue) {
       this.getPermisosByRol(changes['rolId'].currentValue);
-      console.log('entraaaaaaaaaaaaaaaaaa'+''+changes['rolId'].currentValue)
     }
   }
 
@@ -26,7 +25,6 @@ export class PermisosListComponent implements OnChanges {
     this.permisoHttpService.getPermisosByRol(rolId).subscribe((res:any) => {
       if (res.status === 'success') {
         this.permissions = res.data.permissions;
-        console.log(this.permissions = res.data.permissions)
       }
       this.loading = false;
     });

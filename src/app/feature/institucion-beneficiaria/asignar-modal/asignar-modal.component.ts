@@ -7,11 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/auth/users/usuario';
-import { InstitucionBeneficiariaModels } from 'src/app/models/institucion-beneficiaria/institucion-beneficiaria.models';
 import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
 import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
 import { UsuarioHttpService } from 'src/app/service/auth/users/usuario-http.service';
-import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
 import { ProyectoParticipanteHttpService } from 'src/app/service/proyecto/participante/proyecto-participante-http.service';
 import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
@@ -157,9 +155,7 @@ export class AsignarModalComponent implements OnInit {
           (response: any) => {
             if (response.status === 'success') {
               if (this.showAgregarTutorForm) {
-                console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
               } else {
-                console.log('Estudiante asignado exitosamente:', response.data.projectParticipant);
                 this.usuariosSeleccionados.push(usuarioSeleccionado);
               }
               this.obtenerProjectParticipants();
@@ -169,7 +165,7 @@ export class AsignarModalComponent implements OnInit {
             }
           },
           (error: any) => {
-            console.log('No se pudo crear:', error);
+            console.error('No se pudo crear:', error);
           }
         );
       }
@@ -196,8 +192,6 @@ export class AsignarModalComponent implements OnInit {
             this.errorAlertVisible = false;
           }, 3000);
         } else {
-          // Proceder a crear la asignación del tutor al proyecto
-          console.log('Tutor seleccionado:', tutorSeleccionado);
           const requestBody = {
             project_id: this.selectedProyecto.id,
             participant_id: tutorSeleccionado.id
@@ -206,7 +200,6 @@ export class AsignarModalComponent implements OnInit {
           this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
             (response: any) => {
               if (response.status === 'success') {
-                console.log('Tutor asignado exitosamente:', response.data.projectParticipant);
                 this.obtenerProjectParticipants();
 
                 this.showAgregarTutorForm = false;
@@ -215,7 +208,7 @@ export class AsignarModalComponent implements OnInit {
               }
             },
             (error: any) => {
-              console.log('No se pudo crear al tutor:', error);
+              console.error('No se pudo crear al tutor:', error);
             }
           );
         }
@@ -229,11 +222,10 @@ export class AsignarModalComponent implements OnInit {
     this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe(
       (response: any) => {
         this.projectParticipants = response.data.projectParticipants;
-        console.log("this.projectParticipants", this.projectParticipants)
         this.projectParticipantsSubject.next(this.projectParticipants);
       },
       (error: any) => {
-        console.log('Error al obtener las Asignación:', error);
+        console.error('Error al obtener las Asignación:', error);
       }
     );
   }
@@ -253,9 +245,8 @@ export class AsignarModalComponent implements OnInit {
 
     if (proyectoEncontrado) {
       this.selectedProyecto = proyectoEncontrado;
-      console.log("Se seleccionó automáticamente el proyecto:", proyectoEncontrado);
     } else {
-      console.log("No se encontró el proyecto correspondiente");
+      console.error("No se encontró el proyecto correspondiente");
     }
   }
 
@@ -291,7 +282,6 @@ export class AsignarModalComponent implements OnInit {
       this.http.put(url, requestBody).subscribe(
         (response: any) => {
           if (response.status === 'success') {
-            console.log('Asignación actualizada correctamente:', response.data.projectParticipant);
             this.obtenerProjectParticipants();
             this.showUpdateForm = false;
           } else if (response.status === 'error') {
@@ -299,7 +289,7 @@ export class AsignarModalComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log('No se pudo actualizar la Asignación:', error);
+          console.error('No se pudo actualizar la Asignación:', error);
         }
       );
     }
@@ -332,7 +322,7 @@ export class AsignarModalComponent implements OnInit {
         return forkJoin([of(participant), user$, project$]);
       }),
       catchError((error: any) => {
-        console.log('Error al obtener el participante:', error);
+        console.error('Error al obtener el participante:', error);
         return of(null);
       })
     );
@@ -360,13 +350,10 @@ export class AsignarModalComponent implements OnInit {
 
         if (this.proyectosFundacion.length > 0) {
           this.datosCargados$ = of(true);
-          console.log(this.datosCargados$);
-          console.log(this.proyectosFundacion);
-
           this.selectedProyecto = this.proyectosFundacion[0];
           this.nombreFundacion = this.selectedProyecto.beneficiary_institution_id?.name || null;
         } else {
-          console.log('No se encontraron proyectos relacionados con la fundación seleccionada.');
+          console.error('No se encontraron proyectos relacionados con la fundación seleccionada.');
         }
       }
     }
@@ -381,14 +368,13 @@ export class AsignarModalComponent implements OnInit {
     this.http.delete(url).subscribe(
       (response: any) => {
         if (response.status === 'success') {
-          console.log('Asignación restablecida exitosamente');
           this.obtenerProjectParticipants();
         } else if (response.status === 'error') {
           alert(response.message);
         }
       },
       (error: any) => {
-        console.log('No se pudo restablecer la asignación:', error);
+        console.error('No se pudo restablecer la asignación:', error);
       }
     );
   }
