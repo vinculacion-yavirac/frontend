@@ -145,7 +145,10 @@ export class ProyectoListComponent implements OnInit {
 console.log(this.proyectID);
 this.router.navigate(['/system/docente-vinculacion/informe-control/'],{ queryParams: { id_proyecto: this.proyectID} });
   }
-
+  generar_informeFinal() {
+    console.log(this.proyectID);
+    this.router.navigate(['/system/docente-vinculacion/formulario-final-tutor/'],{ queryParams: { id_proyecto: this.proyectID} });
+      }
   public getAllProyectoById(id: number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 

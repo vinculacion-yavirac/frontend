@@ -573,6 +573,11 @@ const routes: Routes = [
                   },
                 ],
               },
+              {
+                path: 'datos_pdf/:id',
+                component: FormularioFinalTutorComponent,
+
+              }
             ],
           },
         ],

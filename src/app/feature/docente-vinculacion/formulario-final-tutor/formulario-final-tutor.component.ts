@@ -19,6 +19,8 @@ export class FormularioFinalTutorComponent implements OnInit {
   public doc: any;
   proyectos: any[] = [];
   activities: any[] = [];
+  id_proyecto: any;
+  projectId: number;
 
   constructor(
     private proyectoService: ProyectoService,
@@ -32,8 +34,18 @@ export class FormularioFinalTutorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllProyectoById(1)
-  }
+    this.route.queryParams
+    .subscribe(params => {
+      console.log(params); // { orderby: "price" }
+      this.projectId = params['id_proyecto'];
+      if (this.projectId) {
+
+        this.getAllProyectoById(this.projectId)
+      }
+        console.log(this.projectId);
+      });
+    }
+   
 
   public getAllProyectoById(id:number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
