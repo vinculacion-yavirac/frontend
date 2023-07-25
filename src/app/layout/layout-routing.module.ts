@@ -461,6 +461,11 @@ const routes: Routes = [
                   },
                 ],
               },
+              {
+                path: 'datos_pdf/:id',
+                component: PortafolioVinculacionFormComponent,
+
+              }
             ],
           },
 
@@ -483,8 +488,18 @@ const routes: Routes = [
                     path: 'archived',
                     component: AvanceCumplimientoComponent,
                   },
+                 
                 ],
               },
+              {
+                path: 'form/:id',
+                component: AvanceCumplimientoComponent,
+              },
+              {
+                path: 'datos_pdf/:id',
+                component: AvanceCumplimientoComponent,
+
+              }
             ],
           },
 

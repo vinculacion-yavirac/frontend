@@ -128,23 +128,39 @@
 </div>
 <!--Main modal ADD AVANCE--->
 <input type="checkbox" id="my-modal-add" class="modal-toggle" />
-<label for="my-modal-add" class="modal cursor-pointer" >
-  <label class="modal-box relative" for="">
-    <section class="bg-white dark:bg-gray-900">
+<label for="my-modal-add" class="modal cursor-pointer">
+  <label class="modal-box w-11/12 max-w-5xl" for="">
+    <div class="row inline-flex">
 
-        <button ng-disabled="registro.$invalid" class="btn button waves-effect waves-light " (click)="pdf()"
-          type="submit">Generar Pdf
+      <div class="col-lg-4 col-md-4 flex-container">
+        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn button waves-effect waves-light "
+          (click)="pdf()" type="submit">Generar Proyecto
           <!--<img class="pullsito" src="../../../../assets/images/pdf.png" alt="">-->
-        </button>&nbsp;&nbsp;&nbsp;
-
-        <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " (click)="pdf_convenio()"
-          type="submit">Generar Convenio
-          <!--<img class="pullsito" src="../../../../assets/images/convenio.png" alt="">-->
-        </button>&nbsp;&nbsp;&nbsp;
-
-        <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " (click)="pdf_itv()"
-          type="submit">Generar ITV
         </button>
-    </section>
+
+
+        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
+          (click)="pdf_itv()" type="submit">Generar ITV
+        </button>
+
+        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
+          (click)="pdf_convenio()" type="submit">Generar Convenio
+        </button>
+
+        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
+          (click)="generar_informeControl()" type="submit">Informe Control
+        </button>
+        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
+          (click)="pdf_convenio()" type="submit">Informe final
+        </button>
+
+      </div>
+    </div>
+
+
+
+
+
+
   </label>
 </label>

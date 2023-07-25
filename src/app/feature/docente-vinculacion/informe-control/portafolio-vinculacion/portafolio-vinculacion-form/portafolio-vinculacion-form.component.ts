@@ -16,6 +16,7 @@ export class PortafolioVinculacionFormComponent {
   showModal2 = false;
   reverse = false;
   pipe = new DatePipe('en-US');
+  projectId: number;
 
   config = {
     itemsPerPage: 10,
@@ -23,7 +24,7 @@ export class PortafolioVinculacionFormComponent {
   };
   id?: string;
   public proyectData: any = [];
-
+  id_proyecto: any;
   proyectos: ProyectoModels[] = [];
   loading: boolean = true;
   constructor(
@@ -35,11 +36,24 @@ export class PortafolioVinculacionFormComponent {
 
   ) { }
   toggleModal() {
+
     this.showModal = !this.showModal;
   }
 
   ngOnInit(): void {
-    this.getProject();
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { orderby: "price" }
+        this.projectId = params['id_proyecto'];
+        if (this.projectId) {
+
+          this.getAllProyectoById(this.projectId);
+          console.log(this.projectId);
+        }
+      }
+      );
+
+
   }
 
   getProject(): void {
@@ -89,7 +103,7 @@ export class PortafolioVinculacionFormComponent {
         }
       }
       console.log(this.proyectData);
-      
+
     },
       (error: any) => {
         if (error) {

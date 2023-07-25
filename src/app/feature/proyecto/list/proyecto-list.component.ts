@@ -6,8 +6,8 @@ import { finalize, switchMap, tap } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalAlertComponent } from "../../../shared/material/modal-alert/modal-alert.component";
 import { MatDialog } from '@angular/material/dialog';
-import { jsPDF } from "jspdf" ;
-import 'jspdf-autotable' ;
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 
@@ -25,14 +25,14 @@ export class ProyectoListComponent implements OnInit {
     itemsPerPage: 10,
     currentPage: 1,
   };
-   /*Variables para generar pdfs*/
-   public doc: any;
-   public doc2: any;
-   public avanceData: any;
-   id?: string;
+  /*Variables para generar pdfs*/
+  public doc: any;
+  public doc2: any;
+  public avanceData: any;
+  id?: string;
   public proyectData: any = [];
   proyectos: ProyectoModels[] = [];
-
+  public proyectID: number;
   loading: boolean = true;
   constructor(
     private proyectoService: ProyectoService,
@@ -52,7 +52,7 @@ export class ProyectoListComponent implements OnInit {
     this.proyectoService.getProject().subscribe((res: any) => {
       if (res.status == 'success') {
         console.log(res);
-        
+
         this.handleSearchResponse(res);
       }
       this.loading = false;
@@ -135,12 +135,18 @@ export class ProyectoListComponent implements OnInit {
     });
   }
 
-  getIdProyect(proyecto: ProyectoModels):void {
+  getIdProyect(proyecto: ProyectoModels): void {
     console.log(proyecto);
+    this.proyectID=proyecto.id;
     this.getAllProyectoById(proyecto.id)
   }
 
-  public getAllProyectoById(id:number): void {
+  generar_informeControl() {
+console.log(this.proyectID);
+this.router.navigate(['/system/docente-vinculacion/informe-control/'],{ queryParams: { id_proyecto: this.proyectID} });
+  }
+
+  public getAllProyectoById(id: number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
       console.log(data);
@@ -168,7 +174,7 @@ export class ProyectoListComponent implements OnInit {
       });
   }
 
-   /*Seccion generear reportes Convenio,Itv,Proyecto  */
+  /*Seccion generear reportes Convenio,Itv,Proyecto  */
 
   /* pdf proyecto*/
   public pdf() {
@@ -1176,7 +1182,7 @@ export class ProyectoListComponent implements OnInit {
 
   }
   /*pdf convenio */
-   public pdf_convenio() {
+  public pdf_convenio() {
 
     var d = new Date();
     var s = new Date();
@@ -1684,9 +1690,9 @@ export class ProyectoListComponent implements OnInit {
 
 
 
-   }
-   /*pdf documento itv*/
-   public pdf_itv() {
+  }
+  /*pdf documento itv*/
+  public pdf_itv() {
 
     var d = new Date();
     var s = new Date();
@@ -2348,5 +2354,5 @@ export class ProyectoListComponent implements OnInit {
 
 
 
-   }
+  }
 }
