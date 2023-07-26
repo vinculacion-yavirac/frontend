@@ -67,7 +67,7 @@
         <th class="border border-slate-950 ...">N°</th>
         <th class="border border-slate-950 ..."></th>
         <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let respuesta of respuestas">
-          <p *ngIf="respuesta.id  && respuesta.preguntas_id==1 && respuesta.encuestas_id == 1">
+          <p *ngIf="respuesta.preguntas_id<=5 && respuesta.encuestas_id === 1">
             {{respuesta.descripcion}}</p>
         </th>
 
@@ -79,6 +79,7 @@
       <tr *ngIf="pregunta && pregunta.encuestas_id == 1">
         <td class="border border-slate-950 ...">{{pregunta.id}}</td>
         <td class="border border-slate-950 m-2 p-3 ">{{pregunta.descripcion}}..</td>
+        <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>

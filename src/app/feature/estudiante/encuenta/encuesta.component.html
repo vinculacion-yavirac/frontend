@@ -67,7 +67,7 @@
         <th class="border border-slate-950 ..."></th>
         <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let res of respuestas">
 
-            <p *ngIf="res.encuestas_id === 1 && res.preguntas_id  ==1   ">{{res.descripcion}}</p>
+            <p *ngIf="res.encuestas_id === 1 && res.preguntas_id  <=5   ">{{res.descripcion}}</p>
 
         </th>
 
@@ -79,6 +79,7 @@
       <tr *ngIf="pregunta.encuestas_id == 1">
         <td class="border border-slate-950 ...">{{pregunta.id}}</td>
         <td class="border border-slate-950 m-2 p-3 ">{{pregunta.descripcion}}..</td>
+        <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
         <td class="border border-slate-700 ..."> </td>
@@ -124,7 +125,7 @@
 
   <div class="div " *ngFor="let p of preguntas">
     <div class="mx-auto bg-slate-200 mt-1   mb-1 p-1 pl-3 rounded-lg items-center justify-end" *ngIf="p.encuestas_id == 2">
-      <p >{{p.id}}.{{p.descripcion}}</p>
+      <p >{{p.descripcion}}</p>
 
       <div class="  m-3 pl-20 " *ngFor="let r of respuestas">
 
