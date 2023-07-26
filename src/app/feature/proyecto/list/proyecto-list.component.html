@@ -60,11 +60,17 @@
                 fecha de creación
               </th>
               <th scope="col" class="py-3 px-6">
+                fecha de caducidad
+              </th>
+              <th scope="col" class="py-3 px-6">
                 Estado
               </th>
 
               <th scope="col" class="py-3 px-6">
                 Acciones
+              </th>
+              <th scope="col" class="py-3 px-6">
+                Reportes
               </th>
             </tr>
           </thead>
@@ -93,10 +99,14 @@
               <td class="py-[3.8px] px-6">
                 <span>{{pipe.transform(proyecto.created_at , 'dd/MM/yyyy')}}</span>
               </td>
+              <td class="py-[3.8px] px-6">
+                <span>{{pipe.transform(proyecto.created_at , 'dd/MM/yyyy')}}</span>
+              </td>
               <td class="py-[3.8px] px-6 capitalize">
                 <span>{{proyecto.state_two_id.catalog_value}}</span>
               </td>
-              <th class="py-[3.8px] px-4 text-right"
+              <th class="
+               text-center"
                 *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', proyecto.id]"
                   *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO','LEER_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']"
@@ -104,12 +114,29 @@
                 <span (click)="openDialogArchiveProject(proyecto)"
                   class="fa-solid fa-box-archive text-lg  cursor-pointer transition-all hover:text-red-600"
                   *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
+                  <label for="my-modal-add">
+                    <span (click)="getIdProyect(proyecto)"
+                      class="fa fa-file-pdf-o text-lg cursor-pointer transition-all hover:text-primary"
+                      *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>
+                  </label>&nbsp;
+                </th>
+              <th class="
+              text-center"
+               *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
+        
+               
+               <span (click)="generar_informeControl(proyecto)"
+               class="fa-solid fa fa-file text-lg  cursor-pointer transition-all hover:text-red-600"
+               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
 
-                <label for="my-modal-add">
-                  <span (click)="getIdProyect(proyecto)"
-                    class="fa fa-file-pdf-o text-lg cursor-pointer transition-all hover:text-primary"
-                    *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>
-                </label>
+               <span (click)="generar_informeFinal(proyecto)"
+               class="fa-solid fa-file-text text-lg  cursor-pointer transition-all hover:text-red-600"
+               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
+
+               <span (click)="generar_informeInicail(proyecto)"
+               class="fa-solid fa-file-word text-lg  cursor-pointer transition-all hover:text-red-600"
+               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
+
               </th>
             </tr>
           </tbody>
@@ -129,7 +156,8 @@
 <!--Main modal ADD AVANCE--->
 <input type="checkbox" id="my-modal-add" class="modal-toggle" />
 <label for="my-modal-add" class="modal cursor-pointer">
-  <label class="modal-box w-11/12 max-w-5xl" for="">
+  <label class="modal-box w-11/12 max-w-5xl" for="" style="
+  width: 575px;">
     <div class="row inline-flex">
 
       <div class="col-lg-4 col-md-4 flex-container">
@@ -147,12 +175,12 @@
           (click)="pdf_convenio()" type="submit">Generar Convenio
         </button>
 
-        <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
+        <!-- <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
           (click)="generar_informeControl()" type="submit">Informe Control
         </button>
         <button style="margin-right: 1rem;" ng-disabled="registro.$invalid" class="btn waves-effect waves-light "
           (click)="generar_informeFinal()" type="submit">Informe final
-        </button>
+        </button> -->
 
       </div>
     </div>

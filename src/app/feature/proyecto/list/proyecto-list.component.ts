@@ -137,18 +137,31 @@ export class ProyectoListComponent implements OnInit {
 
   getIdProyect(proyecto: ProyectoModels): void {
     console.log(proyecto);
-    this.proyectID=proyecto.id;
+    this.proyectID = proyecto.id;
     this.getAllProyectoById(proyecto.id)
   }
 
-  generar_informeControl() {
-console.log(this.proyectID);
-this.router.navigate(['/system/docente-vinculacion/informe-control/'],{ queryParams: { id_proyecto: this.proyectID} });
-  }
-  generar_informeFinal() {
+  generar_informeControl(proyecto: ProyectoModels) {
+    this.proyectID = proyecto.id;
+
     console.log(this.proyectID);
-    this.router.navigate(['/system/docente-vinculacion/formulario-final-tutor/'],{ queryParams: { id_proyecto: this.proyectID} });
-      }
+    this.router.navigate(['/system/docente-vinculacion/informe-control/'], { queryParams: { id_proyecto: this.proyectID } });
+  }
+
+  generar_informeFinal(proyecto: ProyectoModels) {
+    this.proyectID = proyecto.id;
+
+    console.log(this.proyectID);
+    this.router.navigate(['/system/docente-vinculacion/formulario-final-tutor/'], { queryParams: { id_proyecto: this.proyectID } });
+  }
+
+
+  generar_informeInicail(proyecto: ProyectoModels) {
+    this.proyectID = proyecto.id;
+
+    console.log(this.proyectID);
+    this.router.navigate(['/system/docente-vinculacion/informe-inicial/'], { queryParams: { id_proyecto: this.proyectID } });
+  }
   public getAllProyectoById(id: number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
