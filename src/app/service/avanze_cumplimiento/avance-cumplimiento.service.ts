@@ -13,7 +13,8 @@ export class AvanceCumplimientoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   private url = environment.API_URL + '/avanze';
-  private url2 = environment.API_URL + '/project/2';
+  private url2 = environment.API_URL + '/project';
+  private url3 = environment.API_URL + '/goals';
 
 
   public addAvanze(data: any): Observable<any> {
@@ -35,6 +36,13 @@ export class AvanceCumplimientoService {
 
     return this.http.get<any>(
       `${this.url2}/`,
+      this.httpOptions
+    );
+  }
+  public getProyectoById(id:number): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url2}/${id}`,
       this.httpOptions
     );
   }

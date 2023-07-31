@@ -17,6 +17,8 @@ export class AvanceCumplimiento2Component implements OnInit {
   form!: FormGroup;
   id?: string;
   title!: string;
+  projectId: number;
+
   loading = false;
   submitting = false;
   submitted = false;
@@ -48,16 +50,31 @@ export class AvanceCumplimiento2Component implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams
+    .subscribe(params => {
+      console.log(params); // { orderby: "price" }
+      this.projectId = params['id_proyecto'];
+      console.log(this.projectId);
+      
+      if (this.projectId) {
+
+        // this.getAllProyectoById(this.projectId);
+        console.log(this.projectId);
+      }
+    }
+    );
     this.getAllActividades();
-    this.getAllProyecto();
+    this.getAllProyectoByid();
   }
 /*añadir actividades*/
   public addActividades(isValid: any) {
     this.isSubmitted = true;
     if (isValid) {
       this.httpProvider.addActividades(this.addActividadesForm).subscribe(async data => {
+console.log(data);
 
-        if (data.data.avance != null && data.data.avance != null) {
+        if (data.data.avanze != null && data.data.avanze != null) {
           if (data.status === 'success') {
             setTimeout(() => {
               window.location.reload();
@@ -79,8 +96,8 @@ export class AvanceCumplimiento2Component implements OnInit {
 
 
 
-  public getAllProyecto() {
-    this.httpProvider.getProyecto().subscribe((data: any) => {
+  public getAllProyectoByid() {
+    this.httpProvider.getProyectoById(this.projectId).subscribe((data: any) => {
 
       console.log(data);
 

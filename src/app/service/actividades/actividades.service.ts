@@ -13,7 +13,9 @@ export class ActividadesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   private url = environment.API_URL + '/actividades';
-  private url2 = environment.API_URL + '/project/2';
+  private url2 = environment.API_URL + '/project';
+  private url3 = environment.API_URL + '/activities';
+  private url4 = environment.API_URL + '/goals';
 
   public addActividades(data: any): Observable<any> {
     return this.http.post<any>(
@@ -28,6 +30,13 @@ export class ActividadesService {
       this.httpOptions
     );
   }
+  public getAllActivities(): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/`,
+      this.httpOptions
+    );
+  }
   public getActividadesById(id:any): Observable<any> {
 
     return this.http.get<any>(
@@ -36,6 +45,21 @@ export class ActividadesService {
     );
   }
   
+  public getAllActivitiesById (id:any): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/${id}`,
+      this.httpOptions
+    );
+  }
+
+  public getAllGoalssById (id:any): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.url3}/${id}`,
+      this.httpOptions
+    );
+  }
   public updateActividades(id: any, data: any): Observable<any> {
 
     return this.http.put(
@@ -57,5 +81,11 @@ export class ActividadesService {
       this.httpOptions
     );
   }
+  public getProyectoById(id:number): Observable<any> {
 
+    return this.http.get<any>(
+      `${this.url2}/${id}`,
+      this.httpOptions
+    );
+  }
 }
