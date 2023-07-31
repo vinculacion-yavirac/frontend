@@ -1256,8 +1256,8 @@ export class ProyectoListComponent implements OnInit {
        ' Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente '+
        'instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020,'+
        'a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”;'+
-       'y, por otra parte la empresa '+this.proyectData.beneficiary_institution_id.name +' con RUC No.'+this.proyectData.beneficiary_institution_id.ruc +
-       ', representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y'+
+       'y, por otra parte la empresa "'+this.proyectData.beneficiary_institution_id.name +'" con RUC No. '+this.proyectData.beneficiary_institution_id.ruc +
+       ', representada legalmente por '+this.proyectData.authorized_by.user_id.person.names +'en calidad de Gerente General a quien en adelante y'+
        ' para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
