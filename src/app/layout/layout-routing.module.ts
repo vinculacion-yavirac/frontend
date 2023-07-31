@@ -51,6 +51,7 @@ import { ConfiguracionArchivedComponent } from '../feature/portafolio/configurac
 import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/list-estudiante.component';
 import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tutor/fundacion-tutor.component';
 import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tutor/portafolio-tutor.component';
+import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 
 const routes: Routes = [
 
@@ -663,37 +664,37 @@ const routes: Routes = [
         ],
       },
 
-      // {
-      //   path: 'estudiante',
-      //   children: [
-      //     { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
-      //     {
-      //       path: 'informe-final-estudiante',
-      //       children: [
-      //         {
-      //           path: '',
-      //           redirectTo: 'list',
-      //           pathMatch: 'full',
-      //         },
-      //         {
-      //           path: 'list',
-      //           children: [
-      //             {
-      //               path: '',
-      //               component: InformeFinalEstudianteComponent,
-      //             },
-      //             {
-      //               path: 'archived',
-      //               component: InformeFinalEstudianteComponent,
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
+      {
+        path: 'estudiante',
+        children: [
+          { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
+          {
+            path: 'informe-final-estudiante',
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full',
+              },
+              {
+                path: 'list',
+                children: [
+                  {
+                    path: '',
+                    component: InformeFinalEstudianteComponent,
+                  },
+                  {
+                    path: 'archived',
+                    component: InformeFinalEstudianteComponent,
+                  },
+                ],
+              },
+            ],
+          },
 
 
-      //   ],
-      // },
+        ],
+      },
 
     ],
   },

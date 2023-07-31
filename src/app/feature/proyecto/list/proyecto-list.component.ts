@@ -160,6 +160,11 @@ export class ProyectoListComponent implements OnInit {
     console.log(this.proyectID);
     this.router.navigate(['/system/docente-vinculacion/informe-inicial/'], { queryParams: { id_proyecto: this.proyectID } });
   }
+
+  generar_informeEstudiante(){
+    this.router.navigate(['/system/estudiante/informe-final-estudiante/'], { queryParams: { id_proyecto: this.proyectID } });
+
+  }
   public getAllProyectoById(id: number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
