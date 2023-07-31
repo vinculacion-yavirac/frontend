@@ -13,7 +13,7 @@ export class ActividadesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   private url = environment.API_URL + '/actividades';
-  private url2 = environment.API_URL + '/project/2';
+  private url2 = environment.API_URL + '/project';
   private url3 = environment.API_URL + '/activities';
   private url4 = environment.API_URL + '/goals';
 
@@ -83,5 +83,11 @@ export class ActividadesService {
       this.httpOptions
     );
   }
+  public getProyectoById(id:number): Observable<any> {
 
+    return this.http.get<any>(
+      `${this.url2}/${id}`,
+      this.httpOptions
+    );
+  }
 }

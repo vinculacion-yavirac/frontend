@@ -34,6 +34,7 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   @ViewChild("avanzeForm")
 
   avanzeForm!: NgForm;
+  projectId: number;
 
   isSubmitted: boolean = false;
   post: AvanzeCumplimientoModels = {
@@ -66,14 +67,19 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
   ngOnInit(): void {
 
-    /*Implementacion de data dinamica */
-    // let data = [{
-    //   "Instituto": "INSTIUTO TECONOLOGICO SUPERIOR YAVIRAC",
-    //   "Nombre": "Maria Jose Ortega"
-    // }];
+    this.route.queryParams
+    .subscribe(params => {
+      console.log(params); // { orderby: "price" }
+      this.projectId = params['id_proyecto'];
+      console.log(this.projectId);
+      
+      if (this.projectId) {
 
-
-    // this.avanzeData = data;
+        // this.getAllProyectoById(this.projectId);
+        console.log(this.projectId);
+      }
+    }
+    );
 
     this.getAllActividades();
 
@@ -144,6 +150,10 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
   ngOnDestroy() {
 
+
+  }
+  getAvanceCumplimiento2() {
+    this.router.navigate(['/system/docente-vinculacion/informe-control/avance-cumplimiento2'], { queryParams: { id_proyecto: this.projectId } });
   }
 }
 export class avanzeForm {

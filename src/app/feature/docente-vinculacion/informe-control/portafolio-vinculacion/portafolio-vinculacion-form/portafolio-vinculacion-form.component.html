@@ -16,7 +16,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Proyecto</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="" value="{{proyectData.code}}" >
+                <input type="text" class="form-control" name="" id="" value="{{proyectData.name}}" >
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Nombre</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="" value="{{proyectData.name}}" >
+                <input type="text" class="form-control" name="" id="" value="{{proyectData.created_by.person.names}}" >
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Semestre</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" value="5to">
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Apellido</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id="">
+                <input type="text" class="form-control" name="" id="" value="{{proyectData.created_by.person.last_names}}">
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
             <div class="mb-3 row">
               <label for="" class="col-sm-3 col-form-label">Encargado</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="" id=""  value="{{proyectData.beneficiary_institution_id.postal_code}}">
+                <input type="text" class="form-control" name="" id=""  value="{{proyectData.authorized_by.user_id.person.names}}">
               </div>
             </div>
           </div>
@@ -182,8 +182,8 @@
         <button class="btn btn-primary" type="button">
           <img src="../../../../assets/image/enviar.png" style=" height: 20px; " alt="">
           Enviar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']"
-          routerLink="/system/docente-vinculacion/informe-control/avance-cumplimiento" *permissions="[
+        <button class="btn btn-primary" type="button" [routerLinkActive]="['tab-active']" (click)="getAvanceCumplimiento()"
+       *permissions="[
               'LEER_ROLES',
               'CREAR_ROLES',
               'ACTUALIZAR_ROLES',

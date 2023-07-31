@@ -110,33 +110,30 @@
                 *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span [routerLink]="['/system/solicitud/form/', proyecto.id]"
                   *permissions="['ACTUALIZAR_PROYECTO','ARCHIVAR_PROYECTO','LEER_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']"
-                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"></span>&nbsp;
+                  class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary">
+                </span>&nbsp;
                 <span (click)="openDialogArchiveProject(proyecto)"
                   class="fa-solid fa-box-archive text-lg  cursor-pointer transition-all hover:text-red-600"
-                  *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
-                  <label for="my-modal-add">
-                    <span (click)="getIdProyect(proyecto)"
-                      class="fa fa-file-pdf-o text-lg cursor-pointer transition-all hover:text-primary"
-                      *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>
-                  </label>&nbsp;
-                </th>
+                  *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']">
+                </span>&nbsp;
+                <label for="my-modal-add">
+                  <span (click)="getIdProyect(proyecto)"
+                    class="fa fa-file-pdf-o text-lg cursor-pointer transition-all hover:text-primary"
+                    *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']">
+                  </span>
+                </label>&nbsp;
+              </th>
               <th class="
               text-center"
-               *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
-        
-               
-               <span (click)="generar_informeControl(proyecto)"
-               class="fa-solid fa fa-file text-lg  cursor-pointer transition-all hover:text-red-600"
-               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
+                *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
 
-               <span (click)="generar_informeFinal(proyecto)"
-               class="fa-solid fa-file-text text-lg  cursor-pointer transition-all hover:text-red-600"
-               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
-
-               <span (click)="generar_informeInicail(proyecto)"
-               class="fa-solid fa-file-word text-lg  cursor-pointer transition-all hover:text-red-600"
-               *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span>&nbsp;
-
+                <label for="my-modal-info">
+                  <span (click)="getDocenteForms(proyecto)"
+                    class="fa fa-cog text-lg cursor-pointer transition-all hover:text-primary"
+                    *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']">
+                  </span>
+                </label>
+           
               </th>
             </tr>
           </tbody>
@@ -153,7 +150,7 @@
     </div>
   </div>
 </div>
-<!--Main modal ADD AVANCE--->
+<!--Main modal Generar pdf itv convenio y general--->
 <input type="checkbox" id="my-modal-add" class="modal-toggle" />
 <label for="my-modal-add" class="modal cursor-pointer">
   <label class="modal-box w-11/12 max-w-5xl" for="" style="
@@ -182,6 +179,37 @@
           (click)="generar_informeFinal()" type="submit">Informe final
         </button> -->
 
+      </div>
+    </div>
+
+
+
+
+
+
+  </label>
+</label>
+
+<!--Main modal Generar Solicitud  informe control  informe final--->
+<input type="checkbox" id="my-modal-info" class="modal-toggle" />
+<label for="my-modal-info" class="modal cursor-pointer">
+  <label class="modal-box w-11/12 max-w-5xl" for="" style="
+  width: 575px;">
+    <div class="row ">
+
+      <div class="col">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-end">Informe Inical<span (click)="generar_informeInicail()"
+            class="fa-solid fa-eye text-lg  cursor-pointer transition-all hover:text-red-600"
+            *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-end">Informe Control<span (click)="generar_informeControl()"
+            class="fa-solid fa-eye text-lg  cursor-pointer transition-all hover:text-red-600"
+            *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-end">Informe Final <span (click)="generar_informeFinal()"
+            class="fa-solid fa-eye text-lg  cursor-pointer transition-all hover:text-red-600"
+            *permissions="['ARCHIVAR_PROYECTO','LEER_USUARIOS', 'LEER_ROLES']"></span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-end">Informe Estudiante<span class="badge badge-soft-primary badge-pill">9</span></li>
+        </ul>
       </div>
     </div>
 

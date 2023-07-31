@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
@@ -11,7 +13,7 @@ import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
   templateUrl: './portafolio-vinculacion-form.component.html',
   styleUrls: ['./portafolio-vinculacion-form.component.css']
 })
-export class PortafolioVinculacionFormComponent {
+export class PortafolioVinculacionFormComponent   implements OnInit, OnDestroy, AfterContentChecked {
   showModal = false;
   showModal2 = false;
   reverse = false;
@@ -27,14 +29,22 @@ export class PortafolioVinculacionFormComponent {
   id_proyecto: any;
   proyectos: ProyectoModels[] = [];
   loading: boolean = true;
+  public testform: FormGroup;
+  private subscription: Subscription;
+
+
   constructor(
     private proyectoService: ProyectoService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
     private httpProvider: AvanceCumplimientoService,
+    public fb: FormBuilder,
+    private changeDetector: ChangeDetectorRef,
 
   ) { }
+ 
+ 
   toggleModal() {
 
     this.showModal = !this.showModal;
@@ -47,7 +57,30 @@ export class PortafolioVinculacionFormComponent {
         this.projectId = params['id_proyecto'];
         if (this.projectId) {
 
-          this.getAllProyectoById(this.projectId);
+          this.subscription = this.httpProvider.getProyectoById(this.projectId).subscribe((data: any) => {
+
+            console.log(data);
+      
+      
+            if (data.data.projects != null && data.data.projects != null) {
+              var resultData = data.data.projects;
+              if (resultData) {
+                console.log(resultData);
+                this.proyectData = resultData;
+              }
+            }
+            console.log(this.proyectData);
+      
+          },
+            (error: any) => {
+              if (error) {
+                if (error.status == 404) {
+                  if (error.error && error.error.message) {
+                    this.proyectData = [];
+                  }
+                }
+              }
+            })
           console.log(this.projectId);
         }
       }
@@ -55,7 +88,12 @@ export class PortafolioVinculacionFormComponent {
 
 
   }
-
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
+}
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
   getProject(): void {
     this.loading = true;
     this.proyectoService.getProject().subscribe((res: any) => {
@@ -83,36 +121,10 @@ export class PortafolioVinculacionFormComponent {
     });
   }
 
-  onChange(value: any) {
-    var id = value.target.value;
-    console.log(id);
-    this.getAllProyectoById(id);
+  
+
+  getAvanceCumplimiento() {
+    this.router.navigate(['/system/docente-vinculacion/informe-control/avance-cumplimiento'], { queryParams: { id_proyecto: this.projectId } });
   }
-
-  public getAllProyectoById(id: number): void {
-    this.httpProvider.getProyectoById(id).subscribe((data: any) => {
-
-      console.log(data);
-
-
-      if (data.data.projects != null && data.data.projects != null) {
-        var resultData = data.data.projects;
-        if (resultData) {
-          console.log(resultData);
-          this.proyectData = resultData;
-        }
-      }
-      console.log(this.proyectData);
-
-    },
-      (error: any) => {
-        if (error) {
-          if (error.status == 404) {
-            if (error.error && error.error.message) {
-              this.proyectData = [];
-            }
-          }
-        }
-      });
-  }
+ 
 }

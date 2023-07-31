@@ -141,24 +141,22 @@ export class ProyectoListComponent implements OnInit {
     this.getAllProyectoById(proyecto.id)
   }
 
-  generar_informeControl(proyecto: ProyectoModels) {
+  getDocenteForms(proyecto: ProyectoModels): void {
     this.proyectID = proyecto.id;
+  }
+  generar_informeControl() {
+    
 
-    console.log(this.proyectID);
     this.router.navigate(['/system/docente-vinculacion/informe-control/'], { queryParams: { id_proyecto: this.proyectID } });
   }
 
-  generar_informeFinal(proyecto: ProyectoModels) {
-    this.proyectID = proyecto.id;
-
-    console.log(this.proyectID);
+  generar_informeFinal() {
     this.router.navigate(['/system/docente-vinculacion/formulario-final-tutor/'], { queryParams: { id_proyecto: this.proyectID } });
   }
 
 
-  generar_informeInicail(proyecto: ProyectoModels) {
-    this.proyectID = proyecto.id;
-
+  generar_informeInicail() {
+    
     console.log(this.proyectID);
     this.router.navigate(['/system/docente-vinculacion/informe-inicial/'], { queryParams: { id_proyecto: this.proyectID } });
   }
@@ -1248,11 +1246,19 @@ export class ProyectoListComponent implements OnInit {
       this.doc2.text('Y', 275, 245);
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text(this.proyectData.beneficiary_institution_id.name, 155, 255);
+      this.doc2.text(this.proyectData.beneficiary_institution_id.name, 230, 260);
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.proyectData.beneficiary_institution_id.name + ', legalmente representado por el ' + this.proyectData.beneficiary_institution_id.name + ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
+      this.doc2.text('Comparecen a la celebración del presente Convenio, por una parte el ' + this.proyectData.beneficiary_institution_id.name + ', legalmente representado por el ' + this.proyectData.beneficiary_institution_id.name +
+       ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. '+
+       320 +' y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de'+
+       ' Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente '+
+       'instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020,'+
+       'a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”;'+
+       'y, por otra parte la empresa '+this.proyectData.beneficiary_institution_id.name +' con RUC No.'+this.proyectData.beneficiary_institution_id.ruc +
+       ', representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y'+
+       ' para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”', 110, 285, { maxWidth: 400, align: 'justify' });
 
       this.doc2.setFontSize(11);
       this.doc2.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -1709,6 +1715,8 @@ export class ProyectoListComponent implements OnInit {
   }
   /*pdf documento itv*/
   public pdf_itv() {
+    console.log(this.proyectData);
+    
 
     var d = new Date();
     var s = new Date();
@@ -1767,7 +1775,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Nombre del IST:', 40, 215);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 215, { maxWidth: 100, align: 'justify' });
+      this.doc.text("Instituto Tecnologico Superior Yavirac", 160, 215, { maxWidth: 500, align: 'justify' });
       this.doc.line(40, 220, 555, 220);
 
       this.doc.setFontSize(10);
@@ -1786,10 +1794,10 @@ export class ProyectoListComponent implements OnInit {
       this.doc.line(155, 260, 155, 750);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');
-      this.doc.text('Nombre de la Entidad Receptora:', 40, 270, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Nombre de la Entidad Emisora:', 40, 270, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 270);
+      this.doc.text("Instituto Tecnologico Superior Yavirac", 160, 270);
       this.doc.line(40, 290, 555, 290);
 
       this.doc.setFontSize(9);
@@ -1797,7 +1805,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Nombre de la Entidad Receptora:', 40, 300, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.proyectData.beneficiary_institution_id.name, 160, 300);
+      this.doc.text( this.proyectData.beneficiary_institution_id.name , 160, 300);
       this.doc.line(40, 320, 555, 320);
 
       this.doc.setFontSize(9);
@@ -1805,7 +1813,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Nombre de la persona  autorizada legalmente  para la suscripción del Convenio:', 40, 330, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.proyectData.name, 160, 330);
+      this.doc.text(this.proyectData.authorized_by.user_id.person.names +" "+ this.proyectData.authorized_by.user_id.person.last_names, 160, 330);
       this.doc.line(40, 365, 555, 365);
 
 
@@ -1814,7 +1822,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Actividad económica que consta en el RUC:', 40, 385, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text(this.proyectData.code, 160, 385);
+      this.doc.text(this.proyectData.beneficiary_institution_id.ruc, 160, 385);
       this.doc.line(40, 410, 555, 410);
 
 
@@ -1838,7 +1846,7 @@ export class ProyectoListComponent implements OnInit {
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 490, { maxWidth: 100, align: 'justify' });
+      this.doc.text('4', 160, 490, { maxWidth: 100, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -1846,7 +1854,7 @@ export class ProyectoListComponent implements OnInit {
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 405, 490, { maxWidth: 100, align: 'justify' });
+      this.doc.text('10', 405, 490, { maxWidth: 100, align: 'justify' });
       this.doc.line(40, 510, 555, 510);
 
       this.doc.setFontSize(9);
@@ -1878,7 +1886,7 @@ export class ProyectoListComponent implements OnInit {
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('joseostaiza57@gmail.com.edu.ec', 160, 600, { maxWidth: 150, align: 'justify' });
+      this.doc.text('gadguayabamba@.edu.ec', 160, 600, { maxWidth: 150, align: 'justify' });
 
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
@@ -1898,7 +1906,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Provincia:', 160, 645, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 645, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Pichincha', 225, 645, { maxWidth: 100, align: 'justify' });
 
       this.doc.line(155, 650, 555, 650);
       this.doc.setFontSize(9);
@@ -1906,7 +1914,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Canton:', 160, 665, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 665, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Quito', 225, 665, { maxWidth: 100, align: 'justify' });
 
 
       this.doc.line(155, 670, 555, 670);
@@ -1918,7 +1926,7 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Direccion:', 160, 685, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 685, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Guayabamba', 225, 685, { maxWidth: 100, align: 'justify' });
 
       this.doc.line(40, 690, 555, 690);
       this.doc.setFontSize(9);
@@ -1926,24 +1934,24 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Provincia:', 160, 705, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 705, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Pichincha', 225, 705, { maxWidth: 100, align: 'justify' });
 
 
       this.doc.line(155, 710, 555, 710);
       this.doc.setFont("Roboto", 'bold');
-      this.doc.text('Dirección Matriz:', 40, 725, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Dirección Matriz2:', 40, 725, { maxWidth: 100, align: 'justify' });
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('Canton', 160, 725, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 725, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Quito', 225, 725, { maxWidth: 100, align: 'justify' });
 
       this.doc.line(155, 730, 555, 730);
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('Dirección', 160, 745, { maxWidth: 100, align: 'justify' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 225, 745, { maxWidth: 100, align: 'justify' });
+      this.doc.text('Guayabamba', 225, 745, { maxWidth: 100, align: 'justify' });
 
       this.doc.line(40, 750, 555, 750);
 
@@ -1966,10 +1974,10 @@ export class ProyectoListComponent implements OnInit {
       this.doc.line(150, 150, 150, 750);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto", 'bold');
-      this.doc.text('Objeto:', 45, 190);
+      this.doc.text('Objetivo:', 45, 190);
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 170, { maxWidth: 350, align: 'justify' });
+      this.doc.text(this.proyectData.description, 160, 170, { maxWidth: 350, align: 'justify' });
       this.doc.line(40, 225, 555, 225);
 
       this.doc.setFontSize(9);
@@ -2142,7 +2150,7 @@ export class ProyectoListComponent implements OnInit {
         + 'la suscripción del Convenio)', 45, 190, { maxWidth: 100, align: 'left' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 170, { maxWidth: 350, align: 'justify' });
+      this.doc.text(this.proyectData.justification, 160, 170, { maxWidth: 500, align: 'justify' });
       // this.doc.line(40, 225, 555, 225);
 
 
@@ -2192,21 +2200,21 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('Nombre del proyecto: ', 45, 480, { maxWidth: 100, align: 'left' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 480, { maxWidth: 350, align: 'justify' });
+      this.doc.text(this.proyectData.name, 160, 480, { maxWidth: 350, align: 'justify' });
       this.doc.line(40, 500, 555, 500);
 
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('Objeto del Proyecto:', 45, 520, { maxWidth: 100, align: 'left' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 520, { maxWidth: 350, align: 'justify' });
+      this.doc.text(this.proyectData.description, 160, 520, { maxWidth: 350, align: 'justify' });
       this.doc.line(40, 530, 555, 530);
 
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('Número de Participantes:', 45, 550, { maxWidth: 100, align: 'left' });
       this.doc.setFontSize(9);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.text('0', 160, 550, { maxWidth: 350, align: 'justify' });
+      this.doc.text("4", 160, 550, { maxWidth: 350, align: 'justify' });
       this.doc.line(40, 560, 555, 560);
 
       this.doc.setFont("Roboto", 'bold');
