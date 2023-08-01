@@ -132,6 +132,7 @@ import { CoincidenciaModalComponent } from './docente-vinculacion/solicitud/coin
 import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estudiante.component';
 import { FundacionTutorComponent } from './docente-tutor/fundacion-tutor/fundacion-tutor.component';
 import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/portafolio-tutor.component';
+import { FormModalComponent } from './docente-vinculacion/formulario-final-tutor/modal_form/formmodal.component';
 
 @NgModule({
   declarations: [
@@ -219,7 +220,8 @@ import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/porta
     FormIntegrantesComponent,
     FormObservacionesComponent,
     FormPlanDeTrabajoComponent,
-
+    FormModalComponent,
+    
     TabsInstitucionBeneficiariaComponent,
     BreadcrumbsInstitucionBeneficiariaComponent,
     ListInstitucionBeneficiariaComponent,

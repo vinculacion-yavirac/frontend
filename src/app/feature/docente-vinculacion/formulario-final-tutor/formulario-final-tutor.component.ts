@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
@@ -9,6 +8,8 @@ import { ProyectoModels } from 'src/app/models/proyecto/proyecto.models';
 import { ActividadesService } from 'src/app/service/actividades/actividades.service';
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { FormModalComponent } from './modal_form/formmodal.component';
 @Component({
   selector: 'app-formulario-final-tutor',
   templateUrl: './formulario-final-tutor.component.html',
@@ -21,18 +22,25 @@ export class FormularioFinalTutorComponent implements OnInit {
   activities: any[] = [];
   id_proyecto: any;
   projectId: number;
-
+  dialogConfig = new MatDialogConfig();
+  modalDialog: MatDialogRef<FormModalComponent, any> | undefined;
   constructor(
     private proyectoService: ProyectoService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog,
+    public matDialog: MatDialog,
     private httpProvider: AvanceCumplimientoService,
     private actividadesService: ActividadesService,
 
     private miDatePipe: DatePipe
   ) { }
-
+  ngAfterViewInit(): void {
+    document.onclick = (args: any) : void => {
+          if(args.target.tagName === 'BODY') {
+              this.modalDialog?.close()
+          }
+      }
+  }
   ngOnInit() {
     this.route.queryParams
     .subscribe(params => {
@@ -46,7 +54,12 @@ export class FormularioFinalTutorComponent implements OnInit {
       });
     }
    
-
+    public save_comend(){
+      this.dialogConfig.id = "projects-modal-component";
+      this.dialogConfig.height = "500px";
+      this.dialogConfig.width = "650px";
+      this.modalDialog = this.matDialog.open(FormModalComponent, this.dialogConfig);
+    }
   public getAllProyectoById(id:number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
@@ -127,8 +140,11 @@ export class FormularioFinalTutorComponent implements OnInit {
     this.doc.line(450, 700, 550, 700);
     this.doc.text('ESTUDIANTE', 470, 710,);
     this.doc.text('$F{rector}', 475, 725, { maxWidth: 100, align: 'center' });
-    this.doc.autoTable({
-      html: '#table', startY: 255,
+    var elem = document.getElementById('table');
+    var data = this.doc.autoTableHtmlToJson(elem);
+	  // this.doc.autoTable(data.columns, data.rows);
+    this.doc.autoTable(data.columns, data.rows,{
+       startY: 255,
       margin: { top: 380, right: 60, bottom: 100 },
       styles: {
         cellPadding: 2,
