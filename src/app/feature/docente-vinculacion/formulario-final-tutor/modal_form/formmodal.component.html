@@ -1,15 +1,26 @@
-<div id="modal-content-wrapper">
-    <header id="modal-header">
-        <h1 id="modal-title">Project List</h1>
-    </header>
-    <ul>
-        <li>FTP Program Application</li>
-        <li>Image to Text Converter Application</li>
-        <li>Library Management System</li>
-        <li>Image fetching API</li>
-        <li>Quiz Game Application</li>
-    </ul>
-    <footer id="modal-footer">
-        <button mat-raised-button id="modal-close-button" (click)="closeModal()">Close</button>
-    </footer>
-</div>
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="sm:col-span-2">
+                    <label for="avance"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">OBSERVACIONES</label>
+                    <textarea  type = "text" name = "observacion" placeholder = "describe" ngModel
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="OBSERVACIONES"></textarea>
+                </div>
+            </div>
+
+            <!-- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                Add product
+            </button> -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            
+                <button mat-button mat-dialog-close>Cancelar</button>
+                <button mat-button mat-dialog-close cdkFocusInitial type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+</section>
+<br>

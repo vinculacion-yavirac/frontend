@@ -18,10 +18,14 @@ import { FormModalComponent } from './modal_form/formmodal.component';
 export class FormularioFinalTutorComponent implements OnInit {
 
   public doc: any;
+  observacion: any;
   proyectos: any[] = [];
   activities: any[] = [];
   id_proyecto: any;
   projectId: number;
+  id_table:number;
+  public activitiesData: any = [];
+
   dialogConfig = new MatDialogConfig();
   modalDialog: MatDialogRef<FormModalComponent, any> | undefined;
   constructor(
@@ -35,32 +39,52 @@ export class FormularioFinalTutorComponent implements OnInit {
     private miDatePipe: DatePipe
   ) { }
   ngAfterViewInit(): void {
-    document.onclick = (args: any) : void => {
-          if(args.target.tagName === 'BODY') {
-              this.modalDialog?.close()
-          }
+    document.onclick = (args: any): void => {
+      if (args.target.tagName === 'BODY') {
+        this.modalDialog?.close()
       }
+    }
   }
   ngOnInit() {
     this.route.queryParams
-    .subscribe(params => {
-      console.log(params); // { orderby: "price" }
-      this.projectId = params['id_proyecto'];
-      if (this.projectId) {
+      .subscribe(params => {
+        console.log(params); // { orderby: "price" }
+        this.projectId = params['id_proyecto'];
+        if (this.projectId) {
 
-        this.getAllProyectoById(this.projectId)
-      }
+          this.getAllProyectoById(this.projectId)
+        }
         console.log(this.projectId);
       });
-    }
+
+      this.getAllActividades();
    
-    public save_comend(){
-      this.dialogConfig.id = "projects-modal-component";
-      this.dialogConfig.height = "500px";
-      this.dialogConfig.width = "650px";
-      this.modalDialog = this.matDialog.open(FormModalComponent, this.dialogConfig);
-    }
-  public getAllProyectoById(id:number): void {
+  }
+
+  public save_comend(id:any) {
+    console.log(id);
+    this.id_table= id;
+    
+    this.dialogConfig.id = "projects-modal-component";
+    this.dialogConfig.height = "400px";
+    this.dialogConfig.width = "500px";
+    this.modalDialog = this.matDialog.open(FormModalComponent, this.dialogConfig);
+    this.modalDialog.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      for (let index = 0; index < this.activitiesData.length; index++) {
+        const element = this.activitiesData[index];
+        if (element.id == this.id_table) {
+          console.log(element);
+          this.activitiesData[index]["observacion"]=localStorage.getItem("observacion");
+        }
+        
+        
+      }
+      this.activitiesData= this.activitiesData
+    });
+  }
+  
+  public getAllProyectoById(id: number): void {
     this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
       console.log(data);
@@ -70,11 +94,11 @@ export class FormularioFinalTutorComponent implements OnInit {
       if (data.data.projects != null && data.data.projects != null) {
         var resultData = data.data.projects;
         if (resultData) {
-          
-          
+
+
           this.proyectos = [resultData];
           console.log(this.proyectos);
-         // this.getAllActividades(1);
+          // this.getAllActividades(1);
 
         }
       }
@@ -89,8 +113,8 @@ export class FormularioFinalTutorComponent implements OnInit {
         }
       });
   }
-  public getAllActividades(id:number) {
-    this.actividadesService.getAllGoalssById(id).subscribe((data: any) => {
+  public getAllActividades() {
+    this.actividadesService.getAllActivities().subscribe((data: any) => {
 
       console.log(data);
 
@@ -99,8 +123,12 @@ export class FormularioFinalTutorComponent implements OnInit {
         var resultData = data.data.activity;
         if (resultData) {
           console.log(resultData);
+          for (let index = 0; index < resultData.length; index++) {
+            const element = resultData[index];
 
-          this.activities = [resultData];
+            resultData[index]["observacion"]=""
+          }
+          this.activitiesData = resultData;
         }
       }
     },
@@ -142,9 +170,9 @@ export class FormularioFinalTutorComponent implements OnInit {
     this.doc.text('$F{rector}', 475, 725, { maxWidth: 100, align: 'center' });
     var elem = document.getElementById('table');
     var data = this.doc.autoTableHtmlToJson(elem);
-	  // this.doc.autoTable(data.columns, data.rows);
-    this.doc.autoTable(data.columns, data.rows,{
-       startY: 255,
+    // this.doc.autoTable(data.columns, data.rows);
+    this.doc.autoTable(data.columns, data.rows, {
+      startY: 255,
       margin: { top: 380, right: 60, bottom: 100 },
       styles: {
         cellPadding: 2,
@@ -156,7 +184,7 @@ export class FormularioFinalTutorComponent implements OnInit {
       }
     })
     this.doc.autoTable({
-      html: '#table2', startY: 300,          margin: { top: 380, right: 60, bottom: 100 },
+      html: '#table2', startY: 300, margin: { top: 380, right: 60, bottom: 100 },
       styles: {
         cellPadding: 2,
         fontSize: 7,

@@ -71,56 +71,15 @@
             <th>OBSERVACIONES</th>
           </tr>
         </thead>
-        <tbody>
-          <tr >
-            <td>1</td>
+        <tbody >
+          <tr *ngFor="let activit of activitiesData" >
+            <td> {{activit.goals_id.id}} </td>
             <td>Crear un sistema funcional y proactivo</td>
             <td>trabajar 8 horas diarias y enviar informe diario</td>
             <td></td>
             <td></td>
             <td></td>
-            <td (click)="save_comend()"><span id="comend" ></span></td>
-          </tr>
-          <tr >
-            <td>2</td>
-            <td>Crear un sistema funcional y proactivo</td>
-            <td>trabajar 8 horas diarias y enviar informe diario</td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-          </tr> <tr >
-            <td>3</td>
-            <td>Crear un sistema funcional y proactivo</td>
-            <td>trabajar 8 horas diarias y enviar informe diario</td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-          </tr> <tr >
-            <td>4</td>
-            <td>Crear un sistema funcional y proactivo</td>
-            <td>trabajar 8 horas diarias y enviar informe diario</td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-          </tr> <tr >
-            <td>5</td>
-            <td>Crear un sistema funcional y proactivo</td>
-            <td>trabajar 8 horas diarias y enviar informe diario</td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-          </tr> <tr >
-            <td>6</td>
-            <td>Crear un sistema funcional y proactivo</td>
-            <td>trabajar 8 horas diarias y enviar informe diario</td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
-            <td><input type="text" name="pickup_time" id="pickup_time" required></td>
+            <td (click)="save_comend(activit.id)"><span id="comend" >{{activit.observacion}}</span></td>
           </tr>
         </tbody>
       </table>
