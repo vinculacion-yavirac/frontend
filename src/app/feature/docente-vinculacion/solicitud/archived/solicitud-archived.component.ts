@@ -39,14 +39,26 @@ export class SolicitudArchivedComponent implements OnInit {
 
   getArchivedSolicituds(): void {
     this.loading = true;
-    this.solicitudHttpService.getArchivedSolicitude().subscribe((res: any) => {
-      if (res.status == 'success') {
-        this.handleSearchResponse(res);
-        this.sortSolicitudes();
+    this.solicitudHttpService.getArchivedSolicitude().subscribe(
+      (res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+          this.sortSolicitudes();
+          console.log('success');
+        }
+      },
+      (error) => {
+        if (error.error && error.error.message === 'No se encontraron solicitudes archivadas.') {
+          this.handleSearchResponse(error);
+          this.sortSolicitudes();
+        } else {
+          // Manejar otros errores
+          console.error('Error al obtener solicitudes archivadas:', error);
+        }
       }
-      this.loading = false;
-    });
+    );
   }
+  
 
   searchArchivedSolicitudByTerm(term: string): void {
     this.loading = true;
@@ -74,9 +86,11 @@ export class SolicitudArchivedComponent implements OnInit {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
-    }
+      console.log('success');
+    } 
     this.loading = false;
   }
+
 
   restaureSolicitud(solicitud: SolicitudModels): void {
     this.solicitudHttpService.restoreSolicitud(solicitud.id)
