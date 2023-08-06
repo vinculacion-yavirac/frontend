@@ -30,7 +30,7 @@ export class SolicitudListComponent implements OnInit {
 
   solicitudes: SolicitudModels[] = [];
   portafolios: PortafoliosModels[] = [];
-  proyectoarticipante: ProyectoParticipanteModels[] =[];
+  proyectoarticipante: ProyectoParticipanteModels[] = [];
   solicitud: SolicitudModels | null = null;
 
   //  showOptionsMenu = false;
@@ -53,7 +53,7 @@ export class SolicitudListComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private portafolioHttpService: PortafolioHttpService,
-    private proyectoParticipanteHttpService:ProyectoParticipanteHttpService
+    private proyectoParticipanteHttpService: ProyectoParticipanteHttpService
   ) {
     this.filterVinculacion = this.route.snapshot.data['filterVinculacion'];
     this.filterCertificado = this.route.snapshot.data['filterCertificado'];
@@ -101,7 +101,16 @@ export class SolicitudListComponent implements OnInit {
         this.sortSolicitudes();
       }
       this.loading = false;
-    });
+    },
+      (error) => {
+        if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+          this.handleSearchResponse(error);
+          this.sortSolicitudes();
+        } else {
+          // Manejar otros errores
+          console.error('Error al obtener solicitudes archivadas:', error);
+        }
+      });
   }
 
 
@@ -113,6 +122,15 @@ export class SolicitudListComponent implements OnInit {
         this.sortSolicitudes();
       }
       this.loading = false;
+    },
+    (error) => {
+      if(error.error && error.error.message ==='No se encontraron solicitudes.'){
+        this.handleSearchResponse(error);
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('Error al obtener solicitudes archivadas:', error);
+      }
     });
   }
 
@@ -293,7 +311,7 @@ export class SolicitudListComponent implements OnInit {
     for (const proyecto of proyectos) {
       const creadorPortafolioId = proyecto.participant_id.id;
 
-      console.log('creadorrrr',creadorPortafolioId);
+      console.log('creadorrrr', creadorPortafolioId);
       if (creadorSolicitudId === creadorPortafolioId) {
         return proyecto.project_id.id;
       }
