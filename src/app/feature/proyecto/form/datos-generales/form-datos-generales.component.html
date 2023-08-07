@@ -30,7 +30,7 @@
       <section class="input-field col s12 m6">
         <label for="">Codigo de Proyecto:</label><br><br>
         <input type="text" formControlName="codigoProyecto" name="codigo" [(ngModel)]="currentEntity.codigo">
-        <div *ngIf="codigoProyecto?.invalid && (codigoProyecto?.dirty || codigoProyecto?.touched)"
+        <div *ngIf="codigoProyecto?.invalid && (codigoProyecto?.dirty || codigoProyecto?.touched)" style="background-color: white; border-color: white;color: brown;"
           class="alert alert-danger ">
           <div *ngIf="codigoProyecto?.errors?.['required']">Ingrese el código de proyecto.</div>
           <div *ngIf="codigoProyecto?.errors?.['pattern']">Ingrese un valor alfanumérico, ejemplo: QZ09.</div>
@@ -39,7 +39,7 @@
       <section class="input-field col s12 m6">
         <label for="">Nombre del Proyecto:</label><br><br>
         <input type="text" formControlName="nombreProyecto" name="nombrep" [(ngModel)]="currentEntity.nombrep">
-        <div *ngIf="nombreProyecto?.invalid && (nombreProyecto?.dirty || nombreProyecto?.touched)"
+        <div *ngIf="nombreProyecto?.invalid && (nombreProyecto?.dirty || nombreProyecto?.touched)" style="background-color: white; border-color: white;color: brown;"
           class="alert alert-danger ">
           <div *ngIf="nombreProyecto?.errors">
             Nombre de proyecto inválido.
@@ -51,7 +51,7 @@
         <section class="input-field col s12 m9">
           <label for="">Nombre del Instituto: </label><br><br>
           <input type="email" formControlName="nombreInstituto" name="nombrei" [(ngModel)]="currentEntity.nombrei">
-          <div *ngIf="nombreInstituto?.invalid && (nombreInstituto?.dirty || nombreInstituto?.touched)"
+          <div *ngIf="nombreInstituto?.invalid && (nombreInstituto?.dirty || nombreInstituto?.touched)"style="background-color: white; border-color: white;color: brown;"
             class="alert alert-danger ">
             <div *ngIf="nombreInstituto?.errors">
               Campo requerido
@@ -61,7 +61,7 @@
         <section class="input-field col s12 m3">
           <label for="">Ciclo:</label><br><br>
           <input type="text" formControlName="ciclo" name="ciclo" [(ngModel)]="currentEntity.ciclo">
-          <div *ngIf="ciclo?.invalid && (ciclo?.dirty || ciclo?.touched)" class="alert alert-danger ">
+          <div *ngIf="ciclo?.invalid && (ciclo?.dirty || ciclo?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
             <div *ngIf="ciclo?.errors">
               Ciclo es un campo requerido
             </div>
@@ -73,7 +73,7 @@
           <label for="">Cobertura y Localización:</label><br><br>
           <input type="text" class="materialize-textarea" formControlName="coberturaLocalizacion" name="cobertura" [(ngModel)]="currentEntity.cobertura">
           <div
-            *ngIf="coberturaLocalizacion?.invalid && (coberturaLocalizacion?.dirty || coberturaLocalizacion?.touched)"
+            *ngIf="coberturaLocalizacion?.invalid && (coberturaLocalizacion?.dirty || coberturaLocalizacion?.touched)" style="background-color: white; border-color: white;color: brown;"
             class="alert alert-danger ">
             <div *ngIf="coberturaLocalizacion?.errors">
               Cobertura y Localización inválido.
@@ -90,7 +90,7 @@
         <option value="" disabled="" selected="">Seleccione una Carrera</option>
         <option *ngFor="let carrera of carrerasMapping" [value]="carrera.id">{{carrera.carrera}}</option>
         </select>
-        <div *ngIf="carrera?.invalid && (carrera?.dirty || carrera?.touched)" class="alert alert-danger ">
+        <div *ngIf="carrera?.invalid && (carrera?.dirty || carrera?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
           <div *ngIf="carrera?.errors">
             Campo requerido.
           </div>
@@ -122,7 +122,7 @@
         <section class="input-field col s12 m9">
           <label for="">Fecha:</label><br><br>
           <input type="date" formControlName="fecha" name="fecha" [(ngModel)]="currentEntity.fecha">
-          <div *ngIf="fecha?.invalid && (fecha?.dirty || fecha?.touched)" class="alert alert-danger ">
+          <div *ngIf="fecha?.invalid && (fecha?.dirty || fecha?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
             <div *ngIf="fecha?.errors?.['required']">
               Ingrese una fecha.
             </div>
@@ -135,7 +135,7 @@
           <label for="">Plazo de Vigencia del Convenio:</label><br><br>
           <input type="date" formControlName="plazoVigenciaConvenio" name="vigencia" [(ngModel)]="currentEntity.vigencia">
           <div
-            *ngIf="plazoVigenciaConvenio?.invalid && (plazoVigenciaConvenio?.dirty || plazoVigenciaConvenio?.touched)"
+            *ngIf="plazoVigenciaConvenio?.invalid && (plazoVigenciaConvenio?.dirty || plazoVigenciaConvenio?.touched)" style="background-color: white; border-color: white;color: brown;"
             class="alert alert-danger ">
             <div *ngIf="plazoVigenciaConvenio?.errors?.['required']">
               Ingrese una fecha.
@@ -150,7 +150,7 @@
         <section class="input-field col s12">
           <label for="">Fecha de Presentación:</label><br><br>
           <input type="date" class="materialize-textarea" formControlName="fechaPresentacion" name="fechaPresentacion" [(ngModel)]="currentEntity.fechaPresentacion">
-          <div *ngIf="fechaPresentacion?.invalid && (fechaPresentacion?.dirty || fechaPresentacion?.touched)"
+          <div *ngIf="fechaPresentacion?.invalid && (fechaPresentacion?.dirty || fechaPresentacion?.touched)" style="background-color: white; border-color: white;color: brown;"
             class="alert alert-danger ">
             <div *ngIf="fechaPresentacion?.errors?.['required']">
               Ingrese una fecha.
@@ -165,7 +165,7 @@
         <section class="input-field col s12">
           <label for="">Fecha de Inicio:</label><br><br>
           <input type="date" class="materialize-textarea" formControlName="fechaInicio" name="fechaInicio" [(ngModel)]="currentEntity.fechaInicio">
-          <div *ngIf="fechaInicio?.invalid && (fechaInicio?.dirty || fechaInicio?.touched)" class="alert alert-danger ">
+          <div *ngIf="fechaInicio?.invalid && (fechaInicio?.dirty || fechaInicio?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
             <div *ngIf="fechaInicio?.errors?.['required']">
               Ingrese una fecha.
             </div>
@@ -178,7 +178,7 @@
         <section class="input-field col s12">
           <label for="">Fecha Final:</label><br><br>
           <input type="date" class="materialize-textarea" formControlName="fechaFinal" name="fechaFinal" [(ngModel)]="currentEntity.fechaFinal">
-          <div *ngIf="fechaFinal?.invalid && (fechaFinal?.dirty || fechaFinal?.touched)" class="alert alert-danger ">
+          <div *ngIf="fechaFinal?.invalid && (fechaFinal?.dirty || fechaFinal?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
             <div *ngIf="fechaFinal?.errors?.['required']">
               Ingrese una fecha.
             </div>

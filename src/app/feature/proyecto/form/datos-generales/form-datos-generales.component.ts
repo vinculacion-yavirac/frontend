@@ -8,6 +8,7 @@ import 'jspdf-autotable' ;
 import { ImageConstants } from 'src/app/constanst/ImageConstants' ;
 import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 import { DatePipe } from '@angular/common';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 interface Carrera {
   id: number;
@@ -32,7 +33,8 @@ export class FormDatosGeneralesComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private httpProvider: AvanceCumplimientoService,
-    private miDatePipe: DatePipe
+    private miDatePipe: DatePipe,
+    private proyectoService: ProyectoService,
 
   ) { }
 
@@ -99,7 +101,26 @@ export class FormDatosGeneralesComponent implements OnInit {
   });
 
   onSubmit() {
-    console.warn(this.datosGeneralesForm.value);
+    console.log(this.datosGeneralesForm.value);
+    this.proyectoService.addProyecto(this.datosGeneralesForm.value).subscribe(async data => {
+      console.log(data);
+
+      // if (data.data.avanze != null && data.data.avanze != null) {
+      //     if (data.status === 'success') {
+      //         setTimeout(() => {
+      //             window.location.reload();
+      //         }, 500);
+      //     }
+      // }
+
+  }, async error => {
+      console.log(error.message);
+
+      // setTimeout(() => {
+      // this.router.navigate(['/Home']);
+      // }, 500);
+  });
+    
   }
 
   get codigoProyecto() {
