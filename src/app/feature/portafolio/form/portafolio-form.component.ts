@@ -17,7 +17,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class PortafolioFormComponent implements OnInit, OnDestroy {
   selectedDocumento?: DocumentoModels;
-  briefcaseForm: FormGroup;
+  public briefcaseForm: FormGroup;
   currentPortafolio = {} as PortafoliosModels;
   loading = true;
   selectedFiles: File[] = [];
@@ -45,7 +45,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.getDocumentos();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
-        this.title = 'Portafoliossssss';
+        this.title = 'Portafolio';
         this.getBriefcaseId(params['id']);
       } else {
         setTimeout(() => {
@@ -56,10 +56,33 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
 
   }
 
-
-
   initForm(): void {
     this.briefcaseForm = this.formBuilder.group({
+      id: [0],
+      created_by: this.formBuilder.group({
+        id: [0],
+        email: [''],
+        person: this.formBuilder.group({
+          names: [''],
+          identification: [''],
+          last_names: [''],
+        })
+      }),
+      project_participant_id: this.formBuilder.group({
+        id:[0],
+        project_id: this.formBuilder.group({
+          id:[0],
+          name:[''],
+          career_id:  this.formBuilder.group({
+            id:[0],
+            name:[''],
+          }),
+          beneficiary_institution_id: this.formBuilder.group({
+            id:[0],
+            name:['']
+          })
+        }),
+      }),
       observations: [
         '',
         {
@@ -85,18 +108,14 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   getBriefcaseId(id:number){
     this.portafolioHttpService.getBriefcaseById(id).subscribe((response:any) =>{
       if(response.status === 'success'){
         this.info = response.data.briefcases;
+        this.briefcaseForm.patchValue(this.info);
       }
     })
   }
-
-
-
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
