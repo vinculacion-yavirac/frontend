@@ -293,10 +293,8 @@ export class SolicitudListComponent implements OnInit {
 
   getIdPortafolioFromSolicitud(solicitud: SolicitudModels, portafolios: PortafoliosModels[]): number | null {
     const creadorSolicitudId = solicitud.created_by.id;
-
     for (const portafolio of portafolios) {
       const creadorPortafolioId = portafolio.created_by.id;
-
       if (creadorSolicitudId === creadorPortafolioId) {
         return portafolio.id;
       }
@@ -311,7 +309,6 @@ export class SolicitudListComponent implements OnInit {
     for (const proyecto of proyectos) {
       const creadorPortafolioId = proyecto.participant_id.id;
 
-      console.log('creadorrrr', creadorPortafolioId);
       if (creadorSolicitudId === creadorPortafolioId) {
         return proyecto.project_id.id;
       }
