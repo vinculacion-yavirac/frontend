@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
@@ -25,11 +25,15 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   project: ProyectoParticipanteModels;
   title = 'Portafolio';
   files: CustomFile[] = [];
-
+  dateFile= new Date();
   info:PortafoliosModels;
+  fileStates: { [key: string]: { state: boolean; observation: string } } = {};
 
   paramsSubscription: Subscription;
   idPortafolio:number;
+  filesArray: any;
+  customFiles: { document_id: number; file: CustomFile; stateControl: FormControl; observationControl: FormControl }[] = [];
+  
   constructor(
     private formBuilder: FormBuilder,
     private portafolioHttpService: PortafolioHttpService,
@@ -39,6 +43,8 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
   ) {
     this.initForm();
+    this.filesArray = this.formBuilder.array([]);
+    this.briefcaseForm.addControl('files', this.filesArray);
   }
 
   ngOnInit(): void {
@@ -53,12 +59,13 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         }, 1000);
       }
     });
-
   }
 
   initForm(): void {
     this.briefcaseForm = this.formBuilder.group({
       id: [0],
+      files: this.formBuilder.array([]),
+      
       created_by: this.formBuilder.group({
         id: [0],
         email: [''],
@@ -152,10 +159,9 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
 
   uploadFiles(idPortafolio:number): void {
     if (this.selectedDocumento) {
-      this.fileHttpService.uploadFiles(this.files,idPortafolio);
+      this.portafolioHttpService.uploadFiles(this.files,idPortafolio);
     }
   }
-
 
   onFileSelected(event: any, documento: DocumentoModels): void {
     this.selectedDocumento = documento;
@@ -165,15 +171,22 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       const file: File = selectedFiles[i];
       const customFile: CustomFile = {
         file: file,
-        document_id: documento.id
+        document_id: documento.id,
+        created_at: new Date(),
+        state:true,
+        observation:'hhh'
       }
       this.files.push(customFile);
+      console.log(customFile);
     }
-
-
     this.updateSelectedFilesList();
+    console.log('this.updateSelectedFilesList',this.updateSelectedFilesList());
   }
+ 
 
+
+
+  
   updateSelectedFilesList(): void {
     this.cdr.detectChanges();
   }
@@ -191,4 +204,5 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       window.URL.revokeObjectURL(url);
     });
   }
+
 }

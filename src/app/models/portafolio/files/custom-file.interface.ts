@@ -6,5 +6,8 @@ export interface CustomFile {
     // type: string;
     // content: string;
     // size: number;
+    state:boolean,
+    observation:string;
+    created_at:Date;
     document_id:number| DocumentoModels;
 }
