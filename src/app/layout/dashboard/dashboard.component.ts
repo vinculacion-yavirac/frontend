@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
     private usuarioHttpService: UsuarioHttpService,
   ) {}
 
+  
+
   /**
    * Inicialización del componente.
    */

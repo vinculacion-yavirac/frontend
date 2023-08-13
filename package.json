@@ -1,5 +1,5 @@
 {
-  "name": "gad",
+  "name": "vinculacion",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -38,7 +38,7 @@
     "jspdf-autotable": "^3.5.29",
     "jwt-decode": "^3.1.2",
     "mapbox-gl": "^2.13.0",
-    "ng2-charts": "^2.4.2",
+    "ng2-charts": "^2.4.3",
     "ngx-cookie-service": "^14.0.1",
     "ngx-date-fns": "^10.0.1",
     "ngx-pagination": "^6.0.3",
