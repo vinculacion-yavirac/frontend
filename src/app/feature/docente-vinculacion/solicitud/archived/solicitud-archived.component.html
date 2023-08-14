@@ -76,8 +76,13 @@
             <td class="py-[3.8px] px-6">
               <span>{{pipe.transform(solicitud.created_at, 'dd/MM/yyyy')}}</span>
             </td>
-            <td class="py-[3.8px] px-6 capitalize">
-              <span>{{solicitud.solicitudes_status_id.catalog_value}}</span>
+            <td class="py-[3.8px] px-6">
+              <div *ngIf="solicitud.solicitudes_status_id.catalog_value ==='Aprobado'" class="flex items-center">
+                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Aprobado
+              </div>
+              <div *ngIf="solicitud.solicitudes_status_id.catalog_value  ==='Pendiente'" class="flex items-center">
+                <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
+              </div>
             </td>
             <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_SOLICITUD','LEER_SOLICITUD','ARCHIVAR_SOLICITUD' ,'LEER_USUARIOS', 'LEER_ROLES']">
               <span
