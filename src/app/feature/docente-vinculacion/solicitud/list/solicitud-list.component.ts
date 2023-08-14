@@ -382,4 +382,29 @@ export class SolicitudListComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  closeOptionsMenu(solicitudId: number) {
+    this.showOptionsMenu[solicitudId] = false;
+  }
+
+  toggleOptionsMenu(solicitudId: number) {
+    this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
+  }
+
+
+
+  showOptionsMenuBottom: { [solicitudId: number]: boolean } = {};
+
+
+  calculateLastItems() {
+    this.solicitudes.forEach((_, index) => {
+      this.lastItems[index] = this.isLastItem(index);
+    });
+  }
+
+  lastItems: { [index: number]: boolean } = {};
+  isLastItem(index: number): boolean {
+    return this.solicitudes.length - 1 === index;
+  }
+
 }

@@ -6,13 +6,13 @@
   background-color: #4052b510;
 }
 
+.overlay-menu {
+  z-index: 100; /* Ajusta el valor según sea necesario */
+}
 
-.my_table tbody tr td span {
-  display: block;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.table-container {
+  position: relative; /* Asegura que el menú emergente se sobreponga a la tabla */
+  z-index: 1; /* Asegura que la tabla esté detrás del menú emergente */
 }
 
 .font-small{

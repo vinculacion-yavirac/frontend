@@ -78,3 +78,22 @@ p {
     height:auto;
 }
 }*/
+
+
+.overlay-menu {
+  z-index: 100; /* Ajusta el valor según sea necesario */
+}
+
+.table-container {
+  position: relative; /* Asegura que el menú emergente se sobreponga a la tabla */
+  z-index: 1; /* Asegura que la tabla esté detrás del menú emergente */
+}
+
+.assing {
+  position: static;
+}
+
+.tabla{
+  position:relative;
+  z-index: 1;
+}

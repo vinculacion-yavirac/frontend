@@ -23,8 +23,8 @@
     </div>
     <div class="overflow-hidden relative rounded-md">
       <div
-        class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-        <table class="my_table w-full text-sm text-left text-neutral">
+      class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden relative mb-4 table-container">
+        <table class="w-full text-sm text-left text-neutral tabla">
           <thead class="text-xs text-white uppercase bg-primary">
             <tr>
               <th scope="col" class="py-3 px-6">#</th>
@@ -88,7 +88,7 @@
               </td>
             
               <th class="py-[3.8px] px-6 text-right">
-
+                <!--
                 <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
                   <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
                     (click)="openOptionsMenu(solicitud.id)"></span>
@@ -101,19 +101,70 @@
                       <span>Asignar</span>
                   </div>
                 </ng-template>
-
-                <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
+              -->
+              <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
+                <div class="relative inline-block">
                   <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
-                    (click)="openOptionsMenu(solicitud.id)"></span>
-
-                  <div *ngIf="showOptionsMenu[solicitud.id]"
-                    class="absolute right-0 mt-2 py-2 w-23 bg-white border border-[#535A6640] rounded-md shadow-lg">
-                    <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
-                      class="fa-eye block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Portafolio</a>
-                    <a [routerLink]="['/system/proyecto/form-datos-generales/', getIdProyectoFromSolicitud(solicitud,proyectoarticipante)]"
-                      class="fa-box-archive block px-4 py-2 text-sm text-neutral hover:bg-[Daisy] hover:text-[Twailwidn]">Proyecto</a>
+                    (click)="toggleOptionsMenu(solicitud.id)"></span>
+              
+                  <div *ngIf="showOptionsMenu[solicitud.id]" class="aright-0 w-40"
+                       [style.bottom.px]="showOptionsMenuBottom[solicitud.id] ? '32px' : '-10px'">
+                    <div class="bg-white border border-[#535A6640] rounded-md shadow-lg p-2 assing"
+                         (click)="$event.stopPropagation()">
+                      <div class="flex justify-end">
+                        <span class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
+                              (click)="closeOptionsMenu(solicitud.id)"></span>
+                      </div>
+                      <div>
+                        <a [routerLink]="['/system/solicitud/form/', solicitud.id]"
+                           class="block py-2 pl-2 text-sm transition-all hover:text-primary">
+                          Asignar estudiante
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </ng-template>
+                </div>
+              </ng-template>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+
+              <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
+                <div class="relative inline-block">
+                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
+                    (click)="toggleOptionsMenu(solicitud.id)"></span>
+              
+                  <div *ngIf="showOptionsMenu[solicitud.id]" class="right-0 w-40"
+                       [class.top-[-10px]]="isLastItem(index)">
+                    <div class="bg-white border border-[#535A6640] rounded-md shadow-lg p-2 assing"
+                         (click)="$event.stopPropagation()">
+                      <div class="flex justify-end">
+                        <span class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
+                              (click)="closeOptionsMenu(solicitud.id)"></span>
+                      </div>
+                      <div>
+                        <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
+                           class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
+                          Portafolio
+                        </a>
+                        <a [routerLink]="['/system/proyecto/form-datos-generales/', getIdProyectoFromSolicitud(solicitud,proyectoarticipante)]"
+                           class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
+                          Proyecto
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              
 
                 <span (click)="openDialogArchiveSolicitud(solicitud)"
                   class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
