@@ -128,19 +128,19 @@
           <table class="my_table w-full text-sm text-neutral table-compact" style="font-size: 0.8rem;">
             <thead class="text-xs text-white uppercase bg-primary">
               <tr>
+                <th class="text-center">Rol</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Proyecto</th>
-                <th class="text-center">Rol</th>
                 <th class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody class="divide-y-[0.5px] divide-[#535A6640]">
               <tr class="bg-white hover:bg-[#4052b510] transition-all" *ngFor="let participant of projectParticipants">
                 <ng-container *ngIf="participant.project_id.beneficiary_institution_id?.id === fundacionSeleccionadaId">
+                  <td class="text-center">{{ participant.role }} </td>
                   <td class="text-center">{{ participant.participant_id.person.names }} {{
                     participant.participant_id.person.last_names }}</td>
                   <td class="text-center">{{ participant.project_id.name }}</td>
-                  <td class="text-center">{{ participant.participant_id.role }} </td>
                   <td class="text-center">
                     <span class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary"
                       (click)="updateParticipant(participant)"></span>

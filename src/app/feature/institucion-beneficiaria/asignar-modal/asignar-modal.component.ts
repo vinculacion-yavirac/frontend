@@ -130,7 +130,8 @@ export class AsignarModalComponent implements OnInit {
       if (usuarioSeleccionado) {
         const requestBody = {
           project_id: this.selectedProyecto.id,
-          participant_id: usuarioSeleccionado.id
+          participant_id: usuarioSeleccionado.id,
+          role: 'Estudiante'
         };
 
         // Verificar si el usuario tiene el rol de "Estudiante"
@@ -194,7 +195,8 @@ export class AsignarModalComponent implements OnInit {
         } else {
           const requestBody = {
             project_id: this.selectedProyecto.id,
-            participant_id: tutorSeleccionado.id
+            participant_id: tutorSeleccionado.id,
+            role: 'Tutor'
           };
 
           this.http.post('http://127.0.0.1:8000/api/project-participant/create', requestBody).subscribe(
