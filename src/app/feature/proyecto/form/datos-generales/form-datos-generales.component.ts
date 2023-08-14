@@ -134,6 +134,10 @@ export class FormDatosGeneralesComponent implements OnInit {
     this.datos = {
       'code' : this.datosGeneralesForm.value.codigoProyecto,
              'name' : this.datosGeneralesForm.value.nombreProyecto,
+             'name_institute'  :'Insituto Tecnologico Superior Yavirac',
+             'cicle' :'5to semestre',
+             'address' : 'av.5 de Junio y Ambato',
+             'Modality' : 'Dual',
              'field' : 'Campo de proyecto',
              'term_execution' : 5,
              'start_date' : this.datosGeneralesForm.value.fechaInicio,

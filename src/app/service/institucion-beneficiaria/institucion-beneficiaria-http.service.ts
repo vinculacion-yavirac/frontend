@@ -17,6 +17,7 @@ export class InstitucionBeneficiariaHttpService {
 
   private url = environment.API_URL + '/beneficiary-institution';
 
+ 
 
   public getInstitucionesBeneficiarias(): Observable<InstitucionBeneficiariaModels[]>{
     return this.http.get<InstitucionBeneficiariaModels[]>(this.url);
@@ -30,6 +31,10 @@ export class InstitucionBeneficiariaHttpService {
     return this.http.get<InstitucionBeneficiariaModels[]>(
       `${this.url}/search/term/${encodeURIComponent(term)}`
     );
+  };
+
+  public createInstitucionesBeneficiariaBy(InstitucionBeneficiariaModels: InstitucionBeneficiariaModels): Observable<InstitucionBeneficiariaModels> {
+    return this.http.post<InstitucionBeneficiariaModels>(`${this.url}/create`,InstitucionBeneficiariaModels,this.httpOptions);
   };
 
   public searchInactivaByTerm(term:string): Observable<InstitucionBeneficiariaModels[]>{
