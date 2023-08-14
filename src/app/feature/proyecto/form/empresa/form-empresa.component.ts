@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Empresa } from 'src/app/models/proyecto/empresa.models';
 
 interface Parroquia {
@@ -25,10 +25,13 @@ interface Provincia {
   styleUrls: ['./form-empresa.component.css']
 })
 export class FormEmpresaComponent implements OnInit {
+  projectId: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+
   ) { }
 
   provincias = [];
@@ -165,7 +168,15 @@ export class FormEmpresaComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { orderby: "price" }
+        this.projectId = params['id_proyecto'];
+        if (this.projectId) {
 
+        }
+        console.log(this.projectId);
+      });
   }
 
   onSubmit() {
