@@ -92,4 +92,12 @@ export class SolicitudHttpService {
   createSolicitude(solicitud: SolicitudModels): Observable<SolicitudModels> {
     return this.http.post<SolicitudModels>(this.url, solicitud, this.httpOptions);
   }
+
+  aprovateCertificado(id: number): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/aprovate-certificado/${id}`,null, this.httpOptions);
+  }
+
+  disapproveCertificate(id: number): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/disapprove-certificate/${id}`,null, this.httpOptions);
+  }
 }

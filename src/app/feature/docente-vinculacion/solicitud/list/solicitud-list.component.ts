@@ -407,4 +407,68 @@ export class SolicitudListComponent implements OnInit {
     return this.solicitudes.length - 1 === index;
   }
 
+
+
+  aprovateCertificado(solicitud: SolicitudModels): void {
+    this.solicitudHttpService.aprovateCertificado(solicitud.id).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      }),
+      switchMap(() => this.router.navigate(['/system/solicitud/list/filter/aprobado']))
+    ).subscribe();
+  }
+
+  openDialogAprovateCertificado(solicitud: SolicitudModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Estas seguro de aprobar este Certificado?',
+        message:
+          'El certificado sera aprobado y el sitema podra utilizarlo.',
+        dato: ['Nombre:', solicitud.created_by.person.names],
+        button: 'Aprobar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.aprovateCertificado(solicitud);
+      }
+    });
+  }
+
+
+  disapproveCertificate(solicitud: SolicitudModels): void {
+    this.solicitudHttpService.disapproveCertificate(solicitud.id).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      }),
+      switchMap(() => this.router.navigate(['/system/solicitud/list/filter/pendiente']))
+    ).subscribe();
+  }
+
+  openDialogDisapproveCertificate(solicitud: SolicitudModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Estas seguro de desaprobar este Certificado?',
+        message:
+          'El certificado volvera al estado de pendiente. ',
+        dato: ['Nombre:', solicitud.created_by.person.names],
+        button: 'Desaprobar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.disapproveCertificate(solicitud);
+      }
+    });
+  }
 }
