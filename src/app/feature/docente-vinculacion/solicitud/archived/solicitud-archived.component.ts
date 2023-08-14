@@ -44,7 +44,6 @@ export class SolicitudArchivedComponent implements OnInit {
         if (res.status === 'success') {
           this.handleSearchResponse(res);
           this.sortSolicitudes();
-          console.log('success');
         }
       },
       (error) => {
@@ -68,6 +67,15 @@ export class SolicitudArchivedComponent implements OnInit {
         this.reverse = false;
       }
       this.loading = false;
+    }, (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes archivadas.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
@@ -86,7 +94,6 @@ export class SolicitudArchivedComponent implements OnInit {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
-      console.log('success');
     } 
     this.loading = false;
   }

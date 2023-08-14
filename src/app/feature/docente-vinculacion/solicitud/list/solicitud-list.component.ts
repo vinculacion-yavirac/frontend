@@ -144,6 +144,7 @@ export class SolicitudListComponent implements OnInit {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   };
+
   searchSolicitudesByTerm(term: string): void {
     this.loading = true;
 
@@ -178,31 +179,77 @@ export class SolicitudListComponent implements OnInit {
 
   private searchSolicitudByTerm(term: string): void {
     this.solicitudHttpService.searchSolicitudeByTerm(term).subscribe((res: any) => {
-      this.handleSearchResponse(res);
+        this.handleSearchResponse(res);
+        this.sortSolicitudes();
+    }, (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
   private searchSolicitudeVinculacionByTerm(term: string): void {
     this.solicitudHttpService.searchSolicitudeVinculacionByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
+    } , (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
   private searchCertificateByTerm(term: string): void {
     this.solicitudHttpService.searchCertificateByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
+    } , (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
   private searchPendienteByTerm(term: string): void {
     this.solicitudHttpService.searchPendienteByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
+    } , (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
   private searchAprobadoByTerm(term: string): void {
     this.solicitudHttpService.searchAprobadoByTerm(term).subscribe((res: any) => {
       this.handleSearchResponse(res);
+    }, (error) =>{
+      if (error.error && error.error.message === 'No se encontraron solicitudes.') {
+        this.solicitudes = error.error.data.solicitudes;
+        this.loading = false;
+        this.sortSolicitudes();
+      } else {
+        // Manejar otros errores
+        console.error('no se encontraron solicitudes:', error);
+      }
     });
   }
 
@@ -210,10 +257,12 @@ export class SolicitudListComponent implements OnInit {
     if (res.status === 'success') {
       this.solicitudes = res.data.solicitudes;
       this.reverse = false;
+    } else if(res.status === 'error'){
+      this.solicitudes = res.data.solicitudes;
+      this.reverse = false;
     }
     this.loading = false;
   }
-
 
 
   archiveSolicitud(solicitud: SolicitudModels): void {

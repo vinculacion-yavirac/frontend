@@ -10,9 +10,10 @@
 
 <section class="flex justify-center items-center bg-neutral-content">
   <div class="bg-neutral-content flex items-center w-90 h-full p-20 border-t-[1px] border-[#535a6650]">
-    <div style="background-image: url('/assets/images/solicitud.png');background-size: cover;" class=" a4-container bg-white text-black border border-gray-400 p-30 relative">
+    <div style="background-image: url('/assets/images/solicitud.png');background-size: cover;"
+      class=" a4-container bg-white text-black border border-gray-400 p-30 relative">
       <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="!loading">
-        <div class="hoja" >
+        <div class="hoja">
           <div class="pt-1">
             <h2 class="text-center font-bold uppercase pt-5 h-20">
               SOLICITUD {{ formGroup.get('type_request_id.catalog_value')?.value }}</h2>
@@ -31,18 +32,22 @@
               </span>,
             </p>
             <p class="text-left">
-              y Correo Electrónico: <span class="text-left font-bold">{{ formGroup.get('created_by.email')?.value }}</span>, cursando la carrera: <span class="text-left font-bold uppercase">{{ formGroup.get('who_made_request_id.project.career_id.name')?.value }}</span>,
+              y Correo Electrónico: <span class="text-left font-bold">{{ formGroup.get('created_by.email')?.value
+                }}</span>, cursando la carrera: <span class="text-left font-bold uppercase">{{
+                formGroup.get('who_made_request_id.project.career_id.name')?.value }}</span>,
             </p>
             <p class="text-left h-20">
-              en el Semestre <span class="text-left font-bold uppercase">{{ formGroup.get('created_by.person.last_names')?.value }}</span>
+              en el Semestre <span class="text-left font-bold uppercase">{{
+                formGroup.get('created_by.person.last_names')?.value }}</span>
             </p>
-            <div *ngIf="loading && proyectos.length === 0" class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
+            <div *ngIf="loading && proyectos.length === 0"
+              class="h-full w-50 bg-[#535a6610] backdrop-blur-sm flex items-center justify-center">
               <div class="h-[calc(100%)] absolute">
                 <loader></loader>
                 <no-content *ngIf="!loading"></no-content>
               </div>
             </div>
-            <div id="whoMadeRequestId"  *ngIf="selectedProject">
+            <div id="whoMadeRequestId" *ngIf="selectedProject">
               <div class="h-20">
                 <h4 class="text-center font-bold uppercase">Información de la Fundación</h4>
                 <p>Nombre de la Fundacion: {{ selectedProject.beneficiary_institution_id.name }}</p>
@@ -69,30 +74,33 @@
         <loader></loader>
       </div>
       <!-- Cuadro de asignación -->
-<div class="absolute right-11 -top-40 pt-5" *ngIf="!loading">
-  <div class="relative pt-1">
-    <div class="absolute w-52 top-20 left-12 bg-white rounded-md shadow-lg p-4 space-y-4">
-      <div class="border-b text-sm pb-2 mb-2 font-light flex items-center justify-between">
-        <h3 class="text-sm font-semibold">Fundación con su Proyecto</h3>
-      </div>
-      <div><span class="text-sm text-gray-500">{{ proyectos.length }} Fundaciones</span></div>
-      <div class="w-full">
-        <div class="relative">
-          <div>
-            <select class="select select-bordered w-full max-w-xs" [formControl]="proyectosFormControl" [attr.errorStateMatcher]="matcher" (change)="onAssignProject($event)">
-              <option value="" disabled selected>Seleccione una fundación</option>
-              <option *ngFor="let proyecto of proyectos" [value]="proyecto.id" [selected]="projectId != null && +projectId === proyecto.id">
-                {{ proyecto.beneficiary_institution_id?.name + " " + proyecto.name }}
-              </option>
-            </select>
+      <div class="absolute right-11 -top-40 pt-5" *ngIf="!loading">
+        <div class="relative pt-1">
+          <div class="absolute w-52 top-20 left-12 bg-white rounded-md shadow-lg p-4 space-y-4">
+            <div class="border-b text-sm pb-2 mb-2 font-light flex items-center justify-between">
+              <h3 class="text-sm font-semibold">Fundación con su Proyecto</h3>
+            </div>
+            <div><span class="text-sm text-gray-500">{{ proyectos.length }} Fundaciones</span></div>
+            <div class="w-full">
+              <div class="relative">
+                <div>
+                  <select class="select select-bordered w-full max-w-xs" [formControl]="proyectosFormControl"
+                    [attr.errorStateMatcher]="matcher" (change)="onAssignProject($event)">
+                    <option value="" disabled selected>Seleccione una fundación</option>
+                    <option *ngFor="let proyecto of proyectos" [value]="proyecto.id"
+                      [selected]="projectId != null && +projectId === proyecto.id">
+                      {{ proyecto.beneficiary_institution_id?.name + " " + proyecto.name }}
+                    </option>
+                  </select>
+                </div>
+                <mat-error class="text-sm" *ngIf="proyectosFormControl.hasError('required')">Este campo es
+                  <strong>requerido</strong></mat-error>
+                <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
+              </div>
+            </div>
           </div>
-          <mat-error class="text-sm" *ngIf="proyectosFormControl.hasError('required')">Este campo es <strong>requerido</strong></mat-error>
-          <mat-hint *ngIf="proyectos?.length === 0">No hay proyectos</mat-hint>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
 
     </div>
