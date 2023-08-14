@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { customDateValidation } from 'src/app/shared/validators/custom-date-validation.directive';
 import { DatosGenerales } from './../../../../models/proyecto/datos-generales.models';
@@ -33,7 +33,9 @@ export class FormDatosGeneralesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private httpProvider: AvanceCumplimientoService,
     private miDatePipe: DatePipe,
-    private proyectoService: ProyectoService
+    private proyectoService: ProyectoService,
+    private router: Router,
+
   ) {}
 
   ngOnInit(): void {
@@ -97,10 +99,10 @@ export class FormDatosGeneralesComponent implements OnInit {
     ],
     carrera: [this.currentEntity.carreraId, [Validators.required]],
     modalidad: this.fb.group({ modalidadRadio: ['1'] }),
-    fecha: [
-      this.currentEntity.fecha,
-      [Validators.required, customDateValidation(3000)],
-    ],
+    // fecha: [
+    //   this.currentEntity.fecha,
+    //   [Validators.required, customDateValidation(3000)],
+    // ],
     plazoEjecucion: [
       this.currentEntity.plazo,
       [Validators.required, customDateValidation(3000)],
@@ -109,14 +111,14 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.currentEntity.financiamiento,
       [Validators.required, customDateValidation(3000)],
     ],
-    plazoVigenciaConvenio: [
-      this.currentEntity.vigencia,
-      [Validators.required, customDateValidation(3000)],
-    ],
-    fechaPresentacion: [
-      this.currentEntity.fechaPresentacion,
-      [Validators.required, customDateValidation(3000)],
-    ],
+    // plazoVigenciaConvenio: [
+    //   this.currentEntity.vigencia,
+    //   [Validators.required, customDateValidation(3000)],
+    // ],
+    // fechaPresentacion: [
+    //   this.currentEntity.fechaPresentacion,
+    //   [Validators.required, customDateValidation(3000)],
+    // ],
     fechaInicio: [
       this.currentEntity.fechaInicio,
       [Validators.required, customDateValidation(3000)],
@@ -130,31 +132,55 @@ export class FormDatosGeneralesComponent implements OnInit {
   onSubmit() {
     console.log(this.datosGeneralesForm.value);
     this.datos = {
-      code: this.datosGeneralesForm.value.codigoProyecto,
-      name: this.datosGeneralesForm.value.nombreProyecto,
-      field: '',
-      term_execution: '',
-      start_date: this.datosGeneralesForm.value.fechaInicio,
-      end_date: this.datosGeneralesForm.value.fechaFinal,
-      linking_activity: [],
-      sectors_intervention: [],
-      strategic_axes: [],
-      description: '',
-      situational_analysis: '',
-      foundation: '',
-      justification: '',
+      'code' : this.datosGeneralesForm.value.codigoProyecto,
+             'name' : this.datosGeneralesForm.value.nombreProyecto,
+             'field' : 'Campo de proyecto',
+             'term_execution' : 5,
+             'start_date' : this.datosGeneralesForm.value.fechaInicio,
+             'end_date' : this.datosGeneralesForm.value.fechaFinal,
+             'linking_activity' : '[\"Actividad 1\",\"Actividad 2\"]"',
+             'sectors_intervention' : '[\"Sector 1\",\"Sector 2\"]',
+             'strategic_axes' : '[\"Eje 1\",\"Eje 2\"]',
+             'description' : 'Descripción del proyecto',
+             'situational_analysis' : 'Análisis situacional',
+             'foundation' : 'Fundamentación del proyecto',
+             'justification' : 'Justificación del proyecto',
+             'direct_beneficiaries' : '[\"Beneficiario 1\",\"Beneficiario 2\"]',
+             'indirect_beneficiaries' : '[\"Beneficiario indirecto 1\",\"Beneficiario indirecto 2\"]',
+             'schedule' : 'Horario del proyecto',
+             'evaluation_monitoring_strategy' : '[\"Estrategia de evaluaci\\u00f3n 1\",\"Estrategia de evaluaci\\u00f3n 2\"]',
+             'bibliographies' :'[\"Bibliograf\\u00eda 1\",\"Bibliograf\\u00eda 2\"]',
+             'attached_project' : '[\"Proyecto adjunto 1\",\"Proyecto adjunto 2\"]',
+             'convention_id' : 1,
+             'school_period_id' : 2,
+             'beneficiary_institution_id' : 1,
+             'career_id' : 2,
+             'sub_line_investigation_id' : 2,
+             'authorized_by' : 2,
+             'made_by' : 1,
+             'approved_by' : 1,
+             'catalogue_id' : 1,
+             'state_id' : 2,
+             'stateTwo_id' : 7,
+             'frequency_id' : 1,
+             'created_by' : 9,
+             'archived' : false,
+             'archived_at' : null,
+             'archived_by' : null,
     };
     this.proyectoService.addProyecto(this.datos).subscribe(
-      async (data) => {
+      async (data:any) => {
         console.log(data);
 
-        // if (data.data.avanze != null && data.data.avanze != null) {
-        //     if (data.status === 'success') {
-        //         setTimeout(() => {
-        //             window.location.reload();
-        //         }, 500);
-        //     }
-        // }
+        if (data.data.proyect != null && data.data.proyect != null) {
+            if (data.status === 'success') {
+                setTimeout(() => {
+                  var resultData = data.data.proyect;
+                  this.router.navigate(['/system/proyecto/form-empresa'], { queryParams: { id_proyecto:resultData.id  } });
+
+                }, 500);
+            }
+        }
       },
       async (error) => {
         console.log(error.message);
