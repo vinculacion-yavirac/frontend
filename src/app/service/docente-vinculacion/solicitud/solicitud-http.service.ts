@@ -100,4 +100,8 @@ export class SolicitudHttpService {
   disapproveCertificate(id: number): Observable<SolicitudModels> {
     return this.http.put<SolicitudModels>(`${this.url}/disapprove-certificate/${id}`,null, this.httpOptions);
   }
+
+  deleteSolicitud(id: number): Observable<SolicitudModels> {
+    return this.http.delete<SolicitudModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
 }
