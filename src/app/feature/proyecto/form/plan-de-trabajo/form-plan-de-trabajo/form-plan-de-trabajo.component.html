@@ -10,22 +10,12 @@
   <li><a routerLink="/system/proyecto/form-plan-de-trabajo">Plan de Trabajo</a></li>
 </app-proyecto-breadcrumbs>
 
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar PDF
-    <!--<img class="pullsito" src="../../../../assets/images/pdf.png" alt="">-->
-</button>&nbsp;&nbsp;&nbsp;
 
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar Convenio
-    <!--<img class="pullsito" src="../../../../assets/images/convenio.png" alt="">-->
-</button>&nbsp;&nbsp;&nbsp;
-
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar ITV
-</button>
-<br><br>
 <div class="pestanas">
-  <a href="/system/proyecto/form-datos-generales" class="Datos Generales">Datos Generales</a>
-  <a href="/system/proyecto/form-empresa" class="Empresa">Empresa</a>
-  <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a>
-  <a href="/system/proyecto/form-actividades" class="Actividades">Actividades</a>
+  <!-- <a href="/system/proyecto/form-datos-generales" class="Datos Generales">Datos Generales</a> -->
+  <!-- <a href="/system/proyecto/form-empresa" class="Empresa">Empresa</a> -->
+  <!-- <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a> -->
+  <!-- <a href="/system/proyecto/form-actividades" class="Actividades">Actividades</a> -->
   <a href="/system/proyecto/form-plan-de-trabajo" class="Plan de Trabajo">Plan de Trabajo</a>
   <a href="/system/proyecto/form-firmas" class="Firma">Firmas</a>
   <a href="/system/proyecto/form-bibliografia" class="Bibliografía">Bibliografía</a>
@@ -39,7 +29,7 @@
     <div class="row">
       <section class="input-field col s12 m6">
         <label for="nombre">Descripción General del Proyecto:</label><br><br><br>
-        <input type="text" class="celeste" formControlName="descripcionGe" name="descripcionGe" [(ngModel)]="currentEntity.descripcionGe">
+        <input type="text"  formControlName="descripcionGe" name="descripcionGe" [(ngModel)]="currentEntity.descripcionGe">
         <div *ngIf="descripcionGe?.invalid && (descripcionGe?.dirty || descripcionGe?.touched)"
           class="alert alert-danger ">
           <div *ngIf="descripcionGe?.errors">
@@ -51,7 +41,7 @@
     <div class="row">
       <section class="input-field col s12 m9">
         <label for="correo">Objetivo del Proyecto: </label><br><br><br>
-        <input type="email" class="celeste" formControlName="objetivoPro" name="objetivoPro" [(ngModel)]="currentEntity.objetivoPro">
+        <input type="email"  formControlName="objetivoPro" name="objetivoPro" [(ngModel)]="currentEntity.objetivoPro">
         <div *ngIf="objetivoPro?.invalid && (objetivoPro?.dirty || objetivoPro?.touched)" class="alert alert-danger ">
           <div *ngIf="objetivoPro?.errors">
             Campo requerido.
@@ -62,7 +52,7 @@
     <div class="row">
       <section class="input-field col s12">
         <label for="direccion">Analisis Situacional:</label><br><br><br>
-        <input type="text" class="materialize-textarea celeste" formControlName="analisisSi" name="analisisSi" [(ngModel)]="currentEntity.analisisSi">
+        <input type="text" class="materialize-textarea " formControlName="analisisSi" name="analisisSi" [(ngModel)]="currentEntity.analisisSi">
         <div *ngIf="analisisSi?.invalid && (analisisSi?.dirty || analisisSi?.touched)" class="alert alert-danger ">
           <div *ngIf="analisisSi?.errors">
             Campo requerido.
@@ -74,7 +64,7 @@
     <div class="row">
       <section class="input-field col s12 m3">
         <label for="edad">Justificación:</label><br><br><br>
-        <input type="text" class="celeste" formControlName="justificacion" name="justificacion" [(ngModel)]="currentEntity.justificacion">
+        <input type="text"  formControlName="justificacion" name="justificacion" [(ngModel)]="currentEntity.justificacion">
         <div *ngIf="justificacion?.invalid && (justificacion?.dirty || justificacion?.touched)"
           class="alert alert-danger ">
           <div *ngIf="justificacion?.errors">
@@ -187,7 +177,7 @@
     <div class="row">
       <section class="input-field col s12 m3">
         <label for="edad">Conclusiones:</label><br><br><br>
-        <input type="text" class="celeste" formControlName="conclusiones" name="conclusiones" [(ngModel)]="currentEntity.conclusiones">
+        <input type="text"  formControlName="conclusiones" name="conclusiones" [(ngModel)]="currentEntity.conclusiones">
         <div *ngIf="conclusiones?.invalid && (conclusiones?.dirty || conclusiones?.touched)"
           class="alert alert-danger ">
           <div *ngIf="conclusiones?.errors">
@@ -200,7 +190,7 @@
     <div class="row">
       <section class="input-field col s12 m3">
         <label for="edad">Recomendaciones:</label><br><br><br>
-        <input type="text" class="celeste" formControlName="recomendaciones" name="recomendaciones" [(ngModel)]="currentEntity.recomendaciones">
+        <input type="text"  formControlName="recomendaciones" name="recomendaciones" [(ngModel)]="currentEntity.recomendaciones">
         <div *ngIf="recomendaciones?.invalid && (recomendaciones?.dirty || recomendaciones?.touched)"
           class="alert alert-danger ">
           <div *ngIf="recomendaciones?.errors">

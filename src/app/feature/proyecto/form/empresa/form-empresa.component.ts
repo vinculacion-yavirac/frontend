@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Empresa} from 'src/app/models/proyecto/empresa.models';
-import {AvanceCumplimientoService} from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
-import {InstitucionBeneficiariaHttpService} from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
-import {ProyectoService} from 'src/app/service/proyecto/proyecto.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Empresa } from 'src/app/models/proyecto/empresa.models';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { InstitucionBeneficiariaHttpService } from 'src/app/service/institucion-beneficiaria/institucion-beneficiaria-http.service';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 interface Parroquia {
     id: number;
@@ -22,22 +22,30 @@ interface Provincia {
     cantones: Canton[];
 }
 
-@Component({selector: 'app-form-empresa', templateUrl: './form-empresa.component.html', styleUrls: ['./form-empresa.component.css']})
+@Component({ selector: 'app-form-empresa', templateUrl: './form-empresa.component.html', styleUrls: ['./form-empresa.component.css'] })
 export class FormEmpresaComponent implements OnInit {
-    projectId : number;
-    public proyectData : any = [];
+    projectId: number;
+    public proyectData: any = [];
 
-    constructor(private activatedRoute : ActivatedRoute, private fb : FormBuilder, private route : ActivatedRoute, private institucionBeneficiariaHttpService : InstitucionBeneficiariaHttpService, private proyectoService : ProyectoService, private httpProvider : AvanceCumplimientoService,) {}
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private fb: FormBuilder,
+        private route: ActivatedRoute,
+        private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
+        private proyectoService: ProyectoService,
+        private httpProvider: AvanceCumplimientoService,
+        private router: Router,
+    ) { }
 
     provincias = [];
-    cantonesMa : Canton[] = [];
-    parroquiasMa : Parroquia[] = [];
-    cantonesSu : Canton[] = [];
-    parroquiasSu : Parroquia[] = [];
-    public datos : any;
-    public updatedatos : any;
+    cantonesMa: Canton[] = [];
+    parroquiasMa: Parroquia[] = [];
+    cantonesSu: Canton[] = [];
+    parroquiasSu: Parroquia[] = [];
+    public datos: any;
+    public updatedatos: any;
 
-    provinciasMapping : Provincia[] = [
+    provinciasMapping: Provincia[] = [
         {
             id: 1,
             provincia: 'AZUAY',
@@ -95,15 +103,15 @@ export class FormEmpresaComponent implements OnInit {
         },
     ];
 
-    getCantones(provId : number) {
+    getCantones(provId: number) {
         return this.provinciasMapping.filter((prov) => prov.id == provId).map((prov) => prov.cantones).flat();
     }
 
-    getParroquias(cantonId : number) {
+    getParroquias(cantonId: number) {
         return this.provinciasMapping.map((prov) => prov.cantones.filter((canton) => cantonId == canton.id)).flat().map((prov) => prov.parroquias).flat();
     }
 
-    currentEntity : Empresa = {
+    currentEntity: Empresa = {
         empresaId: 0,
         nombreE: '',
         entidadId: 1,
@@ -218,7 +226,7 @@ export class FormEmpresaComponent implements OnInit {
         this.route.queryParams.subscribe(params => {
             console.log(params); // { orderby: "price" }
             this.projectId = params['id_proyecto'];
-            if (this.projectId) {}
+            if (this.projectId) { }
             console.log(this.projectId);
         });
     }
@@ -228,8 +236,8 @@ export class FormEmpresaComponent implements OnInit {
         this.datos = {
             'ruc': this.empresaForm.value.numRuc,
             'name': this.empresaForm.value.nombreE,
-            'name_gestion': this.empresaForm.value.naturaleza,
-            'name_autorize_by':this.empresaForm.value.personaAc ,
+            'name_gestion': this.empresaForm.value.naturaleza?.naturalezaType,
+            'name_autorize_by': this.empresaForm.value.personaAc,
             'activity_ruc': this.empresaForm.value.actividadEc,
             'email': this.empresaForm.value.correoE,
             'phone': this.empresaForm.value.telfCo,
@@ -248,7 +256,7 @@ export class FormEmpresaComponent implements OnInit {
             'archived_at': '2023-06-09 02:38:10',
             'archived_by': 1
         };
-        this.institucionBeneficiariaHttpService.createInstitucionesBeneficiariaBy(this.datos).subscribe(async (data : any) => {
+        this.institucionBeneficiariaHttpService.createInstitucionesBeneficiariaBy(this.datos).subscribe(async (data: any) => {
             console.log(data);
 
             if (data.data.beneficiaryInstitution != null && data.data.beneficiaryInstitution != null) {
@@ -259,7 +267,7 @@ export class FormEmpresaComponent implements OnInit {
                             'beneficiary_institution_id': resultData.id
                         };
                         // this.router.navigate(['/system/proyecto/form-empresa'], { queryParams: { id_proyecto:resultData.id  } });
-                        this.proyectoService.updateProyectBeneficiaryInstitution(this.projectId, this.updatedatos).subscribe(async (data : any) => {
+                        this.proyectoService.updateProyectBeneficiaryInstitution(this.projectId, this.updatedatos).subscribe(async (data: any) => {
                             console.log(data);
 
                             if (data.data.proyect != null && data.data.proyect != null) {
@@ -268,7 +276,7 @@ export class FormEmpresaComponent implements OnInit {
                                         var resultData = data.data.proyect;
                                         console.log(resultData);
 
-                                        // this.router.navigate(['/system/proyecto/form-empresa'], { queryParams: { id_proyecto:resultData.id  } });
+                                        this.router.navigate(['/system/proyecto/form-plan-de-trabajo'], { queryParams: { id_proyecto: resultData.id } });
 
                                     }, 500);
                                 }
@@ -294,8 +302,8 @@ export class FormEmpresaComponent implements OnInit {
 
     }
 
-    public getAllProyectoById(id : number): void {
-        this.httpProvider.getProyectoById(id).subscribe((data : any) => {
+    public getAllProyectoById(id: number): void {
+        this.httpProvider.getProyectoById(id).subscribe((data: any) => {
 
             console.log(data);
 
@@ -310,7 +318,7 @@ export class FormEmpresaComponent implements OnInit {
                     this.proyectData = resultData;
                 }
             }
-        }, (error : any) => {
+        }, (error: any) => {
             if (error) {
                 if (error.status == 404) {
                     if (error.error && error.error.message) {
@@ -322,16 +330,16 @@ export class FormEmpresaComponent implements OnInit {
     }
 
 
-    onChangeCantonMatriz(cantonId : any) {
+    onChangeCantonMatriz(cantonId: any) {
         if (cantonId) {
             this.parroquiasMa = this.getParroquias(cantonId.value);
         } else {
             this.parroquiasMa = [];
         }
-        this.parroquiaMa ?. setValue(0);
+        this.parroquiaMa?.setValue(0);
     }
 
-    onChangeProvinciaMatriz(provId : any) {
+    onChangeProvinciaMatriz(provId: any) {
         if (provId) {
             this.cantonesMa = this.getCantones(provId.value);
             this.parroquiasMa = [];
@@ -339,20 +347,20 @@ export class FormEmpresaComponent implements OnInit {
             this.cantonesMa = [];
             this.parroquiasMa = [];
         }
-        this.cantonMa ?. setValue(0);
-        this.parroquiaMa ?. setValue(0);
+        this.cantonMa?.setValue(0);
+        this.parroquiaMa?.setValue(0);
     }
 
-    onChangeCantonSucursal(cantonId : any) {
+    onChangeCantonSucursal(cantonId: any) {
         if (cantonId) {
             this.parroquiasSu = this.getParroquias(cantonId.value);
         } else {
             this.parroquiasSu = [];
         }
-        this.parroquiaSu ?. setValue(0);
+        this.parroquiaSu?.setValue(0);
     }
 
-    onChangeProvinciaSucursal(provId : any) {
+    onChangeProvinciaSucursal(provId: any) {
         if (provId) {
             this.cantonesSu = this.getCantones(provId.value);
             this.parroquiasSu = [];
@@ -360,8 +368,8 @@ export class FormEmpresaComponent implements OnInit {
             this.cantonesSu = [];
             this.parroquiasSu = [];
         }
-        this.cantonSu ?. setValue(0);
-        this.parroquiaSu ?. setValue(0);
+        this.cantonSu?.setValue(0);
+        this.parroquiaSu?.setValue(0);
     }
 
     get nombreE() {
@@ -374,7 +382,7 @@ export class FormEmpresaComponent implements OnInit {
         return this.empresaForm.get('naturaleza');
     }
     get naturalezaType() {
-        return this.naturaleza ?. get('naturalezaType');
+        return this.naturaleza?.get('naturalezaType');
     }
     get numRuc() {
         return this.empresaForm.get('numRuc');
@@ -395,7 +403,7 @@ export class FormEmpresaComponent implements OnInit {
         return this.empresaForm.get('provinciaMa');
     }
     get provincia() {
-        return this.provinciaMa ?. get('provincia');
+        return this.provinciaMa?.get('provincia');
     }
     get cantonMa() {
         return this.empresaForm.get('cantonMa');

@@ -50,7 +50,7 @@
       <div class="row">
         <section class="input-field col s12 m9">
           <label for="">Nombre del Instituto: </label><br><br>
-          <input type="email" formControlName="nombreInstituto" name="nombrei" [(ngModel)]="currentEntity.nombrei">
+          <input type="email" formControlName="nombreInstituto" name="nombrei" [(ngModel)]="currentEntity.nombrei" >
           <div *ngIf="nombreInstituto?.invalid && (nombreInstituto?.dirty || nombreInstituto?.touched)"style="background-color: white; border-color: white;color: brown;"
             class="alert alert-danger ">
             <div *ngIf="nombreInstituto?.errors">
@@ -100,9 +100,9 @@
         <label for="Modalidad">Modalidad:</label><br><br>
         <form formGroupName="modalidad">
           <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="presencial"
-            value="1">
+            value="presencial">
           <label for="presencial">Presencial</label> &nbsp;&nbsp;
-          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="dual" value="2">
+          <input class="with-gap" type="radio" formControlName="modalidadRadio" name="modalidadRadio" id="dual" value="Dual">
           <label for="dual">Dual</label>
         </form>
       </section>
@@ -118,8 +118,8 @@
           <input type="text" formControlName="plazoEjecucion" name="plazo" [(ngModel)]="currentEntity.plazo">
         </section>
       </div>
-      <!-- <div class="row">
-        <section class="input-field col s12 m9">
+      <div class="row">
+        <!-- <section class="input-field col s12 m9">
           <label for="">Fecha:</label><br><br>
           <input type="date" formControlName="fecha" name="fecha" [(ngModel)]="currentEntity.fecha">
           <div *ngIf="fecha?.invalid && (fecha?.dirty || fecha?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
@@ -130,8 +130,8 @@
               Ingrese un año menor a 3000.
             </div>
           </div>
-        </section>
-        <section class="input-field col s12 m3">
+        </section> -->
+        <!-- <section class="input-field col s12 m3">
           <label for="">Plazo de Vigencia del Convenio:</label><br><br>
           <input type="date" formControlName="plazoVigenciaConvenio" name="vigencia" [(ngModel)]="currentEntity.vigencia">
           <div
@@ -144,9 +144,9 @@
               Ingrese un año menor a 3000.
             </div>
           </div>
-        </section>
-      </div> -->
-      <!-- <div class="row">
+        </section> -->
+      </div>
+      <div class="row">
         <section class="input-field col s12">
           <label for="">Fecha de Presentación:</label><br><br>
           <input type="date" class="materialize-textarea" formControlName="fechaPresentacion" name="fechaPresentacion" [(ngModel)]="currentEntity.fechaPresentacion">
@@ -160,7 +160,7 @@
             </div>
           </div>
         </section>
-      </div> -->
+      </div>
       <div class="row">
         <section class="input-field col s12">
           <label for="">Fecha de Inicio:</label><br><br>

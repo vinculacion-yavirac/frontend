@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlanDeTrabajo } from 'src/app/models/proyecto/plan-de-trabajo.models';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
+import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 
 @Component({
   selector: 'app-form-plan-de-trabajo',
@@ -9,10 +11,16 @@ import { PlanDeTrabajo } from 'src/app/models/proyecto/plan-de-trabajo.models';
   styleUrls: ['./form-plan-de-trabajo.component.css']
 })
 export class FormPlanDeTrabajoComponent implements OnInit {
-
+  projectId: number;
+  public proyectData: any = [];
+  public updatedatos: any;
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private activatedRoute: ActivatedRoute, 
+    private fb: FormBuilder,
+     private route: ActivatedRoute,
+       private proyectoService: ProyectoService,
+        private httpProvider: AvanceCumplimientoService, 
+        private router: Router,
   ) { }
 
   currentEntity: PlanDeTrabajo = {
@@ -55,6 +63,52 @@ export class FormPlanDeTrabajoComponent implements OnInit {
     conclusiones: [this.currentEntity.conclusiones, [Validators.required, Validators.pattern("[ñáéíóúA-Za-z ]+")]],
     recomendaciones: [this.currentEntity.recomendaciones, [Validators.required, Validators.pattern("[ñáéíóúA-Za-z ]+")]],
   });
+
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      console.log(params); // { orderby: "price" }
+      this.projectId = params['id_proyecto'];
+      if (this.projectId) { }
+      console.log(this.projectId);
+  });
+
+  }
+
+  onSubmit(): void {
+    console.warn(this.planTrabajoForm.value);
+    this.updatedatos = {
+      'objetive': this.planTrabajoForm.value.objetivoPro,
+      'description': this.planTrabajoForm.value.descripcionGe,
+      'situational_analysis': this.planTrabajoForm.value.analisisSi,
+      'justification': this.planTrabajoForm.value.justificacion,
+      'conclusions': this.planTrabajoForm.value.conclusiones,
+      'recommendation': this.planTrabajoForm.value.recomendaciones
+
+  };
+  this.proyectoService.updateProyectPlanTrabajo(this.projectId, this.updatedatos).subscribe(async (data: any) => {
+    console.log(data);
+
+    if (data.data.proyect != null && data.data.proyect != null) {
+        if (data.status === 'success') {
+            setTimeout(() => {
+                var resultData = data.data.proyect;
+                console.log(resultData);
+
+                // this.router.navigate(['/system/proyecto/form-plan-de-trabajo'], { queryParams: { id_proyecto: resultData.id } });
+
+            }, 500);
+        }
+    }
+}, async (error) => {
+    console.log(error.message);
+
+    // setTimeout(() => {
+    // this.router.navigate(['/Home']);
+    // }, 500);
+});
+
+  }
 
   get descripcionGe() {
     return this.planTrabajoForm.get('descripcionGe');
@@ -108,11 +162,8 @@ export class FormPlanDeTrabajoComponent implements OnInit {
     return this.planTrabajoForm.get('recomendaciones');
   }
 
-  ngOnInit(): void {
-  }
 
-  onSubmit(): void {
-    console.table(this.currentEntity);
-  }
+
+ 
 
 }

@@ -36,7 +36,7 @@ export class FormDatosGeneralesComponent implements OnInit {
     private proyectoService: ProyectoService,
     private router: Router,
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     /*Array para generear  pdf con datos dinamicos*/
@@ -115,10 +115,10 @@ export class FormDatosGeneralesComponent implements OnInit {
     //   this.currentEntity.vigencia,
     //   [Validators.required, customDateValidation(3000)],
     // ],
-    // fechaPresentacion: [
-    //   this.currentEntity.fechaPresentacion,
-    //   [Validators.required, customDateValidation(3000)],
-    // ],
+    fechaPresentacion: [
+      this.currentEntity.fechaPresentacion,
+      [Validators.required, customDateValidation(3000)],
+    ],
     fechaInicio: [
       this.currentEntity.fechaInicio,
       [Validators.required, customDateValidation(3000)],
@@ -132,58 +132,62 @@ export class FormDatosGeneralesComponent implements OnInit {
   onSubmit() {
     console.log(this.datosGeneralesForm.value);
     this.datos = {
-      'code' : this.datosGeneralesForm.value.codigoProyecto,
-             'name' : this.datosGeneralesForm.value.nombreProyecto,
-             'name_institute'  :'Insituto Tecnologico Superior Yavirac',
-             'cicle' :'5to semestre',
-             'address' : 'av.5 de Junio y Ambato',
-             'Modality' : 'Dual',
-             'field' : 'Campo de proyecto',
-             'term_execution' : 5,
-             'start_date' : this.datosGeneralesForm.value.fechaInicio,
-             'end_date' : this.datosGeneralesForm.value.fechaFinal,
-             'linking_activity' : '[\"Actividad 1\",\"Actividad 2\"]"',
-             'sectors_intervention' : '[\"Sector 1\",\"Sector 2\"]',
-             'strategic_axes' : '[\"Eje 1\",\"Eje 2\"]',
-             'description' : 'Descripción del proyecto',
-             'situational_analysis' : 'Análisis situacional',
-             'foundation' : 'Fundamentación del proyecto',
-             'justification' : 'Justificación del proyecto',
-             'direct_beneficiaries' : '[\"Beneficiario 1\",\"Beneficiario 2\"]',
-             'indirect_beneficiaries' : '[\"Beneficiario indirecto 1\",\"Beneficiario indirecto 2\"]',
-             'schedule' : 'Horario del proyecto',
-             'evaluation_monitoring_strategy' : '[\"Estrategia de evaluaci\\u00f3n 1\",\"Estrategia de evaluaci\\u00f3n 2\"]',
-             'bibliographies' :'[\"Bibliograf\\u00eda 1\",\"Bibliograf\\u00eda 2\"]',
-             'attached_project' : '[\"Proyecto adjunto 1\",\"Proyecto adjunto 2\"]',
-             'convention_id' : 1,
-             'school_period_id' : 2,
-             'beneficiary_institution_id' : 1,
-             'career_id' : 2,
-             'sub_line_investigation_id' : 2,
-             'authorized_by' : 2,
-             'made_by' : 1,
-             'approved_by' : 1,
-             'catalogue_id' : 1,
-             'state_id' : 2,
-             'stateTwo_id' : 7,
-             'frequency_id' : 1,
-             'created_by' : 9,
-             'archived' : false,
-             'archived_at' : null,
-             'archived_by' : null,
+      'code': this.datosGeneralesForm.value.codigoProyecto,
+      'name': this.datosGeneralesForm.value.nombreProyecto,
+      'name_institute': this.datosGeneralesForm.value.nombreInstituto,
+      'cicle': this.datosGeneralesForm.value.ciclo,
+      'address': this.datosGeneralesForm.value.coberturaLocalizacion,
+      'Modality': this.datosGeneralesForm.value.modalidad?.modalidadRadio,
+      'field': 'Campo de proyecto',
+      'term_execution': 5,
+      'start_date': this.datosGeneralesForm.value.fechaInicio,
+      'end_date': this.datosGeneralesForm.value.fechaFinal,
+      'date_presentation': this.datosGeneralesForm.value.fechaPresentacion,
+      'linking_activity': '[\"Actividad 1\",\"Actividad 2\"]"',
+      'sectors_intervention': '[\"Sector 1\",\"Sector 2\"]',
+      'strategic_axes': '[\"Eje 1\",\"Eje 2\"]',
+      'objetive':'objetivo del proyecto',
+      'description': 'Descripción del proyecto',
+      'situational_analysis': 'Análisis situacional',
+      'foundation': 'Fundamentación del proyecto',
+      'justification': 'Justificación del proyecto',
+      'conclusions':'conclusiones del proyecto',
+      'recommendation':'recomendaciones del proyecto',
+      'direct_beneficiaries': '[\"Beneficiario 1\",\"Beneficiario 2\"]',
+      'indirect_beneficiaries': '[\"Beneficiario indirecto 1\",\"Beneficiario indirecto 2\"]',
+      'schedule': 'Horario del proyecto',
+      'evaluation_monitoring_strategy': '[\"Estrategia de evaluaci\\u00f3n 1\",\"Estrategia de evaluaci\\u00f3n 2\"]',
+      'bibliographies': '[\"Bibliograf\\u00eda 1\",\"Bibliograf\\u00eda 2\"]',
+      'attached_project': '[\"Proyecto adjunto 1\",\"Proyecto adjunto 2\"]',
+      'convention_id': 1,
+      'school_period_id': 2,
+      'beneficiary_institution_id': 1,
+      'career_id': 2,
+      'sub_line_investigation_id': 2,
+      'authorized_by': 2,
+      'made_by': 1,
+      'approved_by': 1,
+      'catalogue_id': 1,
+      'state_id': 2,
+      'stateTwo_id': 7,
+      'frequency_id': 1,
+      'created_by': 9,
+      'archived': false,
+      'archived_at': null,
+      'archived_by': null,
     };
     this.proyectoService.addProyecto(this.datos).subscribe(
-      async (data:any) => {
+      async (data: any) => {
         console.log(data);
 
         if (data.data.proyect != null && data.data.proyect != null) {
-            if (data.status === 'success') {
-                setTimeout(() => {
-                  var resultData = data.data.proyect;
-                  this.router.navigate(['/system/proyecto/form-empresa'], { queryParams: { id_proyecto:resultData.id  } });
+          if (data.status === 'success') {
+            setTimeout(() => {
+              var resultData = data.data.proyect;
+              this.router.navigate(['/system/proyecto/form-empresa'], { queryParams: { id_proyecto: resultData.id } });
 
-                }, 500);
-            }
+            }, 500);
+          }
         }
       },
       async (error) => {
@@ -1704,10 +1708,10 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'Comparecen a la celebración del presente Convenio, por una parte el ' +
-          this.proyectData.beneficiary_institution_id.name +
-          ', legalmente representado por el ' +
-          this.proyectData.beneficiary_institution_id.name +
-          ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”',
+        this.proyectData.beneficiary_institution_id.name +
+        ', legalmente representado por el ' +
+        this.proyectData.beneficiary_institution_id.name +
+        ', en su calidad de Rector, de conformidad con lo establecido en la Resolución No. XXXXX y Acción de Personal No. Xxx de xx de xxx de xxx; delegado del Secretario de Educación Superior, Ciencia, Tecnología e Innovación, para suscribir el presente instrumento conforme al Acuerdo No. 2020-048 de 15 de mayo de 2020, , a quien en adelante para los efectos del presente instrumento se denominará “INSTITUTO”; y, por otra parte la empresa XXXXXXXXXXXXXXXXXXX con RUC No. XXXXXXXXXXX, representada legalmente por XXXXXXXXX en calidad de Gerente General a quien en adelante y para los efectos del presente instrumento se denominará “ENTIDAD RECEPTORA”',
         110,
         285,
         {
@@ -1864,7 +1868,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         '8.  Artículo 40 del Reglamento de Régimen Académico expedido por el Consejo de Educación Superior mediante Resolución RPC-SE-08-No.023-2022 de 27 de julio de 2022 manifiesta que:” La vinculación con la sociedad hace referencia a la planificación, ejecución y difusión de actividades que garantizan la participación efectiva en la sociedad y la responsabilidad social de las instituciones del Sistema de Educación Superior con el fin de contribuir a la satisfacción de necesidades y la solución de problemáticas del entorno, desde el ámbito académico e investigativo. La vinculación con la sociedad deberá articularse al resto de funciones sustantivas, oferta académica, dominios académicos, investigación, formación y extensión de las IES en cumplimiento del principio de pertinencia. En el marco del desarrollo de la investigación científica o artística de las IES, se considerará como vinculación con la' +
-          'sociedad a las actividades de divulgación científica, a los aportes a la mejora y actualización de los planes de desarrollo local, regional y nacional, y a la transferencia de conocimiento y tecnología. La divulgación científica o artística consiste en transmitir resultados, avances, ideas, hipótesis, teorías, conceptos, productos artísticos y en general cualquier actividad científica, artística, tecnológica a la sociedad; utilizando los canales, recursos y lenguajes adecuados para que ésta los pueda comprender y asimilar la sociedad”.',
+        'sociedad a las actividades de divulgación científica, a los aportes a la mejora y actualización de los planes de desarrollo local, regional y nacional, y a la transferencia de conocimiento y tecnología. La divulgación científica o artística consiste en transmitir resultados, avances, ideas, hipótesis, teorías, conceptos, productos artísticos y en general cualquier actividad científica, artística, tecnológica a la sociedad; utilizando los canales, recursos y lenguajes adecuados para que ésta los pueda comprender y asimilar la sociedad”.',
         115,
         410,
         {
@@ -1920,8 +1924,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         '11.  A través de Acuerdo No. 2016-118, de 25 de julio de 2016, con su posterior reforma, el Secretario de Educación Superior, Ciencia, Tecnología e Innovación, determinó a favor de los rectores y rectoras de los Institutos Superiores Técnicos, Tecnológicos, Pedagógicos, de Artes y los Conservatorios Superiores Públicos; entre otras atribuciones y obligaciones las siguientes: “Artículo 1.- (…) la suscripción, modificación y extinción de los convenios que tengan por objeto la realización de programas de pasantías y/o prácticas pre profesionales; implementación de carreras de modalidad dual que garanticen la gestión del aprendizaje práctico con tutorías' +
-          'profesionales y académicas integrales in situ; uso gratuito de instalaciones para beneficio de institutos públicos; y la implementación de proyectos de vinculación con la sociedad, y/o convenios de cooperación a celebrarse entre los mencionados institutos y las diferentes personas naturales y jurídicas nacionales, con la finalidad fortalecer la educación técnica y tecnológica pública del Ecuador. (…) Artículo 6.- Los rectores y rectoras de los institutos superiores técnicos, tecnológicos, pedagógicos, de artes y conservatorios superiores públicos, usarán obligatoriamente las plantillas de convenios autorizadas por la Coordinación General de Asesoría Jurídica de esta Cartera de Estado para la suscripción de los actos jurídicos mencionados en el artículo 1 del' +
-          'presente Acuerdo”;',
+        'profesionales y académicas integrales in situ; uso gratuito de instalaciones para beneficio de institutos públicos; y la implementación de proyectos de vinculación con la sociedad, y/o convenios de cooperación a celebrarse entre los mencionados institutos y las diferentes personas naturales y jurídicas nacionales, con la finalidad fortalecer la educación técnica y tecnológica pública del Ecuador. (…) Artículo 6.- Los rectores y rectoras de los institutos superiores técnicos, tecnológicos, pedagógicos, de artes y conservatorios superiores públicos, usarán obligatoriamente las plantillas de convenios autorizadas por la Coordinación General de Asesoría Jurídica de esta Cartera de Estado para la suscripción de los actos jurídicos mencionados en el artículo 1 del' +
+        'presente Acuerdo”;',
         115,
         250,
         {
@@ -2026,12 +2030,12 @@ export class FormDatosGeneralesComponent implements OnInit {
       'a la implementación de un programa de vinculación con la colectividad que versará' +
         this.doc2.text(
           '17.  Con los antecedentes expuestos, el Instituto Tecnológico Superior xxxxxx y el' +
-            this.proyectData.beneficiary_institution_id.name +
-            ' acuerdan suscribir el presente convenio referente' +
-            'a la implementación de un programa de vinculación con la colectividad que versará' +
-            'sobre el proyecto que tiene como objetivo:”',
+          this.proyectData.beneficiary_institution_id.name +
+          ' acuerdan suscribir el presente convenio referente' +
+          'a la implementación de un programa de vinculación con la colectividad que versará' +
+          'sobre el proyecto que tiene como objetivo:”',
           +this.proyectData.beneficiary_institution_id.name +
-            ', por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.',
+          ', por parte de las carreras de xxxxxxxxxxxxxxxxxxxxxx.',
           115,
           290,
           {
@@ -2052,7 +2056,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'Por medio del presente convenio, las partes, en el ámbito de sus competencias, se comprometen a realizar la implementación del proyecto de vinculación con la colectividad' +
-          'propuesto por el INSTITUTO, referente a (NOMBRE DEL PROYECTO).',
+        'propuesto por el INSTITUTO, referente a (NOMBRE DEL PROYECTO).',
         115,
         385,
         {
@@ -2208,8 +2212,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'El presente Convenio de Vinculación con la Sociedad tendrá la vigencia de (1) un año contados a partir de la fecha de suscripción, mismo que podrá ser renovado previo ' +
-          'consentimiento de las partes de manera escrita con un mínimo de quince (15) días de anticipación a la fecha de terminación, para lo cual las partes deberán suscribir el instrumento pertinente prorrogando' +
-          +'el mismo y estableciendo, de existir, las nuevas condiciones.',
+        'consentimiento de las partes de manera escrita con un mínimo de quince (15) días de anticipación a la fecha de terminación, para lo cual las partes deberán suscribir el instrumento pertinente prorrogando' +
+        +'el mismo y estableciendo, de existir, las nuevas condiciones.',
         110,
         165,
         {
@@ -2229,7 +2233,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'Debido a la naturaleza del Convenio, el presente convenio no generará obligaciones financieras recíprocas, erogación alguna ni transferencias de recursos económicos' +
-          ' entre las partes; las erogaciones generadas por las acciones ejecutadas por el cumplimiento de las obligaciones contraídas en el presente instrumento serán asumidas con cargo a la Institución que las ejecute.',
+        ' entre las partes; las erogaciones generadas por las acciones ejecutadas por el cumplimiento de las obligaciones contraídas en el presente instrumento serán asumidas con cargo a la Institución que las ejecute.',
         110,
         250,
         {
@@ -2249,7 +2253,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'Los términos de este convenio podrán ser modificados, ampliados o reformados de mutuo acuerdo durante su vigencia, siempre que dichas modificaciones no alteren la naturaleza ni el objeto del convenio y sean justificadas técnica, legal o académicamente; para cuyo efecto, las PARTES suscribirán el instrumento jurídico pertinente.' +
-          'Ninguna modificación podrá ir en detrimento de los derechos de los estudiantes que se encuentren vinculados en la ENTIDAD RECEPTORA. ',
+        'Ninguna modificación podrá ir en detrimento de los derechos de los estudiantes que se encuentren vinculados en la ENTIDAD RECEPTORA. ',
         110,
         335,
         {
@@ -2382,7 +2386,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         '4.  Por fuerza mayor o caso fortuito debidamente justificado por la parte que lo alegare, y notificado dentro del plazo de cuarenta y ocho (48) horas de ocurrido el hecho. En estos casos, se suscribirá la respectiva acta de terminación en el que se determinarán las causas descritas como causales de terminación del Convenio. Se considerarán causas de fuerza mayor o caso fortuito ' +
-          'las establecidas en el artículo 30 del Código Civil. ',
+        'las establecidas en el artículo 30 del Código Civil. ',
         110,
         185,
         {
@@ -2422,7 +2426,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc2.text(
         'Por la naturaleza del presente Convenio, se entiende que ninguna de las partes comparecientes, adquieren relación laboral ni de dependencia respecto del personal de la otra institución que trabaje en el cumplimiento de este instrumento.' +
-          'De igual manera, la ENTIDAD RECEPTORA no tendrá relación laboral ni obligaciones laborales  con los estudiantes que se vinculen a ella, ni éstos tendrán subordinación ni dependencia laboral para con la ENTIDAD RECEPTORA, se aclara que la relación estudiante-entidad receptora es  únicamente de formación académica.',
+        'De igual manera, la ENTIDAD RECEPTORA no tendrá relación laboral ni obligaciones laborales  con los estudiantes que se vinculen a ella, ni éstos tendrán subordinación ni dependencia laboral para con la ENTIDAD RECEPTORA, se aclara que la relación estudiante-entidad receptora es  únicamente de formación académica.',
         110,
         360,
         {
@@ -3166,9 +3170,9 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'Art. 87.- Requisitos previos a la obtención del grado académico.- Como requisito previo a la obtención del ' +
-          'grado académico, los y las estudiantes deberán acreditar servicios a la comunidad mediante programas,' +
-          'proyectos de vinculación con la sociedad, prácticas o pasantías pre profesionales con el debido ' +
-          'acompañamiento pedagógico, en los campos de su especialidad.',
+        'grado académico, los y las estudiantes deberán acreditar servicios a la comunidad mediante programas,' +
+        'proyectos de vinculación con la sociedad, prácticas o pasantías pre profesionales con el debido ' +
+        'acompañamiento pedagógico, en los campos de su especialidad.',
         160,
         240,
         {
@@ -3185,12 +3189,12 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'Las partes de común acuerdo diseñarán un plan de actividades académicas que' +
-          'desarrollarán los estudiantes en la ENTIDAD RECEPTORA de acuerdo al número' +
-          'de horas de vinculación establecidas en el proyecto de carrera y malla curricular' +
-          'de la carrera de Tecnología en DESARROLLO DE SOFTWARE, dicho plan de' +
-          'actividades complementará el aprendizaje y la aplicación de conocimientos,' +
-          'desarrollo de destrezas y habilidades que se consideren necesarias para un' +
-          'adecuado desempeño de su futura profesión.',
+        'desarrollarán los estudiantes en la ENTIDAD RECEPTORA de acuerdo al número' +
+        'de horas de vinculación establecidas en el proyecto de carrera y malla curricular' +
+        'de la carrera de Tecnología en DESARROLLO DE SOFTWARE, dicho plan de' +
+        'actividades complementará el aprendizaje y la aplicación de conocimientos,' +
+        'desarrollo de destrezas y habilidades que se consideren necesarias para un' +
+        'adecuado desempeño de su futura profesión.',
         160,
         315,
         {
@@ -3211,8 +3215,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       });
       this.doc.text(
         'a) Determinar el número de estudiantes participantes en la realización del proyecto de' +
-          'vinculación con la sociedad conforme a las áreas y espacios definidos por la entidad' +
-          'receptor',
+        'vinculación con la sociedad conforme a las áreas y espacios definidos por la entidad' +
+        'receptor',
         160,
         395,
         {
@@ -3223,8 +3227,8 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'b) Considerar el número de horas determinados para la realización del proyecto de' +
-          'vinculación con la sociedad conforme establece al proyecto de carrera y/o ' +
-          'planificación en el ciclo académico',
+        'vinculación con la sociedad conforme establece al proyecto de carrera y/o ' +
+        'planificación en el ciclo académico',
         160,
         420,
         {
@@ -3235,7 +3239,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'c) Definir un cronograma de actividades para la ejecución del proyecto de vinculación' +
-          'con la sociedad acorde al perfil de la carrera',
+        'con la sociedad acorde al perfil de la carrera',
         160,
         445,
         {
@@ -3246,10 +3250,10 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'd) Designar a los estudiantes de las carreras de Tecnología en DESARROLLO' +
-          'DE SOFTWARE, a fin de que implementen el proyecto de vinculación' +
-          'conforme a las competencias y conocimientos adquiridos en el lugar o' +
-          'ubicación definido por la ENTIDAD RECEPTORA, remitiendo para el efecto' +
-          'la base de datos con la información que acuerden las partes;',
+        'DE SOFTWARE, a fin de que implementen el proyecto de vinculación' +
+        'conforme a las competencias y conocimientos adquiridos en el lugar o' +
+        'ubicación definido por la ENTIDAD RECEPTORA, remitiendo para el efecto' +
+        'la base de datos con la información que acuerden las partes;',
         160,
         470,
         {
@@ -3260,7 +3264,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'e) Planificar, monitorear, y evaluar la ejecución del proyecto de vinculación en ' +
-          'coordinación con el tutor que designe la ENTIDAD RECEPTORA;',
+        'coordinación con el tutor que designe la ENTIDAD RECEPTORA;',
         160,
         520,
         {
@@ -3272,7 +3276,7 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'f) Designar un tutor, cuya responsabilidad es el debido seguimiento a los ' +
-          'estudiantes que acoja la ENTIDAD RECEPTORA;     ',
+        'estudiantes que acoja la ENTIDAD RECEPTORA;     ',
         160,
         555,
         {
@@ -3283,9 +3287,9 @@ export class FormDatosGeneralesComponent implements OnInit {
 
       this.doc.text(
         'g) Velar para que los estudiantes de la carrera de Tecnología DESARROLLO ' +
-          'DE SOFTWARE, ejecuten las actividades del proyecto de vinculación y se ' +
-          'sometan a las políticas, directrices, reglamentos e instrucciones del ' +
-          'INSTITUTO y de la ENTIDAD RECEPTORA;',
+        'DE SOFTWARE, ejecuten las actividades del proyecto de vinculación y se ' +
+        'sometan a las políticas, directrices, reglamentos e instrucciones del ' +
+        'INSTITUTO y de la ENTIDAD RECEPTORA;',
         160,
         580,
         {
@@ -3311,8 +3315,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       });
       this.doc.text(
         'a) Definir el número de estudiantes participantes en la realización del proyecto de' +
-          'vinculación con la sociedad conforme a las áreas, espacios y/o actividad ' +
-          'económica de la entidad receptora',
+        'vinculación con la sociedad conforme a las áreas, espacios y/o actividad ' +
+        'económica de la entidad receptora',
         160,
         695,
         {
@@ -3322,7 +3326,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc.text(
         'b) El número de estudiantes que acoja la ENTIDAD RECEPTORA se ' +
-          'determinará al inicio del ciclo académico según su capacidad;',
+        'determinará al inicio del ciclo académico según su capacidad;',
         160,
         720,
         {
@@ -3349,9 +3353,9 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'c) Garantizar que los estudiantes de la carrera de Tecnología EN' +
-          'DESARROLLO DE SOFTWARE, efectúen las actividades planificadas' +
-          'del proyecto de vinculación en las áreas y  espacios acordados por las ' +
-          'partes;',
+        'DESARROLLO DE SOFTWARE, efectúen las actividades planificadas' +
+        'del proyecto de vinculación en las áreas y  espacios acordados por las ' +
+        'partes;',
         160,
         150,
         {
@@ -3364,9 +3368,9 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'd) Otorgar el apoyo necesario para el desarrollo de los estudiantes y sus' +
-          'actividades, además de evaluar el desarrollo de las actividades que se ' +
-          'asignen a los estudiantes dentro de las actividades de vinculación a ' +
-          'realizarse.',
+        'actividades, además de evaluar el desarrollo de las actividades que se ' +
+        'asignen a los estudiantes dentro de las actividades de vinculación a ' +
+        'realizarse.',
         160,
         195,
         {
@@ -3379,8 +3383,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'e) Emitir un informe de evaluación a los estudiantes que participaron en la' +
-          'ejecución del proyecto de vinculación con la sociedad conforme a las ' +
-          'actividades planificadas y principio de retribución de conocimientos.',
+        'ejecución del proyecto de vinculación con la sociedad conforme a las ' +
+        'actividades planificadas y principio de retribución de conocimientos.',
         160,
         240,
         {
@@ -3393,7 +3397,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal');
       this.doc.text(
         'f) Emitir los certificados correspondientes a los estudiantes que hayan ' +
-          'cumplido exitosamente con la ejecución del proyecto de vinculación.',
+        'cumplido exitosamente con la ejecución del proyecto de vinculación.',
         160,
         290,
         {
@@ -3459,7 +3463,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto', 'bold');
       this.doc.text(
         'Justificación:(Explique la pertinencia de ' +
-          'la suscripción del Convenio)',
+        'la suscripción del Convenio)',
         45,
         190,
         {
@@ -3619,7 +3623,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto', 'bold');
       this.doc.text(
         'Conclusiones: (deberá constar en los antecedentes del ' +
-          'convenio a suscribir)',
+        'convenio a suscribir)',
         40,
         640,
         {
@@ -3639,7 +3643,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.setFont('Roboto', 'bold');
       this.doc.text(
         'Conclusiones: (deberá constar en los antecedentes del ' +
-          'convenio a suscribir)',
+        'convenio a suscribir)',
         40,
         700,
         {
@@ -3712,7 +3716,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       );
       this.doc.text(
         '*Para el caso de la persona jurídica de derecho público solicitará el nombramiento, acción de personal o credencial para el caso de' +
-          'dignidades de elección popular.',
+        'dignidades de elección popular.',
         40,
         470,
         {
@@ -3741,7 +3745,7 @@ export class FormDatosGeneralesComponent implements OnInit {
       this.doc.line(40, 520, 555, 520);
       this.doc.text(
         'Copia simple de la cédula de identidad o pasaporte del representante legal/ delegado o apoderado legalmente' +
-          'facultado para suscribir convenio',
+        'facultado para suscribir convenio',
         40,
         540,
         {
