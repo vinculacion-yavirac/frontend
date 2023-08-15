@@ -32,13 +32,13 @@ export class DashboardComponent implements OnInit {
     private usuarioHttpService: UsuarioHttpService,
   ) {}
 
-  
+
 
   /**
    * Inicialización del componente.
    */
   ngOnInit(): void {
-    // this.getCurrentUser();
+    this.getCurrentUser();
   }
 
   /*
