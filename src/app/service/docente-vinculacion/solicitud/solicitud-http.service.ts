@@ -104,4 +104,8 @@ export class SolicitudHttpService {
   deleteSolicitud(id: number): Observable<SolicitudModels> {
     return this.http.delete<SolicitudModels>(`${this.url}/delete/${id}`, this.httpOptions);
   }
+
+  generateCertificado(id: number): Observable<SolicitudModels> {
+    return this.http.put<SolicitudModels>(`${this.url}/generate-certificado/${id}`,null, this.httpOptions);
+  }
 }

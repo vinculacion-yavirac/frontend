@@ -449,5 +449,33 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
+  generateCertificado(solicitud: SolicitudModels): void {
+    this.solicitudHttpService.generateCertificado(solicitud.id).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      }),
+      switchMap(() => this.router.navigate(['/system/solicitud/list/filter/aprobado']))
+    ).subscribe();
+  }
+
+  openDialogGenerateCertificado(solicitud: SolicitudModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        message:'Debe revisar el portafolio y el proyecto.',
+        title: '¿ Estas seguro de generar este Certificado ?',
+        button: 'Generar Certificado',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.generateCertificado(solicitud);
+      }
+    });
+  }
   
 }

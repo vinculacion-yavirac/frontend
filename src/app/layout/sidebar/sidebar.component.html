@@ -36,32 +36,8 @@
           'IMPORTAR_PORTAFOLIO',
 
         ]">
-        <div class="opacity-50" *permissions="[
-        'LEER_USUARIOS',
-        'CREAR_USUARIOS',
-        'ACTUALIZAR_USUARIOS',
-        'ELIMINAR_USUARIOS',
-        'LEER_ROLES',
-        'CREAR_ROLES',
-        'ACTUALIZAR_ROLES',
-        'ELIMINAR_ROLES'
-      ]">
-          <div class="mt-5 mb-1.5">
-            <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
-              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }">
-              Administración
-            </h2>
-          </div>
-        </div>
         <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
+            
           ]">
           <div class="mt-5 mb-1.5">
             <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
@@ -240,6 +216,7 @@
             'ELIMINAR_SOLICITUD',
             'EXPORTAR_SOLICITUD',
             'IMPORTAR_SOLICITUD',
+            'LEER_SOLICITUD_APROBADA'
           ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
         <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
           <span class="fa-solid fa-solid fa-user-group text-base leading-none"></span>
