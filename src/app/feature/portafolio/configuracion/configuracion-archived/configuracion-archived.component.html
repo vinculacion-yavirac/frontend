@@ -29,7 +29,7 @@
                             <th scope="col" class="py-3 px-6">#</th>
                             <th scope="col" class="py-3 px-6">
                                 <div class="flex items-center">
-                                    Nombre
+                                    Dcumento
                                     <a class="cursor-pointer ml-1" *ngIf="reverse && documentos.length > 1"
                                         (click)="reversOrder()">
                                         <span class="fa-solid fa-caret-up"></span>
@@ -40,6 +40,10 @@
                                     </a>
                                 </div>
                             </th>
+                            <th scope="col" class="py-3 px-6">Archivado</th>
+                            <th scope="col" class="py-3 px-6">
+                                Fecha de archivación
+                              </th>
                             <th scope="col" class="py-3 px-6">Template</th>
                             <th scope="col" class="py-3 px-6">Estado</th>
                             <th scope="col" class="py-3 px-6">Responsable</th>
@@ -63,6 +67,12 @@
                                 <td class="py-[3.8px] px-6 capitalize">
                                     <span>{{ documento.name }}</span>
                                 </td>
+                                <td class="py-[3.8px] px-6 capitalize">
+                                    <span>{{documento.archived_by.person | NamesSurnamesComplete}}</span>
+                                  </td>
+                                  <td class="py-[3.8px] px-6">
+                                    <span>{{pipe.transform(documento.archived_at, 'dd/MM/yyyy')}}</span>
+                                  </td>
                                 <td
                                     class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
                                     <a href="{{ documento.template }}" target="_blank">

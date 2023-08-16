@@ -22,8 +22,7 @@
       <h3 class="font-medium"><span class="font-bold">{{solicitudes.length}}</span>Solicitudes</h3>
     </div>
     <div class="overflow-hidden relative rounded-md">
-      <div
-      class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden relative mb-4 table-container">
+      <div class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden relative mb-4 table-container">
         <table class="w-full text-sm text-left text-neutral tabla">
           <thead class="text-xs text-white uppercase bg-primary">
             <tr>
@@ -88,88 +87,43 @@
               </td>
 
               <th class="py-[3.8px] px-6 text-right">
-                <!--
                 <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
-                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
-                    (click)="openOptionsMenu(solicitud.id)"></span>
-
-                  <div *ngIf="showOptionsMenu[solicitud.id]"
-                    class="absolute right-0 mt-2 py-2 w-22 bg-white border border-[#535A6640] rounded-md shadow-lg">
-                    <span [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                      class="fa-solid fa-eye text-sm cursor-pointer transition-all hover:text-primary"
-                      (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"></span>
-                      <span>Asignar</span>
+                  <div class="relative inline-block">
+                    <!--
+                    <span
+                    class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
+                    (click)="closeOptionsMenu(solicitud.id)"></span>
+                    -->
+                    <button mat-button [matMenuTriggerFor]="menu" #menuTrigger><span
+                        class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"></span></button>
+                    <mat-menu #menu="matMenu">
+                      <a [routerLink]="['/system/solicitud/form/', solicitud.id]"
+                        class="block py-2 pl-2 text-sm transition-all hover:text-primary">
+                        Asignar estudiante
+                      </a>
+                    </mat-menu>
                   </div>
                 </ng-template>
-              -->
-              <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
-                <div class="relative inline-block">
-                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
-                    (click)="toggleOptionsMenu(solicitud.id)"></span>
 
-                  <div *ngIf="showOptionsMenu[solicitud.id]" class="aright-0 w-40"
-                       [style.bottom.px]="showOptionsMenuBottom[solicitud.id] ? '32px' : '-10px'">
-                    <div class="bg-white border border-[#535A6640] rounded-md shadow-lg p-2 assing"
-                         (click)="$event.stopPropagation()">
-                      <div class="flex justify-end">
-                        <span class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
-                              (click)="closeOptionsMenu(solicitud.id)"></span>
-                      </div>
-                      <div>
-                        <a [routerLink]="['/system/solicitud/form/', solicitud.id]" (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)"
-                           class="block py-2 pl-2 text-sm transition-all hover:text-primary">
-                          Asignar estudiante
-                        </a>
-                      </div>
-                    </div>
+                <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
+                  <div class="relative inline-block">
+
+                    <button mat-button [matMenuTriggerFor]="menu" #menuTrigger><span
+                        class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"></span></button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="openDialogAprovateCertificado(solicitud)">Aprobar</button>
+                      <button mat-menu-item (click)="openDialogDisapproveCertificate(solicitud)">Desaprobar</button>
+                      <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
+                        class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
+                        Portafolio
+                      </a>
+                      <a [routerLink]="['/system/proyecto/form-datos-generales/', getIdProyectoFromSolicitud(solicitud,proyectoarticipante)]"
+                        class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
+                        Proyecto
+                      </a>
+                    </mat-menu>
                   </div>
-                </div>
-              </ng-template>
-
-
-
-
-
-
-
-
-
-
-
-
-              <ng-template [ngIf]="solicitud.type_request_id.catalog_value === certificado">
-                <div class="relative inline-block">
-                  <span class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"
-                    (click)="toggleOptionsMenu(solicitud.id)"></span>
-
-                  <div *ngIf="showOptionsMenu[solicitud.id]" class="right-0 w-40"
-                       [class.top-[-10px]]="isLastItem(index)">
-                    <div class="bg-white border border-[#535A6640] rounded-md shadow-lg p-2 assing"
-                         (click)="$event.stopPropagation()">
-                      <div class="flex justify-end">
-                        <span class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
-                              (click)="closeOptionsMenu(solicitud.id)"></span>
-                      </div>
-                      <div>
-                        <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
-                           class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
-                          Portafolio
-                        </a>
-                        <a [routerLink]="['/system/proyecto/form-datos-generales/', getIdProyectoFromSolicitud(solicitud,proyectoarticipante)]"
-                           class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
-                          Proyecto
-                        </a>
-                        <span (click)="openDialogAprovateCertificado(solicitud)"
-                        class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                        *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
-                        <span (click)="openDialogDisapproveCertificate(solicitud)"
-                        class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                        *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
+                </ng-template>
 
                 <span (click)="openDialogArchiveSolicitud(solicitud)"
                   class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"

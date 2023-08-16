@@ -387,25 +387,6 @@ export class SolicitudListComponent implements OnInit {
     this.showOptionsMenu[solicitudId] = false;
   }
 
-  toggleOptionsMenu(solicitudId: number) {
-    this.showOptionsMenu[solicitudId] = !this.showOptionsMenu[solicitudId];
-  }
-
-
-
-  showOptionsMenuBottom: { [solicitudId: number]: boolean } = {};
-
-
-  calculateLastItems() {
-    this.solicitudes.forEach((_, index) => {
-      this.lastItems[index] = this.isLastItem(index);
-    });
-  }
-
-  lastItems: { [index: number]: boolean } = {};
-  isLastItem(index: number): boolean {
-    return this.solicitudes.length - 1 === index;
-  }
 
 
 
@@ -425,10 +406,8 @@ export class SolicitudListComponent implements OnInit {
       height: '350px',
       width: '700px',
       data: {
-        title: '¿Estas seguro de aprobar este Certificado?',
-        message:
-          'El certificado sera aprobado y el sitema podra utilizarlo.',
-        dato: ['Nombre:', solicitud.created_by.person.names],
+        message:'Debe revisar el portafolio y el proyecto.',
+        title: '¿ Estas seguro de aprobar este Certificado ?',
         button: 'Aprobar',
       },
     });
@@ -457,10 +436,8 @@ export class SolicitudListComponent implements OnInit {
       height: '350px',
       width: '700px',
       data: {
-        title: '¿Estas seguro de desaprobar este Certificado?',
-        message:
-          'El certificado volvera al estado de pendiente. ',
-        dato: ['Nombre:', solicitud.created_by.person.names],
+        message:'Debe revisar el portafolio y el proyecto.',
+        title: '¿ Estas seguro de desaprobar este Certificado ?',
         button: 'Desaprobar',
       },
     });
@@ -471,4 +448,6 @@ export class SolicitudListComponent implements OnInit {
       }
     });
   }
+
+  
 }

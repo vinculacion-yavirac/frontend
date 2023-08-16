@@ -39,13 +39,16 @@
               </div>
             </th>
             <th scope="col" class="py-3 px-6">
+              Archivado
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Fecha de archivación
+            </th>
+            <th scope="col" class="py-3 px-6">
               Tipo de Solicitud
             </th>
             <th scope="col" class="py-3 px-6">
               Cedula
-            </th>
-            <th scope="col" class="py-3 px-6">
-              Fecha de Emisión
             </th>
             <th scope="col" class="py-3 px-6">
               Estado
@@ -67,14 +70,17 @@
             <td class="py-[3.8px] px-6 capitalize">
               <span>{{solicitud.created_by.person | NamesSurnamesComplete}}</span>
             </td>
+            <td class="py-[3.8px] px-6 capitalize">
+              <span>{{solicitud.archived_by.person | NamesSurnamesComplete}}</span>
+            </td>
+            <td class="py-[3.8px] px-6">
+              <span>{{pipe.transform(solicitud.archived_at, 'dd/MM/yyyy')}}</span>
+            </td>
             <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
               <span>{{solicitud.type_request_id.catalog_value}}</span>
             </td>
             <td class="py-[3.8px] px-6">
-              <span>{{solicitud.created_by.person.identification }}</span>
-            </td>
-            <td class="py-[3.8px] px-6">
-              <span>{{pipe.transform(solicitud.created_at, 'dd/MM/yyyy')}}</span>
+              <span>{{solicitud.archived_by.person.identification }}</span>
             </td>
             <td class="py-[3.8px] px-6">
               <div *ngIf="solicitud.solicitudes_status_id.catalog_value ==='Aprobado'" class="flex items-center">
@@ -91,8 +97,9 @@
                 *permissions="['RESTAURAR_SOLICITUD']">
               </span>
               <span
+                (click)="openDialogDeleteSocilicitud(solicitud)"
                 class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                *permissions="['ARCHIVAR_SOLICITUD']"
+                *permissions="['ELIMINAR_SOLICITUD']"
               ></span>
             </th>
           </tr>

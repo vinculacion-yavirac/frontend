@@ -4,6 +4,9 @@ import { PortafoliosModels } from '../../../../app/models/portafolio/portafolio.
 import { FileHttpService } from '../../../../app/service/portafolio/files/file-http.service';
 import { PortafolioHttpService } from '../../../../app/service/portafolio/portafolio-http.service';
 import {Router} from "@angular/router";
+import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { MatDialog } from '@angular/material/dialog';
+import { finalize } from "rxjs/operators";
 
 @Component({
   selector: 'app-portafolio-archived',
@@ -22,8 +25,8 @@ export class PortafolioArchivedComponent implements OnInit {
 
   constructor(
       private portafolioHttpService: PortafolioHttpService,
-      private fileHttpService: FileHttpService,
-      private router: Router
+      private router: Router,
+      private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +81,40 @@ export class PortafolioArchivedComponent implements OnInit {
     });
   }
 
+
+  deletePortafolio(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.deleteBriefcase(briefcase.id)
+        .pipe(
+            finalize(() => {
+              this.router.navigate(['/system/portafolio/list']);
+            })
+        )
+        .subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        });
+  }
+
+  openDialogDeletePortafolio(briefcase: PortafoliosModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿ Está seguro de eliminar este portafolio ?',
+        message:
+          'El portafolio sera eliminada del sistema con sus archivos.',
+        button: 'Eliminar Definitivamente',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deletePortafolio(briefcase);
+      }
+    });
+  }
+
   restaurePortafolio(briefcase: PortafoliosModels): void {
     this.portafolioHttpService.restoreBriefcase(briefcase.id)
         .subscribe((res: any) => {
@@ -86,5 +123,40 @@ export class PortafolioArchivedComponent implements OnInit {
           }
           this.router.navigate(['/system/portafolio/list']);
         });
+  }
+
+
+  restaureBriefcase(briefcase: PortafoliosModels): void {
+    this.portafolioHttpService.restoreBriefcase(briefcase.id)
+      .pipe(
+        finalize(() => {
+          this.router.navigate(['/system/portafolio/list']);
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      });
+  }
+
+  openDialogRestaurarPortafolio(briefcase: PortafoliosModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de restaurar este portafolio ?',
+        message:
+          'El portafolio sera restaurado y podrá ser utilizado por los usuarios.',
+        dato: ['Portafolio realizado:', briefcase.created_by.person.names],
+        button: 'Restaurar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.restaureBriefcase(briefcase);
+      }
+    });
   }
 }

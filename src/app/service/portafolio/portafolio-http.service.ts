@@ -106,5 +106,9 @@ export class PortafolioHttpService {
       }
     );
   }
+  
+  deleteBriefcase(id: number): Observable<PortafoliosModels> {
+    return this.http.delete<PortafoliosModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
 
 }
