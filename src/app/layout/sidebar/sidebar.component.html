@@ -26,6 +26,10 @@
           'CREAR_USUARIOS',
           'ACTUALIZAR_USUARIOS',
           'ELIMINAR_USUARIOS',
+        'LEER_ROLES',
+            'CREAR_ROLES',
+            'ACTUALIZAR_ROLES',
+            'ELIMINAR_ROLES'
           'LEER_PORTAFOLIO',
           'CREAR_PORTAFOLIO',
           'ACTUALIZAR_PORTAFOLIO',
@@ -36,26 +40,8 @@
           'IMPORTAR_PORTAFOLIO',
 
         ]">
-        <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[
-            
-          ]">
-          <div class="mt-5 mb-1.5">
-            <h2 class="text-xs font-normal text-ellipsis overflow-hidden whitespace-nowrap"
-              [ngClass]="{ 'opacity-0 pointer-events-none': !sidebar }">
-              Administración
-            </h2>
-          </div>
-      </div>
-      <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[
-            'LEER_USUARIOS',
-            'CREAR_USUARIOS',
-            'ACTUALIZAR_USUARIOS',
-            'ELIMINAR_USUARIOS',
-            'LEER_ROLES',
-            'CREAR_ROLES',
-            'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
-          ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
+        <li [routerLinkActive]="['active']" routerLink="/system/personal" *permissions="[]" 
+          class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
         <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
           <span class="fas fa-user-tie text-base leading-none"></span>
         </div>
