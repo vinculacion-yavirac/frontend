@@ -9,6 +9,8 @@ import { DocumentoHttpService } from 'src/app/service/portafolio/documento/docum
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
+import { AuthHttpService } from 'src/app/service/auth/auth-http.service';
+import { UserAuth } from 'src/app/models/auth/user.interface';
 
 @Component({
   selector: 'app-portafolio-form',
@@ -33,7 +35,8 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   idPortafolio:number;
   filesArray: any;
   customFiles: { document_id: number; file: CustomFile; stateControl: FormControl; observationControl: FormControl }[] = [];
-  
+  user: UserAuth;
+
   constructor(
     private formBuilder: FormBuilder,
     private portafolioHttpService: PortafolioHttpService,
@@ -41,6 +44,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     private fileHttpService: FileHttpService,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
+    public authHttpService: AuthHttpService,
   ) {
     this.initForm();
     this.filesArray = this.formBuilder.array([]);
@@ -49,6 +53,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getDocumentos();
+    this.getCurrentUser();
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['id']) {
         this.title = 'Portafolio';
@@ -65,7 +70,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.briefcaseForm = this.formBuilder.group({
       id: [0],
       files: this.formBuilder.array([]),
-      
+
       created_by: this.formBuilder.group({
         id: [0],
         email: [''],
@@ -101,12 +106,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         },
       ],
       state: [
-        '',
-        {
-          validators: [
-            Validators.required,
-          ],
-        },
+        'false'
       ],
     });
 
@@ -136,30 +136,68 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
 
   getDocumentos(): void {
     this.loading = true;
-    this.documentosHtppService.getDocuments().subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.documentos = res.data.documents;
+    this.authHttpService.getUser().subscribe((user: UserAuth) => {
+      this.user = user;
+      if (this.user.role === 'Estudiante') {
+        this.documentosHtppService.getDocumentsByResponsibleStudent().subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.documentos = res.data.documents;
+          }
+          this.loading = false;
+        });
+      } else {
+        this.documentosHtppService.getDocuments().subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.documentos = res.data.documents;
+          }
+          this.loading = false;
+        });
       }
-      this.loading = false;
     });
   }
 
 
+
+
   createBriefcase(): void {
     if (this.briefcaseForm.valid) {
-      this.portafolioHttpService.addPortafolios(this.currentPortafolio).subscribe((response: any) => {
+      const postData = {
+        ...this.currentPortafolio,
+      };
 
-        if(response.status === 'success'){
-        const id = response.data.briefcase.id;
-        this.uploadFiles(id);
+      this.portafolioHttpService.addPortafolios(postData).subscribe((response: any) => {
+        if(response.status === 'success') {
+          const id = response.data.briefcase.id;
+          this.uploadFiles(id);
         }
       });
     }
   }
 
-  uploadFiles(idPortafolio:number): void {
+
+
+  // Función para actualizar la observación en CustomFile
+  onObservationChange(observation: string, index: number): void {
+    this.files[index].observation = observation;
+  }
+
+  // Función para actualizar el estado en CustomFile
+  onStateChange(state: boolean, index: number): void {
+    this.files[index].state = state;
+  }
+
+  // ... Otras funciones ...
+
+  // Función para subir los archivos y guardar observaciones y estados
+  uploadFiles(idPortafolio: number): void {
     if (this.selectedDocumento) {
-      this.portafolioHttpService.uploadFiles(this.files,idPortafolio);
+      // Agregar observaciones y estados a cada archivo
+      const filesWithInfo = this.files.map(file => ({
+        ...file,
+        observation: file.observation,
+        state: file.state,
+      }));
+      this.portafolioHttpService.uploadFiles(filesWithInfo, idPortafolio);
     }
   }
 
@@ -173,20 +211,16 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         file: file,
         document_id: documento.id,
         created_at: new Date(),
-        state:true,
-        observation:'hhh'
+        state: true,
+        observation: '', // Initialize with an empty observation
       }
       this.files.push(customFile);
-      console.log(customFile);
     }
     this.updateSelectedFilesList();
-    console.log('this.updateSelectedFilesList',this.updateSelectedFilesList());
   }
- 
 
 
 
-  
   updateSelectedFilesList(): void {
     this.cdr.detectChanges();
   }
@@ -203,6 +237,11 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     });
+  }
+
+  getCurrentUser() {
+    this.authHttpService.getUser().subscribe((user: UserAuth) => (this.user = user));
+    console.log(this.user)
   }
 
 }

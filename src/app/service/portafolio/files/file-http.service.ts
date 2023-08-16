@@ -24,6 +24,8 @@ export class FileHttpService {
       formData.append('names[]', file.file.name);
       formData.append('types[]', file.file.type);
       formData.append('document_ids[]', file.document_id.toString());
+      formData.append('observations[]', file.observation);
+      formData.append('states[]', file.state.toString());
     });
 
     this.http.post(`${this.url}/upload/${idBriefcase}`, formData).subscribe(
@@ -36,9 +38,10 @@ export class FileHttpService {
     );
   }
 
+
   downloadFile(idPortafolio: number,idDocumento:number,idFile:number ) {
     return this.http.get(`${this.url}/download/${idPortafolio}/${idDocumento}/${idFile}`, { responseType: 'blob' });
   }
 
- 
+
 }

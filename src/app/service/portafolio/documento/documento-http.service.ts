@@ -41,6 +41,14 @@ export class DocumentoHttpService {
     return this.http.get<DocumentoModels>(`${this.url}/${id}`);
   }
 
+  getDocumentsByResponsibleStudent(): Observable<DocumentoModels[]> {
+    return this.http.get<DocumentoModels[]>(`${this.url}/responsible/student`);
+  }
+
+  getDocumentsByResponsibleTutor(): Observable<DocumentoModels[]> {
+    return this.http.get<DocumentoModels[]>(`${this.url}/responsible/tutor`);
+  }
+
   // GET / buscador de Documentos
   searchDocumentsByTerm(term: string): Observable<DocumentoModels[]> {
     const encodedTerm = encodeURIComponent(term.toLowerCase());
@@ -55,7 +63,7 @@ export class DocumentoHttpService {
   archiveDocument(id: number): Observable<DocumentoModels> {
     return this.http.put<DocumentoModels>(`${this.url}/archive/${id}`, null, this.httpOptions);
   }
-  
+
   restoreDocument(id: number): Observable<DocumentoModels> {
     return this.http.put<DocumentoModels>(`${this.url}/restore/${id}`, null, this.httpOptions);
   }
