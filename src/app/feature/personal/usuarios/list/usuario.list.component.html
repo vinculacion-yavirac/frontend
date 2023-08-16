@@ -18,11 +18,12 @@
 
     </div>
     <div class="flex">
-      <button  *permissions="['IMPORTAR_USUARIOS']"
-      mat-flat-button
-      class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-C px-8 ml-4 hover:bg-[#0747d1] hover-bg-[#0747d1]">
-       Importar
-      </button>
+      <label class="block">
+      <input  type="file" (change)="import($event)" class="block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+"></label>
+
       <button  *permissions="['EXPORTAR_USUARIOS']"
       mat-flat-button
       class="btn btn-sm gap-2 rounded-md bg-primary text-xs border-0 shadow	shadow-C px-8 ml-4 hover:bg-[#0747d1] hover-bg-[#0747d1]" (click)="exportAsXLSX()">

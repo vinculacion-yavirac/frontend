@@ -9,6 +9,7 @@ import { User } from '../../../../../app/models/auth/users/usuario';
 import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuario-http.service';
 import { ExporterService } from 'src/app/service/portafolio/exportar/exporter.service';
 import { ImportadorService } from 'src/app/service/portafolio/exportar/importar.service';
+import * as XLSX from  'xlsx';
 
 
 @Component({
@@ -20,8 +21,6 @@ export class UsuariosListComponent implements OnInit {
   reverse = false;
 
 
-
-
   config = {
     itemsPerPage: 10,
     currentPage: 1,
@@ -29,12 +28,28 @@ export class UsuariosListComponent implements OnInit {
 
   usuarios: User[] = [];
   loading: boolean = true;
+  role : any = {id:0}
+  person : any = {
+    id:0,
+    names: '',
+    last_names: '',
+    identification_type: '',
+    identification: ''
 
+  }
+
+  excelData : any[] = [];
+  user : any = {id:0, email: '', password:'',person:0,role: 0, active:1,archived:'',archived_at:'',archived_by:'',created_at:'',updated_at:'', names: '',
+  last_names: '',
+  identification_type: '',
+  identification: ''}
+  seenduser : any = {id:0, email: '', password:'',person:this.person,role: this.role ,active:1,archived:'', archived_at:'', archived_by:'',created_at:'',updated_at:''}
   constructor(
     private usuarioHttpService:UsuarioHttpService,
     private dialog: MatDialog,
     private excellService:ExporterService,
-    private importadorService: ImportadorService
+    private importadorService: ImportadorService,
+
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +57,72 @@ export class UsuariosListComponent implements OnInit {
 
 }
 
+
+//IMPORTAR
+import(event: any): void{
+
+  let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+    fileReader.onload = (e) => {
+
+      var reporte = XLSX.read(fileReader.result, { type: 'binary' });
+      var sheetName = reporte.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(reporte.Sheets[sheetName[0]])
+      //Elimina las posiciones extra
+      //console.log(this.excelData)
+      this.user = this.excelData
+    this.excelData.forEach( (response) => {
+      this.user = response,
+      this.role = this.user.role
+      this.person = {
+        id:0,
+        names: this.user.names,
+        last_names: this.user.last_names,
+        identification_type: this.user.identification_type,
+        identification: this.user.identification
+      }
+
+     /* this.seenduser = {
+        id:0,
+        email: this.user.email,
+        password:this.user.password,
+        person:this.person,
+        role: this.role,
+        active:0,
+        archived:false,
+        archived_at:new Date(),
+        archived_by:this.person,
+        created_at:new Date(),
+        updated_at:new Date()}
+console.log(this.seenduser)*/
+
+      this.usuarioHttpService.addUsuario(this.seenduser = {
+        id:0,
+        email: this.user.email,
+        password:this.user.password,
+        person:this.person,
+        role: this.role,
+        active:1,
+        archived:false,
+        archived_at:new Date(),
+        archived_by:this.person,
+        created_at:new Date(),
+        updated_at:new Date()})
+        .subscribe()
+
+    }
+
+
+
+      )
+
+
+    }
+
+
+
+}
 
 
 //EXPORTAR
@@ -57,6 +138,8 @@ exportAsXLSX(): void {
 }})
  this.excellService.exportToExcel(users,'excel');
 }
+
+
 
   getUsuarios(): void {
     this.loading = true;
