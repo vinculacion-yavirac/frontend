@@ -101,6 +101,7 @@
                                     *permissions="['RESTAURAR_SOLICITUD']">
                                   </span>
                                     <span
+                                    (click)="openDialogDeleteDocument(documento)"
                                         class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                                         *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
                                 </th>

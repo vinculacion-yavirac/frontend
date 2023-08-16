@@ -67,4 +67,8 @@ export class DocumentoHttpService {
   restoreDocument(id: number): Observable<DocumentoModels> {
     return this.http.put<DocumentoModels>(`${this.url}/restore/${id}`, null, this.httpOptions);
   }
+
+  deleteDocument(id: number): Observable<DocumentoModels> {
+    return this.http.delete<DocumentoModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
 }

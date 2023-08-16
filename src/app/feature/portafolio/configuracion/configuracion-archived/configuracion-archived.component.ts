@@ -121,4 +121,39 @@ export class ConfiguracionArchivedComponent implements OnInit {
     });
   }
 
+  deleteDocument(documento: DocumentoModels): void {
+    this.documentoHttpService.deleteDocument(documento.id)
+        .pipe(
+            finalize(() => {
+              this.router.navigate(['/system/portafolio/configuracion']);
+            })
+        )
+        .subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        });
+  }
+
+
+
+  openDialogDeleteDocument(documento: DocumentoModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿ Está seguro de eliminar este documento ?',
+        message:
+          'El documento sera eliminada del sistema.',
+        button: 'eliminar definitivamente',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteDocument(documento);
+      }
+    });
+  }
+
 }
