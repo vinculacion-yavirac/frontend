@@ -42,13 +42,13 @@
               Archivado
             </th>
             <th scope="col" class="py-3 px-6">
+              Fecha de archivación
+            </th>
+            <th scope="col" class="py-3 px-6">
               Tipo de Solicitud
             </th>
             <th scope="col" class="py-3 px-6">
               Cedula
-            </th>
-            <th scope="col" class="py-3 px-6">
-              Fecha de archivación
             </th>
             <th scope="col" class="py-3 px-6">
               Estado
@@ -73,14 +73,14 @@
             <td class="py-[3.8px] px-6 capitalize">
               <span>{{solicitud.archived_by.person | NamesSurnamesComplete}}</span>
             </td>
+            <td class="py-[3.8px] px-6">
+              <span>{{pipe.transform(solicitud.archived_at, 'dd/MM/yyyy')}}</span>
+            </td>
             <td class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral capitalize">
               <span>{{solicitud.type_request_id.catalog_value}}</span>
             </td>
             <td class="py-[3.8px] px-6">
               <span>{{solicitud.archived_by.person.identification }}</span>
-            </td>
-            <td class="py-[3.8px] px-6">
-              <span>{{pipe.transform(solicitud.archived_at, 'dd/MM/yyyy')}}</span>
             </td>
             <td class="py-[3.8px] px-6">
               <div *ngIf="solicitud.solicitudes_status_id.catalog_value ==='Aprobado'" class="flex items-center">
