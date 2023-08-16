@@ -87,11 +87,12 @@
               </td>
               <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','RESTAURAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                 <span
-                  (click)="restaurePortafolio(portafolio)"
+                  (click)="openDialogRestaurarPortafolio(portafolio)"
                   class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
                   *permissions="['ACTUALIZAR_PORTAFOLIO','RESTAURAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
                 </span>
                 <span
+                (click)="openDialogDeletePortafolio(portafolio)"
                   class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                   *permissions="['ARCHIVAR_PORTAFOLIO']">
                 </span>
