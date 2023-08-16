@@ -65,4 +65,7 @@ export class ProyectoService {
     return this.http.get<ProyectoModels[]>(`${this.url}/foundation/${foundationId}`);
   }
 
+  deleteProyecto(id: number): Observable<ProyectoModels> {
+    return this.http.delete<ProyectoModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
 }

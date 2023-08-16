@@ -57,7 +57,10 @@
               Encargado
             </th>
             <th scope="col" class="py-3 px-6">
-              fecha de cración
+              archivado
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Fecha de archivación
             </th>
             <th scope="col" class="py-3 px-6">
               Estado
@@ -90,19 +93,23 @@
             <td class="py-[3.8px] px-6">
               <span>{{proyecto.authorized_by.user_id.person.names}}</span>
             </td>
+            <td class="py-[3.8px] px-6 capitalize">
+              <span>{{proyecto.archived_by.person | NamesSurnamesComplete}}</span>
+            </td>
             <td class="py-[3.8px] px-6">
-              <span>{{pipe.transform(proyecto.created_at , 'dd/MM/yyyy')}}</span>
+              <span>{{pipe.transform(proyecto.archived_at , 'dd/MM/yyyy')}}</span>
             </td>
             <td class="py-[3.8px] px-6 capitalize">
               <span>{{proyecto.state_two_id.catalog_value}}</span>
             </td>
             <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PROYECTO','LEER_PROYECTO','ARCHIVAR_PROYECTO' ,'LEER_USUARIOS', 'LEER_ROLES']">
                 <span
-                  (click)="restaureProjects(proyecto)"
+                  (click)="openDialogRestaurarProyecto(proyecto)"
                   class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary"
                   *permissions="['RESTAURAR_SOLICITUD']">
                 </span>
               <span
+              (click)="openDialogDeleteSocilicitud(proyecto)"
                 class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
                 *permissions="['ARCHIVAR_SOLICITUD']"
               ></span>

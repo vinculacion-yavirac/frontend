@@ -6,6 +6,8 @@ import { ProyectoService } from '../../../../app/service/proyecto/proyecto.servi
 import {SolicitudModels} from "../../../models/docente-vinculacion/solicitud/solicitud";
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
+import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-proyecto-archived',
@@ -29,6 +31,7 @@ export class ProyectoArchivedComponent implements OnInit {
     private proyectoService: ProyectoService,
     private fileHttpService: FileHttpService,
     private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -62,21 +65,6 @@ export class ProyectoArchivedComponent implements OnInit {
     });
   }
 
-  restaureProjects(proyecto: ProyectoModels): void {
-    this.proyectoService.restoreProject(proyecto.id)
-      .pipe(
-        finalize(() => {
-          this.router.navigate(['/system/proyecto/list']);
-        })
-      )
-      .subscribe((res: any) => {
-        if (res.solicitudes.status === 'success') {
-          this.handleSearchResponse(res);
-        }
-      });
-
-  }
-
   reversOrder(): void {
     this.proyectos.reverse();
     this.reverse = !this.reverse;
@@ -106,6 +94,79 @@ export class ProyectoArchivedComponent implements OnInit {
   sortProjects(): void {
     this.proyectos.sort((a, b) => {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+  }
+
+
+  restaureProjects(proyecto: ProyectoModels): void {
+    this.proyectoService.restoreProject(proyecto.id)
+      .pipe(
+        finalize(() => {
+          this.router.navigate(['/system/proyecto/list']);
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.solicitudes.status === 'success') {
+          this.handleSearchResponse(res);
+        }
+      });
+
+  }
+
+
+  openDialogRestaurarProyecto(proyecto: ProyectoModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de restaurar este proyecto ?',
+        message:
+          'El proyecto sera restaura y podrá ser utilizado por los usuarios.',
+        dato: ['Solicitud realizada:', proyecto.created_by.person.names],
+        button: 'Restaurar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.restaureProjects(proyecto);
+      }
+    });
+  }
+
+
+  deleteProyecto(proyecto: ProyectoModels): void {
+    this.proyectoService.deleteProyecto(proyecto.id)
+        .pipe(
+            finalize(() => {
+              this.router.navigate(['/system/proyecto/list']);
+            })
+        )
+        .subscribe((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        });
+  }
+
+
+
+  openDialogDeleteSocilicitud(proyecto: ProyectoModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿ Está seguro de eliminar este proyecto ?',
+        message:
+          'El proyecto sera eliminada del sistema.',
+        button: 'Delete',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteProyecto(proyecto);
+      }
     });
   }
 }
