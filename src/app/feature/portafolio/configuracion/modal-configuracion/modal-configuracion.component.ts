@@ -56,7 +56,6 @@ export class ModalConfiguracionComponent implements OnInit {
         name: [documento.name, Validators.required],
         template: [documento.template, Validators.required],
         state: [documento.state, Validators.required],
-        order: [documento.order, Validators.required],
         responsible_id: [typeof documento.responsible_id === 'number' ? documento.responsible_id : documento.responsible_id?.id]
       });
       this.documents.push(documentGroup);
@@ -74,11 +73,12 @@ export class ModalConfiguracionComponent implements OnInit {
     this.loading = true;
     this.rolHttpService.getRoles().subscribe((res: any) => {
       if (res.status == 'success') {
-        this.roles = res.data.roles;
+        this.roles = res.data.roles.filter((role: Role) => role.name === 'Estudiante' || role.name === 'Docente Tutor');
       }
       this.loading = false;
     });
   }
+
 
   selectRole(event: any) {
     const roleId = event.target.value;
@@ -94,7 +94,6 @@ export class ModalConfiguracionComponent implements OnInit {
       name: ['', Validators.required],
       template: ['', Validators.required],
       state: [true, Validators.required],
-      order: ['', Validators.required],
       responsible_id: [this.selectedRole?.id]
     });
 
@@ -109,12 +108,12 @@ export class ModalConfiguracionComponent implements OnInit {
       this.router.navigate(['/system/portafolio/configuracion']);
       return;
     }
-  
+
     this.documento = {
       ...this.documento,
       ...this.documentForm.value.documents[0]
     };
-  
+
     this.documentoHttpService.updateDocuments(this.documento).subscribe(
       response => {
         this.dialogRef.close(this.documento);

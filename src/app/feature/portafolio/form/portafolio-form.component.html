@@ -10,7 +10,7 @@
 <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
 <div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
  <!-- <form [formGroup]="briefcaseForm">-->
-    <div class="grid h-100 card bg-white text-dark  rounded-box">
+    <div class="grid h-100 card bg-white text-dark  rounded-box" *permissions="['ACTUALIZAR_PORTAFOLIO']">
       <!--aqui va los datos del estudiante y fundacion-->
       <h2 class="text-xl font-bold p-3">
         Datos del Estudiante
@@ -32,7 +32,7 @@
             <span class="font-bold">Carrera:</span> {{ briefcaseForm.get('project_participant_id.project_id.career_id.name')?.value }}
           </h5>
         </div>
-      </div>      
+      </div>
       <h2 class="text-xl font-bold p-3">
         Fundación Asignada
       </h2>
@@ -46,7 +46,7 @@
           </h4>
         </div>
       </div>
-      
+
     </div>
  <!-- </form>-->
 
@@ -58,7 +58,7 @@
         </h2>
       </div>
     </div>
-    <label class="label cursor-pointer place-items-right">
+    <label class="label cursor-pointer place-items-right" *permissions="['ACTUALIZAR_PORTAFOLIO']">
       <span class="label-text text-dark">Estado del Portafolio</span>
       <input type="checkbox" class="toggle toggle-primary" id="state" formControlName="state" />
     </label>

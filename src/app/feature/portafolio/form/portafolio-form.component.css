@@ -40,3 +40,30 @@
   font-size: 24px;
 }
 
+.file-upload-container {
+  position: relative;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.custom-file-upload img {
+  width: 100px;
+  height: 100px;
+}
+
+/* Estilos adicionales para el input de archivos oculto */
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+/* Estilos para resaltar el área de carga al pasar el cursor */
+.custom-file-upload:hover {
+  background-color: #f5f5f5;
+}
+
