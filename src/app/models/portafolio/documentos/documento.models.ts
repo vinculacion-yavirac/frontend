@@ -8,6 +8,6 @@ export interface DocumentoModels {
   state: boolean;
   order: number;
   //files: FilesModels;
-  responsible_id?: Role | number;
+  responsible_id?: Role ;
 }
 

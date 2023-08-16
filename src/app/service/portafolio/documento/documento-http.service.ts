@@ -45,8 +45,8 @@ export class DocumentoHttpService {
     return this.http.get<DocumentoModels[]>(`${this.url}/responsible/student`);
   }
 
-  getDocumentsByResponsibleTutor(): Observable<DocumentoModels[]> {
-    return this.http.get<DocumentoModels[]>(`${this.url}/responsible/tutor`);
+  getDocumentsByResponsibleTutorandStuden(): Observable<DocumentoModels[]> {
+    return this.http.get<DocumentoModels[]>(`${this.url}/responsible/tutorstuden`);
   }
 
   // GET / buscador de Documentos

@@ -75,6 +75,9 @@
                     Nombre del Archivo
                   </th>
                   <th scope="col" class="py-3 px-6">
+                    Encargado
+                  </th>
+                  <th scope="col" class="py-3 px-6">
                     Opciones
                   </th>
                   <th scope="col" class="py-3 px-6">
@@ -90,6 +93,7 @@
                   <tr class="bg-white hover:bg-[#4052b510] transition-all">
                     <td></td>
                     <td class="py-[3.8px] px-6 capitalize">{{ documento.name }}</td>
+                    <td>{{ documento.responsible_id?.name }}</td>
                     <td>
                       <div>
                         <input type="file" multiple (change)="onFileSelected($event, documento)">
