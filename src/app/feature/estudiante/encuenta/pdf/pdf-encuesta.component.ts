@@ -86,65 +86,67 @@ export class PdfEncuestaComponent implements OnInit {
       });
   }
 
-  generatePDF() {
+ async generatePDF() {
 
     const addFooters = pdf => {
       const pageCount = pdf.internal.getNumberOfPages()
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      let startY = 10;
+      const headerImg = new Image();
+      headerImg.src = 'assets/images/header.png';
 
-      pdf.setFont('helvetica', 'italic')
-      pdf.setFontSize(8)
+      const footerImg = new Image();
+    footerImg.src = 'assets/images/footer.png';
 
       for (var i = 1; i <= pageCount; i++) {
         pdf.setPage(i)
 
-        pdf.text('Page ' + String(i) + ' of ' + String(pageCount), pdf.internal.pageSize.width / 2, 287, {
-          align: 'center'
-        })
+        pdf.addImage(headerImg, 'PNG', 0, 0, pdfWidth - 0, 30);
+        startY += 30;
+
+        pdf.addImage(footerImg, 'PNG',0,275, 210, 35,);
 
       }
     }
-    var data = document.getElementById('pdf');
+    const content = document.getElementById('content'); // Obtener el elemento por su ID
 
-    html2canvas(data).then(canvas => {
-      let pdf = new jsPDF('p', 'mm', 'a4');
+    if (!content) {
+      console.error('El elemento de contenido no se encontró.');
+      return;
+    }
 
-      var imgWidth = 208;
-      var imgHeight = 766;
-      var pageHeight = 195;
-      var heightLeft = imgHeight;
-      const contentDataURL = canvas.toDataURL('image/png');
-      var position = 1;
-      var image1 = new Image();
-      image1.src = "imagen.jpg"; /// URL de la imagen
-
-
-
-      var pageHeight = pdf.internal.pageSize.height; // Tamaño de una
-      var pageHeightLeft = pageHeight;
-
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-
-      while (heightLeft >= 0) {
-
-
-        if (pageHeightLeft - imgHeight <= 0) {
-          pdf.addPage();
-          position = heightLeft - imgHeight; // Pintaremos en el inicio de la nueva pagina
-
-        }
-
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-        position += canvas.height;
-        heightLeft -= pageHeight;
-
-      }
-
-      addFooters(pdf);
-      pdf.save('documento.pdf');
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
     });
+
+    const pageHeight = 1460;
+    const imgData = await html2canvas(content, { useCORS: true });
+
+
+
+    let yPosition = 0;
+
+    while (yPosition < imgData.height) {
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = imgData.width;
+      canvas.height = Math.min(pageHeight, imgData.height - yPosition);
+
+      context.drawImage(imgData, 0, yPosition, imgData.width, canvas.height, 0, 0, imgData.width, canvas.height);
+
+      const pdfData = canvas.toDataURL('image/jpeg',);
+      pdf.addImage(pdfData, 'JPEG', 5, 30, pdf.internal.pageSize.getWidth() - 20, 0);
+      yPosition += pageHeight - 20;
+
+      if (yPosition < imgData.height) {
+        pdf.addPage();
+      }
+    }
+    addFooters(pdf)
+    pdf.save('generated-pdf.pdf');
   }
 
 }

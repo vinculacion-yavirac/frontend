@@ -1,5 +1,5 @@
 <br>
-<div class="container mx-auto m-1" id="pdf">
+<div  class="container mx-auto m-1" id="content" >
   <div class="div"  *ngFor="let enc of encuestas">
     <div class="mx-auto bg-slate-200 mt-1   mb-1 p-1 pl-3 rounded-lg" *ngIf="enc && enc.id == 1" >
       <p >{{enc.tipo}}</p>
@@ -141,6 +141,8 @@
 
 
 <button class="btn btn-outline btn-info"    routerLink="/system/estudiante/encuesta/previsualizacion">vizualizar pdf</button>
+
+<!-- <button class="btn btn-outline btn-info" (click)="generatePDF()" >vizualizar pdf</button> -->
 
 
 
