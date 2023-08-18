@@ -10,7 +10,7 @@
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                     <span class="fa-solid fa-magnifying-glass"></span>
                 </div>
-                <input type="text" id="table-search" #search (keyup)="searchInstitucionBeneficiariaByTerm(search.value)" class="input input-sm block h-8 p-2 pl-5 w-full max-w-xs text-sm text-neutral bg-[#ebecf0] !border-[#535A6640] rounded-md border !outline-[#535A6620]"
+                <input type="text" id="table-search" #search (keyup)="searchArchivedInstitucionByTerm(search.value)" class="input input-sm block h-8 p-2 pl-5 w-full max-w-xs text-sm text-neutral bg-[#ebecf0] !border-[#535A6640] rounded-md border !outline-[#535A6620]"
                     placeholder="Buscar">
             </div>
         </div>
@@ -82,19 +82,14 @@
                                     <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Inactivo
                                 </div>
                             </td>
-                            <td class="py-[3.8px] px-6 capitalize">
-                                <span class="fa-solid fa-eye text-lg cursor-pointer transition-all hover:text-primary" *permissions="['LEER_SOLICITUD']" (click)="openModal(institucionBeneficiaria.id)"></span>
+                            <td class="py-[3.8px] px-6">
+                                <span>{{institucionBeneficiaria.archived_by.person.names}}</span>
                             </td>
-
-                            <th class="py-[3.8px] px-6 capitalize">
-                                <span *permissions="['CREAR_FUNDACION']">
-                  <span class="btn btn-primary btn btn-sm btn btn-outline btn-primary"
-                    *ngIf="institucionBeneficiaria.state"
-                    (click)="openAsignarModal(institucionBeneficiaria.id)">
-                    Asignar
-                  </span>
-                                </span>
-                                <span (click)=" openDialogInstitucionesBeneficiaria(institucionBeneficiaria)" class="fa-solid fa-box-archive text-lg ml-3 cursor-pointer transition-all hover:text-red-600" *permissions="['ARCHIVAR_SOLICITUD','LEER_USUARIOS', 'LEER_ROLES']"></span>
+                            <th class="py-[3.8px] px-6 text-right" *permissions="['ACTUALIZAR_PORTAFOLIO','RESTAURAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
+                                <span (click)="openDialogRestaurarInstitucion(institucionBeneficiaria)" class="fa-solid fa-clock-rotate-left text-lg cursor-pointer transition-all hover:text-primary" *permissions="['ACTUALIZAR_PORTAFOLIO','RESTAURAR_PORTAFOLIO','ARCHIVAR_PORTAFOLIO']">
+                              </span>
+                                <span (click)="openDialogDeleteInstitucion(institucionBeneficiaria)" class="fa-regular fa-trash-can text-lg ml-3 cursor-pointer transition-all hover:text-red-600" *permissions="['ARCHIVAR_PORTAFOLIO']">
+                              </span>
                             </th>
 
 

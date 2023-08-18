@@ -11,4 +11,5 @@ export interface InstitucionBeneficiariaModels {
       parish_id: number;
       created_at?: string;
       updated_at?: string;
+      archived_by:User
 }

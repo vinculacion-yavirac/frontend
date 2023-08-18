@@ -8,6 +8,7 @@ import { ModalAlertComponent } from 'src/app/shared/material/modal-alert/modal-a
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalSolicitudesComponent } from '../modal-solicitudes/modal-solicitudes.component';
 import { AsignarModalComponent } from '../asignar-modal/asignar-modal.component';
+import { tap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-institucion-beneficiaria',
@@ -35,6 +36,7 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
     private institucionBeneficiariaHttpService: InstitucionBeneficiariaHttpService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private router: Router,
   ) {
     this.route.data.subscribe((data: any) => {
       this.filterActiva = data.filterActiva;
@@ -202,6 +204,42 @@ export class ListInstitucionBeneficiariaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+      }
+    });
+  }
+
+
+  archivedInstitucionesBeneficiaria(institucionesBeneficiaria: InstitucionBeneficiariaModels): void {
+    this.institucionBeneficiariaHttpService
+      .archiveInstitucion(institucionesBeneficiaria.id)
+      .pipe(
+        tap((res: any) => {
+          if (res.status === 'success') {
+            this.handleSearchResponse(res);
+          }
+        }),
+        switchMap(() => this.router.navigate(['/system/institucion-beneficiaria/list/archived']))
+      )
+      .subscribe();
+  }
+
+  openDialogInstitucionesBeneficiaria(institucionesBeneficiaria: InstitucionBeneficiariaModels): void {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      height: '350px',
+      width: '700px',
+      data: {
+        title: '¿Está seguro de archivar esta esta institución?',
+        message:
+          'La institución será archivado y no podrá ser utilizado por los usuarios.',
+        dato: ['Nombre:', institucionesBeneficiaria.name],
+        button: 'Archivar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this. archivedInstitucionesBeneficiaria(institucionesBeneficiaria);
+        this.router.navigate(['/system/portafolio/list']);
       }
     });
   }

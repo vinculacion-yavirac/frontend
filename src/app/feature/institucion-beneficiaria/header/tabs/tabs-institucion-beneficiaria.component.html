@@ -1,58 +1,44 @@
 <div class="tabs flex w-full justify-between items-end flex-row-reverse">
-  <a
-    [routerLinkActive]="['tab-active']"
-    routerLink="/system/{{ route }}/list/archived"
-    class="tab tab-lifted !-mr-0 archived"
-    *permissions="[
+    <a [routerLinkActive]="['tab-active']" routerLink="/system/{{ route }}/list/archived" class="tab tab-lifted !-mr-0 archived" *permissions="[
       'RESTAURAR_' + route.toUpperCase(),
       'ELIMINAR_' + route.toUpperCase()
-    ]"
-  >
-    <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span>
-    Archivados
-  </a>
-  <div></div>
+    ]">
+        <span class="fa-regular fa-trash-can text-sm leading-none mr-2"></span> Archivados
+    </a>
+    <div></div>
 
-  <div class="flex items-end">
-    <a
-      [routerLinkActive]="['tab-active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [routerLink]="'/system/' + route + '/list/'"
-      class="tab tab-lifted"
-      *permissions="[
+    <div class="flex items-end">
+        <a [routerLinkActive]="['tab-active']" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="'/system/' + route + '/list/'" class="tab tab-lifted" *permissions="[
     'LEER_FUNDACION',
     'CREAR_FUNDACION',
     'ACTUALIZAR_FUNDACION',
     'ELIMINAR_FUNDACION'
-  ]"
-    >
+  ]">
       Todo
     </a>
-    <a
-      [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/activa"
-      class="tab tab-lifted"
-      *permissions="[
+        <a [routerLinkActive]="['tab-active']" routerLink="/system/{{ route }}/list/filter/activa" class="tab tab-lifted" *permissions="[
         'LEER_FUNDACION',
         'CREAR_FUNDACION',
         'ACTUALIZAR_FUNDACION',
         'ELIMINAR_FUNDACION'
-      ]"
-    >
+      ]">
       Activa
     </a>
-    <a
-      [routerLinkActive]="['tab-active']"
-      routerLink="/system/{{ route }}/list/filter/inactiva"
-      class="tab tab-lifted"
-      *permissions="[
+        <a [routerLinkActive]="['tab-active']" routerLink="/system/{{ route }}/list/filter/inactiva" class="tab tab-lifted" *permissions="[
         'LEER_FUNDACION',
         'CREAR_FUNDACION',
         'ACTUALIZAR_FUNDACION',
         'ELIMINAR_FUNDACION'
-      ]"
-    >
+      ]">
       Inactiva
     </a>
-  </div>
+        <a [routerLinkActive]="['tab-active']" routerLink="/system/{{ route }}/list/archived" class="tab tab-lifted" *permissions="[
+        'LEER_FUNDACION',
+        'CREAR_FUNDACION',
+        'ACTUALIZAR_FUNDACION',
+        'ELIMINAR_FUNDACION'
+      ]">
+
+    archivados    </a>
+    </div>
 </div>

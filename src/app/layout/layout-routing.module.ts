@@ -52,6 +52,7 @@ import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/l
 import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tutor/fundacion-tutor.component';
 import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tutor/portafolio-tutor.component';
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { ArchivedInstitucionComponent } from '../feature/institucion-beneficiaria/archived-institucion/archived-institucion.component';
 
 const routes: Routes = [
 
@@ -441,7 +442,7 @@ const routes: Routes = [
               },
               {
                 path: 'archived',
-                component: SolicitudArchivedComponent,
+                component: ArchivedInstitucionComponent,
               },
             ],
           },
@@ -569,7 +570,7 @@ const routes: Routes = [
                     path: 'archived',
                     component: AvanceCumplimientoComponent,
                   },
-                 
+
                 ],
               },
               {
