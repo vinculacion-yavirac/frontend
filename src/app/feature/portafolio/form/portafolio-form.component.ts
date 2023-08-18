@@ -212,7 +212,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         document_id: documento.id,
         created_at: new Date(),
         state: true,
-        observation: '', // Initialize with an empty observation
+        observation: '',
       }
       this.files.push(customFile);
     }

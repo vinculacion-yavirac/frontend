@@ -377,7 +377,7 @@ export class SolicitudListComponent implements OnInit {
 
   getProyectoParticipante(): void {
     this.loading = true;
-    this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe((res: any) => {
+    this.proyectoParticipanteHttpService.getProyectoParticipants().subscribe((res: any) => {
       this.handleSearchResponseProyectoParticipante(res);
       this.loading = false;
     });

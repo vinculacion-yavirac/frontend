@@ -133,6 +133,7 @@ import { ListEstudianteComponent } from './estudiante/list-estudiante/list-estud
 import { FundacionTutorComponent } from './docente-tutor/fundacion-tutor/fundacion-tutor.component';
 import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/portafolio-tutor.component';
 import { FormModalComponent } from './docente-vinculacion/formulario-final-tutor/modal_form/formmodal.component';
+import { AsignadoEstudianteComponent } from './estudiante/asignado-estudiante/asignado-estudiante.component';
 
 @NgModule({
   declarations: [
@@ -240,6 +241,7 @@ import { FormModalComponent } from './docente-vinculacion/formulario-final-tutor
     ListEstudianteComponent,
     FundacionTutorComponent,
     PortafolioTutorComponent,
+    AsignadoEstudianteComponent,
   ],
   imports: [
     CommonModule,
