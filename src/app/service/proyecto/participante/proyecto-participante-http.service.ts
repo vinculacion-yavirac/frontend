@@ -18,7 +18,12 @@ export class ProyectoParticipanteHttpService {
 
   private url = environment.API_URL + '/project-participant';
 
-  public getProyectoParticipant(): Observable<ProyectoParticipanteModels[]> {
+  public getProyectoParticipants(): Observable<ProyectoParticipanteModels[]> {
     return this.http.get<ProyectoParticipanteModels[]>(this.url);
   }
+
+  public getByParticipantId(id: number): Observable<ProyectoParticipanteModels[]> {
+    return this.http.get<ProyectoParticipanteModels[]>(`${this.url}/${id}`);
+  }
+
 }

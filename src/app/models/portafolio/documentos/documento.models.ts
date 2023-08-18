@@ -9,10 +9,10 @@ export interface DocumentoModels {
   state: boolean;
   order: number;
   //files: FilesModels;
-  responsible_id?: Role | number;
   archived_by: User;
   created_at: Date;
   updated_at: Date;
   archived_at: Date;
+  responsible_id?: Role;
 }
 

@@ -221,7 +221,7 @@ export class AsignarModalComponent implements OnInit {
 
   obtenerProjectParticipants(): void {
 
-    this.proyectoParticipanteHttpService.getProyectoParticipant().subscribe(
+    this.proyectoParticipanteHttpService.getProyectoParticipants().subscribe(
       (response: any) => {
         this.projectParticipants = response.data.projectParticipants;
         this.projectParticipantsSubject.next(this.projectParticipants);
