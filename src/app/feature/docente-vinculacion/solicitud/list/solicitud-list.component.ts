@@ -449,5 +449,5 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
-  
+
 }
