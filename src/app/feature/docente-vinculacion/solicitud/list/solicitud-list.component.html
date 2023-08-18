@@ -89,16 +89,11 @@
               <th class="py-[3.8px] px-6 text-right">
                 <ng-template [ngIf]='solicitud.type_request_id.catalog_value === vinculacion'>
                   <div class="relative inline-block">
-                    <!--
-                    <span
-                    class="fa-solid fa-times-circle text-lg cursor-pointer text-gray-500 transition-all hover:text-red-500"
-                    (click)="closeOptionsMenu(solicitud.id)"></span>
-                    -->
                     <button mat-button [matMenuTriggerFor]="menu" #menuTrigger><span
                         class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"></span></button>
                     <mat-menu #menu="matMenu">
                       <a [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                        class="block py-2 pl-2 text-sm transition-all hover:text-primary">
+                        class="block py-2 pl-2 text-sm transition-all hover:text-primary" (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)">
                         Asignar estudiante
                       </a>
                     </mat-menu>
