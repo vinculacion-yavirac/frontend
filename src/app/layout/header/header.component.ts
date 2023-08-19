@@ -3,6 +3,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuth } from '../../../app/models/auth/user.interface';
 import { AuthHttpService } from '../../../app/service/auth/auth-http.service';
+import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
+import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 
 
 @Component({
@@ -14,15 +16,31 @@ export class HeaderComponent implements OnInit {
   currentUser = {} as UserAuth;
 
   toggle: boolean = false;
+  solicitudes:SolicitudModels[] = [];
 
   @Output() toggleEvent = new EventEmitter<boolean>();
 
-  constructor(private authHttpService: AuthHttpService, private router: Router) {}
+  constructor(
+    private authHttpService: AuthHttpService,
+    private router: Router,
+    private solicitudHttpService:SolicitudHttpService
+    ) {}
 
   ngOnInit(): void {
+    this.getsoliitud();
     this.toggle = JSON.parse(localStorage.getItem('sidebar') || 'false');
     this.toggleEvent.emit(this.toggle);
     this.getCurrentUser();
+  }
+
+
+
+  getsoliitud(){
+    this.solicitudHttpService.getSolicitudes().subscribe((response:any) =>{
+      if(response.status === 'success'){
+        this.solicitudes = response.data.solicitudes;
+      }
+    })
   }
 
   getCurrentUser() {
