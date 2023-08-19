@@ -145,19 +145,19 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
           }
           this.loading = false;
         });
-      } else {
-        this.documentosHtppService.getDocuments().subscribe((res: any) => {
+      } else if (this.user.role === 'Docente Tutor' || this.user.role === 'Coordinador Carrera' || this.user.role === 'Docente Vinculación' || this.user.role === 'Coordinador General') {
+        this.documentosHtppService.getDocumentsByResponsibleTutorandStuden().subscribe((res: any) => {
           if (res.status === 'success') {
             this.documentos = res.data.documents;
           }
           this.loading = false;
         });
+      }else {
+        this.documentos = [];
+        this.loading = false;
       }
     });
   }
-
-
-
 
   createBriefcase(): void {
     if (this.briefcaseForm.valid) {
@@ -212,7 +212,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         document_id: documento.id,
         created_at: new Date(),
         state: true,
-        observation: '', // Initialize with an empty observation
+        observation: '',
       }
       this.files.push(customFile);
     }

@@ -52,6 +52,7 @@ import { ListEstudianteComponent } from '../feature/estudiante/list-estudiante/l
 import { FundacionTutorComponent } from '../feature/docente-tutor/fundacion-tutor/fundacion-tutor.component';
 import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tutor/portafolio-tutor.component';
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
+import { AsignadoEstudianteComponent } from '../feature/estudiante/asignado-estudiante/asignado-estudiante.component';
 import { ArchivedInstitucionComponent } from '../feature/institucion-beneficiaria/archived-institucion/archived-institucion.component';
 
 const routes: Routes = [
@@ -95,25 +96,6 @@ const routes: Routes = [
               {
                 path: '',
                 component: PortafolioTutorComponent
-              },
-              {
-                path: 'filter',
-                children: [
-                  {
-                    path: 'Aprobado',
-                    component: PortafolioTutorComponent,
-                    data: {
-                      filterAprobado: true
-                    }
-                  },
-                  {
-                    path: 'Pendiente',
-                    component: PortafolioTutorComponent,
-                    data: {
-                      filterPendiente: false
-                    }
-                  }
-                ]
               }
             ]
           }
@@ -187,7 +169,16 @@ const routes: Routes = [
           },
           {
             path: 'estudiante',
-            component: ListEstudianteComponent,
+            children: [
+              {
+                path: '',
+                component: ListEstudianteComponent,
+              },
+              {
+                path: 'asignado',
+                component: AsignadoEstudianteComponent,
+              }
+            ]
           },
           {
             path: 'form/estudiante',
@@ -378,25 +369,6 @@ const routes: Routes = [
               {
                 path:'',
                 component: FundacionTutorComponent,
-              },
-              {
-                path: 'filter',
-                children:[
-                  {
-                    path:'activa',
-                    component: FundacionTutorComponent,
-                    data:{
-                      filterActiva: true
-                    }
-                  },
-                  {
-                    path:'inactiva',
-                    component: FundacionTutorComponent,
-                    data:{
-                      filterInactiva: false
-                    }
-                  },
-                ]
               }
             ]
           }

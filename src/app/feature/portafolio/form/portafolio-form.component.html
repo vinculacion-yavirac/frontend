@@ -75,6 +75,9 @@
                     Nombre del Archivo
                   </th>
                   <th scope="col" class="py-3 px-6">
+                    Encargado
+                  </th>
+                  <th scope="col" class="py-3 px-6">
                     Opciones
                   </th>
                   <th scope="col" class="py-3 px-6">
@@ -86,22 +89,25 @@
                 </tr>
               </thead>
               <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-                <ng-container *ngFor="let documento of documentos">
+                <ng-container *ngFor="let documento of documentos;  let i = index"  >
                   <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                    <td></td>
+                    <td class="text-center">{{ i + 1 }}</td>
                     <td class="py-[3.8px] px-6 capitalize">{{ documento.name }}</td>
+                    <td>{{ documento.responsible_id?.name }}</td>
                     <td>
-                      <div>
-                        <input type="file" multiple (change)="onFileSelected($event, documento)">
-                        <div *ngIf="briefcaseForm.get('files')?.invalid && briefcaseForm.get('files')?.touched">
-                          <div *ngIf="briefcaseForm.get('files')?.errors?.['required']">Los archivos son requeridos.
-                          </div>
-                        </div>
+                      <div class="file-input-container" (click)="fileInput.click()">
+                        <span class="fa-solid fa-upload"></span>
+                        <input #fileInput type="file" multiple (change)="onFileSelected($event, documento)" style="display: none;">
                       </div>
+                      
                       <div *ngFor="let inf of info?.files">
                         <div *ngIf="inf.document_id === documento.id">
-                          <button (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
-                            class="btn btn-primary">Descargar archivo</button>
+                          <span (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
+                            class="fa-solid fa-download text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
+                            ></span>
+                          <!--<a (click)="downloadFile(info.id, documento.id, inf.id, inf.name)">
+                            <span class="fas fa-home" ></span>
+                          </a>-->
                         </div>
                       </div>
                     </td>

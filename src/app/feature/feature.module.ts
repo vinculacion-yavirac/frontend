@@ -134,6 +134,7 @@ import { FundacionTutorComponent } from './docente-tutor/fundacion-tutor/fundaci
 import { PortafolioTutorComponent } from './docente-tutor/portafolio-tutor/portafolio-tutor.component';
 import { FormModalComponent } from './docente-vinculacion/formulario-final-tutor/modal_form/formmodal.component';
 import { ArchivedInstitucionComponent } from './institucion-beneficiaria/archived-institucion/archived-institucion.component';
+import { AsignadoEstudianteComponent } from './estudiante/asignado-estudiante/asignado-estudiante.component';
 
 @NgModule({
   declarations: [
@@ -242,6 +243,7 @@ import { ArchivedInstitucionComponent } from './institucion-beneficiaria/archive
     FundacionTutorComponent,
     PortafolioTutorComponent,
     ArchivedInstitucionComponent,
+    AsignadoEstudianteComponent,
   ],
   imports: [
     CommonModule,
