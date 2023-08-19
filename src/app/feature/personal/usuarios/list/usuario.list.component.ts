@@ -10,6 +10,9 @@ import { UsuarioHttpService } from '../../../../../app/service/auth/users/usuari
 import { ExporterService } from 'src/app/service/portafolio/exportar/exporter.service';
 import { ImportadorService } from 'src/app/service/portafolio/exportar/importar.service';
 import * as XLSX from  'xlsx';
+import { RolHttpService } from 'src/app/service/auth/role/rol-http.service';
+import { Role } from 'src/app/models/auth/role/rol';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -37,9 +40,9 @@ export class UsuariosListComponent implements OnInit {
     identification: ''
 
   }
-
+  roles : Role[] = [];
   excelData : any[] = [];
-  user : any = {id:0, email: '', password:'',person:0,role: 0, active:1,archived:'',archived_at:'',archived_by:'',created_at:'',updated_at:'', names: '',
+  user : any = {id:0, email: '', password:'',person:0,role: '', active:1,archived:'',archived_at:'',archived_by:'',created_at:'',updated_at:'', names: '',
   last_names: '',
   identification_type: '',
   identification: ''}
@@ -49,6 +52,7 @@ export class UsuariosListComponent implements OnInit {
     private dialog: MatDialog,
     private excellService:ExporterService,
     private importadorService: ImportadorService,
+    private rolService : RolHttpService
 
   ) {}
 
@@ -72,9 +76,9 @@ import(event: any): void{
       //Elimina las posiciones extra
       //console.log(this.excelData)
       this.user = this.excelData
-    this.excelData.forEach( (response) => {
-      this.user = response,
-      this.role = this.user.role
+      this.excelData.forEach( (response) => {
+      this.user = response
+     // this.role = this.user.role
       this.person = {
         id:0,
         names: this.user.names,
@@ -82,6 +86,41 @@ import(event: any): void{
         identification_type: this.user.identification_type,
         identification: this.user.identification
       }
+
+      this.rolService.getRoles().pipe(finalize( () => {
+
+        this.roles.forEach((role) => {
+          if (role.name == this.user.role){
+
+            this.role = {
+
+              id: role.id
+
+            }
+            this.usuarioHttpService.addUsuario(this.seenduser = {
+              id:0,
+              email: this.user.email,
+              password:this.user.password,
+              person:this.person,
+              role: this.role,
+              active:1,
+              archived:false,
+              archived_at:new Date(),
+              archived_by:this.person,
+              created_at:new Date(),
+              updated_at:new Date()})
+              .subscribe()
+          }
+
+        })
+
+      })).subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.roles = res.data.roles;
+        }
+      });
+
+
 
      /* this.seenduser = {
         id:0,
@@ -97,7 +136,7 @@ import(event: any): void{
         updated_at:new Date()}
 console.log(this.seenduser)*/
 
-      this.usuarioHttpService.addUsuario(this.seenduser = {
+      /*this.usuarioHttpService.addUsuario(this.seenduser = {
         id:0,
         email: this.user.email,
         password:this.user.password,
@@ -109,7 +148,7 @@ console.log(this.seenduser)*/
         archived_by:this.person,
         created_at:new Date(),
         updated_at:new Date()})
-        .subscribe()
+        .subscribe()*/
 
     }
 
