@@ -90,7 +90,7 @@ export class SolicitudHttpService {
   }
 
   createSolicitude(solicitud: SolicitudModels): Observable<SolicitudModels> {
-    return this.http.post<SolicitudModels>(this.url, solicitud, this.httpOptions);
+    return this.http.post<SolicitudModels>(`${this.url}/create`, solicitud, this.httpOptions);
   }
 
   aprovateCertificado(id: number): Observable<SolicitudModels> {
