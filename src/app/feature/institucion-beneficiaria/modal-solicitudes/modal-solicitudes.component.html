@@ -1,5 +1,6 @@
 <!-- modal-solicitudes.component.html -->
 <h1 class="text-center">Listado de Estudiantes</h1>
+<div style="max-height: auto; overflow-y: auto;">
   <table class="my_table w-full text-sm text-left text-neutral">
     <thead class="text-xs text-white uppercase bg-primary">
       <tr>
@@ -32,7 +33,8 @@
         && isBeneficiaryInstitutionMatch(solicitud)">
           <th scope="row" class="py-[3.8px] px-6 font-medium text-neutral whitespace-nowrap dark:text-neutral">
             <span *ngIf="!reverse">{{ config.itemsPerPage * (config.currentPage - 1) + index + 1 }}</span>
-            <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index) }}</span>
+            <span *ngIf="reverse">{{ solicitudes.length - (config.itemsPerPage * (config.currentPage - 1) + index)
+              }}</span>
           </th>
           <td class="py-[3.8px] px-6 capitalize">
             <span>{{ solicitud.created_by.person | NamesSurnamesComplete }}</span>
@@ -56,5 +58,4 @@
     </tbody>
 
   </table>
-
-
+</div>
