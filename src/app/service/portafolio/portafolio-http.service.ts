@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PortafoliosModels } from '../../../app/models/portafolio/portafolio.models';
 import { environment } from '../../../environments/environment';
 import { CustomFile } from 'src/app/models/portafolio/files/custom-file.interface';
+import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.models';
 
 @Injectable({
   providedIn: 'root'
@@ -106,9 +107,13 @@ export class PortafolioHttpService {
       }
     );
   }
-  
+
   deleteBriefcase(id: number): Observable<PortafoliosModels> {
     return this.http.delete<PortafoliosModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
+
+  updatePortafolio(id: number, data: any): Observable<PortafoliosModels> {
+    return this.http.put<PortafoliosModels>(`${this.url}/update/${id}`, data, this.httpOptions);
   }
 
 }

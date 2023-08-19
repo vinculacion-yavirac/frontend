@@ -128,12 +128,6 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     this.paramsSubscription.unsubscribe();
   }
 
-  onSubmit(): void {
-    if (this.briefcaseForm.valid) {
-      this.createBriefcase();
-    }
-  }
-
   getDocumentos(): void {
     this.loading = true;
     this.authHttpService.getUser().subscribe((user: UserAuth) => {
@@ -159,25 +153,47 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  createBriefcase(): void {
+  onSubmit(): void {
     if (this.briefcaseForm.valid) {
-      const postData = {
-        ...this.currentPortafolio,
-      };
+      if (this.currentPortafolio && this.currentPortafolio.id) {
+        this.updatePortafolio();
+      } else {
+        this.createBriefcase();
+      }
+    }
+  }
 
-      this.portafolioHttpService.addPortafolios(postData).subscribe((response: any) => {
-        if(response.status === 'success') {
-          const id = response.data.briefcase.id;
-          this.uploadFiles(id);
+  createBriefcase(): void {
+    const postData = {
+      ...this.currentPortafolio,
+    };
+
+    this.portafolioHttpService.addPortafolios(postData).subscribe((response: any) => {
+      if (response.status === 'success') {
+        const id = response.data.briefcase.id;
+        this.uploadFiles(id);
+      }
+    });
+  }
+
+  updatePortafolio(): void {
+    const postData = {
+      ...this.briefcaseForm.value,
+    };
+
+    this.portafolioHttpService.updatePortafolio(this.currentPortafolio.id, postData)
+      .subscribe((response: any) => {
+        if (response.status === 'success') {
+          const idPortafolio = response.data.briefcase.id;
+          this.uploadFiles(idPortafolio);
         }
       });
-    }
   }
 
 
 
-  // Función para actualizar la observación en CustomFile
-  onObservationChange(observation: string, index: number): void {
+   // Función para actualizar la observación en CustomFile
+   onObservationChange(observation: string, index: number): void {
     this.files[index].observation = observation;
   }
 

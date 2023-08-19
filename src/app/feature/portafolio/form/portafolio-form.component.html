@@ -99,7 +99,7 @@
                         <span class="fa-solid fa-upload"></span>
                         <input #fileInput type="file" multiple (change)="onFileSelected($event, documento)" style="display: none;">
                       </div>
-                      
+
                       <div *ngFor="let inf of info?.files">
                         <div *ngIf="inf.document_id === documento.id">
                           <span (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
@@ -124,7 +124,7 @@
           </div>
         </div>
         <br>
-       <!-- <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">-->
+       <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
           <div class="grid h-auto card bg-neutral-content rounded-box p-1">
 
             <label class="label cursor-pointer place-items-right">
@@ -145,7 +145,7 @@
           <div class="grid place-items-center">
             <button class="btn btn-info w-25" type="submit" [disabled]="!briefcaseForm.valid">Enviar</button>
           </div>
-       <!-- </form> -->
+        </form>
       </div>
     </div>
 
