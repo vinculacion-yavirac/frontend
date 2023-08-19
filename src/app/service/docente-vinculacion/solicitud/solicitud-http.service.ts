@@ -89,10 +89,6 @@ export class SolicitudHttpService {
     return this.http.put<SolicitudModels>(`${this.url}/assign/${id}`, solicitud, this.httpOptions);
   }
 
-  createSolicitude(solicitud: SolicitudModels): Observable<SolicitudModels> {
-    return this.http.post<SolicitudModels>(`${this.url}/create`, solicitud, this.httpOptions);
-  }
-
   aprovateCertificado(id: number): Observable<SolicitudModels> {
     return this.http.put<SolicitudModels>(`${this.url}/aprovate-certificado/${id}`,null, this.httpOptions);
   }
@@ -103,5 +99,19 @@ export class SolicitudHttpService {
 
   deleteSolicitud(id: number): Observable<SolicitudModels> {
     return this.http.delete<SolicitudModels>(`${this.url}/delete/${id}`, this.httpOptions);
+  }
+
+  //ESTUDIANTE
+
+  getSolicitudesStudent(): Observable<SolicitudModels[]> {
+    return this.http.get<SolicitudModels[]>(`${this.url}/student/list`);
+  }
+
+  createSolicitudeVinculacion(solicitud: SolicitudModels): Observable<SolicitudModels> {
+    return this.http.post<SolicitudModels>(`${this.url}/create/solictud/vinculacion`, solicitud, this.httpOptions);
+  }
+
+  createCertificadoVinculacion(solicitud: SolicitudModels): Observable<SolicitudModels> {
+    return this.http.post<SolicitudModels>(`${this.url}/create/solictud/certificado`, solicitud, this.httpOptions);
   }
 }
