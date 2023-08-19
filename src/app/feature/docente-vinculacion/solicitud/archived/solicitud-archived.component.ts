@@ -48,8 +48,8 @@ export class SolicitudArchivedComponent implements OnInit {
       },
       (error) => {
         if (error.error && error.error.message === 'No se encontraron solicitudes archivadas.') {
-          this.handleSearchResponse(error);
-          this.sortSolicitudes();
+          // this.handleSearchResponse(error);
+          // this.sortSolicitudes();
         } else {
           // Manejar otros errores
           console.error('Error al obtener solicitudes archivadas:', error);
