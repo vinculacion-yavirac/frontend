@@ -7,10 +7,11 @@ import { DocumentoModels } from 'src/app/models/portafolio/documentos/documento.
 import { ProyectoParticipanteModels } from 'src/app/models/proyecto/ProjectParticipant/proyecto-participante.moduls';
 import { DocumentoHttpService } from 'src/app/service/portafolio/documento/documento-http.service';
 import { FileHttpService } from 'src/app/service/portafolio/files/file-http.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthHttpService } from 'src/app/service/auth/auth-http.service';
 import { UserAuth } from 'src/app/models/auth/user.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-portafolio-form',
@@ -36,6 +37,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   filesArray: any;
   customFiles: { document_id: number; file: CustomFile; stateControl: FormControl; observationControl: FormControl }[] = [];
   user: UserAuth;
+  userRole: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,12 +66,16 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         }, 1000);
       }
     });
+    this.getCurrentUser();
+    if (this.user && this.user.role === 'Estudiante') {
+      this.briefcaseForm.get('observations')?.disable();
+    }
   }
 
   initForm(): void {
     this.briefcaseForm = this.formBuilder.group({
       id: [0],
-      files: this.formBuilder.array([]),
+      files:this.formBuilder.array([]),
 
       created_by: this.formBuilder.group({
         id: [0],
@@ -96,14 +102,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
         }),
       }),
       observations: [
-        '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(100),
-          ],
-        },
+        ''
       ],
       state: [
         'false'
@@ -240,8 +239,12 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   }
 
   getCurrentUser() {
-    this.authHttpService.getUser().subscribe((user: UserAuth) => (this.user = user));
-    console.log(this.user)
+    this.authHttpService.getUser().subscribe((user: UserAuth) => {
+      this.user = user;
+      this.userRole = user.role;
+      console.log('User role:', this.userRole);
+    });
   }
+
 
 }

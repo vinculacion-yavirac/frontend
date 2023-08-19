@@ -98,7 +98,7 @@
                         class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"></span></button>
                     <mat-menu #menu="matMenu">
                       <a [routerLink]="['/system/solicitud/form/', solicitud.id]"
-                        class="block py-2 pl-2 text-sm transition-all hover:text-primary">
+                        class="block py-2 pl-2 text-sm transition-all hover:text-primary" (click)="checkParticipantMatch(solicitud.created_by.id, solicitud.id)">
                         Asignar estudiante
                       </a>
                     </mat-menu>
