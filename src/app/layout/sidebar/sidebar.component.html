@@ -73,7 +73,9 @@
             'LEER_ROLES',
             'CREAR_ROLES',
             'ACTUALIZAR_ROLES',
-            'ELIMINAR_ROLES'
+            'ELIMINAR_ROLES',
+            'EXPORTAR_USUARIOS',
+            'IMPORTAR_USUARIOS'
           ]" class="flex pl-0 rounded-md items-center transition-all hover:bg-[#3f51b521] cursor-pointer">
                 <div class="flex justify-center items-center min-w-[2.25rem] min-h-[2.25rem] rounded-md">
                     <span class="fas fa-user-tie text-base leading-none"></span>
@@ -96,6 +98,7 @@
             </div>
 
             <li [routerLinkActive]="['active']" routerLink="/system/portafolio" *permissions="[
+            'LEER_PORTAFOLIO',
             'ARCHIVAR_PORTAFOLIO',
             'RESTAURAR_PORTAFOLIO',
             'ELIMINAR_PORTAFOLIO',
@@ -124,6 +127,7 @@
                 </div>
             </li>
             <li [routerLinkActive]="['active']" routerLink="/system/solicitud" *permissions="[
+            'LEER_SOLICITUD',
             'CREAR_SOLICITUD',
             'ACTUALIZAR_SOLICITUD',
             'ARCHIVAR_SOLICITUD',
@@ -157,6 +161,7 @@
                 </div>
             </li>
             <li [routerLinkActive]="['active']" routerLink="/system/proyecto" *permissions="[
+            'LEER_PROYECTO',
             'CREAR_PROYECTO',
             'ACTUALIZAR_PROYECTO',
             'ARCHIVAR_PROYECTO',
@@ -175,6 +180,7 @@
                 </div>
             </li>
             <li [routerLinkActive]="['active']" routerLink="/system/institucion-beneficiaria" *permissions="[
+            'LEER_FUNDACION',
             'CREAR_FUNDACION',
             'ACTUALIZAR_FUNDACION',
             'ARCHIVAR_FUNDACION',
@@ -204,6 +210,7 @@
                     </a>
                 </div>
             </li>
+
         </ul>
     </div>
     <ul>
