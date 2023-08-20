@@ -125,7 +125,7 @@
               <span class="label-text text-dark">Observaciones del Portafolio</span>
             </label>
             <textarea placeholder="Observación del Portafolio" id="observations" formControlName="observations"
-              class="textarea  textarea-lg w-full h-auto "></textarea>
+              class="bg-white border border-gray-300 p-2 rounded-md text-black placeholder-gray-700"></textarea>
             <div *ngIf="briefcaseForm.get('observations')?.invalid && briefcaseForm.get('observations')?.touched">
               <div *ngIf="briefcaseForm.get('observations')?.errors?.['required']">Las observaciones son requeridas.
               </div>
