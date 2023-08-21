@@ -1,1 +1,85 @@
-<p>form works!</p>
+<div class="card">
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-auto">
+        <label for="Actividades" class="col-form-label">Hora Actividades</label>
+      </div>
+      <div class="col-auto">
+        <input
+          type="text"
+          id="Actividades"
+          class="form-control"
+          disabled
+          [(ngModel)]="init"
+        />
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" (click)="setInit()">
+          Iniciar
+        </button>
+      </div>
+    </div>
+    <div class="row" *ngIf="init">
+      <div class="col-auto">
+        <label for="Actividades" class="col-form-label">Hora Salida</label>
+      </div>
+      <div class="col-auto">
+        <input
+          type="text"
+          id="Actividades"
+          class="form-control"
+          disabled
+          [(ngModel)]="exit"
+        />
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" (click)="setExit()">
+          Terminar
+        </button>
+      </div>
+    </div>
+    <div class="row" *ngIf="init && exit">
+      <div class="col-auto">
+        <label for="Actividades" class="col-form-label">Actividades</label>
+      </div>
+      <div class="col-auto">
+        <textarea
+          id="Actividades"
+          class="form-control"
+          rows="3"
+          [(ngModel)]="activities"
+        ></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="create()">
+        Enviar
+      </button>
+    </div>
+    <hr />
+
+    <!-- <table class="table-auto border-collapse border border-slate-500">
+      <caption class="caption-bottom">
+        Registro de asistencia de Vinculacion con la sociedad
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" class="border border-slate-600">Fecha</th>
+          <th scope="col" class="border border-slate-600">Hora de entrada</th>
+          <th scope="col" class="border border-slate-600">Hora de Salida</th>
+          <th scope="col" class="border border-slate-600">Total Horas</th>
+          <th scope="col" class="border border-slate-600">
+            Actividad Realizada
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of asists">
+          <th scope="row">{{ getDate(item.init) }}</th>
+          <td>{{ getHour(item.init) }}</td>
+          <td>{{ getHour(item.exit) }}</td>
+          <td>{{ getDifferenceHours(item.exit, item.init) }}</td>
+          <td>{{ item.activities }}</td>
+        </tr>
+      </tbody>
+    </table> -->
+  </div>
+</div>

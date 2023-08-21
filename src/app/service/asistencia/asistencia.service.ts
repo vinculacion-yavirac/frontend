@@ -23,4 +23,8 @@ export class AsistenciaService {
 
     return this.http.get(this.url, { params: { user_id: id } });
   }
+
+  create(data:any): Observable<any> {
+    return this.http.post(this.url,data ,this.httpOptions)
+  }
 }
