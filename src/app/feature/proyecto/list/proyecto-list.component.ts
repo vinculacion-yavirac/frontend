@@ -416,7 +416,7 @@ export class ProyectoListComponent implements OnInit {
           this.doc.text('X', 210, 480);
         } else if (element === 'quincenal') {
           this.doc.text('X', 340, 480);
-        }else if(element === 'mensual'){
+        } else if (element === 'mensual') {
           this.doc.text('X', 450, 480);
         }
 
@@ -434,37 +434,32 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('EJES ESTRATEGICOS DE VINCULACION CON LA COLECTIVIDAD', 475, 525, { maxWidth: 120, align: 'center' });
 
       var secor_actividades = JSON.parse(this.proyectData.intervention_sectors);
-for (let i = 0; i < secor_actividades.length; i++) {
-  const element = secor_actividades[i];
-  if (element === 'educacion') {
-    this.doc.text('X', 365, 570);
+      for (let i = 0; i < secor_actividades.length; i++) {
+        const element = secor_actividades[i];
+        if (element === 'educacion') {
+          this.doc.text('X', 365, 570);
+        } else if (element === 'salud') {
+          this.doc.text('X', 365, 605);
+        } else if (element === 'sa') {
+          this.doc.text('X', 365, 635);
+        }
+      }
 
-  }else if(element === 'salud'){
-    this.doc.text('X', 365, 605);
-
-  }else if(element === 'sa'){
-    this.doc.text('X', 365, 635);
-  }
-}
-
-var actividades_vincu = JSON.parse(this.proyectData.activity_vinculation);
-for (let i = 0; i < actividades_vincu.length; i++) {
-  const element = actividades_vincu[i];
-  if (element === 'correos') {
-    this.doc.text('X', 365, 570);
-
-  }else if(element === 'acuerdo'){
-    this.doc.text('X', 365, 605);
-
-  }else if(element === 'pvpij'){
-    this.doc.text('X', 365, 635);
-  }
-}
+      var actividades_vincu = JSON.parse(this.proyectData.activity_vinculation);
+      for (let i = 0; i < actividades_vincu.length; i++) {
+        const element = actividades_vincu[i];
+        if (element === 'correos') {
+          this.doc.text('X', 190, 570);
+        } else if (element === 'acuerdo') {
+          this.doc.text('X', 190, 605);
+        } else if (element === 'pvpij') {
+          this.doc.text('X', 190, 635);
+        }
+      }
       this.doc.line(40, 550, 550, 550);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Convenios institucionales', 42, 570);
-      this.doc.text('0', 190, 570);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Educación', 270, 570);
@@ -477,7 +472,6 @@ for (let i = 0; i < actividades_vincu.length; i++) {
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Acuerdo', 80, 605);
-      this.doc.text('0', 190, 605);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Salud', 260, 605);
@@ -493,7 +487,6 @@ for (let i = 0; i < actividades_vincu.length; i++) {
       this.doc.text('Proyecto de vinculación propio  IST JME', 42, 635, { maxWidth: 120, align: 'justify' });
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
-      this.doc.text('0', 190, 635);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Saneamiento Ambiental', 240, 635, { maxWidth: 120, align: 'justify' });
@@ -512,7 +505,7 @@ for (let i = 0; i < actividades_vincu.length; i++) {
 
     const pageContent3 = (data: any) => {
       // HEADER
-   
+
       this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
       this.doc.line(40, 150, 555, 150);
       this.doc.line(40, 150, 40, 750);
@@ -529,49 +522,62 @@ for (let i = 0; i < actividades_vincu.length; i++) {
       for (let i = 0; i < secor_actividades.length; i++) {
         const element = secor_actividades[i];
         console.log(element);
-        
-        if(element === 'ds'){
-          this.doc.text('X', 365, 165);
 
-        }else if(element === 'ap'){
+        if (element === 'ds') {
+          this.doc.text('X', 365, 165);
+        } else if (element === 'ap') {
           this.doc.text('X', 365, 170);
 
-          }else if(element === 'agyp'){
-            this.doc.text('X', 365, 195);
+        } else if (element === 'agyp') {
+          this.doc.text('X', 365, 195);
 
-          }else if(element === 'vivienda'){
-            this.doc.text('X', 365, 220);
+        } else if (element === 'vivienda') {
+          this.doc.text('X', 365, 220);
 
-          }else if(element === 'pma'){
-            this.doc.text('X', 365, 250);
+        } else if (element === 'pma') {
+          this.doc.text('X', 365, 250);
 
-          }else if(element === 'rne'){
-            this.doc.text('X', 365, 280);
+        } else if (element === 'rne') {
+          this.doc.text('X', 365, 280);
 
-          }else if(element === 'tcv'){
-            this.doc.text('X', 365, 310);
+        } else if (element === 'tcv') {
+          this.doc.text('X', 365, 310);
 
-          }else if(element === 'desarrolloU'){
-            this.doc.text('X', 365, 340);
+        } else if (element === 'desarrolloU') {
+          this.doc.text('X', 365, 340);
 
-          }else if(element === 'turismo'){
-            this.doc.text('X', 365, 370);
+        } else if (element === 'turismo') {
+          this.doc.text('X', 365, 370);
 
-          }else if(element === 'cultura'){
-            this.doc.text('X', 365, 400);
+        } else if (element === 'cultura') {
+          this.doc.text('X', 365, 400);
 
-          }else if(element === 'dic'){
-            this.doc.text('X', 365, 430);
+        } else if (element === 'dic') {
+          this.doc.text('X', 365, 430);
 
-          }else  if(element === 'deportes'){
-            this.doc.text('X', 365, 460);
+        } else if (element === 'deportes') {
+          this.doc.text('X', 365, 460);
 
-          }else if(element === 'jys'){
-            this.doc.text('X', 365, 490);
+        } else if (element === 'jys') {
+          this.doc.text('X', 365, 490);
 
-          }
         }
-      this.doc.text('0', 190, 165);
+      }
+
+
+      var actividades_vincu = JSON.parse(this.proyectData.activity_vinculation);
+      for (let i = 0; i < actividades_vincu.length; i++) {
+        const element = actividades_vincu[i];
+        if (element === 'pcc') {
+          this.doc.text('X', 190, 165);
+
+        } else if (element === 'pvc') {
+          this.doc.text('X', 190, 195);
+
+        } else if (element === 'pvpij') {
+          this.doc.text('X', 365, 635);
+        }
+      }
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Desarrollo Social', 240, 165, { maxWidth: 120, align: 'justify' });
@@ -593,7 +599,6 @@ for (let i = 0; i < actividades_vincu.length; i++) {
       this.doc.text('Practicas Vinculación con la comunidad', 42, 195, { maxWidth: 120, align: 'justify' });
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
-      this.doc.text('0', 190, 195);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
       this.doc.text('Apoyo Productivo', 240, 195, { maxWidth: 120, align: 'justify' });
