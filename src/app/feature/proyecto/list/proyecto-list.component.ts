@@ -829,12 +829,12 @@ export class ProyectoListComponent implements OnInit {
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('3.-ANALISIS SITUACIONAL (DIAGNOSTICO)', 45, 165);
       this.doc.line(40, 170, 550, 170);
-      this.doc.text('$F{analisis}', 95, 180, { maxWidth: 550, align: 'center' });
+      this.doc.text(this.proyectData.situational_analysis, 95, 180, { maxWidth: 550, align: 'center' });
 
       this.doc.line(40, 430, 555, 430);
       this.doc.text('4.-JUSTIFICACIÓN ', 45, 445);
       this.doc.line(40, 450, 555, 450);
-      this.doc.text('$F{justificacion', 95, 460, { maxWidth: 550, align: 'center' });
+      this.doc.text(this.proyectData.justification, 95, 460, { maxWidth: 550, align: 'center' });
 
 
       this.doc.line(40, 540, 555, 540);
@@ -1109,9 +1109,11 @@ export class ProyectoListComponent implements OnInit {
       this.doc.text('8.-CRONOGRAMA', 45, 165);
       this.doc.line(40, 170, 555, 170);
 
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.setFontSize(9);
-      this.doc.text('$F{horario}', 45, 180, { maxWidth: 550, align: 'justify' });
+      var cronograma = JSON.parse(this.proyectData.schedule_crono);
+
+      const img_cronograma = "data:image/png;base64," + cronograma.base64textString;
+      console.log(img_cronograma);
+      this.doc.addImage(img_cronograma, 'JPG', 45, 180, 450, 350);
 
       this.doc.line(40, 550, 555, 550);
 
@@ -1129,11 +1131,10 @@ export class ProyectoListComponent implements OnInit {
       this.doc.setFont("Roboto", 'bold');
       this.doc.text('9.-FINANCIAMIENTO', 45, 165);
       this.doc.line(40, 170, 555, 170);
-
-      this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
-      this.doc.setFontSize(9);
-      this.doc.text('$F{horario}', 45, 180, { maxWidth: 550, align: 'justify' });
-
+      var financiamiento = JSON.parse(this.proyectData.financing);
+      const img_cronograma = "data:image/png;base64," + financiamiento.base64textString;
+      console.log(img_cronograma);
+      this.doc.addImage(img_cronograma, 'JPG', 45, 180, 450, 350);
       this.doc.line(40, 550, 555, 550);
 
       this.doc.line(150, 680, 250, 680);
@@ -1169,20 +1170,20 @@ export class ProyectoListComponent implements OnInit {
       this.doc.line(40, 370, 555, 370);
       this.doc.setFont("Roboto-Regular-normal.ttf", "Roboto-Regular", "normal");
       this.doc.setFontSize(9);
-      this.doc.text('$F{estrategia}', 45, 385, { maxWidth: 550, align: 'justify' });
+      this.doc.text(this.proyectData.bibliographies, 45, 385, { maxWidth: 550, align: 'justify' });
 
 
       this.doc.line(45, 620, 200, 620);
       this.doc.text('RECTOR IST', 75, 630);
-      this.doc.text('$F{rector}', 75, 645, { maxWidth: 100, align: 'center' });
+      this.doc.text('IVÁN BORJA', 75, 645, { maxWidth: 100, align: 'center' });
 
       this.doc.line(250, 620, 375, 620);
       this.doc.text('COORDINADORA DE VINCULACIÓN', 240, 630,);
-      this.doc.text('$F{rector}', 275, 645, { maxWidth: 100, align: 'center' });
+      this.doc.text(this.proyectData.beneficiary_institution_id.name_autorize_by, 275, 645, { maxWidth: 100, align: 'center' });
 
       this.doc.line(450, 620, 550, 620);
       this.doc.text('COORDINADOR DE CARRERA', 440, 630,);
-      this.doc.text('$F{rector}', 475, 645, { maxWidth: 100, align: 'center' });
+      this.doc.text('YOUGLEDIS HERRERA', 475, 645, { maxWidth: 100, align: 'center' });
 
       // this.doc.line(480, 620, 200, 620);
 
