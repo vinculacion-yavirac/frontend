@@ -17,12 +17,10 @@
 
 
     </div>
-    <div class="flex">
+    <div class="flex" *permissions="['IMPORTAR_USUARIOS']">
       <label class="block">
-      <input  type="file" (change)="import($event)" class="block w-full text-sm text-slate-500
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-"></label>
+      <input  type="file" (change)="import($event)" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0">
+    </label>
 
       <button  *permissions="['EXPORTAR_USUARIOS']"
       mat-flat-button
