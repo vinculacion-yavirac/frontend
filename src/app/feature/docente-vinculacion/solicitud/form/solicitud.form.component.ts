@@ -150,32 +150,6 @@ export class SolicitudFormComponent implements OnInit {
     }
   }
 
-  // getSolicitudById(id: number): void {
-  //   this.loading = true;
-  //   this.solicitudeHttpService.getSolicitudeById(id).subscribe({
-  //     next: (response: any) => {
-  //       if (response.status === 'success') {
-  //         this.currentSolicitude = response.data.solicitudes;
-  //         this.idUserSolicitud = response.data.solicitudes.created_by.id;
-  //         this.projectSolicitud = response.data.solicitudes.project_id.id
-  //         console.log('this.idUserSolicitud',response.data.solicitudes.created_by.id);
-  //         this. getIdPortafolioFromSolicitud();
-  //         // this. getParticipant();
-  //         this.formGroup.patchValue(this.currentSolicitude);
-  //         if (this.currentSolicitude.project_id) {
-  //           this.currentSolicitude= response.data.solicitudes;
-  //           this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
-  //         }
-  //       }
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Error al obtener la solicitud:', error.message);
-  //     },
-  //     complete: () => {
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
 
   getSolicitudById(id: number): void {
     this.loading = true;
@@ -212,7 +186,7 @@ export class SolicitudFormComponent implements OnInit {
         if (response.status === 'success') {
           this.updateProject();
           console.log('entraaaa')
-          // this.router.navigate(['system/solicitud/list']);
+          this.router.navigate(['system/solicitud/list']);
         }
       },
       (error: any) => {

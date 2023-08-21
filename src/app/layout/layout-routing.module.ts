@@ -54,6 +54,7 @@ import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tu
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 import { AsignadoEstudianteComponent } from '../feature/estudiante/asignado-estudiante/asignado-estudiante.component';
 import { ArchivedInstitucionComponent } from '../feature/institucion-beneficiaria/archived-institucion/archived-institucion.component';
+import { SolicitudAprobadoComponent } from '../feature/docente-vinculacion/solicitud/aprobado/solicitud-aprobado.component';
 
 const routes: Routes = [
 
@@ -235,6 +236,10 @@ const routes: Routes = [
                     },
                   },
                 ]
+              },
+              {
+                path: 'aprobados',
+                component: SolicitudAprobadoComponent,
               },
               {
                 path: 'archived',

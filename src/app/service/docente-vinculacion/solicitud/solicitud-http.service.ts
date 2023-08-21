@@ -114,4 +114,8 @@ export class SolicitudHttpService {
   createCertificadoVinculacion(solicitud: SolicitudModels): Observable<SolicitudModels> {
     return this.http.post<SolicitudModels>(`${this.url}/create/solictud/certificado`, solicitud, this.httpOptions);
   }
+
+  getSolicitudeCertificadoAprobado(): Observable<SolicitudModels> {
+    return this.http.get<SolicitudModels>(`${this.url}/list/certificate`);
+  }
 }
