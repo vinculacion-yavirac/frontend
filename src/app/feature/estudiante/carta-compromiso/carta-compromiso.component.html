@@ -1,0 +1,138 @@
+<div class="card">
+  <div class="ml-8 text-xs breadcrumbs text-neutral opacity-80 font-medium">
+    <ul>
+      <li>
+        <span class="las la-home text-base leading-none mr-1"></span
+        ><a routerLink="/">Home</a>
+      </li>
+      <li>
+        <a routerLink="/system/estudiante/carta-compromiso">Carta-compromiso</a>
+      </li>
+      <ng-content></ng-content>
+    </ul>
+  </div>
+
+  <module-header title="Solicitud"></module-header>
+
+  <div class="card-body">
+    <legend>Datos del Estudiante</legend>
+    <fieldset disabled>
+      <div class="row">
+        <div class="col">
+          <label for="firstName" class="form-label">Nombres</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ currentUser.names }}"
+            aria-label="firstnName"
+            id="firstName"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Apellidos</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ currentUser.last_names }}"
+            aria-label="Last name"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Cedula</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ currentUser.identity }}"
+            aria-label="Last name"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="firstName" class="form-label">Carrera</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Desarrollo de software"
+            aria-label="firstnName"
+            id="firstName"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Semestre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="5"
+            aria-label="Last name"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Paralelo</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="A"
+            aria-label="Last name"
+          />
+        </div>
+      </div>
+
+      <div class="text-2xl font-medium my-8">Datos de la Entidad</div>
+      <div class="row">
+        <div class="col">
+          <label for="firstName" class="form-label">Entidad Beneficiaria</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Institucion Nueva Vida"
+            aria-label="firstnName"
+            id="firstName"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Cedula/Ruc</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0000000000001"
+            aria-label="Last name"
+          />
+        </div>
+      </div>
+
+      <!-- <legend>Coordinación</legend> -->
+
+      <div class="row">
+        <div class="col">
+          <label for="firstName" class="form-label">Tutor académico</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ing Hernan Mejia"
+            aria-label="firstnName"
+            id="firstName"
+          />
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label"
+            >Coordinador de Carrera</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ing Yogledis Josefina"
+            aria-label="Last name"
+          />
+        </div>
+      </div>
+    </fieldset>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary" (click)="createPDF()">
+          Imprimir carta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

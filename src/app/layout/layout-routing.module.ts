@@ -54,6 +54,7 @@ import { PortafolioTutorComponent } from '../feature/docente-tutor/portafolio-tu
 import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-final-estudiante/informe-final-estudiante.component';
 import { AsignadoEstudianteComponent } from '../feature/estudiante/asignado-estudiante/asignado-estudiante.component';
 import { ArchivedInstitucionComponent } from '../feature/institucion-beneficiaria/archived-institucion/archived-institucion.component';
+import { CartaCompromisoComponent } from '../feature/estudiante/carta-compromiso/carta-compromiso.component';
 
 const routes: Routes = [
 
@@ -640,6 +641,7 @@ const routes: Routes = [
       {
         path: 'estudiante',
         children: [
+          {path:'carta-compromiso',component:CartaCompromisoComponent},
           { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
           {
             path: 'informe-final-estudiante',
