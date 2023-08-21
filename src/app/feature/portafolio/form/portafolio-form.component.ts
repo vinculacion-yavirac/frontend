@@ -38,6 +38,7 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   customFiles: { document_id: number; file: CustomFile; stateControl: FormControl; observationControl: FormControl }[] = [];
   user: UserAuth;
   userRole: string;
+  selectedFilesMap: { [documentId: number]: File | undefined } = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -219,6 +220,9 @@ export class PortafolioFormComponent implements OnInit, OnDestroy {
   onFileSelected(event: any, documento: DocumentoModels): void {
     this.selectedDocumento = documento;
     const selectedFiles: FileList = event.target.files;
+
+    const selectedFile: File = event.target.files[0]; // Tomamos solo el primer archivo
+    this.selectedFilesMap[documento.id] = selectedFile;
 
     for (let i = 0; i < selectedFiles.length; i++) {
       const file: File = selectedFiles[i];

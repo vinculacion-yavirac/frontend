@@ -86,13 +86,13 @@
                   </tr>
                 </thead>
                 <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-                  <ng-container *ngFor="let documento of documentos;  let i = index">
+                  <ng-container *ngFor="let documento of documentos; let i = index">
                     <tr class="bg-white hover:bg-[#4052b510] transition-all">
                       <td class="text-center">{{ i + 1 }}</td>
                       <td class="py-[3.8px] px-6 capitalize">{{ documento.name }}</td>
                       <td>{{ documento.responsible_id?.name }}</td>
                       <td>
-                        <ng-container *ngIf="userRole === 'Estudiante' || userRole === 'Docente Tutor' && documento.responsible_id?.name === 'Docente Tutor'">
+                        <ng-container *ngIf="userRole === 'Estudiante' || (userRole === 'Docente Tutor' && documento.responsible_id?.name === 'Docente Tutor')">
                           <div class="file-input-container" (click)="fileInput.click()">
                             <span class="fa-solid fa-upload"></span>
                             <input #fileInput type="file" multiple (change)="onFileSelected($event, documento)" style="display: none;">
@@ -103,7 +103,11 @@
                           <div *ngIf="inf.document_id === documento.id">
                             <span (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
                               class="fa-solid fa-download text-lg ml-3 cursor-pointer transition-all hover:text-red-600"></span>
+                            <span>{{ inf.name }}</span>
                           </div>
+                        </div>
+                        <div *ngIf="selectedFilesMap[documento.id]">
+                          <span>{{ selectedFilesMap[documento.id]?.name }}</span>
                         </div>
                       </td>
                     </tr>
