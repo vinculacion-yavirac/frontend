@@ -5,10 +5,12 @@
       ><a routerLink="/">Home</a>
     </li>
     <li>
-      <a routerLink="/system/estudiante/carta-compromiso">Carta-compromiso</a>
+      <a routerLink="/system/estudiante/carta-compromiso">Registro Asistencia<</a>
     </li>
     <ng-content></ng-content>
   </ul>
 </div>
 <module-header title="Asistencia"></module-header>
-<full-calendar [options]="calendarOptions"></full-calendar>
+<div class="container mx-auto">
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>

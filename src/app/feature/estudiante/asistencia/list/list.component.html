@@ -1,1 +1,41 @@
-<p>list works!</p>
+<module-header title="Asistencia"></module-header>
+
+<div class="card">
+  <div class="card-body">
+    <div class="flex justify-end">
+      <button
+        type="button"
+        class="btn rounded-md bg-cyan-800 text-gray-50"
+        routerLink="/system/estudiante/asistencia/form"
+      >
+        Registrar Asistencia
+      </button>
+    </div>
+
+    <table class="table-auto border-collapse border border-slate-500">
+      <caption class="caption-bottom">
+        Registro de asistencia de Vinculacion con la sociedad
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" class="border border-slate-600">Fecha</th>
+          <th scope="col" class="border border-slate-600">Hora de entrada</th>
+          <th scope="col" class="border border-slate-600">Hora de Salida</th>
+          <th scope="col" class="border border-slate-600">Total Horas</th>
+          <th scope="col" class="border border-slate-600">
+            Actividad Realizada
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of asists">
+          <th scope="row">{{ item.created_at }}</th>
+          <td>{{ item.entry_time }}</td>
+          <td>{{ item.exit_time }}</td>
+          <td>{{ getTotalHours(item.entry_time, item.exit_time) }}</td>
+          <td>{{ item.observation }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
