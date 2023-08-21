@@ -1,7 +1,4 @@
-<script src="angular.min.js"></script>
-<script src="angular-messages.min.js"></script>
-<script src="materialize/js/jquery-latest.js"></script>
-<script src="materialize/js/materialize.min.js"></script>
+
 <script>
   angular.module('messages', ['ngMessages']);
 </script>
@@ -9,120 +6,108 @@
 <app-proyecto-breadcrumbs breadcrumbs>
   <li><a routerLink="/system/proyecto/form-actividades">Actividades</a></li>
 </app-proyecto-breadcrumbs>
-
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar PDF
-    <!--<img class="pullsito" src="../../../../assets/images/pdf.png" alt="">-->
-</button>&nbsp;&nbsp;&nbsp;
-
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar Convenio
-    <!--<img class="pullsito" src="../../../../assets/images/convenio.png" alt="">-->
-</button>&nbsp;&nbsp;&nbsp;
-
-<button ng-disabled="registro.$invalid" class="btn waves-effect waves-light " type="submit">Generar ITV
-</button>
-<br><br>
 <div class="pestanas">
   <a href="/system/proyecto/form-datos-generales" class="Datos Generales">Datos Generales</a>
   <a href="/system/proyecto/form-empresa" class="Empresa">Empresa</a>
-  <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a>
+  <!-- <a href="/system/proyecto/form-integrantes" class="Integrantes">Integrantes</a> -->
   <a href="/system/proyecto/form-actividades" class="Actividades">Actividades</a>
   <a href="/system/proyecto/form-plan-de-trabajo" class="Plan de Trabajo">Plan de Trabajo</a>
   <a href="/system/proyecto/form-firmas" class="Firma">Firmas</a>
-  <a href="/system/proyecto/form-bibliografia" class="Bibliografía">Bibliografía</a>
-  <a href="/system/proyecto/form-anexos" class="Anexos">Anexos</a>
+  <!-- <a href="/system/proyecto/form-bibliografia" class="Bibliografía">Bibliografía</a>
+  <a href="/system/proyecto/form-anexos" class="Anexos">Anexos</a> -->
   <a href="/system/proyecto/form-observaciones" class="Observaciones">Observaciones</a>
-  <a href="/system/proyecto/form-documentos" class="Adjuntar Documentos">Adjuntar Documentos</a>
-  <a href="/system/proyecto/form-certificados" class="Solicitud de Certificados">Solicitud de Certificados</a>
+  <!-- <a href="/system/proyecto/form-documentos" class="Adjuntar Documentos">Adjuntar Documentos</a>
+  <a href="/system/proyecto/form-certificados" class="Solicitud de Certificados">Solicitud de Certificados</a> -->
 </div>
-
-<form name="registro" novalidate>
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <div class="row">
+  
       <section class="input-field col s12 m6">
           <label for="nombre"><b>Frecuencia de las Actividades:</b></label><br><br>
-          <input type="checkbox" ng-model="" name="" id="diaria" required>
+          <input type="checkbox" ng-model="" name="" id="diaria" required (change)="controlFrecActivity($event)">
           <label for="diaria">Diaria</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="semanal" required>
+          <input type="checkbox" ng-model="" name="" id="semanal" required (change)="controlFrecActivity($event)">
           <label for="semanal">Semanal</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="quincenal" required>
+          <input type="checkbox" ng-model="" name="" id="quincenal" required (change)="controlFrecActivity($event)">
           <label for="quincenal">Quincenal</label><br><br>
-          <input type="checkbox" ng-model="" name="" id="mensual" required>
+          <input type="checkbox" ng-model="" name="" id="mensual" required (change)="controlFrecActivity($event)">
           <label for="mensual">Mensual</label><br><br>
       </section>
       <section class="input-field col s12 m6">
         <label for="nombre"><b>Actividades de Vinculación:</b></label><br><br>
-        <input type="checkbox" ng-model="" name="" id="correos" required>
+        <input type="checkbox" ng-model="" name="" id="correos" required (change)="controlActivityVinculation($event)">
         <label for="correos">Convenio Institucionales</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pvpij" required>
+        <input type="checkbox" ng-model="" name="" id="pvpij" required (change)="controlActivityVinculation($event)">
         <label for="pvpij">Proyecto de Vinculación Prototipo IST JME</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pcc" required>
+        <input type="checkbox" ng-model="" name="" id="pcc" required (change)="controlActivityVinculation($event)">
         <label for="pcc">Programa de Capacitación a la Comunidad</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="pvc" required>
+        <input type="checkbox" ng-model="" name="" id="pvc" required (change)="controlActivityVinculation($event)">
         <label for="pvc">Prácticas Vinculación con la Comunidad</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="investigacion" required>
+        <input type="checkbox" ng-model="" name="" id="investigacion" required (change)="controlActivityVinculation($event)">
         <label for="investigacion">Investigación</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="acuerdo" required>
+        <input type="checkbox" ng-model="" name="" id="acuerdo" required (change)="controlActivityVinculation($event)">
         <label for="acuerdo">Acuerdo</label><br><br>
-        <input type="checkbox" ng-model="" name="" id="otros" required>
+        <input type="checkbox" ng-model="" name="" id="otros" required (change)="controlActivityVinculation($event)">
         <label for="otros">Otros</label><br><br>
     </section>
   </div>
   <div class="row">
     <section class="input-field col s12 m6">
       <label for="nombre"><b>Sectores de Intervención:</b></label><br><br>
-      <input type="checkbox" ng-model="" name="" id="educacion" required>
+      <input type="checkbox" ng-model="" name="" id="educacion" required (change)="controlSectorInter($event)">
       <label for="educacion">Educación</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="salud" required>
+      <input type="checkbox" ng-model="" name="" id="salud" required (change)="controlSectorInter($event)">
       <label for="salud">Salud</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="sa" required>
+      <input type="checkbox" ng-model="" name="" id="sa" required (change)="controlSectorInter($event)">
       <label for="sa">Sanamiento Ambiental</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="ap" required>
+      <input type="checkbox" ng-model="" name="" id="ap" required (change)="controlSectorInter($event)">
       <label for="ap">Apoyo Productivo</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="agyp" required>
+      <input type="checkbox" ng-model="" name="" id="agyp" required (change)="controlSectorInter($event)">
       <label for="agyp">Agricultura, Ganadería y Pesca</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="vivienda" required>
+      <input type="checkbox" ng-model="" name="" id="vivienda" required (change)="controlSectorInter($event)">
       <label for="vivienda">Vivienda</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="pma" required>
+      <input type="checkbox" ng-model="" name="" id="pma" required (change)="controlSectorInter($event)">
       <label for="pma">Protección del medio ambiente y desastres naturales</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="rne" required>
+      <input type="checkbox" ng-model="" name="" id="rne" required (change)="controlSectorInter($event)"> 
       <label for="rne">Recursos Naturales y Energía</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="tcv" required>
+      <input type="checkbox" ng-model="" name="" id="tcv" required (change)="controlSectorInter($event)">
       <label for="tcv">Transporte, Comunicación y Viabilidad</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="desarrolloU" required>
+      <input type="checkbox" ng-model="" name="" id="desarrolloU" required (change)="controlSectorInter($event)">
       <label for="desarrolloU">Desarrollo Urbano</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="turismo" required>
+      <input type="checkbox" ng-model="" name="" id="turismo" required (change)="controlSectorInter($event)">
       <label for="turismo">Turismo</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="cultura" required>
+      <input type="checkbox" ng-model="" name="" id="cultura" required (change)="controlSectorInter($event)">
       <label for="cultura">Cultura</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="dic" required>
+      <input type="checkbox" ng-model="" name="" id="dic" required (change)="controlSectorInter($event)">
       <label for="dic">Desarrollo de Investigación Científica</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="deportes" required>
+      <input type="checkbox" ng-model="" name="" id="deportes" required (change)="controlSectorInter($event)">
       <label for="deportes">Deportes</label><br><br>
-      <input type="checkbox" ng-model="" name="" id="jys" required>
+      <input type="checkbox" ng-model="" name="" id="jys" required (change)="controlSectorInter($event)">
       <label for="jys">Justicia y Seguridad</label><br><br>
   </section>
   <section class="input-field col s12 m6">
     <label for="nombre"><b>Ejes Estratégicos de Vinculación con la Colectividad</b></label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ambiente" required>
+    <input type="checkbox" ng-model="" name="" id="ambiente" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="ambiente">Ambiente</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="dsyc" required>
+    <input type="checkbox" ng-model="" name="" id="dsyc" required (change)="controlEstrategicos_vinculacion($event)"> 
     <label for="dsyc">Desarrollo Social y Comunitario</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ia" required>
+    <input type="checkbox" ng-model="" name="" id="ia" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="ia">Investigativo Académico</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="ig" required>
+    <input type="checkbox" ng-model="" name="" id="ig" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="ig">Interculturalidad/Género</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="desarrolloL" required>
+    <input type="checkbox" ng-model="" name="" id="desarrolloL" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="desarrolloL">Desarrollo Local</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="epys" required>
+    <input type="checkbox" ng-model="" name="" id="epys" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="epys">Economía Popular y Solidaria</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="dtyt" required>
+    <input type="checkbox" ng-model="" name="" id="dtyt" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="dtyt">Desarrollo Técnico y Técnológico</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="inovacion" required>
+    <input type="checkbox" ng-model="" name="" id="inovacion" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="inovacion">Inovación</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="rsu" required>
+    <input type="checkbox" ng-model="" name="" id="rsu" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="rsu">Responsabilidad Social Universitaria</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="matrizP" required>
+    <input type="checkbox" ng-model="" name="" id="matrizP" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="matrizP">Matriz Productiva</label><br><br>
-    <input type="checkbox" ng-model="" name="" id="otros2" required>
+    <input type="checkbox" ng-model="" name="" id="otros2" required (change)="controlEstrategicos_vinculacion($event)">
     <label for="otros2">Otros</label><br><br>
 </section>
   </div>

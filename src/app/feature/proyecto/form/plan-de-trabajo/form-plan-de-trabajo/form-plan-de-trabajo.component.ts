@@ -95,7 +95,7 @@ export class FormPlanDeTrabajoComponent implements OnInit {
                 var resultData = data.data.proyect;
                 console.log(resultData);
 
-                // this.router.navigate(['/system/proyecto/form-plan-de-trabajo'], { queryParams: { id_proyecto: resultData.id } });
+                this.router.navigate(['/system/proyecto/form-firmas'], { queryParams: { id_proyecto: resultData.id } });
 
             }, 500);
         }

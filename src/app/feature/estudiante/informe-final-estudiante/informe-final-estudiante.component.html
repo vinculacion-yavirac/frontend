@@ -22,15 +22,37 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Vinculacion con la Sociedad</td>
-            <td>Instituto Tecnologico Yavirac</td>
-            <td>yavirac.edu.ec</td>
-            <td>0999319213</td>
-            <td>Garcia Moreno</td>
-            <td>Yogledis Herrera</td>
-            <td>Yogledis Herrera</td>
-            <td>12-12-2022</td>
+          <tr *ngFor="let proyect of proyectos">
+            <td>
+              {{proyect.name}}
+            </td>
+            <td>
+              {{proyect.beneficiary_institution_id.name}}
+            </td>
+            <td>
+              {{proyect.authorized_by.user_id.email}}
+  
+            </td>
+            
+            <td>
+              {{proyect.beneficiary_institution_id.phone}}
+              
+
+            <td>
+              {{proyect.beneficiary_institution_id.place_location}}
+  
+            </td>
+            <td>
+              {{proyect.beneficiary_institution_id.name_autorize_by}}
+  
+            </td>
+            <td>
+              {{proyect.authorized_by.user_id.person.names}}{{proyect.authorized_by.user_id.person.last_names}}
+            </td>
+            <td>
+              {{proyect.start_date}}
+  
+            </td>
           </tr>
         </tbody>
       </table>
@@ -51,50 +73,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
+            <tr *ngFor="let activit of activitiesData" >
+              <td> {{activit.goals_id.id}} </td>
               <td>Crear un sistema funcional y proactivo</td>
               <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time"disabled></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Crear un sistema funcional y proactivo</td>
-              <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" required></td>
-              <td><input type="text" name="pickup_time" id="pickup_time" disabled></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
