@@ -16,6 +16,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { ExporterService } from './service/portafolio/exportar/exporter.service';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, NotFoundComponent],
@@ -49,7 +52,8 @@ import { ToastrModule } from 'ngx-toastr';
         ToastrModule.forRoot({
           positionClass: 'toast-top-right',
           preventDuplicates: true,
-        })
+        }),
+        FullCalendarModule,
     ],
     exports: [
 

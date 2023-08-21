@@ -55,6 +55,8 @@ import { InformeFinalEstudianteComponent } from '../feature/estudiante/informe-f
 import { AsignadoEstudianteComponent } from '../feature/estudiante/asignado-estudiante/asignado-estudiante.component';
 import { ArchivedInstitucionComponent } from '../feature/institucion-beneficiaria/archived-institucion/archived-institucion.component';
 import { CartaCompromisoComponent } from '../feature/estudiante/carta-compromiso/carta-compromiso.component';
+import { AsistenciaComponent } from '../feature/estudiante/asistencia/asistencia.component';
+import { ListComponent } from '../feature/estudiante/asistencia/list/list.component';
 
 const routes: Routes = [
 
@@ -642,6 +644,7 @@ const routes: Routes = [
         path: 'estudiante',
         children: [
           {path:'carta-compromiso',component:CartaCompromisoComponent},
+          {path:'asistencia',component:ListComponent},
           { path: '', redirectTo: 'informe-final-estudiante', pathMatch: 'full' },
           {
             path: 'informe-final-estudiante',

@@ -136,6 +136,13 @@ import { FormModalComponent } from './docente-vinculacion/formulario-final-tutor
 import { ArchivedInstitucionComponent } from './institucion-beneficiaria/archived-institucion/archived-institucion.component';
 import { AsignadoEstudianteComponent } from './estudiante/asignado-estudiante/asignado-estudiante.component';
 import { CartaCompromisoComponent } from './estudiante/carta-compromiso/carta-compromiso.component';
+import { AsistenciaComponent } from './estudiante/asistencia/asistencia.component';
+import { Component } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ListComponent } from './estudiante/asistencia/list/list.component';
+import { FormComponent } from './estudiante/asistencia/form/form.component';
 
 @NgModule({
   declarations: [
@@ -246,7 +253,10 @@ import { CartaCompromisoComponent } from './estudiante/carta-compromiso/carta-co
     ArchivedInstitucionComponent,
     AsignadoEstudianteComponent,
 
-    CartaCompromisoComponent
+    CartaCompromisoComponent,
+    AsistenciaComponent,
+    ListComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -255,6 +265,7 @@ import { CartaCompromisoComponent } from './estudiante/carta-compromiso/carta-co
     ReactiveFormsModule,
     MaterialModule,
     NgxPaginationModule,
+    FullCalendarModule,
   ],
 
   exports: [
