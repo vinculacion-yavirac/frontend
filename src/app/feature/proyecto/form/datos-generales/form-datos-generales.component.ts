@@ -147,6 +147,8 @@ export class FormDatosGeneralesComponent implements OnInit {
       'activity_vinculation':'[\"Sector 1\",\"Sector 2\"]',
       'intervention_sectors':'[\"Sector 1\",\"Sector 2\"]',
       'linking_activity':'[\"Sector 1\",\"Sector 2\"]',
+     'schedule_crono':'[]',
+      'financing':'[]',
       'sectors_intervention': '[\"Sector 1\",\"Sector 2\"]',
       'strategic_axes': '[\"Eje 1\",\"Eje 2\"]',
       'objetive':'objetivo del proyecto',

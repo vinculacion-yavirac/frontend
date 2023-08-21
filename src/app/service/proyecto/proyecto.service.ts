@@ -79,6 +79,15 @@ export class ProyectoService {
       this.httpOptions
     );
   }
+
+  
+  public updateProyectCronoFinan(id: any, ProyectoModels: ProyectoModels): Observable<ProyectoModels> {
+    return this.http.put<ProyectoModels>(
+      `${this.url}/updateProyectCronoFinan/${id}`,
+      ProyectoModels,
+      this.httpOptions
+    );
+  }
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
   }
