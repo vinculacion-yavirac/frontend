@@ -18,6 +18,7 @@ export class InformeFinalEstudianteComponent {
   activities: any[] = [];
   id_proyecto: any;
   projectId: number;
+  public activitiesData: any = [];
 
   constructor(
     private proyectoService: ProyectoService,
@@ -39,6 +40,10 @@ export class InformeFinalEstudianteComponent {
       }
         console.log(this.projectId);
       });
+      this.getAllActividades();
+
+
+
     }
    
     public getAllProyectoById(id:number): void {
@@ -70,7 +75,35 @@ export class InformeFinalEstudianteComponent {
           }
         });
     }
-
+    public getAllActividades() {
+      this.actividadesService.getAllActivities().subscribe((data: any) => {
+  
+        console.log(data);
+  
+  
+        if (data.data.activity != null && data.data.activity != null) {
+          var resultData = data.data.activity;
+          if (resultData) {
+            console.log(resultData);
+            for (let index = 0; index < resultData.length; index++) {
+              const element = resultData[index];
+  
+              resultData[index]["observacion"]=""
+            }
+            this.activitiesData = resultData;
+          }
+        }
+      },
+        (error: any) => {
+          if (error) {
+            if (error.status == 404) {
+              if (error.error && error.error.message) {
+                // this.activities = [];
+              }
+            }
+          }
+        });
+    }
 
 
     /* pdf proyecto*/

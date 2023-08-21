@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { AvanceCumplimientoService } from 'src/app/service/avanze_cumplimiento/avance-cumplimiento.service';
 @Component({
   selector: 'app-informe-inicial',
   templateUrl: './informe-inicial.component.html',
@@ -12,17 +14,21 @@ import { ImageConstants } from 'src/app/constanst/ImageConstants';
 export class InformeInicialComponent implements OnInit {
   docente: FormGroup;
   public doc: any;
+  projectId: number;
+  proyectos: any[] = [];
 
   constructor(
 
-    private miDatePipe: DatePipe
+    private miDatePipe: DatePipe,
+    private route: ActivatedRoute,
+    private httpProvider: AvanceCumplimientoService,
 
   ) { }
 
   ngOnInit() {
     this.docente = new FormGroup({
       persona: new FormControl(''),
-      asunto: new FormControl(''),
+      asunto: new FormControl('Informe de inicio de actividades '),
       fecha: new FormControl(''),
       name_docente: new FormControl(''),
       ci_docente: new FormControl(''),
@@ -32,8 +38,47 @@ export class InformeInicialComponent implements OnInit {
       comments: new FormControl(''),
 
     });
-  }
 
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { orderby: "price" }
+        this.projectId = params['id_proyecto'];
+        if (this.projectId) {
+
+          this.getAllProyectoById(this.projectId)
+        }
+        console.log(this.projectId);
+      });
+  }
+  public getAllProyectoById(id: number): void {
+    this.httpProvider.getProyectoById(id).subscribe((data: any) => {
+
+      console.log(data);
+
+      this.proyectos = Object.values(data);
+      console.log(this.proyectos);
+      if (data.data.projects != null && data.data.projects != null) {
+        var resultData = data.data.projects;
+        if (resultData) {
+
+
+          this.proyectos = [resultData];
+          console.log(this.proyectos);
+          // this.getAllActividades(1);
+
+        }
+      }
+    },
+      (error: any) => {
+        if (error) {
+          if (error.status == 404) {
+            if (error.error && error.error.message) {
+              this.proyectos = [];
+            }
+          }
+        }
+      });
+  }
 
 
 

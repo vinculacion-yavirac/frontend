@@ -71,6 +71,14 @@ export class ProyectoService {
       this.httpOptions
     );
   }
+
+  public updateProyectActividades(id: any, ProyectoModels: ProyectoModels): Observable<ProyectoModels> {
+    return this.http.put<ProyectoModels>(
+      `${this.url}/updateProyectActividades/${id}`,
+      ProyectoModels,
+      this.httpOptions
+    );
+  }
   public getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`comments/briefcaset/${id}`);
   }

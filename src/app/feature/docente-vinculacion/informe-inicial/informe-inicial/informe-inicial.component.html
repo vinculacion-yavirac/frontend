@@ -3,37 +3,39 @@
   <docente_vinculacion-tabs tabs route="informe-inical"></docente_vinculacion-tabs>
 </module-header>
 <form novalidate [formGroup]="docente" class="form">
-  <div class="h5">
+  <div *ngFor="let item of proyectos; let i = index">
+      <div class="h5">
     <h5>FORMULARIO DE INFORME INICIAL</h5>
   </div>
   <div class="myForm">
     <label for="De">Dirigido a:</label>
     <input type="text" formControlName="persona" name="persona" id="persona" required>
     <label for="asunto">Asunto</label>
-    <input type="text" formControlName="asunto" name="asunto" id="asunto" required>
+    <input type="text" formControlName="asunto" name="asunto" id="asunto" required >
     <label for="fecha">Fecha Inicio de Actividades</label>
-    <input type="datetime-local" formControlName="fecha" name="fecha" id="fecha">
+    <input type="datetime-local" formControlName="fecha" name="fecha" id="fecha" [ngModel]="proyectos[i].start_date">
   </div>
   <div class="parrafo">
     <P>
-      Yo <input type="text" name="name_docente" id="name_docente" formControlName="name_docente"> con CI <input
-        type="text" name="ci_docente" id="ci_docente" formControlName="ci_docente"> docente de la carrera de
-      <input type="text" formControlName="carrera" name="carrera" id="carrera"> tengo bien a informar que,
+      Yo <input type="text" name="name_docente" id="name_docente" formControlName="name_docente" [ngModel]="proyectos[i].authorized_by.user_id.person.names"> con CI <input
+        type="text" name="ci_docente" id="ci_docente" formControlName="ci_docente"  [ngModel]="proyectos[i].authorized_by.user_id.person.identification"> docente de la carrera de
+      <input type="text" formControlName="carrera" name="carrera" id="carrera"  [ngModel]="proyectos[i].career_id.name"> tengo bien a informar que,
       siguiendo con el cronograma de actividades estableciendo en el proyecto
-      de vinculacion <input type="text" name="name_proyect" formControlName="name_proyect" id="name_proyect">, le
+      de vinculacion <input type="text" name="name_proyect" formControlName="name_proyect" id="name_proyect" [ngModel]="proyectos[i].name">, le
       informo que el dia de hoy
      <input type="datetime-local" formControlName="start_vinculacion" name="start_vinculacion" id="start_vinculacion">
       del año en
       curso, se
       procedio a dar inicio con el desarrollo del mismo.
     </P>
-    <!-- <textarea name="comments" id="comments" formControlName="comments" maxlength="500" placeholder="Explicacion de inicio de actividades"
-      required></textarea><br> -->
+    <textarea name="comments" id="comments" formControlName="comments" style="color: black;" maxlength="500" placeholder="Explicacion de inicio de actividades"
+      required></textarea><br>
 
     <!-- <label for="email_address">Adjuntar Archivos </label>
     <input type="file" name="email_address" id="email_address" required> -->
   </div>
   <div class="button">
     <button class="btn btn-primary" type="submit" (click)="Generar_Solicitud()">Generar PDF</button>
+  </div>
   </div>
 </form>

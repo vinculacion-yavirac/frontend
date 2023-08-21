@@ -10,6 +10,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ModalAlertComponent } from '../shared/material/modal-alert/modal-alert.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { FeatureModule } from '../feature/feature.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FeatureModule } from '../feature/feature.module';
     LayoutRoutingModule,
     ChartsModule,
     MaterialModule,
+    ReactiveFormsModule
   ],
 })
 export class LayoutModule {}
