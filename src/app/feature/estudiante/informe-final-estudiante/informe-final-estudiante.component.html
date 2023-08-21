@@ -77,14 +77,16 @@
               <td> {{activit.goals_id.id}} </td>
               <td>Crear un sistema funcional y proactivo</td>
               <td>trabajar 8 horas diarias y enviar informe diario</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td (click)="save_avanze(activit.id)">{{activit.avanze}}</td>
+              <td (click)="save_result(activit.id)">{{activit.result}}</td>
+              <td (click)="save_alcance(activit.id)">{{activit.alcance}}</td>
+              <td ></td>
+
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="container2">
+      <!-- <div class="container2">
         <form class="myForm">
           <label for="pickup_time">Fecha de Finalizacion del Proyecto</label>
           <input type="datetime-local" name="pickup_time" id="pickup_time" required>
@@ -104,9 +106,9 @@
           <label for="comments">Observaciones</label>
           <textarea name="comments" id="comments" maxlength="500" disabled></textarea>
         </form>
-      </div>
+      </div> -->
     </div>
     <div class="button">
-      <button class="btn btn-primary" (click)="Generar_Solicitud()">Generar PDF</button>
+      <button class="btn btn-primary" (click)="Generar_Solicitud()">Guardar PDF</button>
     </div>
 </form>

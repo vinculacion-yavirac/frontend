@@ -6,6 +6,9 @@ import { ProyectoService } from 'src/app/service/proyecto/proyecto.service';
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import { ImageConstants } from 'src/app/constanst/ImageConstants';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { FormModalComponent2 } from './modal_form/formmodal.component';
+
 @Component({
   selector: 'app-informe-final-estudiante',
   templateUrl: './informe-final-estudiante.component.html',
@@ -18,7 +21,15 @@ export class InformeFinalEstudianteComponent {
   activities: any[] = [];
   id_proyecto: any;
   projectId: number;
+
   public activitiesData: any = [];
+  public avanzeData: any = [];
+  public resulData: any = [];
+  public alcanceData: any = [];
+
+  dialogConfig = new MatDialogConfig();
+  modalDialog: MatDialogRef<FormModalComponent2, any> | undefined;
+  id_table:number;
 
   constructor(
     private proyectoService: ProyectoService,
@@ -26,9 +37,15 @@ export class InformeFinalEstudianteComponent {
     private router: Router,
     private httpProvider: AvanceCumplimientoService,
     private actividadesService: ActividadesService,
-
+    public matDialog: MatDialog,
   ) { }
-
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      if (args.target.tagName === 'BODY') {
+        this.modalDialog?.close()
+      }
+    }
+  }
   ngOnInit() {
     this.route.queryParams
     .subscribe((params: { [x: string]: number; }) => {
@@ -104,7 +121,72 @@ export class InformeFinalEstudianteComponent {
           }
         });
     }
-
+    public save_avanze(id:any) {
+      console.log(id);
+      this.id_table= id;
+      
+      this.dialogConfig.id = "projects-modal-component";
+      this.dialogConfig.height = "400px";
+      this.dialogConfig.width = "500px";
+      this.modalDialog = this.matDialog.open(FormModalComponent2, this.dialogConfig);
+      this.modalDialog.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        for (let index = 0; index < this.activitiesData.length; index++) {
+          const element = this.activitiesData[index];
+          if (element.id == this.id_table) {
+            console.log(element);
+            this.activitiesData[index]["avanze"]=localStorage.getItem("avanze");
+          }
+          
+          
+        }
+        this.activitiesData= this.activitiesData
+      });
+    }
+    public save_result(id:any) {
+      console.log(id);
+      this.id_table= id;
+      
+      this.dialogConfig.id = "projects-modal-component";
+      this.dialogConfig.height = "400px";
+      this.dialogConfig.width = "500px";
+      this.modalDialog = this.matDialog.open(FormModalComponent2, this.dialogConfig);
+      this.modalDialog.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        for (let index = 0; index < this.activitiesData.length; index++) {
+          const element = this.activitiesData[index];
+          if (element.id == this.id_table) {
+            console.log(element);
+            this.activitiesData[index]["result"]=localStorage.getItem("result");
+          }
+          
+          
+        }
+        this.activitiesData= this.activitiesData
+      });
+    }
+    public save_alcance(id:any) {
+      console.log(id);
+      this.id_table= id;
+      
+      this.dialogConfig.id = "projects-modal-component";
+      this.dialogConfig.height = "400px";
+      this.dialogConfig.width = "500px";
+      this.modalDialog = this.matDialog.open(FormModalComponent2, this.dialogConfig);
+      this.modalDialog.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        for (let index = 0; index < this.activitiesData.length; index++) {
+          const element = this.activitiesData[index];
+          if (element.id == this.id_table) {
+            console.log(element);
+            this.activitiesData[index]["alcance"]=localStorage.getItem("alcance");
+          }
+          
+          
+        }
+        this.activitiesData= this.activitiesData
+      });
+    }
 
     /* pdf proyecto*/
     public Generar_Solicitud() {
