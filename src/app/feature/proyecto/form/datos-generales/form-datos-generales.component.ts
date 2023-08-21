@@ -85,7 +85,7 @@ export class FormDatosGeneralesComponent implements OnInit {
   datosGeneralesForm = this.fb.group({
     codigoProyecto: [
       this.currentEntity.codigo,
-      [Validators.required, Validators.pattern(/^[a-z0-9]+$/i)],
+      [Validators.required, Validators.pattern(/^[1-9]\d{6,10}$/)],
     ],
     nombreProyecto: [
       this.currentEntity.nombrep,

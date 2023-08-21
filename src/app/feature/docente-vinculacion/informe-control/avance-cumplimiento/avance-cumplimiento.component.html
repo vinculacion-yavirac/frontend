@@ -49,9 +49,15 @@
 
 
                     <td class="px-6 py-4">
+                      <form name="registro" [formGroup]="datoForm" >
                       <textarea required class="form-control"
-                        placeholder="Leave a comment here">{{activities.observacion}}</textarea>
-                      <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
+                        placeholder="Leave a comment here" formControlName="observacion" id="observacion" name="observacion" [(ngModel)]="currentEntity.observacion">{{activities.observacion}}</textarea>
+                        <div *ngIf="observacion?.invalid && (observacion?.dirty || observacion?.touched)" class="alert alert-danger " style="background-color: white; border-color: white;color: brown;">
+                          <div *ngIf="observacion?.errors?.['pattern']">
+                            Ingrese un valor alfanumérico, ejemplo: 09d.
+                                                    </div>
+                        </div>
+                      </form> <!-- <textarea required    class="form-control" placeholder="Leave a comment here" id=""   [(ngModel)]="avance1.avance"  ></textarea> -->
                     </td>
                     <td class="px-6 py-4">
                       <div

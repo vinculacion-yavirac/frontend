@@ -51,7 +51,9 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
     private route: ActivatedRoute,
     private router: Router,
     private httpProvider: ActividadesService,
-    private miDatePipe: DatePipe
+    private miDatePipe: DatePipe,
+    private fb: FormBuilder,
+
     // private alertService: AlertService
   ) { }
 
@@ -86,7 +88,17 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
 
   }
 
+  currentEntity = {
+    observacion: '',
 
+  };
+  datoForm = this.fb.group({
+    observacion: [
+      this.currentEntity.observacion,
+      [Validators.required, Validators.pattern(/^[1-9]\d{0,10}$/)],    ],
+    
+
+  });
 
   public bodyRows(rowCount: any) {
     rowCount = rowCount || 10
@@ -154,6 +166,11 @@ export class AvanceCumplimientoComponent implements OnInit, OnDestroy, AfterView
   }
   getAvanceCumplimiento2() {
     this.router.navigate(['/system/docente-vinculacion/informe-control/avance-cumplimiento2'], { queryParams: { id_proyecto: this.projectId } });
+  }
+
+
+  get observacion() {
+    return this.datoForm.get('observacion');
   }
 }
 export class avanzeForm {
