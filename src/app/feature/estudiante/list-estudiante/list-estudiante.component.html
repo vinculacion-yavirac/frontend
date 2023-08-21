@@ -67,6 +67,9 @@
               <th scope="col" class="py-3 px-6">
                 Estado
               </th>
+              <th scope="col" class="py-3 px-6">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y-[0.5px] divide-[#535A6640]">
@@ -99,6 +102,22 @@
                   <div class="h-2.5 w-2.5 rounded-full bg-gray-400 mr-2"></div> Pendiente
                 </div>
               </td>
+              <th class="py-[3.8px] px-6 text-right">
+                <ng-template [ngIf]="solicitud.type_request_id.catalog_value === vinculacion">
+                  <div class="relative inline-block">
+
+                    <button mat-button [matMenuTriggerFor]="menu" #menuTrigger><span
+                        class="fa-solid fa-ellipsis-v text-lg cursor-pointer transition-all hover:text-primary"></span></button>
+                    <mat-menu #menu="matMenu">
+                      <a [routerLink]="['/system/portafolio/form/', getIdPortafolioFromSolicitud(solicitud,portafolios)]"
+                        class="block px-4 py-2 text-sm text-neutral transition-all hover:bg-[Daisy] hover:text-[Twailwidn]">
+                        Portafolio
+                      </a>
+                    </mat-menu>
+                  </div>
+                </ng-template>
+              </th>
+
             </tr>
           </tbody>
         </table>

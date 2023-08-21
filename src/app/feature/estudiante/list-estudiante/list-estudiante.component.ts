@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SolicitudModels } from 'src/app/models/docente-vinculacion/solicitud/solicitud';
+import { PortafoliosModels } from 'src/app/models/portafolio/portafolio.models';
 import { SolicitudHttpService } from 'src/app/service/docente-vinculacion/solicitud/solicitud-http.service';
 
 @Component({
@@ -12,6 +13,8 @@ export class ListEstudianteComponent implements OnInit {
 
   currentSolicitud: SolicitudModels = {} as SolicitudModels;
   solicitudes: SolicitudModels[] = [];
+  portafolios: PortafoliosModels[] = [];
+  vinculacion = 'Vinculación';
   reverse = false;
   pipe = new DatePipe('en-US');
   config = {
@@ -86,5 +89,16 @@ export class ListEstudianteComponent implements OnInit {
     this.solicitudes.reverse();
     this.reverse = !this.reverse;
   };
+
+  getIdPortafolioFromSolicitud(solicitud: SolicitudModels, portafolios: PortafoliosModels[]): number | null {
+    const creadorSolicitudId = solicitud.created_by.id;
+    for (const portafolio of portafolios) {
+      const creadorPortafolioId = portafolio.created_by.id;
+      if (creadorSolicitudId === creadorPortafolioId) {
+        return portafolio.id;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
 
 }
