@@ -188,6 +188,28 @@ export class InformeFinalEstudianteComponent {
       });
     }
 
+    public save_observacion(id:any) {
+      console.log(id);
+      this.id_table= id;
+      
+      this.dialogConfig.id = "projects-modal-component";
+      this.dialogConfig.height = "400px";
+      this.dialogConfig.width = "500px";
+      this.modalDialog = this.matDialog.open(FormModalComponent2, this.dialogConfig);
+      this.modalDialog.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        for (let index = 0; index < this.activitiesData.length; index++) {
+          const element = this.activitiesData[index];
+          if (element.id == this.id_table) {
+            console.log(element);
+            this.activitiesData[index]["observacion"]=localStorage.getItem("observacion");
+          }
+          
+          
+        }
+        this.activitiesData= this.activitiesData
+      });
+    }
     /* pdf proyecto*/
     public Generar_Solicitud() {
       this.doc = new jsPDF('p', 'pt');

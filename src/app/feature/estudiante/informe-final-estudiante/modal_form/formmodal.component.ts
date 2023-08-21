@@ -26,6 +26,7 @@ export class FormModalComponent2 implements OnInit {
     localStorage.setItem('result' , form.value.observacion )
 
     localStorage.setItem('alcance' , form.value.observacion )
+    localStorage.setItem('observacion' , form.value.observacion )
 
     this.router.navigate(['/system/estudiante/informe-final-estudiante/']);
 
