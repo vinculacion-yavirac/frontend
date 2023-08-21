@@ -8,8 +8,8 @@
   <div tabs class="h-8"></div>
 </module-header>
 <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">
-<div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
- <!-- <form [formGroup]="briefcaseForm">-->
+  <div class="p-2 grid grid-cols-1 gap-8 my-2 bg-white border-t-[1px] border-[#535a6650]">
+    <!-- <form [formGroup]="briefcaseForm">-->
     <div class="grid h-100 card bg-white text-dark  rounded-box" *permissions="['ACTUALIZAR_PORTAFOLIO']">
       <!--aqui va los datos del estudiante y fundacion-->
       <h2 class="text-xl font-bold p-3">
@@ -24,12 +24,14 @@
             <span class="font-bold">Apellidos:</span> {{ briefcaseForm.get('created_by.person.last_names')?.value }}
           </h5>
           <h5 class="text-sm -50 p-1.5">
-            <span class="font-bold">Cédula de Identidad:</span> {{ briefcaseForm.get('created_by.person.identification')?.value }}
+            <span class="font-bold">Cédula de Identidad:</span> {{
+            briefcaseForm.get('created_by.person.identification')?.value }}
           </h5>
         </div>
         <div class="grid h-20 flex-grow rounded-box">
           <h5 class="text-sm p-1.5">
-            <span class="font-bold">Carrera:</span> {{ briefcaseForm.get('project_participant_id.project_id.career_id.name')?.value }}
+            <span class="font-bold">Carrera:</span> {{
+            briefcaseForm.get('project_participant_id.project_id.career_id.name')?.value }}
           </h5>
         </div>
       </div>
@@ -39,92 +41,78 @@
       <div class="flex w-full p-3.5">
         <div class="grid h-20 flex-grow  rounded-box">
           <h4 class="text-sm p-1.5">
-            <span class="font-bold"> Nombre de la Fundación:</span> {{ briefcaseForm.get('project_participant_id.project_id.beneficiary_institution_id.name')?.value }}
+            <span class="font-bold"> Nombre de la Fundación:</span> {{
+            briefcaseForm.get('project_participant_id.project_id.beneficiary_institution_id.name')?.value }}
           </h4>
           <h4 class="text-sm p-1.5">
-            <span class="font-bold">Nombre del Proyecto:</span> {{ briefcaseForm.get('project_participant_id.project_id.name')?.value }}
+            <span class="font-bold">Nombre del Proyecto:</span> {{
+            briefcaseForm.get('project_participant_id.project_id.name')?.value }}
           </h4>
         </div>
       </div>
 
     </div>
- <!-- </form>-->
 
-  <div class="grid h-100 card rounded-box">
-    <div class="flex w-full">
-      <div class="grid h-20 w-100 flex-grow  rounded-box">
-        <h2 class="text-xl font-bold  p-7">
-          Portafolio
-        </h2>
-      </div>
-    </div>
-    <label class="label cursor-pointer place-items-right" *permissions="['ACTUALIZAR_PORTAFOLIO']">
-      <span class="label-text text-dark">Estado del Portafolio</span>
-      <input type="checkbox" class="toggle toggle-primary" id="state" formControlName="state" />
-    </label>
     <div class="grid h-100 card rounded-box">
-      <div class="flex flex-col w-full p-1">
-        <div class="grid h-100 card bg-neutral-content rounded-box p-1">
-          <div
-            class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
-            <table class="my_table w-full text-sm text-left text-neutral">
-              <thead class="text-xs text-white uppercase bg-primary">
-                <tr>
-                  <th scope="col" class="py-3 px-6">#</th>
-                  <th scope="col" class="py-3 px-6">
-                    Nombre del Archivo
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Encargado
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Opciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Observaciones
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Aprobado
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y-[0.5px] divide-[#535A6640]">
-                <ng-container *ngFor="let documento of documentos;  let i = index"  >
-                  <tr class="bg-white hover:bg-[#4052b510] transition-all">
-                    <td class="text-center">{{ i + 1 }}</td>
-                    <td class="py-[3.8px] px-6 capitalize">{{ documento.name }}</td>
-                    <td>{{ documento.responsible_id?.name }}</td>
-                    <td>
-                      <div class="file-input-container" (click)="fileInput.click()">
-                        <span class="fa-solid fa-upload"></span>
-                        <input #fileInput type="file" multiple (change)="onFileSelected($event, documento)" style="display: none;">
-                      </div>
-
-                      <div *ngFor="let inf of info?.files">
-                        <div *ngIf="inf.document_id === documento.id">
-                          <span (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
-                            class="fa-solid fa-download text-lg ml-3 cursor-pointer transition-all hover:text-red-600"
-                            ></span>
-                          <!--<a (click)="downloadFile(info.id, documento.id, inf.id, inf.name)">
-                            <span class="fas fa-home" ></span>
-                          </a>-->
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <input type="text">
-                    </td>
-                    <td>
-                      <input type="checkbox" class="toggle toggle-primary">
-                    </td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-          </div>
+      <div class="flex w-full">
+        <div class="grid h-20 w-100 flex-grow  rounded-box">
+          <h2 class="text-xl font-bold  p-7">
+            Portafolio
+          </h2>
         </div>
-        <br>
-       <!-- <form [formGroup]="briefcaseForm" (ngSubmit)="onSubmit()">-->
+      </div>
+      <label class="label cursor-pointer place-items-right" *permissions="['ACTUALIZAR_PORTAFOLIO']">
+        <span class="label-text text-dark">Estado del Portafolio</span>
+        <input type="checkbox" class="toggle toggle-primary" id="state" formControlName="state" />
+      </label>
+      <div class="grid h-100 card rounded-box">
+        <div class="flex flex-col w-full p-1">
+          <div class="grid h-100 card bg-neutral-content rounded-box p-1">
+            <div
+              class="min-h-[calc(100vh-4rem-20rem)] overflow-hidden bg-neutral-content border border-[#535a6650] rounded-md relative mb-4">
+              <table class="my_table w-full text-sm text-left text-neutral">
+                <thead class="text-xs text-white uppercase bg-primary text-center">
+                  <tr>
+                    <th scope="col" class="py-3 px-6">#</th>
+                    <th scope="col" class="py-3 px-6">
+                      Nombre del Archivo
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                      Encargado
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                      Opciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y-[0.5px] divide-[#535A6640]">
+                  <ng-container *ngFor="let documento of documentos;  let i = index">
+                    <tr class="bg-white hover:bg-[#4052b510] transition-all">
+                      <td class="text-center">{{ i + 1 }}</td>
+                      <td class="py-[3.8px] px-6 capitalize">{{ documento.name }}</td>
+                      <td>{{ documento.responsible_id?.name }}</td>
+                      <td>
+                        <ng-container *ngIf="userRole === 'Estudiante' || userRole === 'Docente Tutor' && documento.responsible_id?.name === 'Docente Tutor'">
+                          <div class="file-input-container" (click)="fileInput.click()">
+                            <span class="fa-solid fa-upload"></span>
+                            <input #fileInput type="file" multiple (change)="onFileSelected($event, documento)" style="display: none;">
+                          </div>
+                        </ng-container>
+
+                        <div *ngFor="let inf of info?.files">
+                          <div *ngIf="inf.document_id === documento.id">
+                            <span (click)="downloadFile(info.id, documento.id, inf.id, inf.name)"
+                              class="fa-solid fa-download text-lg ml-3 cursor-pointer transition-all hover:text-red-600"></span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
           <div class="grid h-auto card bg-neutral-content rounded-box p-1">
 
             <label class="label cursor-pointer place-items-right">
@@ -145,10 +133,9 @@
           <div class="grid place-items-center">
             <button class="btn btn-info w-25" type="submit" [disabled]="!briefcaseForm.valid">Enviar</button>
           </div>
-       <!-- </form> -->
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
 </form>
