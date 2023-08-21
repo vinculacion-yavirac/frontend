@@ -262,6 +262,92 @@
 
     </div>
   </div>
+  <!-- COORDINADOR GENERAR -->
+  <div class="flex h-96 mt-4 justify-start mx-8 bg-neutral-800 " *permissions="['VER_DASHBOARD_CG',]" >
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2  lg:grid-cols-4 ">
+      <div
+        class="group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/75 rounded-lg">
+        <div class="h-96 w-72 ">
+          <img
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
+            src="/assets/images/perfil.jpg" alt="" />
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70">
+        </div>
+        <div
+          class="absolute inset-0 flex translate-y-[40%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
+          <h1 class="font-dmserif text-3xl font-bold text-white mb-8">Perfil</h1>
+          <p
+            class="mb-1 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Revisa tus datos personales. </p>
+          <button
+            class="rounded-full bg-lime-800 py-2 px-3.5 font-com text-base capitalize text-white shadow shadow-black/60"
+            [routerLink]="['/system/perfil/datos-personales']">Revisar</button>
+        </div>
+      </div>
+
+      <div
+        class="group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/75 rounded-lg">
+        <div class="h-96 w-72">
+          <img
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
+            src="/assets/images/marketing.jpeg" alt="" />
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70">
+        </div>
+        <div
+          class="absolute inset-0 flex translate-y-[40%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
+          <h1 class="font-dmserif text-3xl font-bold text-white mb-8">Certificados</h1>
+          <p
+            class="mb-3 text-sm font-medium  text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Revisa las solicitudes enviadas por los estudiantes del Yavirac. </p>
+          <button
+            class="rounded-full bg-lime-800 py-2 px-3.5 font-com text-base capitalize text-white shadow shadow-black/60"
+            [routerLink]="['/system/solicitud/list']">Revisar</button>
+        </div>
+      </div>
+
+      <div
+        class="group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/75 rounded-lg">
+        <div class="h-96 w-72">
+          <img
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
+            src="/assets/images/bash.jpg" alt="" />
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70">
+        </div>
+        <div
+          class="absolute inset-0 flex translate-y-[40%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
+          <h1 class="font-dmserif text-3xl font-bold text-white mb-8">Fundaciones</h1>
+          <p
+            class="mb-3 text-sm font-medium  text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Asigna estudiantes a las fundaciones disponibles. </p>
+          <button
+            class="rounded-full bg-lime-800 py-2 px-3.5 font-com text-base capitalize text-white shadow shadow-black/60"
+            [routerLink]="['/system/institucion-beneficiaria/list']">Resivar</button>
+        </div>
+      </div>
+
+      <div class="group relative bg-card max-w-sm rounded-lg overflow-hidden shadow-lg ">
+        <div class="px-5">
+          <br><br><br><br><br>
+          <div class="font-bold text-white text-xl mb-2">No olvides que:</div>
+          <p class="text-white text-sm">
+            “El principal objetivo de la educacion es criar personas capaces de hacer cosas nuevas y no solo repetir lo que otras generaciones hicieron”
+          </p>
+          <span class="font-bold text-white text-sm">Jean Piaget</span>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
 
 
 
