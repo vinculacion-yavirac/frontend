@@ -104,7 +104,7 @@ export class PdfEncuestaComponent implements OnInit {
         pdf.addImage(headerImg, 'PNG', 0, 0, pdfWidth - 0, 30);
         startY += 30;
 
-        pdf.addImage(footerImg, 'PNG',0,275, 210, 35,);
+        pdf.addImage(footerImg, 'PNG',0,275, 210, 25,);
 
       }
     }
@@ -146,7 +146,7 @@ export class PdfEncuestaComponent implements OnInit {
       }
     }
     addFooters(pdf)
-    pdf.save('generated-pdf.pdf');
+    pdf.save('8.Encuesta de Percepcion.pdf');
   }
 
 }

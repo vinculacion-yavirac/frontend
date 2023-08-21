@@ -25,4 +25,8 @@ export class RespuestaHttpService {
 
     return this.httpClient.post<RespuestaModel>(this.url+"/respuesta/create",respuesta, this.httpOptions);
   }
+
+  getbyId(id:number): Observable<RespuestaModel>{
+    return this.httpClient.get<RespuestaModel>(this.url+"/respuesta/"+id, this.httpOptions)
+  }
 }

@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { RespuestaHttpService } from 'src/app/service/estudiante/encuesta/respuesta-http.service';
 
 
 
@@ -23,6 +24,7 @@ export class EncuestaComponent implements OnInit {
 
 
   constructor(private encuestaHttpService: EncuestaHttpService,
+    respuestaHttpService: RespuestaHttpService,
 
     private activatedRoute: ActivatedRoute,
   ) {
@@ -98,83 +100,15 @@ export class EncuestaComponent implements OnInit {
       });
   }
 
+  findById(id: number):void{
+    this.encuestaHttpService.getRbyId(id).subscribe(
+      (response) => {
+        this.currentEntityRespuesta = response;
+      }
+    )
+  }
 
-  // creacion pdf
-  // pdfcrear1(){
-  //   var data = document.getElementById('table');
-  //   html2canvas(data).then(canvas => {
-  //     var imgWidth = 208;
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;
-  //     let pdf = new jspdf('p','mm','a4');
-  //     var posicion = 0;
-  //     pdf.save('my pdf.pdf');
-  //   });
-  // }
-
-  // generatePDFs() {
-  //   var data = document.getElementById('pdf');
-  //   html2canvas(data).then(canvas => {
-  //     var imgWidth = 208;
-  //     var pageHeight = 190;
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;
-  //     var heightLeft = imgHeight;
-  //     const contentDataURL = canvas.toDataURL('image/png');
-  //     var options = {
-  //       size: '70px',
-  //       background: '#fff',
-  //       pagesplit: true,
-  //     };
-
-  //     let pdf = new jsPDF('p', 'mm', 'a4');
-  //     var position = 0;
-  //     var width = pdf.internal.pageSize.width;
-
-  //     var pageHeight = pdf.internal.pageSize.height; // Tamaño de una
-  //     var pageHeightLeft = pageHeight; // La utilizaremos para ver cuanto espacio nos queda
-  //     pdf.addImage(contentDataURL, 'PNG', 2, position, imgWidth, imgHeight);
-  //     pdf.addImage(contentDataURL, 'PNG', 2, position, imgWidth, imgHeight);
-  //     heightLeft -= pageHeight;
-
-  //     while (heightLeft >= 0) {
-  //       position = heightLeft - imgHeight;
-  //       pdf.addPage();
-  //       pdf.addImage(contentDataURL, 'PNG', 2, position, imgWidth, imgHeight);
-  //       heightLeft -= pageHeight;
-  //     }
-
-  //     pdf.save('skill-set.pdf');
-  //   });
-  // }
-
-
-
-  // public downloadPDF(): void {
-  //   const DATA = document.getElementById('pdf');
-  //   const doc = new jsPDF('p', 'pt', 'a4');
-  //   const options = {
-  //     background: 'white',
-  //     scale: 3,
-  //     pagesplit: true,
-  //   };
-  //   html2canvas(DATA, options).then((canvas) => {
-
-  //     const img = canvas.toDataURL('image/PNG', 10);
-
-  //     // Add image Canvas to PDF
-  //     const bufferX = 15;
-  //     const bufferY = 15;
-  //     const imgProps = (doc as any).getImageProperties(img);
-  //     const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  //     doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-
-  //     doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-
-  //     return doc;
-  //   }).then((docResult) => {
-  //     docResult.save(`${new Date().toISOString()}_tutorial.pdf`);
-  //   });
-  // }
+ //generacion del pdf encuesta
 
   async generatePDF() {
     const content = document.getElementById('content'); // Obtener el elemento por su ID

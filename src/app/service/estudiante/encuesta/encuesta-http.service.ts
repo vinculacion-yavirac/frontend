@@ -44,4 +44,7 @@ export class EncuestaHttpService {
 
     return this.httpClient.get<RespuestaModel[]>(this.url+"/respuesta", this.httpOptions);
   }
+  getRbyId(id:number): Observable<RespuestaModel>{
+    return this.httpClient.get<RespuestaModel>(this.url+"/respuesta/"+id, this.httpOptions)
+  }
 }

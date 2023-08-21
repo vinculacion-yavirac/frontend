@@ -61,15 +61,15 @@
   </div>
 
   <table class="border-collapse border border-slate-950 ...">
-    <thead >
-      <tr  >
+    <thead *ngFor="let enc of encuestas">
+      <tr *ngIf="enc.id==1" >
         <th class="border border-slate-950 ...">N°</th>
         <th class="border border-slate-950 ..."></th>
-        <th class="border border-slate-950 m-2 p-3 ..." *ngFor="let res of respuestas">
 
-            <p *ngIf="res.encuestas_id === 1 && res.preguntas_id  <=5   ">{{res.descripcion}}</p>
-
-        </th>
+          <ng-container *ngFor="let respuesta of respuestas">
+            <th  *ngIf="enc.id==1 && respuesta.preguntas_id <6">{{ respuesta.descripcion }}</th>
+          </ng-container>
+       
 
         <th class="border border-slate-600 ...">NDS/NAC</th>
       </tr>
@@ -143,6 +143,8 @@
 <button class="btn btn-outline btn-info"    routerLink="/system/estudiante/encuesta/previsualizacion">vizualizar pdf</button>
 
 <!-- <button class="btn btn-outline btn-info" (click)="generatePDF()" >vizualizar pdf</button> -->
+
+
 
 
 
