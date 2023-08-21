@@ -56,6 +56,8 @@ export class CoincidenciaModalComponent implements OnInit {
     }, 2000);
   }
 
+  
+
   noButtonClick(): void {
     const solicitudId = this.data.solicitudId;
     this.dialogRef.close();

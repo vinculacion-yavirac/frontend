@@ -26,4 +26,12 @@ export class ProyectoParticipanteHttpService {
     return this.http.get<ProyectoParticipanteModels[]>(`${this.url}/${id}`);
   }
 
+  public getByParticipantById(id: number): Observable<ProyectoParticipanteModels[]> {
+    return this.http.get<ProyectoParticipanteModels[]>(`${this.url}/by/${id}`);
+  }
+
+  updateParticipant(id: number, participant: ProyectoParticipanteModels): Observable<ProyectoParticipanteModels> {
+    return this.http.put<ProyectoParticipanteModels>(`${this.url}/solicitud/participant/${id}`, participant, this.httpOptions);
+  }
+
 }

@@ -10,6 +10,7 @@ import { ProyectoModels } from "src/app/models/proyecto/proyecto.models";
 import { ProyectoService } from "src/app/service/proyecto/proyecto.service";
 // import { format } from "date-fns";
 import { DatePipe } from '@angular/common';
+import { ProyectoParticipanteHttpService } from "src/app/service/proyecto/participante/proyecto-participante-http.service";
 
 @Component({
   selector: 'app-solicitud-form',
@@ -28,6 +29,7 @@ export class SolicitudFormComponent implements OnInit {
   currentSolicitude: SolicitudModels = {} as SolicitudModels;
   currentProyectoParticipante: ProyectoParticipanteModels = {} as ProyectoParticipanteModels;
   proyectoParticipante: ProyectoParticipanteModels[] = [];
+  solicitudes: SolicitudModels[] = [];
   paramsSubscription: Subscription;
   formGroup: FormGroup;
   title = 'Asignar Estudiante';
@@ -37,6 +39,24 @@ export class SolicitudFormComponent implements OnInit {
   projectId: number;
   currentProject: ProyectoModels | null = null;
   selectedProjectId: number | null = null;
+  participantToUpdate: any = null;
+  updatedProyecto: ProyectoModels | null = null;
+  updatedUsuario: number | null = null;
+  showUpdateForm: boolean = false;
+  proyectosFormControl = new FormControl(
+
+    '', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
+
+  proyectos: ProyectoModels[] = [];
+ selectedParticipant: ProyectoParticipanteModels | null = null;
+ ProyectoParticipant: ProyectoParticipanteModels[] =[];
+ idParticipante: number = 0;
+ idUserSolicitud:number = 0;
+
+ creadorSolicitudId:SolicitudModels;
+ projectSolicitud:number = 0;
 
   constructor(
     private solicitudeHttpService: SolicitudHttpService,
@@ -45,14 +65,25 @@ export class SolicitudFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private proyectoService: ProyectoService,
     private route: ActivatedRoute,
-    private miDatePipe: DatePipe
+    private miDatePipe: DatePipe,
+    private participantHttpSerivice:ProyectoParticipanteHttpService
 
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
     this.getProyectos();
-
+    this.getParticipant();
+    // this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+    //   if (params['id']) {
+    //     this.title = 'Portafolio';
+    //     this.getSolicitudById(params['id']);
+    //   } else {
+    //     setTimeout(() => {
+    //       this.loading = false;
+    //     }, 1000);
+    //   }
+    // });
     this.route.queryParams.subscribe(params => {
       this.projectId = Number(params['projectId']);
 
@@ -119,17 +150,50 @@ export class SolicitudFormComponent implements OnInit {
     }
   }
 
+  // getSolicitudById(id: number): void {
+  //   this.loading = true;
+  //   this.solicitudeHttpService.getSolicitudeById(id).subscribe({
+  //     next: (response: any) => {
+  //       if (response.status === 'success') {
+  //         this.currentSolicitude = response.data.solicitudes;
+  //         this.idUserSolicitud = response.data.solicitudes.created_by.id;
+  //         this.projectSolicitud = response.data.solicitudes.project_id.id
+  //         console.log('this.idUserSolicitud',response.data.solicitudes.created_by.id);
+  //         this. getIdPortafolioFromSolicitud();
+  //         // this. getParticipant();
+  //         this.formGroup.patchValue(this.currentSolicitude);
+  //         if (this.currentSolicitude.project_id) {
+  //           this.currentSolicitude= response.data.solicitudes;
+  //           this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
+  //         }
+  //       }
+  //     },
+  //     error: (error: any) => {
+  //       console.error('Error al obtener la solicitud:', error.message);
+  //     },
+  //     complete: () => {
+  //       this.loading = false;
+  //     }
+  //   });
+  // }
+
   getSolicitudById(id: number): void {
     this.loading = true;
     this.solicitudeHttpService.getSolicitudeById(id).subscribe({
       next: (response: any) => {
         if (response.status === 'success') {
           this.currentSolicitude = response.data.solicitudes;
-          this.formGroup.patchValue(this.currentSolicitude);
-          if (this.currentSolicitude.project_id) {
-            this.currentSolicitude= response.data.solicitudes;
-            this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.currentSolicitude.project_id.id);
+          this.idUserSolicitud = response.data.solicitudes.created_by.id;
+
+          if (response.data.solicitudes.project_id) {
+            this.projectSolicitud = response.data.solicitudes.project_id.id; 
+            this.selectedProject = this.proyectos.find(proyecto => proyecto.id == this.projectSolicitud);
           }
+  
+          console.log('this.idUserSolicitud',response.data.solicitudes.created_by.id);
+          this.getIdPortafolioFromSolicitud();
+          // this. getParticipant();
+          this.formGroup.patchValue(this.currentSolicitude);
         }
       },
       error: (error: any) => {
@@ -140,13 +204,15 @@ export class SolicitudFormComponent implements OnInit {
       }
     });
   }
-
+  
   assingSolicitud(id:number ){
     this.currentSolicitude.project_id = this.selectedProject.id;
     this.solicitudeHttpService.assignSolicitude(id, this.currentSolicitude).subscribe(
       (response: any) => {
         if (response.status === 'success') {
-          this.router.navigate(['system/solicitud/list']);
+          this.updateProject();
+          console.log('entraaaa')
+          // this.router.navigate(['system/solicitud/list']);
         }
       },
       (error: any) => {
@@ -161,22 +227,28 @@ export class SolicitudFormComponent implements OnInit {
     this.sub?.unsubscribe();
   }
 
-  proyectosFormControl = new FormControl(
-
-    '', [Validators.required]);
-
-  matcher = new MyErrorStateMatcher();
-
-  proyectos: ProyectoModels[] = [];
 
   onProjectSelected(project_id: string) {
     const selectedProject = this.proyectos.find(project => project.id === parseInt(project_id));
     if (selectedProject) {
       this.selectedProject = selectedProject;
       this.solicitudeHttpService.setSelectedProject(selectedProject);
+      this.selectedParticipant = this.getSelectedParticipant(); // Obtén el participante 
     }
   }
 
+  getSelectedParticipant(): ProyectoParticipanteModels | null {
+    console.log()
+    return this.selectedProject; // Asegúrate de almacenar el participante seleccionado en tu servicio
+  }
+
+  getSelectedProjectId(): number | null {
+    if (this.selectedProject) {
+      return this.selectedProject.id;
+    }
+    return 3;
+  }
+  
   private sub?: Subscription;
   onTouchedCb?: () => void;
   writeValue(obj: any): void {
@@ -228,4 +300,80 @@ export class SolicitudFormComponent implements OnInit {
     this.formGroup.get('project_id')?.setValue(projectId);
   }
 
+
+  getParticipant(){
+    console.log('entra qui')
+    this.participantHttpSerivice.getProyectoParticipants().subscribe((response:any) =>{
+      if(response.status === 'success'){
+        this.ProyectoParticipant = response.data.projectParticipants,
+        console.log('this.idParticipante',this.ProyectoParticipant)
+      }
+    })
+  }
+
+
+  getIdPortafolioFromSolicitud(): number | null {
+    const  solicitud = this.idUserSolicitud;
+    console.log('SOLICITUD',solicitud);
+
+    const participantes = this.ProyectoParticipant;
+    console.log('PARTICIPANTE',participantes);
+    for (const participante of participantes) {
+      const participanteId = participante.participant_id.id;
+      console.log('id participante',participanteId)
+      if (solicitud === participanteId) {
+        return participanteId;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+  getIdUserParticipante(): number | null {
+    const  solicitud = this.idUserSolicitud;
+    console.log('SOLICITUD',solicitud);
+
+    const participantes = this.ProyectoParticipant;
+    console.log('PARTICIPANTE',participantes);
+    for (const participante of participantes) {
+      const participanteId = participante.participant_id.id;
+      console.log('id participante',participanteId)
+      if (solicitud === participanteId) {
+        const participanteUser = participante.id;
+        console.log('PARTICIPANTE',participanteId,'SOLICITUD',solicitud)
+        console.log(' participanteUser', participanteUser);
+        // console.log('selected',this.getSelectedParticipant())
+        return participanteUser;
+      }
+    }
+    return 0; // Si no se encuentra un portafolio con el mismo creador de la solicitud
+  }
+
+
+  updateProject() {
+    console.log('perraaaaaaaaaaa',this.getIdPortafolioFromSolicitud())
+    if (this.getIdPortafolioFromSolicitud() ===  this.idUserSolicitud) {
+      console.log('seleccionado12',this.getSelectedProjectId());
+      const project_ids = this.getSelectedProjectId();
+      const proyectoParticipanteModels: any = {
+        project_id: project_ids,
+        participant_id:this.idUserSolicitud,
+      };
+      this.participantHttpSerivice.updateParticipant(this.getIdUserParticipante()!, proyectoParticipanteModels).subscribe( (response:any) => {
+        if(response.status === 'success'){
+          console.log('Actualización exitosa:', response);
+          // Puedes realizar acciones adicionales aquí si es necesario
+        }
+          },
+          error => {
+            console.error('Error al actualizar:', error);
+            console.log('seleccionado', this.getSelectedProjectId());
+            // Puedes manejar el error de acuerdo a tus necesidades
+          }
+        );
+    } else {
+
+      console.log('entras quia',this.selectedParticipant?.participant_id,this.selectedProject)
+    }
+  }
 }

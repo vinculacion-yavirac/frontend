@@ -11,5 +11,6 @@ export interface ProyectoParticipanteModels {
   project_id:ProyectoModels;
   participant_id:User;
   role:string;
+  created_by:User;
 
 }
