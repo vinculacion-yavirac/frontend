@@ -17,8 +17,8 @@
 
 
     </div>
-    <div class="flex" *permissions="['IMPORTAR_USUARIOS']">
-      <label class="block">
+    <div class="flex">
+      <label class="block" *permissions="['IMPORTAR_USUARIOS']">
       <input  type="file" (change)="import($event)" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0">
     </label>
 
