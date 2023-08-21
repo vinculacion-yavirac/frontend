@@ -2646,32 +2646,32 @@ export class AvanceCumplimiento2Component implements OnInit {
             this.doc.text('', 45, 715);
             this.doc.line(40, 730, 555, 730);
         }
-        const pageContent7 = (data : any) => { // HEADER
-            this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
+        // const pageContent7 = (data : any) => { // HEADER
+        //     this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
 
 
-            this.doc.line(40, 150, 555, 150);
-            this.doc.line(40, 150, 40, 550);
-            this.doc.line(555, 150, 555, 550);
-            this.doc.setFontSize(9);
-            this.doc.setFont("Roboto", 'bold');
-            this.doc.text('8.-CRONOGRAMA', 45, 165);
-            this.doc.line(40, 170, 555, 170);
+        //     this.doc.line(40, 150, 555, 150);
+        //     this.doc.line(40, 150, 40, 550);
+        //     this.doc.line(555, 150, 555, 550);
+        //     this.doc.setFontSize(9);
+        //     this.doc.setFont("Roboto", 'bold');
+        //     this.doc.text('8.-CRONOGRAMA', 45, 165);
+        //     this.doc.line(40, 170, 555, 170);
 
-            var cronograma = JSON.parse(this.proyectData.schedule_crono);
-            console.log(cronograma.base64textString);
+        //     var cronograma = JSON.parse(this.proyectData.schedule_crono);
+        //     console.log(cronograma.base64textString);
 
-            if (cronograma.base64textString === undefined) {} else {
-                const img_cronograma = "data:image/png;base64," + cronograma.base64textString;
-                console.log(img_cronograma);
-                this.doc.addImage(img_cronograma, 'JPG', 45, 180, 450, 350);
+        //     if (cronograma.base64textString === undefined) {} else {
+        //         const img_cronograma = "data:image/png;base64," + cronograma.base64textString;
+        //         console.log(img_cronograma);
+        //         this.doc.addImage(img_cronograma, 'JPG', 45, 180, 450, 350);
 
-            }
+        //     }
 
-            this.doc.line(40, 550, 555, 550);
+        //     this.doc.line(40, 550, 555, 550);
 
 
-        }
+        // }
         const pageContent8 = (data : any) => { // HEADER
             this.doc.addImage(ImageConstants.fondo_pdf, 'JPG', 0, 0, 595, 842);
 
@@ -2824,7 +2824,7 @@ export class AvanceCumplimiento2Component implements OnInit {
 
         this.doc.autoTable({addPageContent: pageContent5, startY: 4100})
         this.doc.autoTable({addPageContent: pageContent6, startY: 5100})
-        this.doc.autoTable({addPageContent: pageContent7, startY: 6100})
+        // this.doc.autoTable({addPageContent: pageContent7, startY: 6100})
         this.doc.autoTable({addPageContent: pageContent8, startY: 7100})
         this.doc.autoTable({addPageContent: pageContent9, startY: 8100})
         this.doc.save("Reportes.pdf");
